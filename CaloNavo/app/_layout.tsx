@@ -26,12 +26,22 @@ export default function RootLayout() {
     return null;
   }
 
+  // return (
+  //   <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+  //     <Stack>
+  //       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+  //       <Stack.Screen name="+not-found" />
+  //     </Stack>
+  //   </ThemeProvider>
+  // );
+
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+
       <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+
       </Stack>
-    </ThemeProvider>
-  );
+  )
 }
