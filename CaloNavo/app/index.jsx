@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, Button, ScrollView, Text, Image, View } f
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CustomButton } from "../components/CustomButton";
 import { Redirect, router } from 'expo-router';
-import styles from './font-styles';
+import styles from './styles';
 
 
 export default function App() {
@@ -11,7 +11,7 @@ export default function App() {
         <SafeAreaView style={[styles.container]}>
             <View style={styles.viewContainer}>
                 <View style={{ flex: 4, marginTop: 30 }}>
-                    <Text style={[styles.welcomeText, styles.defaultText, { paddingTop: 90 }]}>
+                    <Text style={[styles.welcomeText, {fontSize: 24, textAlign: 'center', paddingTop: 90 }]}>
                         Welcome to
                     </Text>
                     <Text style={styles.welcomeText}>
@@ -19,7 +19,7 @@ export default function App() {
                     </Text>
                 </View>
                 <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                    <Text style={[styles.defaultText, { fontWeight: '300', color: 'white', paddingLeft: 50, paddingRight: 50, textAlign: 'center' }]}>
+                    <Text style={[styles.defaultText, { fontWeight: '300', color: '#F2F4F3', paddingLeft: 50, paddingRight: 50, textAlign: 'center' }]}>
                         Here to help navogate your way to a better diet
                     </Text>
                 </View>
