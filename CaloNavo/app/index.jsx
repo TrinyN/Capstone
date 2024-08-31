@@ -64,7 +64,7 @@ export default function App() {
                         Don't have an account yet?
                     </Text>
 
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={() => router.push('/sign-up')}>
                         <Text style={styles.buttonText}>Get Started</Text>
                     </TouchableOpacity>
 
