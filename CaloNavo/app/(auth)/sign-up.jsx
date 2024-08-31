@@ -6,7 +6,9 @@ import { router } from 'expo-router';
 import Feather from "react-native-vector-icons/Feather";
 
 
-const SignIn = () => {
+const SignUp = () => {
+
+    const feather = require('feather-icons');
 
     return (
         <SafeAreaView style={styles.container}>
@@ -16,10 +18,12 @@ const SignIn = () => {
                 </TouchableOpacity>
             </View>
             <View style={styles.viewContainer}>
-
                 <View style={{ marginTop: 80, flex: 1 }}>
-                    <Text style={styles.titleText}>
-                        Glad to see you again!
+                    <Text style={[styles.titleText, { paddingBottom: 10 }]}>
+                        So you are new?
+                    </Text>
+                    <Text style={[styles.defaultWhiteText, { fontSize: 20 }]}>
+                        Please choose a good email and safe password to get started!
                     </Text>
                 </View>
                 <View style={{ flex: 5, paddingBottom: 100 }}>
@@ -43,8 +47,9 @@ const SignIn = () => {
                         </TextInput>
                     </View>
                     <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+
                         <TouchableOpacity style={styles.button}>
-                            <Text style={styles.buttonText}>Log In</Text>
+                            <Text style={styles.buttonText}>Sign Up</Text>
                         </TouchableOpacity>
                         <Text style={[styles.smallText, { color: '#CB9CF2' }]}>
                             or continue with
@@ -72,10 +77,10 @@ const SignIn = () => {
                             </Text>
                         </Text>
                         <Text style={[styles.smallText, {}]}>
-                            Don't have an account?{' '}
-                            <TouchableOpacity onPress={() => router.push('/sign-up')}>
+                            Have an account?{' '}
+                            <TouchableOpacity onPress={() => router.push('/sign-in')}>
                                 <Text style={{ color: '#CB9CF2', textDecorationLine: "underline" }}>
-                                    Sign Up
+                                    Sign In
                                 </Text>
                             </TouchableOpacity>
                         </Text>
@@ -96,4 +101,4 @@ const SignIn = () => {
 
 
 }
-export default SignIn;
+export default SignUp;

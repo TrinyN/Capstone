@@ -17,22 +17,26 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 60,
         textAlign: 'center',
+        fontFamily: 'Inter_700Bold',
     },
     defaultText: {
         color: '#CB9CF2',
         fontSize: 20,
-        fontWeight: '500',
-        paddingLeft:25
+        // paddingLeft:25,
+        paddingVertical: 15,
+        fontFamily: 'Inter_600SemiBold',
     },
     defaultWhiteText: {
         color: '#F2F4F3',
         fontSize: 16,
         fontWeight: '500',
+        // fontFamily: 'Inter_500Medium',
+        fontFamily: 'Inter_400Regular',
     },
     titleText: {
         color: '#CB9CF2',
         fontSize: 28,
-        fontWeight: '500',
+        fontFamily: 'Inter_600SemiBold',
     },
     button: {
         backgroundColor: '#F2F4F3',
@@ -47,7 +51,24 @@ const styles = StyleSheet.create({
         color: '#0E1116',
         fontSize: 16,
         fontWeight: '20',
+        fontFamily: 'Inter_500Medium',
     },
+    inputFieldStyle: {
+        color: '#F2F4F3', 
+        backgroundColor: 'rgba(97, 98, 131, 0.2)', 
+        borderRadius: 8, 
+        fontSize:16, 
+        paddingLeft:15, 
+        paddingVertical: 10
+    }, 
+    smallText: {
+        color: '#F2F4F3',
+        fontSize: 14,
+        fontFamily: 'Inter_400Regular',
+        textAlign: 'center',
+        paddingVertical: 5
+},
+
 });
 
 export default styles;
