@@ -11,7 +11,7 @@ const SignIn = () => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={{ marginTop: 40, width: 35, paddingLeft: 25 }}>
-                <TouchableOpacity onPress={() => router.push('/index')}> {/* router doesnt work yet, idk how yet*/}
+                <TouchableOpacity onPress={() => router.push('')}>
                     <Feather name="chevron-left" size={35} color="#F2F4F3" />
                 </TouchableOpacity>
             </View>
