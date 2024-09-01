@@ -8,7 +8,6 @@ import { StatusBar } from 'expo-status-bar'
 const AuthLayout = () => {
   return (
     <>
-    
       <Stack>
         <Stack.Screen
           name="sign-in"
@@ -23,7 +22,6 @@ const AuthLayout = () => {
             headerShown: false
           }}
         />
-
       </Stack>
       <StatusBar backgroundColor="#161622" style="light" />
 

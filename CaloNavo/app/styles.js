@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
     },
     welcomeText: {
         color: '#CB9CF2',
-        fontWeight: 'bold',
         fontSize: 60,
         textAlign: 'center',
         fontFamily: 'Inter_700Bold',
@@ -29,8 +28,6 @@ const styles = StyleSheet.create({
     defaultWhiteText: {
         color: '#F2F4F3',
         fontSize: 16,
-        fontWeight: '500',
-        // fontFamily: 'Inter_500Medium',
         fontFamily: 'Inter_400Regular',
     },
     titleText: {
@@ -50,7 +47,6 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#0E1116',
         fontSize: 16,
-        fontWeight: '20',
         fontFamily: 'Inter_500Medium',
     },
     inputFieldStyle: {
@@ -59,7 +55,9 @@ const styles = StyleSheet.create({
         borderRadius: 8, 
         fontSize:16, 
         paddingLeft:15, 
-        paddingVertical: 10
+        paddingVertical: 10, 
+        selectionColor: '#CB9CF2',
+        placeholderTextColor:'rgba(242,244,243, 0.2)',
     }, 
     smallText: {
         color: '#F2F4F3',

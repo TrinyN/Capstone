@@ -7,7 +7,6 @@ import Feather from "react-native-vector-icons/Feather";
 
 
 const SignUp = () => {
-
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -33,9 +32,7 @@ const SignUp = () => {
                                 Email:
                             </Text>
                             <TextInput style={styles.inputFieldStyle}
-                                placeholder='your_email@gmail.com'
-                                placeholderTextColor='rgba(242,244,243, 0.2)'
-                                selectionColor='#CB9CF2'>
+                                placeholder='your_email@gmail.com'>
                             </TextInput>
 
                             <Text style={styles.defaultText}>
@@ -43,9 +40,7 @@ const SignUp = () => {
                             </Text>
 
                             <TextInput style={styles.inputFieldStyle}
-                                placeholder='password'
-                                placeholderTextColor='rgba(242,244,243, 0.2)'
-                                selectionColor='#CB9CF2'>
+                                placeholder='password'>
 
                             </TextInput>
                         </View>
@@ -53,9 +48,13 @@ const SignUp = () => {
                             <TouchableOpacity style={styles.button}>
                                 <Text style={styles.buttonText}>Sign Up</Text>
                             </TouchableOpacity>
-                            <Text style={[styles.smallText, { color: '#CB9CF2' }]}>
-                                or continue with
-                            </Text>
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                <View style={{ flex: 1, height: 1, backgroundColor: '#CB9CF2' }} />
+                                <Text style={[styles.smallText, { color: '#CB9CF2', paddingHorizontal: 10 }]}>
+                                    or continue with
+                                </Text>
+                                <View style={{ flex: 1, height: 1, backgroundColor: '#CB9CF2' }} />
+                            </View>
                             <TouchableOpacity style={[styles.button, { flexDirection: 'row', justifyContent: 'center' }]}>
                                 <Image
                                     source={require('../../assets/images/google-icon.png')}

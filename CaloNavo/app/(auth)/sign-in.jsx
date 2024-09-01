@@ -7,7 +7,6 @@ import Feather from "react-native-vector-icons/Feather";
 
 
 const SignIn = () => {
-
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -16,23 +15,19 @@ const SignIn = () => {
                         <Feather name="chevron-left" size={35} color="#F2F4F3" />
                     </TouchableOpacity>
                 </View>
-                <View style={[styles.viewContainer, { flex: 1}]}>
-
+                <View style={[styles.viewContainer, { flex: 1 }]}>
                     <View style={{ marginTop: 80, flex: 1 }}>
                         <Text style={styles.titleText}>
                             Glad to see you again!
                         </Text>
                     </View>
                     <View style={{ flex: 5, paddingBottom: 100 }}>
-
                         <View style={{ justifyContent: 'flex-start', paddingBottom: 100, flex: 1 }}>
                             <Text style={styles.defaultText}>
                                 Email:
                             </Text>
                             <TextInput style={styles.inputFieldStyle}
-                                placeholder='your_email@gmail.com'
-                                placeholderTextColor='rgba(242,244,243, 0.2)'
-                                selectionColor='#CB9CF2'>
+                                placeholder='your_email@gmail.com'>
                             </TextInput>
 
                             <Text style={styles.defaultText}>
@@ -40,19 +35,20 @@ const SignIn = () => {
                             </Text>
 
                             <TextInput style={styles.inputFieldStyle}
-                                placeholder='password'
-                                placeholderTextColor='rgba(242,244,243, 0.2)'
-                                selectionColor='#CB9CF2'>
-
+                                placeholder='password'>
                             </TextInput>
                         </View>
                         <View style={{ justifyContent: 'flex-end', paddingBottom: 10, flex: 1 }}>
                             <TouchableOpacity style={styles.button}>
                                 <Text style={styles.buttonText}>Log In</Text>
                             </TouchableOpacity>
-                            <Text style={[styles.smallText, { color: '#CB9CF2' }]}>
-                                or continue with
-                            </Text>
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                <View style={{ flex: 1, height: 1, backgroundColor: '#CB9CF2' }} />
+                                <Text style={[styles.smallText, { color: '#CB9CF2', paddingHorizontal: 10 }]}>
+                                    or continue with
+                                </Text>
+                                <View style={{ flex: 1, height: 1, backgroundColor: '#CB9CF2' }} />
+                            </View>
                             <TouchableOpacity style={[styles.button, { flexDirection: 'row', justifyContent: 'center' }]}>
                                 <Image
                                     source={require('../../assets/images/google-icon.png')}
@@ -86,19 +82,11 @@ const SignIn = () => {
                         </View>
                     </View>
                 </View>
-
-
                 <StatusBar backgroundColor='#0E1116'
                     style='light'
                 />
             </ScrollView>
-
         </SafeAreaView>
-
-
     )
-
-
-
 }
 export default SignIn;
