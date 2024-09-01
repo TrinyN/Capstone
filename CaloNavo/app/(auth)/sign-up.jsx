@@ -4,9 +4,12 @@ import styles from '../styles';
 import { StatusBar } from 'expo-status-bar';
 import { router } from 'expo-router';
 import Feather from "react-native-vector-icons/Feather";
+import React, { useState } from 'react'
 
 
 const SignUp = () => {
+    const [showPassword, setShowPassword] = useState(false)
+
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -39,10 +42,27 @@ const SignUp = () => {
                                 Password:
                             </Text>
 
-                            <TextInput style={styles.inputFieldStyle}
-                                placeholder='password'>
+                            
+                            <View style={{flexDirection:'row', alignItems:'center'}}>
+                                <TextInput style={[styles.inputFieldStyle, {flex:1}]}
+                                    placeholder='password'
+                                    secureTextEntry={!showPassword}
+                                />
+                                <TouchableOpacity style={{ width: 25, position:'absolute', right: 10}} onPress={() => setShowPassword(!showPassword)}>
+                                    <Feather name={!showPassword ? "eye" : "eye-off"} size={25} color='rgba(242,244,243,0.5)' />
+                                </TouchableOpacity>
+                            </View>
 
-                            </TextInput>
+
+                            {/* <Text style={styles.defaultText}>
+                                Confirm Password:
+                            </Text>
+
+                            <TextInput style={styles.inputFieldStyle}
+                                placeholder='password'
+                                secureTextEntry={true}> 
+                            </TextInput> */}
+
                         </View>
                         <View style={{ justifyContent: 'flex-end', paddingBottom: 10, flex: 1 }}>
                             <TouchableOpacity style={styles.button}>
