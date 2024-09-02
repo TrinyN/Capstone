@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     },
     welcomeText: {
         color: '#CB9CF2',
-        fontSize: 60,
+        fontSize: 50,
         textAlign: 'center',
         fontFamily: 'Inter_700Bold',
     },
@@ -55,7 +55,9 @@ const styles = StyleSheet.create({
         borderRadius: 8, 
         fontSize:16, 
         paddingLeft:15, 
-        paddingVertical: 10
+        paddingVertical: 10, 
+        // selectionColor: '#CB9CF2',
+        // placeholderTextColor:'rgba(242,244,243, 0.5)',
     }, 
     dropdownFieldStyle: {
         backgroundColor: 'rgba(97, 98, 131, 0.2)',

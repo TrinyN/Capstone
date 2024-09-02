@@ -35,24 +35,23 @@ const SignUp = () => {
                                 Email:
                             </Text>
                             <TextInput style={styles.inputFieldStyle}
+                                placeholder='your_email@gmail.com'
                                 selectionColor= '#CB9CF2'
-                                placeholderTextColor='rgba(242,244,243, 0.2)'
-                                placeholder='your_email@gmail.com'>
+                                placeholderTextColor='rgba(242,244,243, 0.2)'>
                             </TextInput>
 
                             <Text style={styles.defaultText}>
                                 Password:
                             </Text>
 
-                            
-                            <View style={{flexDirection:'row', alignItems:'center'}}>
-                                <TextInput style={[styles.inputFieldStyle, {flex:1}]}
-                                    selectionColor= '#CB9CF2'
-                                    placeholderTextColor='rgba(242,244,243, 0.2)'
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <TextInput style={[styles.inputFieldStyle, { flex: 1 }]}
                                     placeholder='password'
                                     secureTextEntry={!showPassword}
+                                    selectionColor= '#CB9CF2'
+                                    placeholderTextColor='rgba(242,244,243, 0.2)'
                                 />
-                                <TouchableOpacity style={{ width: 25, position:'absolute', right: 10}} onPress={() => setShowPassword(!showPassword)}>
+                                <TouchableOpacity style={{ width: 25, position: 'absolute', right: 10 }} onPress={() => setShowPassword(!showPassword)}>
                                     <Feather name={!showPassword ? "eye" : "eye-off"} size={25} color='rgba(242,244,243,0.5)' />
                                 </TouchableOpacity>
                             </View>
@@ -112,9 +111,6 @@ const SignUp = () => {
                         </View>
                     </View>
                 </View>
-                <StatusBar backgroundColor='#0E1116'
-                    style='light'
-                />
             </ScrollView>
         </SafeAreaView>
     )
