@@ -112,9 +112,6 @@ const SignUp = () => {
                         </View>
                     </View>
                 </View>
-                <StatusBar backgroundColor='#0E1116'
-                    style='light'
-                />
             </ScrollView>
         </SafeAreaView>
     )
