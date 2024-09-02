@@ -1,7 +1,6 @@
 import { Image, TextInput, TouchableOpacity, Text, View, ScrollView } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from '../styles';
-import { StatusBar } from 'expo-status-bar';
 import { router } from 'expo-router';
 import Feather from "react-native-vector-icons/Feather";
 import React, { useState } from 'react'
@@ -44,8 +43,6 @@ const SignIn = () => {
                                     placeholderTextColor='rgba(242,244,243, 0.2)'
                                     placeholder='password'
                                     secureTextEntry={!showPassword}
-                                    selectionColor= '#CB9CF2'
-                                    placeholderTextColor='rgba(242,244,243, 0.2)'
                                 />
                                 <TouchableOpacity style={{ width: 25, position: 'absolute', right: 10 }} onPress={() => setShowPassword(!showPassword)}>
                                     <Feather name={!showPassword ? "eye" : "eye-off"} size={25} color='rgba(242,244,243,0.5)' />
