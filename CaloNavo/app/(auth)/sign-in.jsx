@@ -13,13 +13,13 @@ const SignIn = () => {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <View style={{ marginTop: 10, paddingLeft: 25 }}>
-                    <TouchableOpacity style={{ width: 35 }} onPress={() => router.push('')}>
+                <View style={{ marginTop: 40, paddingLeft:20 }}>
+                    <TouchableOpacity style={{width:35}} onPress={() => router.push('')}>
                         <Feather name="chevron-left" size={35} color="#F2F4F3" />
                     </TouchableOpacity>
                 </View>
                 <View style={[styles.viewContainer, { flex: 1 }]}>
-                    <View style={{ marginTop: 30, flex: 1 }}>
+                    <View style={{ marginTop: 80, flex: 1 }}>
                         <Text style={styles.titleText}>
                             Glad to see you again!
                         </Text>
@@ -30,9 +30,9 @@ const SignIn = () => {
                                 Email:
                             </Text>
                             <TextInput style={styles.inputFieldStyle}
+                                placeholder='your_email@gmail.com'
                                 selectionColor= '#CB9CF2'
-                                placeholderTextColor='rgba(242,244,243, 0.2)'
-                                placeholder='your_email@gmail.com'>
+                                placeholderTextColor='rgba(242,244,243, 0.2)'>
                             </TextInput>
 
                             <Text style={styles.defaultText}>
@@ -40,10 +40,10 @@ const SignIn = () => {
                             </Text>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <TextInput style={[styles.inputFieldStyle, { flex: 1 }]}
-                                    selectionColor= '#CB9CF2'
-                                    placeholderTextColor='rgba(242,244,243, 0.2)'
                                     placeholder='password'
                                     secureTextEntry={!showPassword}
+                                    selectionColor= '#CB9CF2'
+                                    placeholderTextColor='rgba(242,244,243, 0.2)'
                                 />
                                 <TouchableOpacity style={{ width: 25, position: 'absolute', right: 10 }} onPress={() => setShowPassword(!showPassword)}>
                                     <Feather name={!showPassword ? "eye" : "eye-off"} size={25} color='rgba(242,244,243,0.5)' />
@@ -85,7 +85,7 @@ const SignIn = () => {
                             </Text>
                             <Text style={[styles.smallText, {}]}>
                                 Don't have an account?{' '}
-                                <Text onPress={ () => { router.push('/sign-up') } }>
+                                <Text onPress={() => router.push('/sign-up')}>
                                     <Text style={{ color: '#CB9CF2', textDecorationLine: "underline" }}>
                                         Sign Up
                                     </Text>
@@ -94,9 +94,6 @@ const SignIn = () => {
                         </View>
                     </View>
                 </View>
-                <StatusBar backgroundColor='#0E1116'
-                    style='light'
-                />
             </ScrollView>
         </SafeAreaView>
     )

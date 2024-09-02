@@ -13,14 +13,14 @@ const SignUp = () => {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <View style={{ marginTop: 10, paddingLeft: 25 }}>
+                <View style={{ marginTop: 40, paddingLeft: 20 }}>
                     <TouchableOpacity style={{ width: 35 }} onPress={() => router.push('')}>
                         <Feather name="chevron-left" size={35} color="#F2F4F3" />
                     </TouchableOpacity>
                 </View>
                 <View style={[styles.viewContainer, { flex: 1 }]}>
 
-                    <View style={{ marginTop: 30, flex: 1 }}>
+                    <View style={{ marginTop: 80, flex: 1 }}>
                         <Text style={[styles.titleText, { paddingBottom: 10 }]}>
                             So you are new?
                         </Text>
@@ -35,24 +35,24 @@ const SignUp = () => {
                                 Email:
                             </Text>
                             <TextInput style={styles.inputFieldStyle}
+                                placeholder='your_email@gmail.com'
                                 selectionColor= '#CB9CF2'
-                                placeholderTextColor='rgba(242,244,243, 0.2)'
-                                placeholder='your_email@gmail.com'>
+                                placeholderTextColor='rgba(242,244,243, 0.2)'>
                             </TextInput>
 
                             <Text style={styles.defaultText}>
                                 Password:
                             </Text>
 
-                            
-                            <View style={{flexDirection:'row', alignItems:'center'}}>
-                                <TextInput style={[styles.inputFieldStyle, {flex:1}]}
-                                    selectionColor= '#CB9CF2'
-                                    placeholderTextColor='rgba(242,244,243, 0.2)'
+
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <TextInput style={[styles.inputFieldStyle, { flex: 1}]}
                                     placeholder='password'
                                     secureTextEntry={!showPassword}
+                                    selectionColor= '#CB9CF2'
+                                    placeholderTextColor='rgba(242,244,243, 0.2)'
                                 />
-                                <TouchableOpacity style={{ width: 25, position:'absolute', right: 10}} onPress={() => setShowPassword(!showPassword)}>
+                                <TouchableOpacity style={{ width: 25, position: 'absolute', right: 10 }} onPress={() => setShowPassword(!showPassword)}>
                                     <Feather name={!showPassword ? "eye" : "eye-off"} size={25} color='rgba(242,244,243,0.5)' />
                                 </TouchableOpacity>
                             </View>
@@ -69,7 +69,7 @@ const SignUp = () => {
 
                         </View>
                         <View style={{ justifyContent: 'flex-end', paddingBottom: 10, flex: 1 }}>
-                            <TouchableOpacity style={styles.button} onPress={() => router.push('/sign-up-2')}>
+                            <TouchableOpacity style={styles.button}>
                                 <Text style={styles.buttonText}>Sign Up</Text>
                             </TouchableOpacity>
                             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -112,9 +112,6 @@ const SignUp = () => {
                         </View>
                     </View>
                 </View>
-                <StatusBar backgroundColor='#0E1116'
-                    style='light'
-                />
             </ScrollView>
         </SafeAreaView>
     )

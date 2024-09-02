@@ -55,7 +55,14 @@ export default function App() {
                     </View>
                     <View style={{ flex: 1, justifyContent: 'flex-end'}}>
                         <Text style={[styles.defaultWhiteText, { fontSize: 20, color: '#F2F4F3', paddingHorizontal: 30, paddingBottom: 10, textAlign: 'center' }]}>
-                            Here to help navogate your way to a better diet!
+                            Here to help{' '}
+                            <Text style={{color: '#CB9CF2'}}>
+                            navogate{' '}
+                        </Text>
+                        <Text>
+                            your way to a better diet!
+                        </Text>
+
                         </Text>
                     </View>
                     <View style={{ flex: 2, paddingTop: 30, paddingBottom: 90, justifyContent: 'center' }}>
