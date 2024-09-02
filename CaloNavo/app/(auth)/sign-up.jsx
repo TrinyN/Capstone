@@ -13,14 +13,14 @@ const SignUp = () => {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <View style={{ marginTop: 40, width: 35, paddingLeft: 25 }}>
-                    <TouchableOpacity onPress={() => router.push('')}>
+                <View style={{ marginTop: 10, paddingLeft: 25 }}>
+                    <TouchableOpacity style={{ width: 35 }} onPress={() => router.push('')}>
                         <Feather name="chevron-left" size={35} color="#F2F4F3" />
                     </TouchableOpacity>
                 </View>
                 <View style={[styles.viewContainer, { flex: 1 }]}>
 
-                    <View style={{ marginTop: 80, flex: 1 }}>
+                    <View style={{ marginTop: 30, flex: 1 }}>
                         <Text style={[styles.titleText, { paddingBottom: 10 }]}>
                             So you are new?
                         </Text>
@@ -35,6 +35,8 @@ const SignUp = () => {
                                 Email:
                             </Text>
                             <TextInput style={styles.inputFieldStyle}
+                                selectionColor= '#CB9CF2'
+                                placeholderTextColor='rgba(242,244,243, 0.2)'
                                 placeholder='your_email@gmail.com'>
                             </TextInput>
 
@@ -45,6 +47,8 @@ const SignUp = () => {
                             
                             <View style={{flexDirection:'row', alignItems:'center'}}>
                                 <TextInput style={[styles.inputFieldStyle, {flex:1}]}
+                                    selectionColor= '#CB9CF2'
+                                    placeholderTextColor='rgba(242,244,243, 0.2)'
                                     placeholder='password'
                                     secureTextEntry={!showPassword}
                                 />
@@ -65,7 +69,7 @@ const SignUp = () => {
 
                         </View>
                         <View style={{ justifyContent: 'flex-end', paddingBottom: 10, flex: 1 }}>
-                            <TouchableOpacity style={styles.button}>
+                            <TouchableOpacity style={styles.button} onPress={() => router.push('/sign-up-2')}>
                                 <Text style={styles.buttonText}>Sign Up</Text>
                             </TouchableOpacity>
                             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -99,11 +103,11 @@ const SignUp = () => {
                             </Text>
                             <Text style={[styles.smallText, {}]}>
                                 Have an account?{' '}
-                                <TouchableOpacity onPress={() => router.push('/sign-in')}>
+                                <Text onPress={() => router.push('/sign-in')}>
                                     <Text style={{ color: '#CB9CF2', textDecorationLine: "underline" }}>
                                         Sign In
                                     </Text>
-                                </TouchableOpacity>
+                                </Text>
                             </Text>
                         </View>
                     </View>
