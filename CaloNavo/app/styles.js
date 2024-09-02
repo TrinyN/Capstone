@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter_500Medium',
     },
     inputFieldStyle: {
-        color: '#F2F4F3', 
+        color: '#F2F4F3',
         backgroundColor: 'rgba(97, 98, 131, 0.2)', 
         borderRadius: 8, 
         fontSize:16, 
@@ -59,6 +59,11 @@ const styles = StyleSheet.create({
         // selectionColor: '#CB9CF2',
         // placeholderTextColor:'rgba(242,244,243, 0.5)',
     }, 
+    dropdownFieldStyle: {
+        backgroundColor: 'rgba(97, 98, 131, 0.2)',
+        borderRadius: 8, 
+        fontSize:16
+    },
     smallText: {
         color: '#F2F4F3',
         fontSize: 14,

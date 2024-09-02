@@ -19,7 +19,7 @@ const SignIn = () => {
                     </TouchableOpacity>
                 </View>
                 <View style={[styles.viewContainer, { flex: 1 }]}>
-                    <View style={{ marginTop: 80, flex: 1 }}>
+                    <View style={{ marginTop: 30, flex: 1 }}>
                         <Text style={styles.titleText}>
                             Glad to see you again!
                         </Text>
@@ -40,6 +40,8 @@ const SignIn = () => {
                             </Text>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <TextInput style={[styles.inputFieldStyle, { flex: 1 }]}
+                                    selectionColor= '#CB9CF2'
+                                    placeholderTextColor='rgba(242,244,243, 0.2)'
                                     placeholder='password'
                                     secureTextEntry={!showPassword}
                                     selectionColor= '#CB9CF2'
@@ -85,7 +87,9 @@ const SignIn = () => {
                             </Text>
                             <Text style={[styles.smallText, {}]}>
                                 Don't have an account?{' '}
-                                <Text onPress={() => router.push('/sign-up')}>
+
+                                <Text onPress={ () => { router.push('/sign-up') } }>
+
                                     <Text style={{ color: '#CB9CF2', textDecorationLine: "underline" }}>
                                         Sign Up
                                     </Text>

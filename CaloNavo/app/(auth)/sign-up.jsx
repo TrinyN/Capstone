@@ -13,14 +13,14 @@ const SignUp = () => {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <View style={{ marginTop: 40, paddingLeft: 20 }}>
+                <View style={{ marginTop: 10, paddingLeft: 25 }}>
                     <TouchableOpacity style={{ width: 35 }} onPress={() => router.push('')}>
                         <Feather name="chevron-left" size={35} color="#F2F4F3" />
                     </TouchableOpacity>
                 </View>
                 <View style={[styles.viewContainer, { flex: 1 }]}>
 
-                    <View style={{ marginTop: 80, flex: 1 }}>
+                    <View style={{ marginTop: 30, flex: 1 }}>
                         <Text style={[styles.titleText, { paddingBottom: 10 }]}>
                             So you are new?
                         </Text>
@@ -44,9 +44,8 @@ const SignUp = () => {
                                 Password:
                             </Text>
 
-
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <TextInput style={[styles.inputFieldStyle, { flex: 1}]}
+                                <TextInput style={[styles.inputFieldStyle, { flex: 1 }]}
                                     placeholder='password'
                                     secureTextEntry={!showPassword}
                                     selectionColor= '#CB9CF2'
@@ -69,7 +68,7 @@ const SignUp = () => {
 
                         </View>
                         <View style={{ justifyContent: 'flex-end', paddingBottom: 10, flex: 1 }}>
-                            <TouchableOpacity style={styles.button}>
+                            <TouchableOpacity style={styles.button} onPress={() => router.push('/sign-up-2')}>
                                 <Text style={styles.buttonText}>Sign Up</Text>
                             </TouchableOpacity>
                             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
