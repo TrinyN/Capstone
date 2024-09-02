@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     },
     welcomeText: {
         color: '#CB9CF2',
-        fontSize: 60,
+        fontSize: 50,
         textAlign: 'center',
         fontFamily: 'Inter_700Bold',
     },
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         paddingLeft:15, 
         paddingVertical: 10, 
         selectionColor: '#CB9CF2',
-        placeholderTextColor:'rgba(242,244,243, 0.2)',
+        placeholderTextColor:'rgba(242,244,243, 0.5)',
     }, 
     smallText: {
         color: '#F2F4F3',
