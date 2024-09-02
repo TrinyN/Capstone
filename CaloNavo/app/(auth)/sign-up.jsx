@@ -35,7 +35,9 @@ const SignUp = () => {
                                 Email:
                             </Text>
                             <TextInput style={styles.inputFieldStyle}
-                                placeholder='your_email@gmail.com'>
+                                placeholder='your_email@gmail.com'
+                                selectionColor= '#CB9CF2'
+                                placeholderTextColor='rgba(242,244,243, 0.2)'>
                             </TextInput>
 
                             <Text style={styles.defaultText}>
@@ -44,9 +46,11 @@ const SignUp = () => {
 
 
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <TextInput style={[styles.inputFieldStyle, { flex: 1 }]}
+                                <TextInput style={[styles.inputFieldStyle, { flex: 1}]}
                                     placeholder='password'
                                     secureTextEntry={!showPassword}
+                                    selectionColor= '#CB9CF2'
+                                    placeholderTextColor='rgba(242,244,243, 0.2)'
                                 />
                                 <TouchableOpacity style={{ width: 25, position: 'absolute', right: 10 }} onPress={() => setShowPassword(!showPassword)}>
                                     <Feather name={!showPassword ? "eye" : "eye-off"} size={25} color='rgba(242,244,243,0.5)' />
@@ -99,11 +103,11 @@ const SignUp = () => {
                             </Text>
                             <Text style={[styles.smallText, {}]}>
                                 Have an account?{' '}
-                                <TouchableOpacity onPress={() => router.push('/sign-in')}>
+                                <Text onPress={() => router.push('/sign-in')}>
                                     <Text style={{ color: '#CB9CF2', textDecorationLine: "underline" }}>
                                         Sign In
                                     </Text>
-                                </TouchableOpacity>
+                                </Text>
                             </Text>
                         </View>
                     </View>

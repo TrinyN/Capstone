@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
         fontSize:16, 
         paddingLeft:15, 
         paddingVertical: 10, 
-        selectionColor: '#CB9CF2',
-        placeholderTextColor:'rgba(242,244,243, 0.5)',
+        // selectionColor: '#CB9CF2',
+        // placeholderTextColor:'rgba(242,244,243, 0.5)',
     }, 
     smallText: {
         color: '#F2F4F3',

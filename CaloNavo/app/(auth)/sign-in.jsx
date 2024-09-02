@@ -30,7 +30,9 @@ const SignIn = () => {
                                 Email:
                             </Text>
                             <TextInput style={styles.inputFieldStyle}
-                                placeholder='your_email@gmail.com'>
+                                placeholder='your_email@gmail.com'
+                                selectionColor= '#CB9CF2'
+                                placeholderTextColor='rgba(242,244,243, 0.2)'>
                             </TextInput>
 
                             <Text style={styles.defaultText}>
@@ -40,6 +42,8 @@ const SignIn = () => {
                                 <TextInput style={[styles.inputFieldStyle, { flex: 1 }]}
                                     placeholder='password'
                                     secureTextEntry={!showPassword}
+                                    selectionColor= '#CB9CF2'
+                                    placeholderTextColor='rgba(242,244,243, 0.2)'
                                 />
                                 <TouchableOpacity style={{ width: 25, position: 'absolute', right: 10 }} onPress={() => setShowPassword(!showPassword)}>
                                     <Feather name={!showPassword ? "eye" : "eye-off"} size={25} color='rgba(242,244,243,0.5)' />
@@ -81,11 +85,11 @@ const SignIn = () => {
                             </Text>
                             <Text style={[styles.smallText, {}]}>
                                 Don't have an account?{' '}
-                                <TouchableOpacity onPress={() => router.push('/sign-up')}>
+                                <Text onPress={() => router.push('/sign-up')}>
                                     <Text style={{ color: '#CB9CF2', textDecorationLine: "underline" }}>
                                         Sign Up
                                     </Text>
-                                </TouchableOpacity>
+                                </Text>
                             </Text>
                         </View>
                     </View>
