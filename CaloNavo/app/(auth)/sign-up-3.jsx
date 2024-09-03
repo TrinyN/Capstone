@@ -13,7 +13,7 @@ const SignUp3 = () => {
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             
                 {/* Back Button / Left Chevron*/}
-                <View style={{ marginTop: 10, marginBottom: 10, paddingLeft: 25}}>
+                <View style={{ marginTop: 40, marginBottom: 10, paddingLeft: 25}}>
                     <TouchableOpacity style={{ width: 35 }} onPress={() => router.push('sign-up')}>
                         <Feather name="chevron-left" size={35} color="#F2F4F3" />
                     </TouchableOpacity>

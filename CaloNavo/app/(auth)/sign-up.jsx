@@ -12,7 +12,7 @@ const SignUp = () => {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <View style={{ marginTop: 10, paddingLeft: 25 }}>
+                <View style={{ marginTop: 40, paddingLeft:25 }}>
                     <TouchableOpacity style={{ width: 35 }} onPress={() => router.push('')}>
                         <Feather name="chevron-left" size={35} color="#F2F4F3" />
                     </TouchableOpacity>
