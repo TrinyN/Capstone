@@ -1,9 +1,7 @@
 import { TextInput, TouchableOpacity, Text, View, ScrollView } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from '../styles';
-import { StatusBar } from 'expo-status-bar';
 import { router } from 'expo-router';
-import Feather from "react-native-vector-icons/Feather";
 
 // change so placeholders match users info
 const Report = () => {
@@ -66,7 +64,7 @@ const Report = () => {
                         </TextInput>
 
                         {/* Submit Button */}
-                        <View style={{ justifyContent: 'flex-end', paddingTop: 20, paddingBottom: 10, flex: 1 }}>
+                        <View style={{paddingVertical:20 }}>
                             <TouchableOpacity style={styles.button} onPress={() => router.push('sign-up-3')}>
                                 <Text style={styles.buttonText}>Create PDF</Text>
                             </TouchableOpacity>
