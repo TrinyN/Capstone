@@ -50,7 +50,9 @@ const SignIn = () => {
                             </View>
                         </View>
                         <View style={{ justifyContent: 'flex-end', paddingBottom: 10, flex: 1 }}>
-                            <TouchableOpacity style={styles.button}>
+
+                            {/* need to add verify password and stuff to allow onpress */}
+                            <TouchableOpacity style={styles.button} onPress={ () => { router.push('/home') }}>
                                 <Text style={styles.buttonText}>Log In</Text>
                             </TouchableOpacity>
                             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>

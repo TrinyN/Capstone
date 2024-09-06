@@ -116,21 +116,13 @@ const SignUp3 = () => {
                         </TextInput>
 
                         {/* Submit Button */}
-                        <View style={{ justifyContent: 'flex-end', paddingTop: 20, paddingBottom: 10, flex: 1 }}>
-                            <TouchableOpacity style={styles.button} onPress={() => router.push('sign-up-2')}>
-                                <Text style={styles.buttonText}>Done</Text>
+                        <View style={{ justifyContent: 'flex-end', paddingTop: 40, paddingBottom: 10}}>
+                            <TouchableOpacity style={styles.button} onPress={() => router.push('home')}>
+                                <Text style={styles.buttonText}>Continue</Text>
                             </TouchableOpacity>
                         </View>
-
                     </View>
-                    
                 </View>
-
-                <StatusBar
-                    backgroundColor='#0E1116'
-                    style='light'
-                />
-
             </ScrollView>
         </SafeAreaView>
     )
