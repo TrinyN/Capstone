@@ -6,21 +6,24 @@ import { StatusBar } from 'expo-status-bar';
 import { router } from 'expo-router';
 import Feather from "react-native-vector-icons/Feather";
 
+// Function to handle the design and display of the Sign In 2 screen
 const SignUp3 = () => {
 
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             
-                {/* Back Button / Left Chevron*/}
+                {/* Top bar holding the back button */}
                 <View style={{ marginTop: 40, marginBottom: 10, paddingLeft: 25}}>
                     <TouchableOpacity style={{ width: 35 }} onPress={() => router.push('sign-up')}>
                         <Feather name="chevron-left" size={35} color="#F2F4F3" />
                     </TouchableOpacity>
                 </View>
 
+                {/* The "body" of the screen, including its major elements */}
                 <View style={[styles.viewContainer, { flex: 1 }]}>
 
+                    {/* Screen header */}
                     <View style={{ marginTop: 30, flex: 1 }}>
                         <Text style={[styles.titleText, { paddingBottom: 10 }]}>
                             Your diet goals ...
@@ -30,6 +33,7 @@ const SignUp3 = () => {
                         </Text>
                     </View>
 
+                    {/* View to hold all of the questions and fields */}
                     <View style={{ flex: 5, paddingBottom: 100 }}> 
                         {/* Questions */}
                         {/* Diet Plan question and field */}
@@ -49,6 +53,7 @@ const SignUp3 = () => {
                         <View style={styles.dropdownFieldStyle}>
                             <Picker
                                 style={{color:'#F2F4F3'}}
+                                // Functional workings of the dropdown menu, come back to later
                                 // selectedValue={this.props.diet}
                                 // onValueChange={value => this.props.profileUpdate({ prop: 'diet', value})}
                             >
@@ -96,6 +101,7 @@ const SignUp3 = () => {
                         <View style={styles.dropdownFieldStyle}>
                             <Picker
                                 style={{color:'#F2F4F3'}}
+                                // Functional workings of the dropdown menu, come back to later
                                 // selectedValue={this.props.diet}
                                 // onValueChange={value => this.props.profileUpdate({ prop: 'diet', value})}
                             >

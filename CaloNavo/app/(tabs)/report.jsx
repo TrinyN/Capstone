@@ -3,15 +3,18 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import styles from '../styles';
 import { router } from 'expo-router';
 
-// change so placeholders match users info
+// TODO: change so placeholders match users info
+// Function to handle the design of the Reports screen of CaloNavo
 const Report = () => {
 
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 
+                {/* The "body" of the screen, including its major elements */}
                 <View style={[styles.viewContainer, { flex: 1 }]}>
 
+                    {/* Screen header */}
                     <View style={{ marginTop: 70, flex: 1 }}>
                         <Text style={[styles.titleText, { paddingBottom: 10 }]}>
                             Report
@@ -21,7 +24,9 @@ const Report = () => {
                         </Text>
                     </View>
 
+                    {/* View that holds all of the questions and fields */}
                     <View style={{ flex: 5, paddingBottom: 100 }}> 
+
                         {/* Questions */}
                         {/* Diet plan question and field */}
                         <Text style={styles.defaultText}>
@@ -69,7 +74,9 @@ const Report = () => {
                                 <Text style={styles.buttonText}>Create PDF</Text>
                             </TouchableOpacity>
                         </View>
+
                     </View>
+                    
                 </View>
             </ScrollView>
         </SafeAreaView>

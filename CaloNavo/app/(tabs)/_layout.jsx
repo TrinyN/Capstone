@@ -3,23 +3,29 @@ import { Tabs } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import Feather from "react-native-vector-icons/Feather";
 
+// Function to handle the styling of the tab bar's labels
 const tabBarLabelStyle = {
     paddingBottom: 2,
     fontSize: 12
 };
 
+// Function to handle the styling of the tab bar's icons
 const tabBarIconStyle = {
     paddingTop: 4
 };
 
+// Function to handle the styling of the tab bar's colors
 const tabBarColorStyle = {
     tabBarActiveTintColor: '#CB9CF2',
     tabBarInactiveTintColor: '#F2F4F3'
 };
 
+// Function to handled the routing of the various (tabs) screens of CaloNavo
+// *** Ensure all new (tabs) screens have their own places in the stack***
 const TabsLayout = () => {
     return (
         <>
+            {/* Tabs for each of CaloNavo's tabs */}
             <Tabs screenOptions={{
                 tabBarActiveTintColor: '#CB9CF2',
                 tabBarInactiveTintColor: '#F2F4F3',
@@ -30,6 +36,7 @@ const TabsLayout = () => {
                     height: 60,
                 }
             }}>
+                {/* Home tab of the main screens */}
                 <Tabs.Screen
                     name="home"
                     options={{
@@ -43,6 +50,7 @@ const TabsLayout = () => {
                         tabBarIconStyle
                     }}
                 />
+                {/* Tracker tab of the main screens */}
                 <Tabs.Screen
                     name="tracker"
                     options={{
@@ -56,6 +64,7 @@ const TabsLayout = () => {
                         tabBarIconStyle
                     }}
                 />
+                {/* Report tab of the main screens */}
                 <Tabs.Screen
                     name="report"
                     options={{
@@ -69,6 +78,7 @@ const TabsLayout = () => {
                         tabBarIconStyle
                     }}
                 />
+                {/* Shopping List tab of the main screens */}
                 <Tabs.Screen
                     name="shoppingList"
                     options={{
@@ -82,6 +92,7 @@ const TabsLayout = () => {
                         tabBarIconStyle
                     }}
                 />
+                {/* Profile tab of the main screens*/}
                 <Tabs.Screen
                     name="profile"
                     options={{
@@ -96,6 +107,8 @@ const TabsLayout = () => {
                     }}
                 />
             </Tabs>
+
+            {/* Handling the Status Bar of the app */}
             <StatusBar backgroundColor='#0E1116'
                 style='light'
             />
