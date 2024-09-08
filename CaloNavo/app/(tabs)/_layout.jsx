@@ -6,7 +6,7 @@ import Feather from "react-native-vector-icons/Feather";
 // Function to handle the styling of the tab bar's labels
 const tabBarLabelStyle = {
     paddingBottom: 2,
-    fontSize: 12
+    fontSize: 10
 };
 
 // Function to handle the styling of the tab bar's icons
