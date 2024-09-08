@@ -71,6 +71,13 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingVertical: 5
 },
+    optionsText: {
+        color: '#F2F4F3',
+        fontSize: 15,
+        fontFamily: 'Inter_400Regular',
+        textAlign: 'left',
+        paddingVertical: 5
+    }
 
 });
 
