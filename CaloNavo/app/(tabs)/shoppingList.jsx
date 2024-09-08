@@ -15,6 +15,7 @@ const ShoppingList = () => {
     const [foodName, setFoodName] = useState('')
     const [foodType, setFoodType] = useState('')
 
+    // test data, will need to start off empty and be saved for each user
     const [shoppingList, setShoppingList] = useState([
         { title: 'Fruit', data: ['Apples', 'Bananas', 'Oranges'] },
         { title: 'Vegetable', data: ['Carrots', 'Broccoli', 'Spinach'] },
