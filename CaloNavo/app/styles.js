@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
         height: '181px',
         width: '325px',
         backgroundColor: '#1F2938',
-        paddingHorizontal: 35,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
         flex: 1,
         justifyContent: 'space-between',
         borderRadius: 8
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
         height: '150px',
         width: '150px',
         backgroundColor: '#1F2938',
-        paddingHorizontal:35,
+        paddingVertical: 10,
         flex: 1,
         borderRadius: 8
     },
@@ -52,7 +53,8 @@ const styles = StyleSheet.create({
         height: '320px',
         width: '150px',
         backgroundColor: '#1F2938',
-        paddingHorizontal: 35,
+        paddingVertical: 10,
+        paddingHorizontal: 25,
         flex: 1,
         borderRadius: 8
     },
@@ -87,7 +89,7 @@ const styles = StyleSheet.create({
     frameTextWhite: {
         color: '#F2F4F3',
         fontSize: 20,
-        paddingVertical: 15,
+        paddingVertical: 10,
         fontFamily: 'Inter_600SemiBold',
         textAlign: 'center',
     },
@@ -107,6 +109,25 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter_400Regular',
         textAlign: 'center',
         paddingVertical: 5
+    },
+    homeProgressLabelText: {
+        color: '#0E1116',
+        fontFamily: 'Inter_600SemiBold',
+        marginVertical: 3
+    },
+    homeProgressBarTextLeft: {
+        color: '#0E1116',
+        fontSize: 14,
+        fontFamily: 'Inter_400Regular',
+        textAlign: 'left',
+        marginLeft: 10
+    },
+    homeProgressBarTextRight: {
+        color: '#F2F4F3',
+        fontSize: 14,
+        fontFamily: 'Inter_400Regular',
+        textAlign: 'right',
+        marginRight: 10
     },
     button: {
         backgroundColor: '#F2F4F3',
@@ -143,7 +164,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter_400Regular',
         textAlign: 'center',
         paddingVertical: 5
-},
+    },
     optionsText: {
         color: '#F2F4F3',
         fontSize: 15,
