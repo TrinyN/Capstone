@@ -168,9 +168,24 @@ const styles = StyleSheet.create({
     optionsText: {
         color: '#F2F4F3',
         fontSize: 15,
-        fontFamily: 'Inter_400Regular',
+        fontFamily: 'Inter_300Light',
         textAlign: 'left',
-        paddingVertical: 5
+        paddingVertical: 3
+    },
+
+    optionsMenu: {
+        backgroundColor: '#1F2938',
+        borderRadius: 5, 
+        width: 200, 
+        height: 120, 
+        position: 'absolute',
+        top: 100,
+        right: 50,
+
+        // fontSize: 15,
+        // fontFamily: 'Inter_400Regular',
+        // textAlign: 'left',
+        // paddingVertical: 5
     }
 
 });

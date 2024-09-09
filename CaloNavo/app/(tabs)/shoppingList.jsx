@@ -7,8 +7,8 @@ import Checkbox from 'expo-checkbox';
 import { Overlay } from '@rneui/base';
 
 // todo: fix dropdown for food type
-// add options overlay 
 // save list for user
+// options functionality
 // add the bottom text: "It looks like your shopping list blah"
 
 const ShoppingList = () => {
@@ -20,7 +20,11 @@ const ShoppingList = () => {
     const [foodName, setFoodName] = useState('')
     const [foodType, setFoodType] = useState('')
 
+    // saves visibility of add food pop up
     const [visible, setVisible] = useState(false);
+
+    // saves visibility of options pop up
+    const [visibleOptions, setVisibleOptions] = useState(false);
 
     // boolean value, true if all food items are checked
     const areAllItemsChecked = (items) => {
@@ -30,6 +34,11 @@ const ShoppingList = () => {
     // change visibility of overlay
     const toggleOverlay = () => {
         setVisible(!visible);
+    };
+
+    // change visibility of options
+    const toggleOptions = () => {
+        setVisibleOptions(!visibleOptions);
     };
 
     // test data, will need to start off empty and be saved for each user
@@ -108,7 +117,7 @@ const ShoppingList = () => {
                         <Text style={[styles.titleText, { flex: 1 }]}>
                             Shopping List
                         </Text>
-                        <TouchableOpacity style={{ width: 30 }}>
+                        <TouchableOpacity onPress={toggleOptions} style={{ width: 30 }}>
                             <Feather name="more-vertical" size={30} color="#CB9CF2" />
                         </TouchableOpacity>
                     </View>
@@ -182,6 +191,8 @@ const ShoppingList = () => {
                     </View>
                     <View style={{ padding: 40 }}>
                     </View>
+
+                    {/* pop up for adding food in shopping list*/}
                     <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{ backgroundColor: '#0E1116', borderRadius: 8, borderColor: '#CB9CF2', borderWidth: 2 }}>
                         <View style={{ paddingVertical: 8, paddingRight: 8, flexDirection: 'row-reverse' }}>
                             <TouchableOpacity onPress={toggleOverlay} style={{ width: 25 }}>
@@ -214,6 +225,36 @@ const ShoppingList = () => {
                                 </TouchableOpacity>
                             </View>
 
+                        </View>
+
+                    {/* pop up for options */}
+                    </Overlay>
+                    <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={styles.optionsMenu}>
+                        <View style={{ paddingHorizontal: 8, justifyContent: 'center' }}>
+                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Feather name="rotate-ccw" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
+                                <Text style={styles.optionsText}>
+                                    Reset Checkmarks
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Feather name="trash-2" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
+                            <Text style={styles.optionsText}>
+                                    Delete All
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Feather name="x-square" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
+                            <Text style={styles.optionsText}>
+                                    Delete Checked
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Feather name="shopping-cart" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
+                            <Text style={styles.optionsText}>
+                                    Generate List
+                                </Text>
+                            </TouchableOpacity>
                         </View>
                     </Overlay>
                 </View>
