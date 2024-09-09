@@ -6,6 +6,11 @@ import { useState, useEffect } from 'react';
 import Checkbox from 'expo-checkbox';
 import { Overlay } from '@rneui/base';
 
+// todo: fix dropdown for food type
+// add options overlay 
+// save list for user
+// add the bottom text: "It looks like your shopping list blah"
+
 const ShoppingList = () => {
 
     const [collapsedSections, setCollapsedSections] = useState({})
@@ -14,6 +19,18 @@ const ShoppingList = () => {
 
     const [foodName, setFoodName] = useState('')
     const [foodType, setFoodType] = useState('')
+
+    const [visible, setVisible] = useState(false);
+
+    // boolean value, true if all food items are checked
+    const areAllItemsChecked = (items) => {
+        return items.every(item => checkedItems[item]);
+    };
+
+    // change visibility of overlay
+    const toggleOverlay = () => {
+        setVisible(!visible);
+    };
 
     // test data, will need to start off empty and be saved for each user
     const [shoppingList, setShoppingList] = useState([
@@ -39,48 +56,47 @@ const ShoppingList = () => {
         });
     }, [checkedItems]);
 
+    // changes whether a section of the list is collapsed or not
     const toggleCollapse = (section) => {
         setCollapsedSections(prevState => ({
+            // keep collapsed boolean values for other sections
             ...prevState,
+
+            // changes collapsed value for particular section
             [section.title]: !prevState[section.title]
         }));
     };
 
+    // changes whether a food item is checked or not
     const toggleChecked = (item) => {
         setCheckedItems(prevState => ({
+            // keep checked values for other food items
             ...prevState,
+
+            // change checked value for particular food item
             [item]: !prevState[item]
         }));
     };
 
-    const areAllItemsChecked = (items) => {
-        return items.every(item => checkedItems[item]);
-    };
-
-    const [visible, setVisible] = useState(false);
-
-    const toggleOverlay = () => {
-        setVisible(!visible);
-    };
-
+    // called when user clicks add button
     const handleAddFood = () => {
-        // Find the section that matches foodType
+        // find the section that matches foodType entered by user
         const updatedShoppingList = shoppingList.map(section => {
             if (section.title == foodType) {
-                // Update the data array for the matched food type
+                // update the data array for the matched food type
                 return {
                     ...section,
                     data: [...section.data, foodName.charAt(0).toUpperCase() + foodName.slice(1).toLowerCase()] // Add the new food item
                 };
             }
-            // Return the section as is if it does not match
+            // return the section as is if it does not match
             return section;
         });
 
-        // Update the shopping list
+        // update the shopping list
         setShoppingList(updatedShoppingList)
 
-        // Close overlay
+        // close overlay
         toggleOverlay()
     }
 
