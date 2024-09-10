@@ -10,6 +10,7 @@ import { Overlay } from '@rneui/base';
 // save list for user
 // options functionality
 // add the bottom text: "It looks like your shopping list blah"
+// input validation
 
 const ShoppingList = () => {
 
