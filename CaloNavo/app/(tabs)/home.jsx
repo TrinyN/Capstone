@@ -49,7 +49,7 @@ const Home = () => {
                                     <Progress.Bar
                                         progress={0.5}
                                         color={'#CB9CF2'}
-                                        backgroundColor={'#0E1116'}
+                                        unfilledColor={'#0E1116'}
                                         height={20}
                                         width={200}
                                         borderRadius={15}
@@ -67,7 +67,7 @@ const Home = () => {
                                     <Progress.Bar
                                         progress={0.5}
                                         color={'#80FF72'}
-                                        backgroundColor={'#0E1116'}
+                                        unfilledColor={'#0E1116'}
                                         height={20}
                                         width={200}
                                         borderRadius={15}
@@ -85,7 +85,7 @@ const Home = () => {
                                     <Progress.Bar
                                         progress={0.5}
                                         color={'#7EE8FA'}
-                                        backgroundColor={'#0E1116'}
+                                        unfilledColor={'#0E1116'}
                                         height={20}
                                         width={200}
                                         borderRadius={15}
@@ -103,7 +103,7 @@ const Home = () => {
                                     <Progress.Bar
                                         progress={0.5}
                                         color={'#FFF07C'}
-                                        backgroundColor={'#0E1116'}
+                                        unfilledColor={'#0E1116'}
                                         height={20}
                                         width={200}
                                         borderRadius={15}
