@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import Checkbox from 'expo-checkbox';
 import { Overlay } from '@rneui/base';
 import DropDownPicker from 'react-native-dropdown-picker';
+import CustomDropdown from '../components/CustomDropdown';
 
 // todo: fix dropdown for food type
 // save list for user
@@ -44,8 +45,6 @@ const ShoppingList = () => {
         setVisibleOptions(!visibleOptions);
     };
 
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState([]);
     const [items, setItems] = useState([
         { label: 'Fruit', value: 'Fruit' },
         { label: 'Vegetable', value: 'Vegetable' },
@@ -57,7 +56,6 @@ const ShoppingList = () => {
         { label: 'Misc.', value: 'Misc.' }
 
     ]);
-
 
     // test data, will need to start off empty and be saved for each user
     const [shoppingList, setShoppingList] = useState([
@@ -279,7 +277,7 @@ const ShoppingList = () => {
                             {/* Food Type input */}
                             <View style={{ padding: 10, zIndex: 1 }}>
 
-                                <DropDownPicker
+                                {/* <DropDownPicker
                                     open={open}
                                     value={value}
                                     items={items}
@@ -297,6 +295,13 @@ const ShoppingList = () => {
                                     borderWidth={0}
                                     dropDownContainerStyle={{ theme: "DARK", borderWidth: 0 }}
                                     textStyle={{ fontSize: 16, color: '#F2F4F3', paddingLeft: 5 }}
+                                /> */}
+
+                                <CustomDropdown 
+                                placeholder={'Food Type'}    
+                                setCustomValue={setFoodType}     
+                                items={items}            
+                                setItems={setItems}           
                                 />
                             </View>
 
