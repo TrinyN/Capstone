@@ -7,9 +7,9 @@ import Checkbox from 'expo-checkbox';
 import { Overlay } from '@rneui/base';
 import CustomDropdown from '../components/CustomDropdown';
 
-// todo: fix dropdown for food type
+// todo:
 // save list for user
-// options functionality
+// generate shopping list functionality
 // add the bottom text: "It looks like your shopping list blah"
 // input validation
 // make handle add food not work if same food name
@@ -130,6 +130,35 @@ const ShoppingList = () => {
         // close overlay
         toggleOverlay()
     }
+
+    const resetCheckmarks = () => {
+        setCheckedItems({})
+    }
+
+    const deleteAll = () => {
+        const emptyShoppingList = [
+            { title: 'Fruit', data: [] },
+            { title: 'Vegetable', data: [] },
+            { title: 'Protein', data: [] },
+            { title: 'Dairy', data: [] },
+            { title: 'Grain', data: [] },
+            { title: 'Snack', data: [] },
+            { title: 'Beverage', data: [] },
+            { title: 'Misc.', data: [] },
+        ];
+        setShoppingList(emptyShoppingList)
+    };
+
+    const deleteCheckedItems = () => {
+        const updatedShoppingList = shoppingList.map(section => {
+            return {
+                ...section,
+                data: section.data.filter(item => !checkedItems[item])
+            };
+        });
+    
+        setShoppingList(updatedShoppingList);
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -302,7 +331,7 @@ const ShoppingList = () => {
                         <View style={{ paddingHorizontal: 8, justifyContent: 'center' }}>
 
                             {/* Resetting checkmarks */}
-                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TouchableOpacity onPress={resetCheckmarks} style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Feather name="rotate-ccw" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
                                 <Text style={styles.optionsText}>
                                     Reset Checkmarks
@@ -310,7 +339,7 @@ const ShoppingList = () => {
                             </TouchableOpacity>
 
                             {/* Deleting all items from list */}
-                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TouchableOpacity onPress={deleteAll} style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Feather name="trash-2" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
                                 <Text style={styles.optionsText}>
                                     Delete All
@@ -318,7 +347,7 @@ const ShoppingList = () => {
                             </TouchableOpacity>
 
                             {/* Deleting checked items from list */}
-                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TouchableOpacity onPress={deleteCheckedItems} style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Feather name="x-square" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
                                 <Text style={styles.optionsText}>
                                     Delete Checked
