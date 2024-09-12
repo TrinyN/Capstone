@@ -16,12 +16,14 @@ const Report = () => {
 
                     {/* Screen header */}
                     <View style={{ marginTop: 70, flex: 1 }}>
+
                         <Text style={[styles.titleText, { paddingBottom: 10 }]}>
                             Report
                         </Text>
                         <Text style={[styles.defaultWhiteText, { fontSize: 20, paddingBottom: 50 }]}>
                             Help us double check everything to set up your PDF report!
                         </Text>
+                        
                     </View>
 
                     {/* View that holds all of the questions and fields */}
