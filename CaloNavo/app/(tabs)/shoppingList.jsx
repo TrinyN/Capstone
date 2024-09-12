@@ -123,6 +123,7 @@ const ShoppingList = () => {
                         <Text style={[styles.titleText, { flex: 1 }]}>
                             Shopping List
                         </Text>
+
                         {/* Options button */}
                         <TouchableOpacity onPress={toggleOptions} style={{ width: 30 }}>
                             <Feather name="more-vertical" size={30} color="#CB9CF2" />

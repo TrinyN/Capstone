@@ -156,6 +156,7 @@ const Home = () => {
                                                 width: '100%',
                                                 alignItems: 'center',
                                                 resizeMode: 'contain',
+                                                // alignSelf: 'center',
                                                 marginLeft: 10       // May have to be changed to make slightly off-left instead of centered
                                             }}
                                         />
