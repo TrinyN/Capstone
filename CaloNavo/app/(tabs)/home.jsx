@@ -14,35 +14,39 @@ const Home = () => {
     return (
         <SafeAreaView style={styles.container}>
             {/* This screen is not Scrollable, so a regular view was used. May be changed in the future. */}
-            <View style={[styles.viewContainerMain, { flex: 1 }]}>
+            <View style={[styles.viewContainerMain, { flexGrow: 1 }]}>
 
                 {/* The "body" of the screen, including its major elements */}
                 <View style={[styles.viewContainer, { flex: 1 }]}>
 
                     {/* Screen header */}
-                    <View style={{ marginTop: 30, flex: 1 }}>
+                    <View style={{ marginTop: 70, flex: 1 }}>
 
-                        <Text style={styles.titleText}>
+                        <Text style={ styles.titleText }>
                             Welcome back,
                         </Text>
                         {/* TODO: Make it get the name of the user to display */}
-                        <Text style={[styles.titleTextWhite, { paddingBottom: 10 }]}>
+                        <Text style={[styles.titleTextWhite, { paddingBottom: 50 }]}>
                             Bob
                         </Text>
+
                     </View>
 
                     {/* View to contain all other major elements, like the frames for each quick tool */}
-                    <View style={{ flex: 5, paddingBottom: 50 }}>
+                    <View style={{ flex: 5, paddingBottom: 100 }}>
 
                         {/* Wide View Frame for Daily Diet Progress */}
                         <View style={styles.viewHomeFrameWide}>
-                            <Text style={[styles.frameTextWhite, { paddingVertical: 5 }]}>
+                            <Text style={[styles.frameTextWhite, { paddingVertical: 5, paddingBottom: 10 }]}>
                                 Your Daily Diet Progress:
                             </Text>
 
                             {/* View that holds the progress bars and their labels */}
-                            <View style={{ flexDirection: 'column', paddingBottom: 10 }}>
-                                <View style={{ flexDirection: 'row', }} >
+                            <View style={{ flexDirection: 'column', paddingBottom: 10,  }}>
+
+                                {/* TODO: progress of bars should be calculated using eaten/total calories */}
+                                {/* Calorie Progress */}
+                                <View style={{ flexDirection: 'row',  }} >
                                     <Text style={[styles.homeProgressLabelText, { color: '#CB9CF2', flex: 1 }]}>
                                         Calories
                                     </Text>
@@ -60,6 +64,7 @@ const Home = () => {
                                     </Progress.Bar>
                                 </View>
 
+                                {/* Carbs progress */}
                                 <View style={{ flexDirection: 'row' }} >
                                     <Text style={[styles.homeProgressLabelText, { color: '#80FF72', flex: 1 }]}>
                                         Carbs
@@ -78,6 +83,7 @@ const Home = () => {
                                     </Progress.Bar>
                                 </View>
 
+                                {/* Proteins progress */}
                                 <View style={{ flexDirection: 'row' }} >
                                     <Text style={[styles.homeProgressLabelText, { color: '#7EE8FA', flex: 1 }]}>
                                         Proteins
@@ -96,6 +102,7 @@ const Home = () => {
                                     </Progress.Bar>
                                 </View>
 
+                                {/* Fats progress */}
                                 <View style={{ flexDirection: 'row' }} >
                                     <Text style={[styles.homeProgressLabelText, { color: '#FFF07C', flex: 1 }]}>
                                         Fats
@@ -117,14 +124,14 @@ const Home = () => {
                         </View>
 
                         {/* Two FlatLists to hold two separate columns of quick tool frames, with frames of different heights */}
-
                         <View style={[styles.viewFrameContainer, { flexDirection: 'row' }]}>
 
                             {/* FlatList for left column, containing water goal display frame */}
                             <View style={[styles.containerColumn, { marginRight: 15 }]}>
 
                                 {/* Water Goal Display Frame */}
-                                <View style={[styles.viewHomeFrameTall, {alignContent: 'center'}]}>
+                                {/* NOTE: If water bottle placement becomes an issue, check this paddingBottom */}
+                                <View style={[styles.viewHomeFrameTall, {alignContent: 'center', paddingBottom: 85}]}> 
 
                                     {/* TouchableOpacity to make frame contents a button */}
                                     <TouchableOpacity
@@ -140,12 +147,14 @@ const Home = () => {
                                         </Text>
                                         {/* TODO: Add bottle's animation */}
                                         {/* Water bottle + animation */}
+                                        {/* WARNING: May have to change bottle to be exact size to prevent issues with it changing sizes based on screen */}
                                         <Image
                                             source={require('../../assets/images/water-bottle-1.png')}
                                             style={{
-                                                paddingVertical: 20,
-                                                height: 200,
-                                                width: 125,
+                                                // paddingVertical: 20,
+                                                height: '100%',
+                                                width: '100%',
+                                                alignItems: 'center',
                                                 resizeMode: 'contain',
                                                 // alignSelf: 'center',
                                                 marginLeft: 10       // May have to be changed to make slightly off-left instead of centered

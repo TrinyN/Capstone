@@ -113,20 +113,34 @@ const ShoppingList = () => {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+
+                {/* The "body" of the screen view */}
                 <View style={[styles.viewContainer, { flex: 1 }]}>
+
+                    {/* Screen header */}
                     <View style={{ marginTop: 70, flexDirection: 'row', paddingBottom: 20, alignItems: 'center' }}>
+                        
                         <Text style={[styles.titleText, { flex: 1 }]}>
                             Shopping List
                         </Text>
+
+                        {/* Options button */}
                         <TouchableOpacity onPress={toggleOptions} style={{ width: 30 }}>
                             <Feather name="more-vertical" size={30} color="#CB9CF2" />
                         </TouchableOpacity>
+
                     </View>
+
+                    {/* Add button */}
                     <TouchableOpacity onPress={toggleOverlay}
                         style={[styles.button, { backgroundColor: '#CB9CF2', padding: 1 }]}>
                         <Feather name="plus" size={30} color="#1F2938" />
                     </TouchableOpacity>
+
+                    {/* View holding numerous lists for the grocery list */}
                     <View>
+
+                        {/* List of groceries */}
                         <SectionList
                             style={{
                                 backgroundColor: 'rgba(27,33,43,0.5)',
@@ -138,12 +152,18 @@ const ShoppingList = () => {
                             renderItem={({ item, section }) =>
                                 !collapsedSections[section.title] && (
                                     <View>
+
+                                        {/* View to hold checkbox and item name */}
                                         <View style={{ backgroundColor: '#0E1116', flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15 }}>
+                                            
+                                            {/* Checkboxes for items on list */}
                                             <Checkbox
                                                 color='#CB9CF2'
                                                 value={!!checkedItems[item]}
                                                 onValueChange={() => toggleChecked(item)}
                                             />
+
+                                            {/* Item names */}
                                             <Text
                                                 style={[
                                                     styles.defaultWhiteText,
@@ -156,15 +176,23 @@ const ShoppingList = () => {
                                                 ]}>
                                                 {item}
                                             </Text>
+
                                         </View>
+
+                                        {/* Divider lines between items */}
                                         <View style={{ height: 1, backgroundColor: 'rgba(242,244,243,0.2)' }} />
                                     </View>
                                 )
                             }
+                            //  Function to render section headers used in the list (i.e. Fruit, Vegetable, etc.)
                             renderSectionHeader={({ section }) => (
+                                // View for the headers
                                 <View>
+                                    {/* Turning headers into buttons to allow collapse */}
                                     <TouchableOpacity onPress={() => toggleCollapse(section)}>
+                                        {/* Setting up section headers to allow for a label and chevron icon */}
                                         <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 5 }}>
+                                            {/* Section label/names */}
                                             <Text
                                                 style={[
                                                     styles.defaultWhiteText,
@@ -178,29 +206,42 @@ const ShoppingList = () => {
                                                 ]}>
                                                 {section.title}
                                             </Text>
+                                            {/* Icons used depending on whether header is collapsed or open */}
                                             <Feather name={collapsedSections[section.title] ? "chevron-down" : "chevron-up"} size={25} color='#CB9CF2'
                                                 style={{
                                                     alignSelf: 'flex-end',
                                                     paddingVertical: 10
                                                 }} />
+
                                         </View>
+
                                     </TouchableOpacity>
+
+                                    {/* Borderline at bottom of the section headers */}
                                     <View style={{ height: 2, backgroundColor: '#828282' }} />
                                 </View>
                             )}
                         />
                     </View>
+
+                    {/* ??? */}
                     <View style={{ padding: 40 }}>
                     </View>
 
-                    {/* pop up for adding food in shopping list*/}
+                    {/* Popup/Overlay for adding food in shopping list */}
                     <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{ backgroundColor: '#0E1116', borderRadius: 8, borderColor: '#CB9CF2', borderWidth: 2 }}>
+                        
+                        {/* View to hold the exit icon */}
                         <View style={{ paddingVertical: 8, paddingRight: 8, flexDirection: 'row-reverse' }}>
                             <TouchableOpacity onPress={toggleOverlay} style={{ width: 25 }}>
                                 <Feather name="x" size={25} color="#F2F4F3" />
                             </TouchableOpacity>
                         </View>
+                        
+                        {/* Handling the input of a food into the shopping list */}
                         <View style={[styles.viewContainer, {}]}>
+                            
+                            {/* Food Name input */}
                             <View style={{ padding: 10 }}>
                                 <TextInput style={styles.inputFieldStyle}
                                     placeholder='Food Name'
@@ -210,6 +251,8 @@ const ShoppingList = () => {
                                 >
                                 </TextInput>
                             </View>
+                            
+                            {/* Food Type input */}
                             <View style={{ padding: 10 }}>
                                 <TextInput style={[styles.inputFieldStyle]}
                                     placeholder='Food Type'
@@ -219,6 +262,8 @@ const ShoppingList = () => {
                                 >
                                 </TextInput>
                             </View>
+
+                            {/* Submit button */}
                             <View style={{ paddingHorizontal: 10 }}>
                                 <TouchableOpacity onPress={handleAddFood}
                                     style={[styles.button, { backgroundColor: '#CB9CF2' }]}>
@@ -228,35 +273,48 @@ const ShoppingList = () => {
 
                         </View>
 
-                    {/* pop up for options */}
                     </Overlay>
+
+                    {/* Popup for options menu */}
                     <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={styles.optionsMenu}>
+                        
+                        {/* View to contain all options */}
                         <View style={{ paddingHorizontal: 8, justifyContent: 'center' }}>
+                            
+                            {/* Resetting checkmarks */}
                             <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Feather name="rotate-ccw" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
                                 <Text style={styles.optionsText}>
                                     Reset Checkmarks
                                 </Text>
                             </TouchableOpacity>
+
+                            {/* Deleting all items from list */}
                             <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Feather name="trash-2" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
-                            <Text style={styles.optionsText}>
+                                <Feather name="trash-2" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
+                                <Text style={styles.optionsText}>
                                     Delete All
                                 </Text>
                             </TouchableOpacity>
+
+                            {/* Deleting checked items from list */}
                             <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Feather name="x-square" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
-                            <Text style={styles.optionsText}>
+                                <Feather name="x-square" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
+                                <Text style={styles.optionsText}>
                                     Delete Checked
                                 </Text>
                             </TouchableOpacity>
+
+                            {/* Generating list from tracker screen(s) */}
                             <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Feather name="shopping-cart" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
-                            <Text style={styles.optionsText}>
+                                <Feather name="shopping-cart" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
+                                <Text style={styles.optionsText}>
                                     Generate List
                                 </Text>
                             </TouchableOpacity>
+
                         </View>
+
                     </Overlay>
                 </View>
             </ScrollView>
