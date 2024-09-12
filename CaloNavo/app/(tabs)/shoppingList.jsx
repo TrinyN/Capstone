@@ -5,7 +5,6 @@ import Feather from "react-native-vector-icons/Feather";
 import { useState, useEffect } from 'react';
 import Checkbox from 'expo-checkbox';
 import { Overlay } from '@rneui/base';
-import DropDownPicker from 'react-native-dropdown-picker';
 import CustomDropdown from '../components/CustomDropdown';
 
 // todo: fix dropdown for food type
@@ -276,27 +275,6 @@ const ShoppingList = () => {
 
                             {/* Food Type input */}
                             <View style={{ padding: 10, zIndex: 1 }}>
-
-                                {/* <DropDownPicker
-                                    open={open}
-                                    value={value}
-                                    items={items}
-                                    setOpen={setOpen}
-                                    setValue={(val) => {
-                                        setValue(val)
-                                        setFoodType(val)
-                                    }}
-                                    setItems={setItems}
-                                    theme="DARK"
-                                    placeholder='Food Type'
-                                    style={[styles.inputFieldStyle, { borderWidth: 0 }]}
-                                    borderColor='#0E1116'
-                                    placeholderStyle={{ color: 'rgba(242,244,243, 0.2)', fontSize: 16 }}
-                                    borderWidth={0}
-                                    dropDownContainerStyle={{ theme: "DARK", borderWidth: 0 }}
-                                    textStyle={{ fontSize: 16, color: '#F2F4F3', paddingLeft: 5 }}
-                                /> */}
-
                                 <CustomDropdown 
                                 placeholder={'Food Type'}    
                                 setCustomValue={setFoodType}     

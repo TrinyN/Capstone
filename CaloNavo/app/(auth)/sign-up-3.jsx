@@ -1,11 +1,9 @@
 import { TextInput, TouchableOpacity, Text, View, ScrollView } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from '../styles';
-import { StatusBar } from 'expo-status-bar';
 import { router } from 'expo-router';
 import Feather from "react-native-vector-icons/Feather";
-import DropDownPicker from 'react-native-dropdown-picker';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CustomDropdown from '../components/CustomDropdown';
 
 
