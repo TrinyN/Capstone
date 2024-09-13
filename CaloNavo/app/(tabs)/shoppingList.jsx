@@ -198,7 +198,6 @@ const ShoppingList = () => {
                             }}
                             sections={shoppingList}
                             keyExtractor={(item) => item}
-                            scrollEnabled={false}
 
                             renderItem={({ item, section }) =>
                                 !collapsedSections[section.title] && (
@@ -340,7 +339,6 @@ const ShoppingList = () => {
                             <TouchableOpacity onPress={resetCheckmarks} style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Feather name="rotate-ccw" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
                                 <Text style={styles.optionsText}>
-                                <Text numberOfLines={1} style={styles.optionsText}>
                                     Reset Checkmarks
                                 </Text>
                             </TouchableOpacity>
@@ -363,6 +361,7 @@ const ShoppingList = () => {
 
                             {/* Generating list from tracker screen(s) */}
                             <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 2}}>
+                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Feather name="shopping-cart" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
                                 <Text style={styles.optionsText}>
                                     Generate List
