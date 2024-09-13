@@ -2,7 +2,7 @@ import { TouchableOpacity, TextInput, Text, View, FlatList, SectionList, ScrollV
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
-import { useState, useEffect } from 'react';
+import { useState, useRef  } from 'react';
 import { Overlay } from '@rneui/base';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { router } from 'expo-router';
@@ -19,14 +19,6 @@ const Profile = () => {
     // change visibility of log out pop up
     const toggleLogOut = () => {
         setVisibleLogOut(!visibleLogOut);
-    };
-
-    // saves editability state
-    const [editable, setEditable] = useState(false);
-
-    // change whether text input is editable
-    const toggleEditable = () => {
-        setEditable(!editable);
     };
 
     // test data, will need to start off empty and be saved for each user
@@ -47,6 +39,18 @@ const Profile = () => {
 
 
     const Item = ({ title, value, index, type, options }) => {
+        const textInputRef = useRef(null);
+
+        // saves editability state
+        const [editable, setEditable] = useState(false);
+
+        // change whether text input is editable
+        const toggleEditable = () => {
+            setEditable(!editable);
+            textInputRef.current.focus(); // Focus the TextInput if it is becoming editable
+
+        };
+
         // if index is even, have transparent background, else dark gray
         const backgroundColor = index % 2 === 0 ? 'transparent' : '#0E1116';
 
@@ -92,11 +96,13 @@ const Profile = () => {
                         <View style={{ maxWidth: '75%' }}>
 
                             <TextInput
+                                ref={textInputRef}
                                 placeholder={value}
                                 placeholderTextColor={'#F2F4F3'}
                                 placeholderStyle={[styles.smallText, { textAlign: 'left', flex: 1, paddingLeft: 10 }]}
                                 editable={editable}
                                 style={[styles.smallText, { textAlign: 'left', flex: 1, paddingLeft: 10 }]}
+                                selectionColor={'#CB9CF2'}
                             >
                             </TextInput>
                         </View>
