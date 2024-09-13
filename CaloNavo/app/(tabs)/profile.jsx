@@ -48,23 +48,23 @@ const Profile = () => {
         { title: 'Water Goal', value: '9 cups per day', type: 'text', options: [] },
         { title: 'Weight Goal', value: 'Gain', type: 'dropdown', options: ['Gain', 'Lose', 'Maintain'] },
         { title: 'Diet Plan', value: 'Keto (Custom)', type: 'dropdown', options: ['Keto', 'Vegetarian'] },
-        { title: 'Macro Ratio Goal', value: '30:30:30', type: 'text', options: [] },
+        // { title: 'Macro Ratio Goal', value: '30:30:30', type: 'text', options: [] },
 
     ]);
 
-    // open state of dropdown picker
-    const [open, setOpen] = useState(false);
-
     // selected value of dropdown picker
-    const [value, setValue] = useState([]);
+    const [selectedValue, setSelectedValue] = useState([]);
 
     const Item = ({ title, value, index, type, options }) => {
         // if index is even, have transparent background, else dark gray
         const backgroundColor = index % 2 === 0 ? 'transparent' : '#0E1116';
-        
+
         // if list item is a dropdown type, zIndex = 1000. When the zIndex is higher it should appear in front (doesn't work on this page for some reason)
-        const zIndex = open && type === 'dropdown' ? 1000 : 1;
-        
+        const zIndex = type === 'dropdown' ? 1000 : 1;
+
+        // open state of dropdown picker
+        const [open, setOpen] = useState(false);
+
         return (
             <View style={[{ backgroundColor, zIndex, flexDirection: 'row', paddingVertical: 10, alignItems: 'center', paddingRight: 10, flex: 1 }]}>
                 <View style={{ width: '40%' }}>
@@ -78,11 +78,10 @@ const Profile = () => {
                         <DropDownPicker
                             zIndex={10000}
                             open={open}
-                            value={value}
+                            value={selectedValue}
                             setOpen={setOpen}
-                            setValue={setValue}
-                            // setItems={setItems}
-                            // items={items}
+                            setValue={setSelectedValue}
+                            items={options.map(option => ({ label: option, value: option }))}
 
                             // fyi: items are the different items you can select in the dropdown
                             // value is the item that has been selected by the user
@@ -93,7 +92,7 @@ const Profile = () => {
                             theme='DARK'
                             placeholder={value}
                             placeholderStyle={[styles.smallText, { textAlign: 'left', paddingVertical: 0 }]}
-                            dropDownContainerStyle={{ zIndex: 1000, elevation: 3 }}
+                            dropDownContainerStyle={{ zIndex: 1000, elevation: 3}}
                         />
                     </View>
                 ) : (
