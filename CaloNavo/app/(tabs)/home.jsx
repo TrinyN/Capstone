@@ -33,7 +33,7 @@ const Home = () => {
                     </View>
 
                     {/* View to contain all other major elements, like the frames for each quick tool */}
-                    <View style={{ flex: 5, paddingBottom: 100 }}>
+                    <View style={{ flex: 5, paddingBottom: 50 }}>
 
                         {/* Wide View Frame for Daily Diet Progress */}
                         <View style={styles.viewHomeFrameWide}>
