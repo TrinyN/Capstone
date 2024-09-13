@@ -198,6 +198,7 @@ const ShoppingList = () => {
                             }}
                             sections={shoppingList}
                             keyExtractor={(item) => item}
+                            scrollEnabled={false}
 
                             renderItem={({ item, section }) =>
                                 !collapsedSections[section.title] && (

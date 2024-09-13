@@ -80,14 +80,13 @@ const Profile = () => {
 
                             // fyi: items are the different items you can select in the dropdown
                             // value is the item that has been selected by the user
-
-
+                            dropDownDirection='TOP'
                             // styling
                             style={{ backgroundColor: 'transparent', borderWidth: 0, maxHeight: 27, paddingHorizontal: 10, minHeight: 27 }}
                             theme='DARK'
                             placeholder={value}
                             placeholderStyle={[styles.smallText, { textAlign: 'left', paddingVertical: 0 }]}
-                            dropDownContainerStyle={{ theme: 'DARK', borderWidth: 0, position: 'static', marginBottom: 10 }}
+                            dropDownContainerStyle={{ theme: 'DARK', borderWidth: 0, position: 'absolute', marginBottom: 10 }}
                             textStyle={[styles.smallText, { color: '#ABABAB', textAlign: 'left' }]}
 
                         />
@@ -95,10 +94,11 @@ const Profile = () => {
                 ) : (
                     // else, render a text input and icon
                     <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
-                        <View style={{ maxWidth: '75%' }}>
+                        <View style={{ flex: 1 }}>
 
                             <TextInput
                                 ref={textInputRef}
+                                multiline={false}
                                 placeholder={value}
                                 placeholderTextColor={'#F2F4F3'}
                                 placeholderStyle={[styles.smallText, { textAlign: 'left', flex: 1, paddingLeft: 10 }]}
@@ -109,8 +109,8 @@ const Profile = () => {
                             </TextInput>
                         </View>
 
-                        <View style={{ alignItems: 'flex-end', justifyContent: 'center', flex: 1, paddingRight: 12 }}>
-                            <TouchableOpacity onPress={toggleEditable} style={{ width: 15, position: 'absolute' }}>
+                        <View style={{ alignItems: 'flex-end', justifyContent: 'center', paddingRight: 12, paddingLeft: 10 }}>
+                            <TouchableOpacity onPress={toggleEditable} style={{ width: 15}}>
                                 <Feather name={"edit-2"} size={15} color="#CB9CF2" />
                             </TouchableOpacity>
                         </View>
@@ -149,6 +149,7 @@ const Profile = () => {
                             data={userInfo}
                             renderItem={({ item, index }) => <Item title={item.title} value={item.value} index={index} type={item.type} options={item.options} item={item} />}
                             keyExtractor={item => item.title}
+                            scrollEnabled={false}
                         />
 
                     </View>
