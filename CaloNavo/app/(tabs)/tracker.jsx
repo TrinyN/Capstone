@@ -135,6 +135,7 @@ const Tracker = () => {
                             }}
                             sections={foodList}
                             keyExtractor={(item) => item}
+                            scrollEnabled={false}
 
                             // Rendering items based on data set and their respective sections
                             renderItem={({ item, section }) =>
@@ -208,6 +209,7 @@ const Tracker = () => {
                                 backgroundColor: 'rgba(27,33,43,0.5)',
                                 borderRadius: 8,
                             }}
+                            scrollEnabled={false}
                             sections={water}
                             keyExtractor={(item) => item}
 
@@ -251,6 +253,7 @@ const Tracker = () => {
                                 backgroundColor: 'rgba(27,33,43,0.5)',
                                 borderRadius: 8,
                             }}
+                            scrollEnabled={false}
                             sections={exerciseList}
                             keyExtractor={(item) => item}
                             
