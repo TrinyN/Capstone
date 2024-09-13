@@ -2,7 +2,7 @@ import { TouchableOpacity, TextInput, Text, View, FlatList, SectionList, ScrollV
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
-import { useState, useRef  } from 'react';
+import { useState, useRef } from 'react';
 import { Overlay } from '@rneui/base';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { router } from 'expo-router';
@@ -11,6 +11,8 @@ import { router } from 'expo-router';
 // problems:
 // looks weird on android (feather icon positions doesnt line up with drop down icon)
 // make email not be editable and no edit icon next to it
+// idk if keyboard pops up when edit icon is clicked
+// change data types ex: birth date should be a date and allow user to pick from calendar maybe, height should allow user to input value for ft and also inches
 
 const Profile = () => {
     // saves visibility of log out pop up
@@ -86,7 +88,7 @@ const Profile = () => {
                             placeholder={value}
                             placeholderStyle={[styles.smallText, { textAlign: 'left', paddingVertical: 0 }]}
                             dropDownContainerStyle={{ theme: 'DARK', borderWidth: 0, position: 'static', marginBottom: 10 }}
-                            textStyle={[styles.smallText, { textAlign: 'left' }]}
+                            textStyle={[styles.smallText, { color: '#ABABAB', textAlign: 'left' }]}
 
                         />
                     </View>
@@ -101,7 +103,7 @@ const Profile = () => {
                                 placeholderTextColor={'#F2F4F3'}
                                 placeholderStyle={[styles.smallText, { textAlign: 'left', flex: 1, paddingLeft: 10 }]}
                                 editable={editable}
-                                style={[styles.smallText, { textAlign: 'left', flex: 1, paddingLeft: 10 }]}
+                                style={[styles.smallText, { color: '#ABABAB', textAlign: 'left', flex: 1, paddingLeft: 10 }]}
                                 selectionColor={'#CB9CF2'}
                             >
                             </TextInput>
@@ -157,6 +159,18 @@ const Profile = () => {
                             <Text>
                                 fajfdafkfh
                             </Text>
+                        </View>
+
+                    </View>
+
+                    {/* Macro Pi Chart */}
+                    <View style={{ paddingTop: 30 }}>
+                        <View style={{}}>
+                            <TouchableOpacity style={[styles.button, {}]}>
+                                <Text style={styles.defaultText} >
+                                    Save Changes
+                                    </Text>
+                            </TouchableOpacity>
                         </View>
 
                     </View>
