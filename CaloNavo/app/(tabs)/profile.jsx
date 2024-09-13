@@ -1,23 +1,16 @@
-import { TouchableOpacity, TextInput, Text, View, FlatList, ScrollView } from 'react-native';
+import { TouchableOpacity, TextInput, Text, View, FlatList, SectionList, ScrollView } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
 import { useState, useEffect } from 'react';
-import Checkbox from 'expo-checkbox';
-import { ListItem, Overlay } from '@rneui/base';
-import CustomDropdown from '../components/CustomDropdown';
+import { Overlay } from '@rneui/base';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { router } from 'expo-router';
 
 
 // problems:
 // looks weird on android (feather icon positions doesnt line up with drop down icon)
-// drop down is behind other items in list (zIndex is supposed to fix this but doesnt)
-// the transparent background looks good but hides the drop down
-
 // make email not be editable and no edit icon next to it
-
-// need to fix drop down elements
 
 const Profile = () => {
     // saves visibility of log out pop up
@@ -48,35 +41,31 @@ const Profile = () => {
         { title: 'Water Goal', value: '9 cups per day', type: 'text', options: [] },
         { title: 'Weight Goal', value: 'Gain', type: 'dropdown', options: ['Gain', 'Lose', 'Maintain'] },
         { title: 'Diet Plan', value: 'Keto (Custom)', type: 'dropdown', options: ['Keto', 'Vegetarian'] },
-        // { title: 'Macro Ratio Goal', value: '30:30:30', type: 'text', options: [] },
+        { title: 'Macro Ratio Goal', value: '30:30:30', type: 'text', options: [] },
 
     ]);
 
-    // selected value of dropdown picker
-    const [selectedValue, setSelectedValue] = useState([]);
 
     const Item = ({ title, value, index, type, options }) => {
         // if index is even, have transparent background, else dark gray
         const backgroundColor = index % 2 === 0 ? 'transparent' : '#0E1116';
 
-        // if list item is a dropdown type, zIndex = 1000. When the zIndex is higher it should appear in front (doesn't work on this page for some reason)
-        const zIndex = type === 'dropdown' ? 1000 : 1;
-
         // open state of dropdown picker
         const [open, setOpen] = useState(false);
 
+        // selected value of dropdown picker
+        const [selectedValue, setSelectedValue] = useState({});
+
         return (
-            <View style={[{ backgroundColor, zIndex, flexDirection: 'row', paddingVertical: 10, alignItems: 'center', paddingRight: 10, flex: 1 }]}>
+            <View style={[{ backgroundColor, flexDirection: 'row', paddingVertical: 10, alignItems: 'center', paddingRight: 10, flex: 1, height: 50, alignItems: 'flex-start' }]}>
                 <View style={{ width: '40%' }}>
                     <Text style={[styles.smallText, { fontFamily: 'Inter_600SemiBold', color: '#CB9CF2', textAlign: 'left', paddingHorizontal: 10 }]}>{title}</Text>
 
                 </View>
-
                 {/* if list item is drop down, render a drop down */}
                 {(type === 'dropdown') ? (
-                    <View style={{ flex: 1, zIndex: 1000 }}>
+                    <View style={{ flex: 1 }}>
                         <DropDownPicker
-                            zIndex={10000}
                             open={open}
                             value={selectedValue}
                             setOpen={setOpen}
@@ -92,7 +81,9 @@ const Profile = () => {
                             theme='DARK'
                             placeholder={value}
                             placeholderStyle={[styles.smallText, { textAlign: 'left', paddingVertical: 0 }]}
-                            dropDownContainerStyle={{ zIndex: 1000, elevation: 3}}
+                            dropDownContainerStyle={{ theme: 'DARK', borderWidth: 0, position: 'static', marginBottom: 10 }}
+                            textStyle={[styles.smallText, { textAlign: 'left' }]}
+
                         />
                     </View>
                 ) : (
@@ -147,7 +138,6 @@ const Profile = () => {
                     {/* Flat list to show profile information */}
                     <View style={{ borderRadius: 10, backgroundColor: 'rgba(27,33,43,0.5)' }}>
                         <FlatList
-
                             data={userInfo}
                             renderItem={({ item, index }) => <Item title={item.title} value={item.value} index={index} type={item.type} options={item.options} item={item} />}
                             keyExtractor={item => item.title}
