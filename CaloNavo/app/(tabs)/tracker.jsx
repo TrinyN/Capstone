@@ -260,7 +260,10 @@ const Tracker = () => {
 
 
                     {/* pop up for adding food, water, or exercise*/}
-                    <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{ backgroundColor: '#0E1116', borderRadius: 8, borderColor: '#CB9CF2', borderWidth: 2 }}>
+                    <Overlay isVisible={visible} onBackdropPress={toggleOverlay} 
+                    overlayStyle={{ backgroundColor: '#0E1116', borderRadius: 8, 
+                    borderColor: '#CB9CF2', borderWidth: 2, width: '75%', height: '50%', 
+                    flex: 0.4 }}>
                         <View style={{ paddingVertical: 8, paddingRight: 8, flexDirection: 'row-reverse' }}>
                             <TouchableOpacity onPress={toggleOverlay} style={{ width: 25 }}>
                                 <Feather name="x" size={25} color="#F2F4F3" />
