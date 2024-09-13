@@ -15,6 +15,8 @@ import { router } from 'expo-router';
 // drop down is behind other items in list (zIndex is supposed to fix this but doesnt)
 // the transparent background looks good but hides the drop down
 
+// make email not be editable and no edit icon next to it
+
 // need to fix drop down elements
 
 const Profile = () => {
@@ -26,8 +28,10 @@ const Profile = () => {
         setVisibleLogOut(!visibleLogOut);
     };
 
+    // saves editability state
     const [editable, setEditable] = useState(false);
-    // change visibility of log out pop up
+
+    // change whether text input is editable
     const toggleEditable = () => {
         setEditable(!editable);
     };
@@ -48,20 +52,27 @@ const Profile = () => {
 
     ]);
 
+    // open state of dropdown picker
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState([]);
-    const Item = ({ title, value, index, type, options }) => {
-        const backgroundColor = index % 2 === 0 ? 'transparent' : '#0E1116';
-        // const zIndex = index % 2 === 0 ? 1 : 5;
-        const zIndex = open && type === 'dropdown' ? 1000 : 1;
-        return (
 
+    // selected value of dropdown picker
+    const [value, setValue] = useState([]);
+
+    const Item = ({ title, value, index, type, options }) => {
+        // if index is even, have transparent background, else dark gray
+        const backgroundColor = index % 2 === 0 ? 'transparent' : '#0E1116';
+        
+        // if list item is a dropdown type, zIndex = 1000. When the zIndex is higher it should appear in front (doesn't work on this page for some reason)
+        const zIndex = open && type === 'dropdown' ? 1000 : 1;
+        
+        return (
             <View style={[{ backgroundColor, zIndex, flexDirection: 'row', paddingVertical: 10, alignItems: 'center', paddingRight: 10, flex: 1 }]}>
                 <View style={{ width: '40%' }}>
                     <Text style={[styles.smallText, { fontFamily: 'Inter_600SemiBold', color: '#CB9CF2', textAlign: 'left', paddingHorizontal: 10 }]}>{title}</Text>
 
                 </View>
 
+                {/* if list item is drop down, render a drop down */}
                 {(type === 'dropdown') ? (
                     <View style={{ flex: 1, zIndex: 1000 }}>
                         <DropDownPicker
@@ -77,7 +88,7 @@ const Profile = () => {
                             // value is the item that has been selected by the user
 
 
-
+                            // styling
                             style={{ backgroundColor: 'transparent', borderWidth: 0, maxHeight: 27, paddingHorizontal: 10, minHeight: 27 }}
                             theme='DARK'
                             placeholder={value}
@@ -86,7 +97,7 @@ const Profile = () => {
                         />
                     </View>
                 ) : (
-
+                    // else, render a text input and icon
                     <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
                         <View style={{ maxWidth: '75%' }}>
 
@@ -134,6 +145,7 @@ const Profile = () => {
 
                     </View>
 
+                    {/* Flat list to show profile information */}
                     <View style={{ borderRadius: 10, backgroundColor: 'rgba(27,33,43,0.5)' }}>
                         <FlatList
 
@@ -143,10 +155,12 @@ const Profile = () => {
                         />
 
                     </View>
+
+                    {/* Macro Pi Chart */}
                     <View style={{ paddingTop: 30 }}>
                         <View style={{ borderRadius: 10, backgroundColor: 'rgba(27,33,43,0.5)' }}>
                             <Text>
-                                fajkfh
+                                fajfdafkfh
                             </Text>
                         </View>
 
