@@ -5,12 +5,14 @@ import Feather from "react-native-vector-icons/Feather";
 import { useState, useEffect } from 'react';
 import Checkbox from 'expo-checkbox';
 import { Overlay } from '@rneui/base';
+import CustomDropdown from '../components/CustomDropdown';
 
-// todo: fix dropdown for food type
+// todo:
 // save list for user
-// options functionality
+// generate shopping list functionality
 // add the bottom text: "It looks like your shopping list blah"
 // input validation
+// make handle add food not work if same food name
 
 const ShoppingList = () => {
 
@@ -41,6 +43,18 @@ const ShoppingList = () => {
     const toggleOptions = () => {
         setVisibleOptions(!visibleOptions);
     };
+
+    const [items, setItems] = useState([
+        { label: 'Fruit', value: 'Fruit' },
+        { label: 'Vegetable', value: 'Vegetable' },
+        { label: 'Protein', value: 'Protein' },
+        { label: 'Dairy', value: 'Dairy' },
+        { label: 'Grain', value: 'Grain' },
+        { label: 'Snack', value: 'Snack' },
+        { label: 'Beverage', value: 'Beverage' },
+        { label: 'Misc.', value: 'Misc.' }
+
+    ]);
 
     // test data, will need to start off empty and be saved for each user
     const [shoppingList, setShoppingList] = useState([
@@ -90,25 +104,61 @@ const ShoppingList = () => {
 
     // called when user clicks add button
     const handleAddFood = () => {
-        // find the section that matches foodType entered by user
-        const updatedShoppingList = shoppingList.map(section => {
-            if (section.title == foodType) {
-                // update the data array for the matched food type
-                return {
-                    ...section,
-                    data: [...section.data, foodName.charAt(0).toUpperCase() + foodName.slice(1).toLowerCase()] // Add the new food item
-                };
-            }
-            // return the section as is if it does not match
-            return section;
-        });
 
-        // update the shopping list
-        setShoppingList(updatedShoppingList)
+        if (foodName != '') {
+
+            // find the section that matches foodType entered by user
+            const updatedShoppingList = shoppingList.map(section => {
+                if (section.title == foodType.toString()) {
+                    // update the data array for the matched food type
+                    return {
+                        ...section,
+                        data: [...section.data, foodName.charAt(0).toUpperCase() + foodName.slice(1).toLowerCase()] // Add the new food item
+                    };
+                }
+                // return the section as is if it does not match
+                return section;
+            });
+
+            // update the shopping list
+            setShoppingList(updatedShoppingList)
+
+            // delete food name after it's added to the list
+            setFoodName('')
+        }
 
         // close overlay
         toggleOverlay()
     }
+
+    const resetCheckmarks = () => {
+        setCheckedItems({})
+    }
+
+    const deleteAll = () => {
+        const emptyShoppingList = [
+            { title: 'Fruit', data: [] },
+            { title: 'Vegetable', data: [] },
+            { title: 'Protein', data: [] },
+            { title: 'Dairy', data: [] },
+            { title: 'Grain', data: [] },
+            { title: 'Snack', data: [] },
+            { title: 'Beverage', data: [] },
+            { title: 'Misc.', data: [] },
+        ];
+        setShoppingList(emptyShoppingList)
+    };
+
+    const deleteCheckedItems = () => {
+        const updatedShoppingList = shoppingList.map(section => {
+            return {
+                ...section,
+                data: section.data.filter(item => !checkedItems[item])
+            };
+        });
+    
+        setShoppingList(updatedShoppingList);
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -119,7 +169,7 @@ const ShoppingList = () => {
 
                     {/* Screen header */}
                     <View style={{ marginTop: 70, flexDirection: 'row', paddingBottom: 20, alignItems: 'center' }}>
-                        
+
                         <Text style={[styles.titleText, { flex: 1 }]}>
                             Shopping List
                         </Text>
@@ -155,7 +205,7 @@ const ShoppingList = () => {
 
                                         {/* View to hold checkbox and item name */}
                                         <View style={{ backgroundColor: '#0E1116', flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15 }}>
-                                            
+
                                             {/* Checkboxes for items on list */}
                                             <Checkbox
                                                 color='#CB9CF2'
@@ -171,7 +221,8 @@ const ShoppingList = () => {
                                                         paddingLeft: 30,
                                                         paddingVertical: 10,
                                                         textDecorationLine: checkedItems[item] ? 'line-through' : 'none',
-                                                        color: checkedItems[item] ? '#ABABAB' : '#F2F4F3'
+                                                        color: checkedItems[item] ? '#ABABAB' : '#F2F4F3',
+                                                        textDecorationColor: '#F2F4F3'
                                                     }
                                                 ]}>
                                                 {item}
@@ -201,6 +252,7 @@ const ShoppingList = () => {
                                                         flex: 1,
                                                         fontFamily: 'Inter_600SemiBold',
                                                         textDecorationLine: areAllItemsChecked(section.data) ? 'line-through' : 'none',
+                                                        textDecorationColor: '#CB9CF2',
                                                         color: areAllItemsChecked(section.data) ? '#6F5882' : '#CB9CF2',
                                                     }
                                                 ]}>
@@ -230,26 +282,20 @@ const ShoppingList = () => {
                     
                     {/* NOTE: Adjust Overlay's flex or width/height to change its size properly */}
                     {/* Popup/Overlay for adding food in shopping list */}
-<<<<<<< Updated upstream
-                    <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{ backgroundColor: '#0E1116', borderRadius: 8, borderColor: '#CB9CF2', borderWidth: 2 }}>
-                        
-=======
                     <Overlay isVisible={visible} onBackdropPress={toggleOverlay} 
                         overlayStyle={{ backgroundColor: '#0E1116', borderRadius: 8, 
                         borderColor: '#CB9CF2', borderWidth: 2, width: '75%', height: '50%', 
                         flex: 0.4 }}>
-
->>>>>>> Stashed changes
                         {/* View to hold the exit icon */}
                         <View style={{ paddingVertical: 8, paddingRight: 8, flexDirection: 'row-reverse' }}>
                             <TouchableOpacity onPress={toggleOverlay} style={{ width: 25 }}>
                                 <Feather name="x" size={25} color="#F2F4F3" />
                             </TouchableOpacity>
                         </View>
-                        
+
                         {/* Handling the input of a food into the shopping list */}
                         <View style={[styles.viewContainer, {}]}>
-                            
+
                             {/* Food Name input */}
                             <View style={{ padding: 10 }}>
                                 <TextInput style={styles.inputFieldStyle}
@@ -260,16 +306,15 @@ const ShoppingList = () => {
                                 >
                                 </TextInput>
                             </View>
-                            
+
                             {/* Food Type input */}
-                            <View style={{ padding: 10 }}>
-                                <TextInput style={[styles.inputFieldStyle]}
-                                    placeholder='Food Type'
-                                    selectionColor='#CB9CF2'
-                                    placeholderTextColor='rgba(242,244,243, 0.2)'
-                                    onChangeText={(text) => setFoodType(text)}
-                                >
-                                </TextInput>
+                            <View style={{ padding: 10, zIndex: 1 }}>
+                                <CustomDropdown 
+                                placeholder={'Food Type'}    
+                                setCustomValue={setFoodType}     
+                                items={items}            
+                                setItems={setItems}           
+                                />
                             </View>
 
                             {/* Submit button */}
@@ -286,12 +331,12 @@ const ShoppingList = () => {
 
                     {/* Popup for options menu */}
                     <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={styles.optionsMenu}>
-                        
+
                         {/* View to contain all options */}
                         <View style={{ paddingHorizontal: 8, justifyContent: 'center' }}>
-                            
+
                             {/* Resetting checkmarks */}
-                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TouchableOpacity onPress={resetCheckmarks} style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Feather name="rotate-ccw" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
                                 <Text style={styles.optionsText}>
                                     Reset Checkmarks
@@ -299,7 +344,7 @@ const ShoppingList = () => {
                             </TouchableOpacity>
 
                             {/* Deleting all items from list */}
-                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TouchableOpacity onPress={deleteAll} style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Feather name="trash-2" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
                                 <Text style={styles.optionsText}>
                                     Delete All
@@ -307,7 +352,7 @@ const ShoppingList = () => {
                             </TouchableOpacity>
 
                             {/* Deleting checked items from list */}
-                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TouchableOpacity onPress={deleteCheckedItems} style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Feather name="x-square" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
                                 <Text style={styles.optionsText}>
                                     Delete Checked
