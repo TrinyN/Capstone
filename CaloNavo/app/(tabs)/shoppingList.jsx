@@ -360,7 +360,6 @@ const ShoppingList = () => {
                             </TouchableOpacity>
 
                             {/* Generating list from tracker screen(s) */}
-                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 2}}>
                             <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Feather name="shopping-cart" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
                                 <Text style={styles.optionsText}>
