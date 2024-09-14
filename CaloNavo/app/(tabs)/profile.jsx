@@ -14,6 +14,7 @@ import { router } from 'expo-router';
 // idk if keyboard pops up when edit icon is clicked
 // change data types ex: birth date should be a date and allow user to pick from calendar maybe, height should allow user to input value for ft and also inches
 
+
 const Profile = () => {
     // saves visibility of log out pop up
     const [visibleLogOut, setVisibleLogOut] = useState(false);
@@ -63,14 +64,14 @@ const Profile = () => {
         const [selectedValue, setSelectedValue] = useState({});
 
         return (
-            <View style={[{ backgroundColor, flexDirection: 'row', paddingVertical: 10, alignItems: 'center', paddingRight: 10, flex: 1, height: 50, alignItems: 'flex-start' }]}>
+            <View style={[{ backgroundColor, flexDirection: 'row', paddingVertical: 10, alignItems: 'center', flex: 1, height: 50, alignItems: 'flex-start' }]}>
                 <View style={{ width: '40%' }}>
                     <Text style={[styles.smallText, { fontFamily: 'Inter_600SemiBold', color: '#CB9CF2', textAlign: 'left', paddingHorizontal: 10 }]}>{title}</Text>
 
                 </View>
                 {/* if list item is drop down, render a drop down */}
                 {(type === 'dropdown') ? (
-                    <View style={{ flex: 1 }}>
+                    <View style={{ flex: 1}}>
                         <DropDownPicker
                             open={open}
                             value={selectedValue}
