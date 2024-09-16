@@ -156,17 +156,17 @@ const Profile = () => {
                     </View>
 
                     {/* Macro Pi Chart */}
-                    <View style={{ paddingTop: 30 }}>
+                    {/* <View style={{ paddingTop: 30 }}>
                         <View style={{ borderRadius: 10, backgroundColor: 'rgba(27,33,43,0.5)' }}>
                             <Text>
                                 fajfdafkfh
                             </Text>
                         </View>
 
-                    </View>
+                    </View> */}
 
-                    {/* Macro Pi Chart */}
-                    <View style={{ paddingTop: 30 }}>
+                    {/* Save Changes Button */}
+                    {/* <View style={{ paddingTop: 30 }}>
                         <View style={{}}>
                             <TouchableOpacity style={[styles.button, {}]}>
                                 <Text style={styles.defaultText} >
@@ -175,7 +175,7 @@ const Profile = () => {
                             </TouchableOpacity>
                         </View>
 
-                    </View>
+                    </View> */}
 
 
 
