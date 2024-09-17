@@ -64,9 +64,9 @@ const Profile = () => {
         const [selectedValue, setSelectedValue] = useState({});
 
         return (
-            <View style={[{ justifyContent: 'center', backgroundColor, flexDirection: 'row', alignItems: 'center', flex: 1, height: 50 }]}>
+            <View style={[{ justifyContent: 'center', backgroundColor, flexDirection: 'row', alignItems: 'center', flex: 1, height: 50}]}>
                 <View style={{ width: '40%' }}>
-                    <Text style={[styles.smallText, { fontFamily: 'Inter_600SemiBold', color: '#CB9CF2', textAlign: 'left', paddingHorizontal: 10 }]}>{title}</Text>
+                    <Text style={[styles.smallText, { fontFamily: 'Inter_600SemiBold', color: '#CB9CF2', textAlign: 'left', paddingHorizontal: 10, paddingVertical: 10 }]}>{title}</Text>
 
                 </View>
                 {/* if list item is drop down, render a drop down */}
@@ -87,7 +87,7 @@ const Profile = () => {
                             theme='DARK'
                             placeholder={value}
                             placeholderStyle={[styles.smallText, { textAlign: 'left', paddingVertical: 0 }]}
-                            dropDownContainerStyle={{ theme: 'DARK', borderWidth: 0, position: 'absolute', marginBottom: 10 }}
+                            dropDownContainerStyle={{ theme: 'DARK', borderWidth: 0, position: 'absolute'}}
                             textStyle={[styles.smallText, { color: '#ABABAB', textAlign: 'left' }]}
 
                         />
@@ -104,7 +104,7 @@ const Profile = () => {
                                 placeholderTextColor={'#F2F4F3'}
                                 placeholderStyle={[styles.smallText, { textAlign: 'left', flex: 1, paddingLeft: 10 }]}
                                 editable={editable}
-                                style={[styles.smallText, { color: '#ABABAB', textAlign: 'left', flex: 1, paddingLeft: 10 }]}
+                                style={[styles.smallText, { color: '#ABABAB', textAlign: 'left', flex: 1, paddingLeft: 10, marginVertical: 10 }]}
                                 selectionColor={'#CB9CF2'}
                             >
                             </TextInput>
