@@ -343,7 +343,8 @@ const Tracker = () => {
                     </Overlay>
 
                     {/* pop up for options */}
-                    <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={[styles.optionsMenu, { width: 230 }]}>
+                    <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={[styles.optionsMenu, { width: '70%' }]}>
+
 
                         {/* View containing option choices */}
                         <View style={{ paddingHorizontal: 8, justifyContent: 'center' }}>
