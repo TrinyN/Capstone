@@ -196,6 +196,7 @@ const Profile = () => {
                             {/* Macro Pi Chart*/}
                             <View style={{ padding: 20, paddingLeft: 10 }}>
                                 <PieChart widthAndHeight={widthAndHeight} series={series} sliceColor={sliceColor}
+                                style={{strokeWidth:'4', stroke:'#141920'}}
                                 />
                             </View>
                         </View>
