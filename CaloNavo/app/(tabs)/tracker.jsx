@@ -295,7 +295,11 @@ const Tracker = () => {
 
                         {/* pop up for options */}
                     </Overlay>
-                    <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={[styles.optionsMenu, { width: 230 }]}>
+
+                    {/* pop up for options */}
+                    <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={[styles.optionsMenu, { width: '70%' }]}>
+
+                        {/* View containing option choices */}
                         <View style={{ paddingHorizontal: 8, justifyContent: 'center' }}>
                             <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Feather name="edit-3" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />

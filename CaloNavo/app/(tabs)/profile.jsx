@@ -66,7 +66,7 @@ const Profile = () => {
         const [open, setOpen] = useState(false);
 
         return (
-            <View style={[{ backgroundColor, zIndex, flexDirection: 'row', paddingVertical: 10, alignItems: 'center', paddingRight: 10, flex: 1 }]}>
+            <View style={[{ justifyContent: 'center', backgroundColor, flexDirection: 'row', alignItems: 'center', flex: 1, height: 50 }]}>
                 <View style={{ width: '40%' }}>
                     <Text style={[styles.smallText, { fontFamily: 'Inter_600SemiBold', color: '#CB9CF2', textAlign: 'left', paddingHorizontal: 10 }]}>{title}</Text>
 
@@ -74,7 +74,7 @@ const Profile = () => {
 
                 {/* if list item is drop down, render a drop down */}
                 {(type === 'dropdown') ? (
-                    <View style={{ flex: 1, zIndex: 1000 }}>
+                    <View style={{ flex: 1, justifyContent:'center'}}>
                         <DropDownPicker
                             zIndex={10000}
                             open={open}
@@ -88,7 +88,7 @@ const Profile = () => {
 
 
                             // styling
-                            style={{ backgroundColor: 'transparent', borderWidth: 0, maxHeight: 27, paddingHorizontal: 10, minHeight: 27 }}
+                            style={{ alignSelf: 'center', textAlign: 'center', backgroundColor: 'transparent', borderWidth: 0, paddingHorizontal: 10}}
                             theme='DARK'
                             placeholder={value}
                             placeholderStyle={[styles.smallText, { textAlign: 'left', paddingVertical: 0 }]}
@@ -186,13 +186,13 @@ const Profile = () => {
                             </Text>
 
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 30 }}>
-                                <TouchableOpacity onPress={toggleLogOut} style={[styles.button, { backgroundColor: '#0E1116', borderWidth: 1, borderColor: '#F2F4F3', width: 85 }]}>
+                                <TouchableOpacity onPress={toggleLogOut} style={[styles.button, { backgroundColor: '#0E1116', borderWidth: 1, borderColor: '#F2F4F3', width: '40%' }]}>
 
                                     <Text style={[styles.buttonText, { color: '#F2F4F3' }]}>Cancel</Text>
 
                                 </TouchableOpacity>
 
-                                <TouchableOpacity onPress={() => { router.push('') }} style={[styles.button, { backgroundColor: '#CB9CF2', width: 85 }]}>
+                                <TouchableOpacity onPress={() => { router.push('') }} style={[styles.button, { backgroundColor: '#CB9CF2', width: '40%' }]}>
                                     <Text style={[styles.buttonText, { color: '0E1116' }]}>Log Out</Text>
 
                                 </TouchableOpacity>
