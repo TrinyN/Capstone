@@ -198,6 +198,7 @@ const ShoppingList = () => {
                             }}
                             sections={shoppingList}
                             keyExtractor={(item) => item}
+                            scrollEnabled={false}
 
                             renderItem={({ item, section }) =>
                                 !collapsedSections[section.title] && (
@@ -221,7 +222,8 @@ const ShoppingList = () => {
                                                         paddingLeft: 30,
                                                         paddingVertical: 10,
                                                         textDecorationLine: checkedItems[item] ? 'line-through' : 'none',
-                                                        color: checkedItems[item] ? '#ABABAB' : '#F2F4F3'
+                                                        color: checkedItems[item] ? '#ABABAB' : '#F2F4F3',
+                                                        textDecorationColor: '#F2F4F3'
                                                     }
                                                 ]}>
                                                 {item}
@@ -251,6 +253,7 @@ const ShoppingList = () => {
                                                         flex: 1,
                                                         fontFamily: 'Inter_600SemiBold',
                                                         textDecorationLine: areAllItemsChecked(section.data) ? 'line-through' : 'none',
+                                                        textDecorationColor: '#CB9CF2',
                                                         color: areAllItemsChecked(section.data) ? '#6F5882' : '#CB9CF2',
                                                     }
                                                 ]}>
@@ -277,10 +280,13 @@ const ShoppingList = () => {
                     {/* ??? */}
                     <View style={{ padding: 40 }}>
                     </View>
-
+                    
+                    {/* NOTE: Adjust Overlay's flex or width/height to change its size properly */}
                     {/* Popup/Overlay for adding food in shopping list */}
-                    <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{ backgroundColor: '#0E1116', borderRadius: 8, borderColor: '#CB9CF2', borderWidth: 2 }}>
-
+                    <Overlay isVisible={visible} onBackdropPress={toggleOverlay} 
+                        overlayStyle={{ backgroundColor: '#0E1116', borderRadius: 8, 
+                        borderColor: '#CB9CF2', borderWidth: 2, width: '75%', height: '50%', 
+                        flex: 0.4 }}>
                         {/* View to hold the exit icon */}
                         <View style={{ paddingVertical: 8, paddingRight: 8, flexDirection: 'row-reverse' }}>
                             <TouchableOpacity onPress={toggleOverlay} style={{ width: 25 }}>

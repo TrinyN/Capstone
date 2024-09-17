@@ -1,23 +1,19 @@
-import { TouchableOpacity, TextInput, Text, View, FlatList, ScrollView } from 'react-native';
+import { TouchableOpacity, TextInput, Text, View, FlatList, SectionList, ScrollView } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
-import { useState, useEffect } from 'react';
-import Checkbox from 'expo-checkbox';
-import { ListItem, Overlay } from '@rneui/base';
-import CustomDropdown from '../components/CustomDropdown';
+import { useState, useRef } from 'react';
+import { Overlay } from '@rneui/base';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { router } from 'expo-router';
 
 
 // problems:
 // looks weird on android (feather icon positions doesnt line up with drop down icon)
-// drop down is behind other items in list (zIndex is supposed to fix this but doesnt)
-// the transparent background looks good but hides the drop down
-
 // make email not be editable and no edit icon next to it
+// idk if keyboard pops up when edit icon is clicked
+// change data types ex: birth date should be a date and allow user to pick from calendar maybe, height should allow user to input value for ft and also inches
 
-// need to fix drop down elements
 
 const Profile = () => {
     // saves visibility of log out pop up
@@ -26,14 +22,6 @@ const Profile = () => {
     // change visibility of log out pop up
     const toggleLogOut = () => {
         setVisibleLogOut(!visibleLogOut);
-    };
-
-    // saves editability state
-    const [editable, setEditable] = useState(false);
-
-    // change whether text input is editable
-    const toggleEditable = () => {
-        setEditable(!editable);
     };
 
     // test data, will need to start off empty and be saved for each user
@@ -48,22 +36,32 @@ const Profile = () => {
         { title: 'Water Goal', value: '9 cups per day', type: 'text', options: [] },
         { title: 'Weight Goal', value: 'Gain', type: 'dropdown', options: ['Gain', 'Lose', 'Maintain'] },
         { title: 'Diet Plan', value: 'Keto (Custom)', type: 'dropdown', options: ['Keto', 'Vegetarian'] },
-        // { title: 'Macro Ratio Goal', value: '30:30:30', type: 'text', options: [] },
+        { title: 'Macro Ratio Goal', value: '30:30:30', type: 'text', options: [] },
 
     ]);
 
-    // selected value of dropdown picker
-    const [selectedValue, setSelectedValue] = useState([]);
 
     const Item = ({ title, value, index, type, options }) => {
+        const textInputRef = useRef(null);
+
+        // saves editability state
+        const [editable, setEditable] = useState(false);
+
+        // change whether text input is editable
+        const toggleEditable = () => {
+            setEditable(!editable);
+            textInputRef.current.focus(); // Focus the TextInput if it is becoming editable
+
+        };
+
         // if index is even, have transparent background, else dark gray
         const backgroundColor = index % 2 === 0 ? 'transparent' : '#0E1116';
 
-        // if list item is a dropdown type, zIndex = 1000. When the zIndex is higher it should appear in front (doesn't work on this page for some reason)
-        const zIndex = type === 'dropdown' ? 1000 : 1;
-
         // open state of dropdown picker
         const [open, setOpen] = useState(false);
+
+        // selected value of dropdown picker
+        const [selectedValue, setSelectedValue] = useState({});
 
         return (
             <View style={[{ justifyContent: 'center', backgroundColor, flexDirection: 'row', alignItems: 'center', flex: 1, height: 50 }]}>
@@ -71,12 +69,10 @@ const Profile = () => {
                     <Text style={[styles.smallText, { fontFamily: 'Inter_600SemiBold', color: '#CB9CF2', textAlign: 'left', paddingHorizontal: 10 }]}>{title}</Text>
 
                 </View>
-
                 {/* if list item is drop down, render a drop down */}
                 {(type === 'dropdown') ? (
                     <View style={{ flex: 1, justifyContent:'center'}}>
                         <DropDownPicker
-                            zIndex={10000}
                             open={open}
                             value={selectedValue}
                             setOpen={setOpen}
@@ -85,33 +81,37 @@ const Profile = () => {
 
                             // fyi: items are the different items you can select in the dropdown
                             // value is the item that has been selected by the user
-
-
+                            dropDownDirection='TOP'
                             // styling
                             style={{ alignSelf: 'center', textAlign: 'center', backgroundColor: 'transparent', borderWidth: 0, paddingHorizontal: 10}}
                             theme='DARK'
                             placeholder={value}
                             placeholderStyle={[styles.smallText, { textAlign: 'left', paddingVertical: 0 }]}
-                            dropDownContainerStyle={{ zIndex: 1000, elevation: 3}}
+                            dropDownContainerStyle={{ theme: 'DARK', borderWidth: 0, position: 'absolute', marginBottom: 10 }}
+                            textStyle={[styles.smallText, { color: '#ABABAB', textAlign: 'left' }]}
+
                         />
                     </View>
                 ) : (
                     // else, render a text input and icon
                     <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
-                        <View style={{ maxWidth: '75%' }}>
+                        <View style={{ flex: 1 }}>
 
                             <TextInput
+                                ref={textInputRef}
+                                multiline={false}
                                 placeholder={value}
                                 placeholderTextColor={'#F2F4F3'}
                                 placeholderStyle={[styles.smallText, { textAlign: 'left', flex: 1, paddingLeft: 10 }]}
                                 editable={editable}
-                                style={[styles.smallText, { textAlign: 'left', flex: 1, paddingLeft: 10 }]}
+                                style={[styles.smallText, { color: '#ABABAB', textAlign: 'left', flex: 1, paddingLeft: 10 }]}
+                                selectionColor={'#CB9CF2'}
                             >
                             </TextInput>
                         </View>
 
-                        <View style={{ alignItems: 'flex-end', justifyContent: 'center', flex: 1, paddingRight: 12 }}>
-                            <TouchableOpacity onPress={toggleEditable} style={{ width: 15, position: 'absolute' }}>
+                        <View style={{ alignItems: 'flex-end', justifyContent: 'center', paddingRight: 12, paddingLeft: 10 }}>
+                            <TouchableOpacity onPress={toggleEditable} style={{ width: 15}}>
                                 <Feather name={"edit-2"} size={15} color="#CB9CF2" />
                             </TouchableOpacity>
                         </View>
@@ -147,23 +147,35 @@ const Profile = () => {
                     {/* Flat list to show profile information */}
                     <View style={{ borderRadius: 10, backgroundColor: 'rgba(27,33,43,0.5)' }}>
                         <FlatList
-
                             data={userInfo}
                             renderItem={({ item, index }) => <Item title={item.title} value={item.value} index={index} type={item.type} options={item.options} item={item} />}
                             keyExtractor={item => item.title}
+                            scrollEnabled={false}
                         />
 
                     </View>
 
                     {/* Macro Pi Chart */}
-                    <View style={{ paddingTop: 30 }}>
+                    {/* <View style={{ paddingTop: 30 }}>
                         <View style={{ borderRadius: 10, backgroundColor: 'rgba(27,33,43,0.5)' }}>
                             <Text>
                                 fajfdafkfh
                             </Text>
                         </View>
 
-                    </View>
+                    </View> */}
+
+                    {/* Save Changes Button */}
+                    {/* <View style={{ paddingTop: 30 }}>
+                        <View style={{}}>
+                            <TouchableOpacity style={[styles.button, {}]}>
+                                <Text style={styles.defaultText} >
+                                    Save Changes
+                                    </Text>
+                            </TouchableOpacity>
+                        </View>
+
+                    </View> */}
 
 
 

@@ -11,8 +11,10 @@ import { Overlay } from '@rneui/base';
 // add the bottom text: "It looks like your shopping list blah"
 // input validation
 
+// Function to design and display the tracker
 const Tracker = () => {
 
+    // Functions to allow the DropDown menus to work
     const [collapsedSections, setCollapsedSections] = useState({})
 
     const [foodName, setFoodName] = useState('')
@@ -85,10 +87,15 @@ const Tracker = () => {
     //     toggleOverlay()
     // }
 
+    //  Returning the screen to display
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+
+                {/* The "body" of the screen, including its major elements */}
                 <View style={[styles.viewContainer, { flex: 1 }]}>
+
+                    {/* Screen Header */}
                     <View style={{ marginTop: 70, flexDirection: 'row', paddingBottom: 20, alignItems: 'center' }}>
                         <Text style={[styles.titleText, { flex: 1 }]}>
                             Tracker
@@ -97,19 +104,30 @@ const Tracker = () => {
                             <Feather name="more-vertical" size={30} color="#CB9CF2" />
                         </TouchableOpacity>
                     </View>
+
+                    {/* Top View to calculate user's calories eaten and burned with a formula visible to them */}
                     <View style={{ backgroundColor: '#1F2938', borderRadius: 5 }}>
+                        {/* Abstract formula to make numbers make sense*/}
                         <Text style={styles.defaultWhiteText}>
                             Eaten - Burned = blah blah
                         </Text>
+                        {/* TODO: Implement retrieval and calculation of calories burned and eaten */}
+                        {/* Actual numbers of forumla */}
                         <Text style={styles.defaultWhiteText}>
                             Eaten - Burned = blah blah
                         </Text>
                     </View>
+
+                    {/* Add Food Button */}
                     <TouchableOpacity onPress={toggleOverlay}
                         style={[styles.button, { backgroundColor: '#CB9CF2', padding: 1 }]}>
                         <Feather name="plus" size={30} color="#1F2938" />
                     </TouchableOpacity>
+
+                    {/* View for SectionList to store all items of tracker */}
                     <View>
+
+                        {/* List to hold items */}
                         <SectionList
                             style={{
                                 backgroundColor: 'rgba(27,33,43,0.5)',
@@ -117,7 +135,9 @@ const Tracker = () => {
                             }}
                             sections={foodList}
                             keyExtractor={(item) => item}
+                            scrollEnabled={false}
 
+                            // Rendering items based on data set and their respective sections
                             renderItem={({ item, section }) =>
                                 !collapsedSections[section.title] && (
                                     <View>
@@ -137,6 +157,7 @@ const Tracker = () => {
                                     </View>
                                 )
                             }
+                            // List header for Food list
                             ListHeaderComponent={
                                 <View style={{ backgroundColor: '#1F2938' }}>
                                     <Text style={[styles.defaultText, { paddingVertical: 10, paddingHorizontal: 15 }]}>
@@ -146,8 +167,10 @@ const Tracker = () => {
                                 </View>
 
                             }
+                            // Section headers for food types
                             renderSectionHeader={({ section }) => (
                                 <View>
+                                    {/* Making sections collapsible */}
                                     <TouchableOpacity onPress={() => toggleCollapse(section)}>
                                         <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 5 }}>
                                             <Text
@@ -162,6 +185,7 @@ const Tracker = () => {
                                                 ]}>
                                                 {section.title}
                                             </Text>
+                                            {/* Icons for if collapsed/not */}
                                             <Feather name={collapsedSections[section.title] ? "chevron-down" : "chevron-up"} size={25} color='#CB9CF2'
                                                 style={{
                                                     alignSelf: 'flex-end',
@@ -169,21 +193,27 @@ const Tracker = () => {
                                                 }} />
                                         </View>
                                     </TouchableOpacity>
+
+                                    {/* Borderline at bottom of Section Headers */}
                                     <View style={{ height: 2, backgroundColor: '#828282' }} />
                                 </View>
                             )}
                         />
-                        <View style={{ margin: 20 }}>
 
-                        </View>
+                        {/* Space Between Food and Water lists */}
+                        <View style={{ margin: 20 }}></View>
+
+                        {/* Water List */}
                         <SectionList
                             style={{
                                 backgroundColor: 'rgba(27,33,43,0.5)',
                                 borderRadius: 8,
                             }}
+                            scrollEnabled={false}
                             sections={water}
                             keyExtractor={(item) => item}
 
+                            // Generating water amount drank by retrieving data(?)
                             renderItem={({ item, section }) =>
                                 !collapsedSections[section.title] && (
                                     <View>
@@ -203,6 +233,7 @@ const Tracker = () => {
                                     </View>
                                 )
                             }
+                            // List Header for Water List
                             ListHeaderComponent={
                                 <View style={{ backgroundColor: '#1F2938' }}>
                                     <Text style={[styles.defaultText, { paddingVertical: 10, paddingHorizontal: 15 }]}>
@@ -213,17 +244,20 @@ const Tracker = () => {
 
                             }
                         />
-                        <View style={{ margin: 20 }}>
+                        {/* Space between Water and Exercise Lists */}
+                        <View style={{ margin: 20 }}></View>
 
-                        </View>
+                        {/* Exercise List */}
                         <SectionList
                             style={{
                                 backgroundColor: 'rgba(27,33,43,0.5)',
                                 borderRadius: 8,
                             }}
+                            scrollEnabled={false}
                             sections={exerciseList}
                             keyExtractor={(item) => item}
-
+                            
+                            // Rendering Exercise items based on data set of user
                             renderItem={({ item, section }) =>
                                 !collapsedSections[section.title] && (
                                     <View>
@@ -243,6 +277,8 @@ const Tracker = () => {
                                     </View>
                                 )
                             }
+
+                            // List Header for Exercise List
                             ListHeaderComponent={
                                 <View style={{ backgroundColor: '#1F2938' }}>
                                     <Text style={[styles.defaultText, { paddingVertical: 10, paddingHorizontal: 15 }]}>
@@ -254,19 +290,27 @@ const Tracker = () => {
                             }
                         />
                     </View>
-                    <View style={{ padding: 40 }}>
-                    </View>
 
-
+                    {/* Space between Exercise List and screen bottom */}
+                    <View style={{ padding: 40 }}></View>
 
                     {/* pop up for adding food, water, or exercise*/}
-                    <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{ backgroundColor: '#0E1116', borderRadius: 8, borderColor: '#CB9CF2', borderWidth: 2 }}>
+                    <Overlay isVisible={visible} onBackdropPress={toggleOverlay} 
+                    overlayStyle={{ backgroundColor: '#0E1116', borderRadius: 8, 
+                    borderColor: '#CB9CF2', borderWidth: 2, width: '75%', height: '50%', 
+                    flex: 0.4 }}>
+
+                        {/* View at top to hold exit button */}
                         <View style={{ paddingVertical: 8, paddingRight: 8, flexDirection: 'row-reverse' }}>
                             <TouchableOpacity onPress={toggleOverlay} style={{ width: 25 }}>
                                 <Feather name="x" size={25} color="#F2F4F3" />
                             </TouchableOpacity>
                         </View>
+
+                        {/* View to hold input fields and sumbit button */}
                         <View style={[styles.viewContainer, {}]}>
+                            
+                            {/* Food name input */}
                             <View style={{ padding: 10 }}>
                                 <TextInput style={styles.inputFieldStyle}
                                     placeholder='Food Name'
@@ -276,6 +320,8 @@ const Tracker = () => {
                                 >
                                 </TextInput>
                             </View>
+
+                            {/* Food type dropdown */}
                             <View style={{ padding: 10 }}>
                                 <TextInput style={[styles.inputFieldStyle]}
                                     placeholder='Food Type'
@@ -285,6 +331,8 @@ const Tracker = () => {
                                 >
                                 </TextInput>
                             </View>
+
+                            {/* Submit button */}
                             <View style={{ paddingHorizontal: 10 }}>
                                 <TouchableOpacity
                                     style={[styles.button, { backgroundColor: '#CB9CF2' }]}>
@@ -292,33 +340,40 @@ const Tracker = () => {
                                 </TouchableOpacity>
                             </View>
                         </View>
-
-                        {/* pop up for options */}
                     </Overlay>
 
                     {/* pop up for options */}
                     <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={[styles.optionsMenu, { width: '70%' }]}>
 
+
                         {/* View containing option choices */}
                         <View style={{ paddingHorizontal: 8, justifyContent: 'center' }}>
+
+                            {/* Notes Option Button */}
                             <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Feather name="edit-3" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
                                 <Text style={styles.optionsText}>
                                     Take Notes
                                 </Text>
                             </TouchableOpacity>
+
+                            {/* Shoping List Option Button */}
                             <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Feather name="shopping-cart" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
                                 <Text style={styles.optionsText}>
                                     Generate Shopping List
                                 </Text>
                             </TouchableOpacity>
+
+                            {/* Zoom in Option Button */}
                             <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Feather name="maximize-2" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
                                 <Text style={styles.optionsText}>
                                     Zoom In
                                 </Text>
                             </TouchableOpacity>
+
+                            {/* Zoom out Option Button */}
                             <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Feather name="minimize-2" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
                                 <Text style={styles.optionsText}>
