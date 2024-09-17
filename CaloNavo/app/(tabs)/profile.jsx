@@ -96,7 +96,7 @@ const Profile = () => {
                             style={{ alignSelf: 'center', textAlign: 'center', backgroundColor: 'transparent', borderWidth: 0, paddingHorizontal: 10 }}
                             theme='DARK'
                             placeholder={value}
-                            placeholderStyle={[styles.smallText, { textAlign: 'left', paddingVertical: 0 }]}
+                            placeholderStyle={[styles.smallText, { textAlign: 'left'}]}
                             dropDownContainerStyle={{ theme: 'DARK', borderWidth: 0, position: 'absolute' }}
                             textStyle={[styles.smallText, { color: '#ABABAB', textAlign: 'left' }]}
 
@@ -104,7 +104,7 @@ const Profile = () => {
                     </View>
                 ) : (
                     // else, render a text input and icon
-                    <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, paddingVertical: 10 }}>
                         <View style={{ flex: 1 }}>
 
                             <TextInput
