@@ -6,6 +6,8 @@ import { useState, useRef } from 'react';
 import { Overlay } from '@rneui/base';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { router } from 'expo-router';
+import PieChart from 'react-native-pie-chart'
+
 
 
 // problems:
@@ -16,6 +18,14 @@ import { router } from 'expo-router';
 
 
 const Profile = () => {
+    const widthAndHeight = 120
+
+    // test data for macro ratio goal
+    const [series, setSeries] = useState([15, 35, 40]);
+
+    // colors for pie chart
+    const sliceColor = ['#80FF72', '#7EE8FA', '#FFF07C']
+
     // saves visibility of log out pop up
     const [visibleLogOut, setVisibleLogOut] = useState(false);
 
@@ -36,7 +46,7 @@ const Profile = () => {
         { title: 'Water Goal', value: '9 cups per day', type: 'text', options: [] },
         { title: 'Weight Goal', value: 'Gain', type: 'dropdown', options: ['Gain', 'Lose', 'Maintain'] },
         { title: 'Diet Plan', value: 'Keto (Custom)', type: 'dropdown', options: ['Keto', 'Vegetarian'] },
-        { title: 'Macro Ratio Goal', value: '30:30:30', type: 'text', options: [] },
+        { title: 'Macro Ratio Goal', value: '15:35:40', type: 'text', options: [] },
 
     ]);
 
@@ -71,7 +81,7 @@ const Profile = () => {
                 </View>
                 {/* if list item is drop down, render a drop down */}
                 {(type === 'dropdown') ? (
-                    <View style={{ flex: 1, justifyContent:'center'}}>
+                    <View style={{ flex: 1, justifyContent: 'center' }}>
                         <DropDownPicker
                             open={open}
                             value={selectedValue}
@@ -83,11 +93,15 @@ const Profile = () => {
                             // value is the item that has been selected by the user
                             dropDownDirection='TOP'
                             // styling
-                            style={{ alignSelf: 'center', textAlign: 'center', backgroundColor: 'transparent', borderWidth: 0, paddingHorizontal: 10}}
+                            style={{ alignSelf: 'center', textAlign: 'center', backgroundColor: 'transparent', borderWidth: 0, paddingHorizontal: 10 }}
                             theme='DARK'
                             placeholder={value}
                             placeholderStyle={[styles.smallText, { textAlign: 'left', paddingVertical: 0 }]}
+<<<<<<< Updated upstream
                             dropDownContainerStyle={{ theme: 'DARK', borderWidth: 0, position: 'absolute', marginBottom: 10 }}
+=======
+                            dropDownContainerStyle={{ theme: 'DARK', borderWidth: 0, position: 'absolute' }}
+>>>>>>> Stashed changes
                             textStyle={[styles.smallText, { color: '#ABABAB', textAlign: 'left' }]}
 
                         />
@@ -111,7 +125,7 @@ const Profile = () => {
                         </View>
 
                         <View style={{ alignItems: 'flex-end', justifyContent: 'center', paddingRight: 12, paddingLeft: 10 }}>
-                            <TouchableOpacity onPress={toggleEditable} style={{ width: 15}}>
+                            <TouchableOpacity onPress={toggleEditable} style={{ width: 15 }}>
                                 <Feather name={"edit-2"} size={15} color="#CB9CF2" />
                             </TouchableOpacity>
                         </View>
@@ -155,39 +169,52 @@ const Profile = () => {
 
                     </View>
 
-                    {/* Macro Pi Chart */}
-                    {/* <View style={{ paddingTop: 30 }}>
-                        <View style={{ borderRadius: 10, backgroundColor: 'rgba(27,33,43,0.5)' }}>
-                            <Text>
-                                fajfdafkfh
-                            </Text>
-                        </View>
+                    {/* Macro Pi Chart Container*/}
+                    <View style={{ paddingTop: 30 }}>
+                        <View style={{ flexDirection: 'row', borderRadius: 10, backgroundColor: 'rgba(27,33,43,0.5)', justifyContent: 'space-between' }}>
+                            <View style={{ justifyContent: 'center', padding: 20, justifyContent: 'space-evenly' }}>
 
-                    </View> */}
+                                {/* Legend for Pie Chart*/}
+                                <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+                                    <View style={{ width: 15, height: 15, borderRadius: 7.5, marginRight: 8, backgroundColor: '#80FF72' }} />
+                                    <Text style={[styles.defaultWhiteText]}>
+                                        Carb {series[0]}{"%"}
+                                    </Text>
+                                </View>
+
+                                <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+                                    <View style={{ width: 15, height: 15, borderRadius: 7.5, marginRight: 8, backgroundColor: '#7EE8FA' }} />
+                                    <Text style={styles.defaultWhiteText}>
+                                        Protein {series[1]}{"%"}
+                                    </Text>
+                                </View>
+
+                                <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+                                    <View style={{ width: 15, height: 15, borderRadius: 7.5, marginRight: 8, backgroundColor: '#FFF07C' }} />
+                                    <Text style={styles.defaultWhiteText}>
+                                        Fat {series[2]}{"%"}
+                                    </Text>
+                                </View>
+                            </View>
+
+                            {/* Macro Pi Chart*/}
+                            <View style={{ padding: 20, paddingLeft: 10 }}>
+                                <PieChart widthAndHeight={widthAndHeight} series={series} sliceColor={sliceColor}
+                                />
+                            </View>
+                        </View>
+                    </View>
 
                     {/* Save Changes Button */}
-                    {/* <View style={{ paddingTop: 30 }}>
-                        <View style={{}}>
-                            <TouchableOpacity style={[styles.button, {}]}>
-                                <Text style={styles.defaultText} >
+                    <View style={{ paddingTop: 30 }}>
+                        <View style={{ paddingBottom: 20 }}>
+                            <TouchableOpacity style={[styles.button, { backgroundColor: '#CB9CF2', paddingVertical: 0 }]}>
+                                <Text style={[styles.defaultText, { color: '#0E1116' }]} >
                                     Save Changes
-                                    </Text>
+                                </Text>
                             </TouchableOpacity>
                         </View>
-
-                    </View> */}
-
-
-
-
-
-
-
-
-
-
-
-
+                    </View>
 
                     {/* Popup for log out */}
                     <Overlay isVisible={visibleLogOut} onBackdropPress={toggleLogOut} overlayStyle={{ backgroundColor: '#0E1116', borderWidth: 2, borderColor: '#CB9CF2', width: '90%' }}>
