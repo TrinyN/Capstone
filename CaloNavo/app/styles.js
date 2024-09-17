@@ -176,8 +176,10 @@ const styles = StyleSheet.create({
     optionsMenu: {
         backgroundColor: '#1F2938',
         borderRadius: 5, 
-        width: 200, 
-        height: 120, 
+        // width: 200, 
+        width: '60%',
+        height: 130, 
+        // height: '20%',
         position: 'absolute',
         top: 100,
         right: 50,

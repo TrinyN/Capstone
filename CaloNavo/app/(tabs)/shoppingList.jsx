@@ -331,13 +331,13 @@ const ShoppingList = () => {
                     </Overlay>
 
                     {/* Popup for options menu */}
-                    <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={styles.optionsMenu}>
+                    <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={[styles.optionsMenu, {justifyContent: 'center'}]}>
 
                         {/* View to contain all options */}
-                        <View style={{ paddingHorizontal: 8, justifyContent: 'center' }}>
+                        <View style={{ paddingHorizontal: 8, justifyContent: 'center'}}>
 
                             {/* Resetting checkmarks */}
-                            <TouchableOpacity onPress={resetCheckmarks} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TouchableOpacity onPress={resetCheckmarks} style={{ flexDirection: 'row', alignItems: 'center'}}>
                                 <Feather name="rotate-ccw" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
                                 <Text style={styles.optionsText}>
                                     Reset Checkmarks
