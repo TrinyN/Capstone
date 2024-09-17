@@ -97,11 +97,7 @@ const Profile = () => {
                             theme='DARK'
                             placeholder={value}
                             placeholderStyle={[styles.smallText, { textAlign: 'left', paddingVertical: 0 }]}
-<<<<<<< Updated upstream
-                            dropDownContainerStyle={{ theme: 'DARK', borderWidth: 0, position: 'absolute', marginBottom: 10 }}
-=======
                             dropDownContainerStyle={{ theme: 'DARK', borderWidth: 0, position: 'absolute' }}
->>>>>>> Stashed changes
                             textStyle={[styles.smallText, { color: '#ABABAB', textAlign: 'left' }]}
 
                         />
