@@ -15,7 +15,7 @@ const Home = () => {
     return (
         <SafeAreaView style={styles.container}>
             {/* This screen is not Scrollable, so a regular view was used. May be changed in the future. */}
-            <View style={[styles.viewContainerMain, { flexGrow: 1 }]}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 
                 {/* The "body" of the screen, including its major elements */}
                 <View style={[styles.viewContainer, { flex: 1 }]}>
@@ -241,7 +241,7 @@ const Home = () => {
                 </View>
 
 
-            </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }
