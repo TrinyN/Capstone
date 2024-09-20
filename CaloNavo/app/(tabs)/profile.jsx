@@ -6,15 +6,25 @@ import { useState, useRef } from 'react';
 import { Overlay } from '@rneui/base';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { router } from 'expo-router';
+import PieChart from 'react-native-pie-chart'
+
 
 
 // problems:
 // looks weird on android (feather icon positions doesnt line up with drop down icon)
 // make email not be editable and no edit icon next to it
-// idk if keyboard pops up when edit icon is clicked
 // change data types ex: birth date should be a date and allow user to pick from calendar maybe, height should allow user to input value for ft and also inches
 
+
 const Profile = () => {
+    const widthAndHeight = 120
+
+    // test data for macro ratio goal
+    const [series, setSeries] = useState([15, 35, 40]);
+
+    // colors for pie chart
+    const sliceColor = ['#80FF72', '#7EE8FA', '#FFF07C']
+
     // saves visibility of log out pop up
     const [visibleLogOut, setVisibleLogOut] = useState(false);
 
@@ -35,23 +45,26 @@ const Profile = () => {
         { title: 'Water Goal', value: '9 cups per day', type: 'text', options: [] },
         { title: 'Weight Goal', value: 'Gain', type: 'dropdown', options: ['Gain', 'Lose', 'Maintain'] },
         { title: 'Diet Plan', value: 'Keto (Custom)', type: 'dropdown', options: ['Keto', 'Vegetarian'] },
-        { title: 'Macro Ratio Goal', value: '30:30:30', type: 'text', options: [] },
+        { title: 'Macro Ratio Goal', value: '15:35:40', type: 'text', options: [] },
 
     ]);
 
 
     const Item = ({ title, value, index, type, options }) => {
-        const textInputRef = useRef(null);
+        const textInputRef = useRef();
 
         // saves editability state
         const [editable, setEditable] = useState(false);
 
         // change whether text input is editable
-        const toggleEditable = () => {
-            setEditable(!editable);
-            textInputRef.current.focus(); // Focus the TextInput if it is becoming editable
-
+        const enableEditable = () => {
+            setEditable(true);
+            setTimeout(() =>textInputRef.current.focus(), 100)// Focus the TextInput if it is becoming editable
         };
+
+        const disableEditable = () => {
+            setEditable(false);
+        }
 
         // if index is even, have transparent background, else dark gray
         const backgroundColor = index % 2 === 0 ? 'transparent' : '#0E1116';
@@ -63,14 +76,14 @@ const Profile = () => {
         const [selectedValue, setSelectedValue] = useState({});
 
         return (
-            <View style={[{ backgroundColor, flexDirection: 'row', paddingVertical: 10, alignItems: 'center', paddingRight: 10, flex: 1, height: 50, alignItems: 'flex-start' }]}>
+            <View style={[{ justifyContent: 'center', backgroundColor, flexDirection: 'row', alignItems: 'center', flex: 1, height: 50 }]}>
                 <View style={{ width: '40%' }}>
                     <Text style={[styles.smallText, { fontFamily: 'Inter_600SemiBold', color: '#CB9CF2', textAlign: 'left', paddingHorizontal: 10 }]}>{title}</Text>
 
                 </View>
                 {/* if list item is drop down, render a drop down */}
                 {(type === 'dropdown') ? (
-                    <View style={{ flex: 1 }}>
+                    <View style={{ flex: 1, justifyContent: 'center' }}>
                         <DropDownPicker
                             open={open}
                             value={selectedValue}
@@ -80,37 +93,39 @@ const Profile = () => {
 
                             // fyi: items are the different items you can select in the dropdown
                             // value is the item that has been selected by the user
-
-
+                            dropDownDirection='TOP'
                             // styling
-                            style={{ backgroundColor: 'transparent', borderWidth: 0, maxHeight: 27, paddingHorizontal: 10, minHeight: 27 }}
+                            style={{ alignSelf: 'center', textAlign: 'center', backgroundColor: 'transparent', borderWidth: 0, paddingHorizontal: 10 }}
                             theme='DARK'
                             placeholder={value}
-                            placeholderStyle={[styles.smallText, { textAlign: 'left', paddingVertical: 0 }]}
-                            dropDownContainerStyle={{ theme: 'DARK', borderWidth: 0, position: 'static', marginBottom: 10 }}
+                            placeholderStyle={[styles.smallText, { textAlign: 'left'}]}
+                            dropDownContainerStyle={{ theme: 'DARK', borderWidth: 0, position: 'absolute' }}
                             textStyle={[styles.smallText, { color: '#ABABAB', textAlign: 'left' }]}
 
                         />
                     </View>
                 ) : (
                     // else, render a text input and icon
-                    <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
-                        <View style={{ maxWidth: '75%' }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, paddingVertical: 10 }}>
+                        <View style={{ flex: 1 }}>
 
                             <TextInput
                                 ref={textInputRef}
+                                multiline={false}
                                 placeholder={value}
                                 placeholderTextColor={'#F2F4F3'}
                                 placeholderStyle={[styles.smallText, { textAlign: 'left', flex: 1, paddingLeft: 10 }]}
                                 editable={editable}
                                 style={[styles.smallText, { color: '#ABABAB', textAlign: 'left', flex: 1, paddingLeft: 10 }]}
                                 selectionColor={'#CB9CF2'}
+                                onSubmitEditing={disableEditable}
+                                onEndEditing={disableEditable}
                             >
                             </TextInput>
                         </View>
 
-                        <View style={{ alignItems: 'flex-end', justifyContent: 'center', flex: 1, paddingRight: 12 }}>
-                            <TouchableOpacity onPress={toggleEditable} style={{ width: 15, position: 'absolute' }}>
+                        <View style={{ alignItems: 'flex-end', justifyContent: 'center', paddingRight: 12, paddingLeft: 10 }}>
+                            <TouchableOpacity onPress={enableEditable} style={{ width: 15 }}>
                                 <Feather name={"edit-2"} size={15} color="#CB9CF2" />
                             </TouchableOpacity>
                         </View>
@@ -149,43 +164,58 @@ const Profile = () => {
                             data={userInfo}
                             renderItem={({ item, index }) => <Item title={item.title} value={item.value} index={index} type={item.type} options={item.options} item={item} />}
                             keyExtractor={item => item.title}
+                            scrollEnabled={false}
                         />
 
                     </View>
 
-                    {/* Macro Pi Chart */}
+                    {/* Macro Pi Chart Container*/}
                     <View style={{ paddingTop: 30 }}>
-                        <View style={{ borderRadius: 10, backgroundColor: 'rgba(27,33,43,0.5)' }}>
-                            <Text>
-                                fajfdafkfh
-                            </Text>
-                        </View>
+                        <View style={{ flexDirection: 'row', borderRadius: 10, backgroundColor: 'rgba(27,33,43,0.5)', justifyContent: 'space-between' }}>
+                            <View style={{ justifyContent: 'center', padding: 20, justifyContent: 'space-evenly' }}>
 
+                                {/* Legend for Pie Chart*/}
+                                <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+                                    <View style={{ width: 15, height: 15, borderRadius: 7.5, marginRight: 8, backgroundColor: '#80FF72' }} />
+                                    <Text style={[styles.defaultWhiteText]}>
+                                        Carb {series[0]}{"%"}
+                                    </Text>
+                                </View>
+
+                                <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+                                    <View style={{ width: 15, height: 15, borderRadius: 7.5, marginRight: 8, backgroundColor: '#7EE8FA' }} />
+                                    <Text style={styles.defaultWhiteText}>
+                                        Protein {series[1]}{"%"}
+                                    </Text>
+                                </View>
+
+                                <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+                                    <View style={{ width: 15, height: 15, borderRadius: 7.5, marginRight: 8, backgroundColor: '#FFF07C' }} />
+                                    <Text style={styles.defaultWhiteText}>
+                                        Fat {series[2]}{"%"}
+                                    </Text>
+                                </View>
+                            </View>
+
+                            {/* Macro Pi Chart*/}
+                            <View style={{ padding: 20, paddingLeft: 10 }}>
+                                <PieChart widthAndHeight={widthAndHeight} series={series} sliceColor={sliceColor}
+                                style={{strokeWidth:'4', stroke:'#141920'}}
+                                />
+                            </View>
+                        </View>
                     </View>
 
-                    {/* Macro Pi Chart */}
+                    {/* Save Changes Button */}
                     <View style={{ paddingTop: 30 }}>
-                        <View style={{}}>
-                            <TouchableOpacity style={[styles.button, {}]}>
-                                <Text style={styles.defaultText} >
+                        <View style={{ paddingBottom: 20 }}>
+                            <TouchableOpacity style={[styles.button, { backgroundColor: '#CB9CF2', paddingVertical: 0 }]}>
+                                <Text style={[styles.defaultText, { color: '#0E1116' }]} >
                                     Save Changes
-                                    </Text>
+                                </Text>
                             </TouchableOpacity>
                         </View>
-
                     </View>
-
-
-
-
-
-
-
-
-
-
-
-
 
                     {/* Popup for log out */}
                     <Overlay isVisible={visibleLogOut} onBackdropPress={toggleLogOut} overlayStyle={{ backgroundColor: '#0E1116', borderWidth: 2, borderColor: '#CB9CF2', width: '90%' }}>
@@ -196,13 +226,13 @@ const Profile = () => {
                             </Text>
 
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 30 }}>
-                                <TouchableOpacity onPress={toggleLogOut} style={[styles.button, { backgroundColor: '#0E1116', borderWidth: 1, borderColor: '#F2F4F3', width: 85 }]}>
+                                <TouchableOpacity onPress={toggleLogOut} style={[styles.button, { backgroundColor: '#0E1116', borderWidth: 1, borderColor: '#F2F4F3', width: '40%' }]}>
 
                                     <Text style={[styles.buttonText, { color: '#F2F4F3' }]}>Cancel</Text>
 
                                 </TouchableOpacity>
 
-                                <TouchableOpacity onPress={() => { router.push('') }} style={[styles.button, { backgroundColor: '#CB9CF2', width: 85 }]}>
+                                <TouchableOpacity onPress={() => { router.push('') }} style={[styles.button, { backgroundColor: '#CB9CF2', width: '40%' }]}>
                                     <Text style={[styles.buttonText, { color: '0E1116' }]}>Log Out</Text>
 
                                 </TouchableOpacity>

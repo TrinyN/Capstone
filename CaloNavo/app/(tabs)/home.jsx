@@ -7,7 +7,7 @@ import { router } from 'expo-router';
 import Feather from "react-native-vector-icons/Feather";
 import { ListView } from 'react-native';
 import { color } from '@rneui/base';
-import { LiquidGauge } from 'react-native-liquid-gauge'
+// import { LiquidGauge } from 'react-native-liquid-gauge'
 
 // Function that handles the design and display of the Home screen
 const Home = () => {
@@ -15,7 +15,7 @@ const Home = () => {
     return (
         <SafeAreaView style={styles.container}>
             {/* This screen is not Scrollable, so a regular view was used. May be changed in the future. */}
-            <View style={[styles.viewContainerMain, { flexGrow: 1 }]}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 
                 {/* The "body" of the screen, including its major elements */}
                 <View style={[styles.viewContainer, { flex: 1 }]}>
@@ -139,9 +139,12 @@ const Home = () => {
                                         style={{
                                             alignItems: 'center',
                                             height: '100%',
-                                            width: '100%'
+                                            width: '100%',
+                                            flex: 1,
+                                            flexDirection: 'column',
                                         }}
                                         onPress={() => router.push('/tracker')}> 
+
                                         <Text style={styles.frameTextWhite}>
                                             Staying {'\n'}
                                             Hydrated?
@@ -149,55 +152,35 @@ const Home = () => {
                                         {/* WARNING: May have to change bottle to be exact size to prevent issues with it changing sizes based on screen */}
                                         {/* TODO: Add calculation of water progress */}
                                         {/* View Containing Water Bottle and Water Progress */}
-                                        <View>
-                                            {/* ImageBackground to hold and clip fluid progress */}
-                                            <ImageBackground 
-                                                // source={require('../../assets/images/water-bottle-1.png')} 
-                                                style={{
-                                                    height: 200,
-                                                    width: 87,
-                                                    alignItems: 'center',
-                                                    resizeMode: 'contain',
-                                                    overflow: 'hidden',
-                                                    // position: 'absolute',
-                                                    // top: 65,
-                                                    bottom: 3,
-                                                    right: -7
-                                                    
-                                                    }}
-                                            >
-                                                {/* View to hold Liquid Progress to allow for movement */}
-                                                <View right={5} top={55}>
-                                                    <LiquidGauge
-                                                        config={{
-                                                        circleColor: '#0E1116',
-                                                        textSize: 0.5,
-                                                        textColor: 'transparent',
-                                                        waveTextColor: 'transparent',
-                                                        waveColor: '#5591F2',
-                                                        circleThickness: 0,
-                                                        textVertPosition: 0.5,
-                                                        waveAnimateTime: 1000,
-                                                        }}
-                                                        // TODO: Reminder: 90 will be max value; adjust calculations accordingly.
-                                                        maxValue={90}
-                                                        value={90} // Doesnt look good at 100%, 90 looks best for max value
-                                                        width={150}
-                                                    />
-                                                </View>
-                                            </ImageBackground>
-                                            <Image
-                                                source={require('../../assets/images/water-bottle-1.png')}
-                                                style={{
-                                                    height: '100%',
-                                                    width: '100%',
-                                                    alignItems: 'center',
-                                                    resizeMode: 'contain',
-                                                    position: 'absolute',
-                                                    right: -30
-                                                }}
-                                            />
-                                        </View>
+
+                                        {/* <View styles={{flex: 1, flexDirection: 'column'}}> */}
+                                        {/* <LiquidGauge
+                                            config={{
+                                            circleColor: '#0E1116',
+                                            textSize: 0.5,
+                                            textColor: 'transparent',
+                                            waveTextColor: 'transparent',
+                                            waveColor: '#4D79FF',
+                                            circleThickness: 0,
+                                            textVertPosition: 0.5,
+                                            waveAnimateTime: 1000,
+                                            }}
+                                            // TODO: Reminder: 90 will be max value; adjust calculations accordingly.
+                                            maxValue={90}
+                                            value={90} // Doesnt look good at 100%, 90 looks best for max value
+                                            width={150}
+                                        /> */}
+                                        <Image
+                                            source={require('../../assets/images/water-bottle-1.png')}
+                                            style={{
+                                                height: '100%',
+                                                width: '100%',
+                                                alignItems: 'center',
+                                                resizeMode: 'contain',
+                                                position: 'relative',
+                                                // right: -30
+                                            }}
+                                        />
                                         
                                     </TouchableOpacity>
 
@@ -259,7 +242,7 @@ const Home = () => {
                 </View>
 
 
-            </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }
