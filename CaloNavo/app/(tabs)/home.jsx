@@ -174,7 +174,7 @@ const Home = () => {
                                                         textSize: 0.5,
                                                         textColor: 'transparent',
                                                         waveTextColor: 'transparent',
-                                                        waveColor: '#FFDDDD',
+                                                        waveColor: '#5591F2',
                                                         circleThickness: 0,
                                                         textVertPosition: 0.5,
                                                         waveAnimateTime: 1000,
