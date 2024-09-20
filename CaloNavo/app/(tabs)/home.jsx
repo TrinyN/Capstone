@@ -152,6 +152,7 @@ const Home = () => {
                                         {/* WARNING: May have to change bottle to be exact size to prevent issues with it changing sizes based on screen */}
                                         {/* TODO: Add calculation of water progress */}
                                         {/* View Containing Water Bottle and Water Progress */}
+
                                         {/* <View styles={{flex: 1, flexDirection: 'column'}}> */}
                                         {/* <LiquidGauge
                                             config={{
