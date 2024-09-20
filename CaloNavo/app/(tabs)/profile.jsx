@@ -13,7 +13,6 @@ import PieChart from 'react-native-pie-chart'
 // problems:
 // looks weird on android (feather icon positions doesnt line up with drop down icon)
 // make email not be editable and no edit icon next to it
-// idk if keyboard pops up when edit icon is clicked
 // change data types ex: birth date should be a date and allow user to pick from calendar maybe, height should allow user to input value for ft and also inches
 
 
@@ -52,17 +51,20 @@ const Profile = () => {
 
 
     const Item = ({ title, value, index, type, options }) => {
-        const textInputRef = useRef(null);
+        const textInputRef = useRef();
 
         // saves editability state
         const [editable, setEditable] = useState(false);
 
         // change whether text input is editable
-        const toggleEditable = () => {
-            setEditable(!editable);
-            textInputRef.current.focus(); // Focus the TextInput if it is becoming editable
-
+        const enableEditable = () => {
+            setEditable(true);
+            setTimeout(() =>textInputRef.current.focus(), 100)// Focus the TextInput if it is becoming editable
         };
+
+        const disableEditable = () => {
+            setEditable(false);
+        }
 
         // if index is even, have transparent background, else dark gray
         const backgroundColor = index % 2 === 0 ? 'transparent' : '#0E1116';
@@ -116,12 +118,14 @@ const Profile = () => {
                                 editable={editable}
                                 style={[styles.smallText, { color: '#ABABAB', textAlign: 'left', flex: 1, paddingLeft: 10 }]}
                                 selectionColor={'#CB9CF2'}
+                                onSubmitEditing={disableEditable}
+                                onEndEditing={disableEditable}
                             >
                             </TextInput>
                         </View>
 
                         <View style={{ alignItems: 'flex-end', justifyContent: 'center', paddingRight: 12, paddingLeft: 10 }}>
-                            <TouchableOpacity onPress={toggleEditable} style={{ width: 15 }}>
+                            <TouchableOpacity onPress={enableEditable} style={{ width: 15 }}>
                                 <Feather name={"edit-2"} size={15} color="#CB9CF2" />
                             </TouchableOpacity>
                         </View>
