@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tabs } from 'expo-router'
+import { Tabs, Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import Feather from "react-native-vector-icons/Feather";
 
@@ -23,8 +23,10 @@ const tabBarColorStyle = {
 // Function to handled the routing of the various (tabs) screens of CaloNavo
 // *** Ensure all new (tabs) screens have their own places in the stack***
 const TabsLayout = () => {
+    
     return (
         <>
+        
             {/* Tabs for each of CaloNavo's tabs */}
             <Tabs screenOptions={{
                 tabBarActiveTintColor: '#CB9CF2',
@@ -63,6 +65,24 @@ const TabsLayout = () => {
                         tabBarColorStyle,
                         tabBarLabelStyle,
                         tabBarIconStyle
+                    }}
+                />
+                {/* Tracker Week tab branched from the Tracker screen. Not shown on tab bar. */}
+                <Tabs.Screen
+                    name="tracker-week"
+                    options={{
+                        title: "Tracker Week",
+                        headerShown: false,
+                        href: null,                 // Include as tab, but do not show in tab bar
+                    }}
+                />
+                {/* Tracker Month tab branched from the Tracker screen. Not shown on tab bar. */}
+                <Tabs.Screen
+                    name="tracker-month"
+                    options={{
+                        title: "Tracker Month",
+                        headerShown: false,
+                        href: null,                 // Include as tab, but do not show in tab bar
                     }}
                 />
                 {/* Report tab of the main screens */}
