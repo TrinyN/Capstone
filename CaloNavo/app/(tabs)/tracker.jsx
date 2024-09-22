@@ -40,7 +40,7 @@ const Tracker = () => {
         return (
             <View style={styles.header}>
                 <Text style={[styles.defaultText, { paddingLeft: 10, fontSize: 19 }]}>Food</Text>
-                <Text style={[styles.defaultText, { width: '24%', fontSize: 14 }]}>Svg Count</Text>
+                <Text style={[styles.defaultText, { width: '28%', fontSize: 14 }]}>Svg Count</Text>
                 <Text style={[styles.defaultText, { paddingRight: 10, fontSize: 14 }]}>kCal</Text>
             </View>
         );
@@ -78,9 +78,9 @@ const Tracker = () => {
 
     // State to keep track of expanded/collapsed sections
     const [collapsedSections, setCollapsedSections] = useState({
-        Breakfast: false,
-        Lunch: false,
-        Dinner: false,
+        breakfast: false,
+        lunch: false,
+        dinner: false,
     });
 
     // Toggle collapse state
@@ -93,6 +93,7 @@ const Tracker = () => {
 
     // Render each section with collapsibility
     const renderSection = ({ item }) => {
+
         return (
             <View>
                 {/* Section Header (Breakfast, Lunch, Dinner) */}
@@ -100,7 +101,7 @@ const Tracker = () => {
                     <View style={[styles.sectionHeader, { flexDirection: 'row' }]}>
                         <Text style={[styles.defaultText, { flex: 1, paddingVertical: 0, fontSize: 16, paddingLeft: 10 }]}>{item.title}</Text>
 
-                        <Feather name={collapsedSections[item.title] ? "chevron-down" : "chevron-up"} size={25} color='#CB9CF2'
+                        <Feather name={collapsedSections[item.key] ? "chevron-down" : "chevron-up"} size={25} color='#CB9CF2'
                             style={{
                                 paddingRight: 15
                             }} />
@@ -163,13 +164,14 @@ const Tracker = () => {
                             <Feather name="more-vertical" size={30} color="#CB9CF2" />
                         </TouchableOpacity>
                     </View>
-                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', paddingVertical: 5 }}>
+                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', paddingVertical: 5, alignItems: 'center' }}>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={styles.defaultWhiteText}>
                                 Caloric Goal:
                             </Text>
                             <TextInput style={{ backgroundColor: '#1F2938', width: 50, height: 20, borderRadius: 5, marginHorizontal: 5, color: '#F2F4F3', paddingHorizontal: 5, textAlign: 'center' }}
                                 placeholder='2,400'
+                                placeholderTextColor={'#F2F4F3'}
                             />
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
@@ -178,6 +180,7 @@ const Tracker = () => {
                             </Text>
                             <TextInput style={{ backgroundColor: '#1F2938', width: 70, height: 20, borderRadius: 5, marginLeft: 5, color: '#F2F4F3', paddingHorizontal: 5, textAlign: 'left' }}
                                 placeholder='105 lbs'
+                                placeholderTextColor={'#F2F4F3'}
                             />
                             
                             <Feather name="edit-2" size={14} color="#CB9CF2" style={{position: 'absolute', paddingRight: 2, verticalAlign: 'bottom'}}/>
@@ -191,19 +194,19 @@ const Tracker = () => {
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
 
                             {/* Abstract formula to make numbers make sense*/}
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14, color: '#CB9CF2', width: '16%', textAlign: 'left' }]}>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14, color: '#CB9CF2', width: '19%', textAlign: 'left' }]}>
                                 (Eaten
                             </Text>
                             <Text style={[styles.defaultWhiteText, { fontSize: 14 }]}> - </Text>
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14, color: '#CB9CF2', width: '17%', textAlign: 'center' }]}>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14, color: '#CB9CF2', width: '22%', textAlign: 'center' }]}>
                                 Burned)
                             </Text>
                             <Text style={[styles.defaultWhiteText, { fontSize: 14 }]}> - </Text>
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14, color: '#CB9CF2', width: '15%', textAlign: 'center' }]}>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14, color: '#CB9CF2', width: '19%', textAlign: 'center' }]}>
                                 BMR
                             </Text>
                             <Text style={[styles.defaultWhiteText, { fontSize: 14 }]}> = </Text>
-                            <Text style={[styles.defaultWhiteText, { textDecorationLine: 'underline', fontSize: 14, color: '#80FF72', width: '16%', textAlign: 'right' }]}>
+                            <Text style={[styles.defaultWhiteText, { textDecorationLine: 'underline', fontSize: 14, color: '#80FF72', width: '21%', textAlign: 'right' }]}>
                                 Surplus
                             </Text>
                         </View>
@@ -211,25 +214,25 @@ const Tracker = () => {
                         {/* TODO: Implement retrieval and calculation of calories burned and eaten */}
                         {/* Actual numbers of forumla */}
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'left', width: '16%' }]}>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'left', width: '19%' }]}>
                                 (2,400
                             </Text>
                             <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'center' }]}>
                                 -
                             </Text>
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'center', width: '17%' }]}>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'center', width: '22%' }]}>
                                 200)
                             </Text>
                             <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'center' }]}>
                                 -
                             </Text>
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'center', width: '15%' }]}>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'center', width: '19%' }]}>
                                 1,200
                             </Text>
                             <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'center' }]}>
                                 =
                             </Text>
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'right', width: '16%' }]}>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'right', width: '21%' }]}>
                                 800
                             </Text>
                         </View>
