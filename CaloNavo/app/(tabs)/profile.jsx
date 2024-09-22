@@ -1,4 +1,4 @@
-import { TouchableOpacity, TextInput, Text, View, FlatList, SectionList, ScrollView } from 'react-native';
+import { TouchableOpacity, TextInput, Text, View, FlatList, Dimensions , ScrollView } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
@@ -17,7 +17,8 @@ import PieChart from 'react-native-pie-chart'
 
 
 const Profile = () => {
-    const widthAndHeight = 120
+    const { width } = Dimensions.get('window');
+    const widthAndHeight = (width * 0.30)
 
     // test data for macro ratio goal
     const [series, setSeries] = useState([15, 35, 40]);
@@ -221,27 +222,27 @@ const Profile = () => {
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <View style={{ width: 15, height: 15, borderRadius: 7.5, marginRight: 8, backgroundColor: '#80FF72' }} />
                                     <Text style={[styles.defaultWhiteText]}>
-                                        Carb {Number(Math.round((series[0]/(series[0] + series[1] + series[2]) * 100) + 'e' + 2) + 'e-' + 2)}{"%"}
+                                        Carb {Number(Math.round((series[0]/(series[0] + series[1] + series[2]) * 100) + 'e' + 1) + 'e-' + 1)}{"%"}
                                     </Text>
                                 </View>
 
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <View style={{ width: 15, height: 15, borderRadius: 7.5, marginRight: 8, backgroundColor: '#7EE8FA' }} />
                                     <Text style={styles.defaultWhiteText}>
-                                        Protein {Number(Math.round((series[1]/(series[0] + series[1] + series[2]) * 100) + 'e' + 2) + 'e-' + 2)}{"%"}
+                                        Protein {Number(Math.round((series[1]/(series[0] + series[1] + series[2]) * 100) + 'e' + 1) + 'e-' + 1)}{"%"}
                                     </Text>
                                 </View>
 
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <View style={{ width: 15, height: 15, borderRadius: 7.5, marginRight: 8, backgroundColor: '#FFF07C' }} />
                                     <Text style={styles.defaultWhiteText}>
-                                        Fat {Number(Math.round((series[2]/(series[0] + series[1] + series[2]) * 100) + 'e' + 2) + 'e-' + 2)}{"%"}
+                                        Fat {Number(Math.round((series[2]/(series[0] + series[1] + series[2]) * 100) + 'e' + 1) + 'e-' + 1)}{"%"}
                                     </Text>
                                 </View>
                             </View>
 
                             {/* Macro Pi Chart*/}
-                            <View style={{ padding: 20, paddingLeft: 10 }}>
+                            <View style={{ paddingVertical: 20, paddingRight: 20 }}>
                                 <PieChart widthAndHeight={widthAndHeight} series={series} sliceColor={sliceColor}
                                     style={{ strokeWidth: '4', stroke: '#141920' }}
                                 />
