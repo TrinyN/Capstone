@@ -145,18 +145,18 @@ const styles = StyleSheet.create({
     },
     inputFieldStyle: {
         color: '#F2F4F3',
-        backgroundColor: 'rgba(97, 98, 131, 0.2)', 
-        borderRadius: 8, 
-        fontSize:16, 
-        paddingLeft:15, 
-        paddingVertical: 10, 
+        backgroundColor: 'rgba(97, 98, 131, 0.2)',
+        borderRadius: 8,
+        fontSize: 16,
+        paddingLeft: 15,
+        paddingVertical: 10,
         // selectionColor: '#CB9CF2',
         // placeholderTextColor:'rgba(242,244,243, 0.5)',
-    }, 
+    },
     dropdownFieldStyle: {
         backgroundColor: 'rgba(97, 98, 131, 0.2)',
-        borderRadius: 8, 
-        fontSize:16
+        borderRadius: 8,
+        fontSize: 16
     },
     smallText: {
         color: '#F2F4F3',
@@ -175,10 +175,10 @@ const styles = StyleSheet.create({
 
     optionsMenu: {
         backgroundColor: '#1F2938',
-        borderRadius: 5, 
+        borderRadius: 5,
         // width: 200, 
         width: '60%',
-        height: 130, 
+        height: 130,
         // height: '20%',
         position: 'absolute',
         top: 100,
@@ -188,7 +188,44 @@ const styles = StyleSheet.create({
         // fontFamily: 'Inter_400Regular',
         // textAlign: 'left',
         // paddingVertical: 5
-    }
+    },
+
+    // Header styles
+    header: {
+        flexDirection: 'row',
+        backgroundColor: '#1F2938',
+        justifyContent: 'space-between',
+        borderTopLeftRadius: 8,
+        borderTopRightRadius: 8,
+        alignItems: 'flex-end',
+        borderBottomWidth: 2,
+        borderBottomColor: '#828282',
+    },
+    headerText: {
+        fontWeight: 'bold',
+        color: '#CB9CF2',
+    },
+    // Section header (Breakfast, Lunch, Dinner)
+    sectionHeader: {
+        paddingVertical: 10,
+        borderBottomWidth: 2,
+        borderBottomColor: '#828282',
+        backgroundColor: 'rgba(27,33,43,0.5)'
+    },
+    // List item styles (Eggs, Bacon, Toast, etc.)
+    item: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#828282',
+        paddingLeft: 30, 
+        alignItems: 'center'
+    },
+
+
+
+
 
 });
 

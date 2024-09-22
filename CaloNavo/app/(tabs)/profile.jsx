@@ -33,6 +33,14 @@ const Profile = () => {
         setVisibleLogOut(!visibleLogOut);
     };
 
+    const [saveVisibility, setSaveVisibility] = useState(false);
+
+    const toggleSaveVisibility = () => {
+        setSaveVisibility(!saveVisibility)
+    }
+
+    const opacity = saveVisibility ? 1: 0
+
     // test data, will need to start off empty and be saved for each user
     const [userInfo, setUserInfo] = useState([
         { title: 'Email', value: 'trinynguyen@gmail.com', type: '', options: [] },
@@ -59,7 +67,7 @@ const Profile = () => {
         // change whether text input is editable
         const enableEditable = () => {
             setEditable(true);
-            setTimeout(() =>textInputRef.current.focus(), 100)// Focus the TextInput if it is becoming editable
+            setTimeout(() => textInputRef.current.focus(), 100)// Focus the TextInput if it is becoming editable
         };
 
         const disableEditable = () => {
@@ -75,68 +83,90 @@ const Profile = () => {
         // selected value of dropdown picker
         const [selectedValue, setSelectedValue] = useState({});
 
+        const renderText = () => {
+            return (
+                <TextInput
+                    ref={textInputRef}
+                    multiline={false}
+                    placeholder={value}
+                    placeholderTextColor={'#F2F4F3'}
+                    placeholderStyle={[styles.smallText, { textAlign: 'left', flex: 1, paddingLeft: 10 }]}
+                    editable={editable}
+                    style={[styles.smallText, { color: '#ABABAB', textAlign: 'left', flex: 1, paddingLeft: 10 }]}
+                    selectionColor={'#CB9CF2'}
+                    onSubmitEditing={disableEditable}
+                    onEndEditing={disableEditable}
+                >
+                </TextInput>
+            )
+        }
+        const renderAppropriateField = () => {
+            switch (type) {
+
+                case 'dropdown':
+                    return (
+                        <View style={{ flex: 1, justifyContent: 'center' }}>
+                            <DropDownPicker
+                                showArrowIcon={true}
+                                open={open}
+                                value={selectedValue}
+                                setOpen={setOpen}
+                                setValue={setSelectedValue}
+                                items={options.map(option => ({ label: option, value: option }))}
+
+                                // fyi: items are the different items you can select in the dropdown
+                                // value is the item that has been selected by the user
+
+                                // styling
+                                dropDownDirection='TOP'
+                                style={{ alignSelf: 'center', textAlign: 'center', backgroundColor: 'transparent', borderWidth: 0, paddingHorizontal: 10 }}
+                                theme='DARK'
+                                placeholder={value}
+                                placeholderStyle={[styles.smallText, { textAlign: 'left' }]}
+                                dropDownContainerStyle={{ theme: 'DARK', borderWidth: 0, position: 'absolute' }}
+                                textStyle={[styles.smallText, { color: '#ABABAB', textAlign: 'left' }]}
+                            />
+                        </View>
+                    )
+
+                case 'text':
+                    return (
+                        <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, paddingVertical: 10 }}>
+                            <View style={{ flex: 1 }}>
+                                {renderText()}
+                            </View>
+
+                            <View style={{ alignItems: 'flex-end', justifyContent: 'center', paddingRight: 12, paddingLeft: 10 }}>
+                                <TouchableOpacity onPress={enableEditable} style={{ widthAndHeight: '100%' }}>
+                                    <Feather name={"edit-2"} size={15} color="#CB9CF2" />
+                                </TouchableOpacity>
+                            </View>
+
+                        </View>
+
+                    )
+                default:
+                    return (
+                        <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, paddingVertical: 10 }}>
+                            <View style={{ flex: 1 }}>
+                                {renderText()}
+                            </View>
+                        </View>
+                    )
+            }
+
+        };
+
         return (
             <View style={[{ justifyContent: 'center', backgroundColor, flexDirection: 'row', alignItems: 'center', flex: 1, height: 50 }]}>
                 <View style={{ width: '40%' }}>
-                    <Text style={[styles.smallText, { fontFamily: 'Inter_600SemiBold', color: '#CB9CF2', textAlign: 'left', paddingHorizontal: 10 }]}>{title}</Text>
-
+                    <Text style={[styles.smallText, { fontFamily: 'Inter_600SemiBold', color: '#CB9CF2', textAlign: 'left', paddingHorizontal: 10}]}>{title}</Text>
                 </View>
-                {/* if list item is drop down, render a drop down */}
-                {(type === 'dropdown') ? (
-                    <View style={{ flex: 1, justifyContent: 'center' }}>
-                        <DropDownPicker
-                            open={open}
-                            value={selectedValue}
-                            setOpen={setOpen}
-                            setValue={setSelectedValue}
-                            items={options.map(option => ({ label: option, value: option }))}
-
-                            // fyi: items are the different items you can select in the dropdown
-                            // value is the item that has been selected by the user
-                            dropDownDirection='TOP'
-                            // styling
-                            style={{ alignSelf: 'center', textAlign: 'center', backgroundColor: 'transparent', borderWidth: 0, paddingHorizontal: 10 }}
-                            theme='DARK'
-                            placeholder={value}
-                            placeholderStyle={[styles.smallText, { textAlign: 'left'}]}
-                            dropDownContainerStyle={{ theme: 'DARK', borderWidth: 0, position: 'absolute' }}
-                            textStyle={[styles.smallText, { color: '#ABABAB', textAlign: 'left' }]}
-
-                        />
-                    </View>
-                ) : (
-                    // else, render a text input and icon
-                    <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, paddingVertical: 10 }}>
-                        <View style={{ flex: 1 }}>
-
-                            <TextInput
-                                ref={textInputRef}
-                                multiline={false}
-                                placeholder={value}
-                                placeholderTextColor={'#F2F4F3'}
-                                placeholderStyle={[styles.smallText, { textAlign: 'left', flex: 1, paddingLeft: 10 }]}
-                                editable={editable}
-                                style={[styles.smallText, { color: '#ABABAB', textAlign: 'left', flex: 1, paddingLeft: 10 }]}
-                                selectionColor={'#CB9CF2'}
-                                onSubmitEditing={disableEditable}
-                                onEndEditing={disableEditable}
-                            >
-                            </TextInput>
-                        </View>
-
-                        <View style={{ alignItems: 'flex-end', justifyContent: 'center', paddingRight: 12, paddingLeft: 10 }}>
-                            <TouchableOpacity onPress={enableEditable} style={{ width: 15 }}>
-                                <Feather name={"edit-2"} size={15} color="#CB9CF2" />
-                            </TouchableOpacity>
-                        </View>
-
-                    </View>
-
-                )}
+                {renderAppropriateField()}
             </View>
-        )
-    };
 
+        );
+    };
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -145,7 +175,7 @@ const Profile = () => {
                 <View style={[styles.viewContainer, { flex: 1 }]}>
 
                     {/* Screen header */}
-                    <View style={{ marginTop: 70, flexDirection: 'row', paddingBottom: 85, alignItems: 'center' }}>
+                    <View style={{ marginTop: 70, flexDirection: 'row', paddingBottom: 30, alignItems: 'center' }}>
 
                         <Text style={[styles.titleText, { flex: 1 }]}>
                             Your Profile
@@ -157,6 +187,19 @@ const Profile = () => {
                         </TouchableOpacity>
 
                     </View>
+
+                        <View style={{}}>
+                            <View style={{ flexDirection: 'row-reverse', paddingBottom: 0, justifyContent: 'space-between' }}>
+                                <TouchableOpacity
+                                    disabled={!saveVisibility}
+                                    style={[styles.button, { opacity, backgroundColor: '#CB9CF2', paddingVertical: 0 }]}>
+                                    <Text style={[styles.defaultText, { color: '#0E1116', fontSize: 14, paddingVertical: 5 }]} >
+                                        Save
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+
 
                     {/* Flat list to show profile information */}
                     <View style={{ borderRadius: 10, backgroundColor: 'rgba(27,33,43,0.5)' }}>
@@ -170,29 +213,29 @@ const Profile = () => {
                     </View>
 
                     {/* Macro Pi Chart Container*/}
-                    <View style={{ paddingTop: 30 }}>
+                    <View style={{ paddingTop: 30, paddingBottom: 50 }}>
                         <View style={{ flexDirection: 'row', borderRadius: 10, backgroundColor: 'rgba(27,33,43,0.5)', justifyContent: 'space-between' }}>
                             <View style={{ justifyContent: 'center', padding: 20, justifyContent: 'space-evenly' }}>
 
                                 {/* Legend for Pie Chart*/}
-                                <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <View style={{ width: 15, height: 15, borderRadius: 7.5, marginRight: 8, backgroundColor: '#80FF72' }} />
                                     <Text style={[styles.defaultWhiteText]}>
-                                        Carb {series[0]}{"%"}
+                                        Carb {Number(Math.round((series[0]/(series[0] + series[1] + series[2]) * 100) + 'e' + 2) + 'e-' + 2)}{"%"}
                                     </Text>
                                 </View>
 
-                                <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <View style={{ width: 15, height: 15, borderRadius: 7.5, marginRight: 8, backgroundColor: '#7EE8FA' }} />
                                     <Text style={styles.defaultWhiteText}>
-                                        Protein {series[1]}{"%"}
+                                        Protein {Number(Math.round((series[1]/(series[0] + series[1] + series[2]) * 100) + 'e' + 2) + 'e-' + 2)}{"%"}
                                     </Text>
                                 </View>
 
-                                <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <View style={{ width: 15, height: 15, borderRadius: 7.5, marginRight: 8, backgroundColor: '#FFF07C' }} />
                                     <Text style={styles.defaultWhiteText}>
-                                        Fat {series[2]}{"%"}
+                                        Fat {Number(Math.round((series[2]/(series[0] + series[1] + series[2]) * 100) + 'e' + 2) + 'e-' + 2)}{"%"}
                                     </Text>
                                 </View>
                             </View>
@@ -200,20 +243,9 @@ const Profile = () => {
                             {/* Macro Pi Chart*/}
                             <View style={{ padding: 20, paddingLeft: 10 }}>
                                 <PieChart widthAndHeight={widthAndHeight} series={series} sliceColor={sliceColor}
-                                style={{strokeWidth:'4', stroke:'#141920'}}
+                                    style={{ strokeWidth: '4', stroke: '#141920' }}
                                 />
                             </View>
-                        </View>
-                    </View>
-
-                    {/* Save Changes Button */}
-                    <View style={{ paddingTop: 30 }}>
-                        <View style={{ paddingBottom: 20 }}>
-                            <TouchableOpacity style={[styles.button, { backgroundColor: '#CB9CF2', paddingVertical: 0 }]}>
-                                <Text style={[styles.defaultText, { color: '#0E1116' }]} >
-                                    Save Changes
-                                </Text>
-                            </TouchableOpacity>
                         </View>
                     </View>
 

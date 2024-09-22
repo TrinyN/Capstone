@@ -1,4 +1,4 @@
-import { TouchableOpacity, TextInput, Text, View, SectionList, ScrollView } from 'react-native';
+import { TouchableOpacity, TextInput, Text, View, SectionList, FlatList, ScrollView } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
@@ -6,17 +6,8 @@ import { useState, useEffect } from 'react';
 import { Overlay } from '@rneui/base';
 import { router } from 'expo-router';
 
-// todo: fix dropdown for food type
-// save list for user
-// options functionality
-// add the bottom text: "It looks like your shopping list blah"
-// input validation
-
 // Function to design and display the tracker
 const Tracker = () => {
-
-    // Functions to allow the DropDown menus to work
-    const [collapsedSections, setCollapsedSections] = useState({})
 
     const [foodName, setFoodName] = useState('')
     const [foodType, setFoodType] = useState('')
@@ -37,33 +28,100 @@ const Tracker = () => {
         setVisibleOptions(!visibleOptions);
     };
 
-    // test data, will need to start off empty and be saved for each user
-    const [foodList, setFoodList] = useState([
-        { title: 'Breakfast', data: ['Apple'] },
-        { title: 'Lunch', data: ['Carrots', 'Broccoli', 'Spinach'] },
-        { title: 'Dinner', data: ['Chicken', 'Beef', 'Tofu'] },
-        { title: 'Snacks', data: ['Cheetos'] },
-    ]);
+    // Sample data for Breakfast, Lunch, Dinner
+    const [foodSections, setFoodSections] = useState([
+        { title: 'Breakfast', data: ['Eggs', 'Bacon', 'Toast'], key: 'breakfast' },
+        { title: 'Lunch', data: ['Chicken Salad', 'Rice'], key: 'lunch' },
+        { title: 'Dinner', data: ['Steak', 'Mashed Potatoes'], key: 'dinner' },
+    ])
 
+    // Header Component for Food FlatList
+    const HeaderComponent = () => {
+        return (
+            <View style={styles.header}>
+                <Text style={[styles.defaultText, { paddingLeft: 10, fontSize: 19 }]}>Food</Text>
+                <Text style={[styles.defaultText, { width: '24%', fontSize: 14 }]}>Svg Count</Text>
+                <Text style={[styles.defaultText, { paddingRight: 10, fontSize: 14 }]}>kCal</Text>
+            </View>
+        );
+    };
     // test data, will need to start off empty and be saved for each user
     const [exerciseList, setExerciseListList] = useState([
         { data: ['Running'] },
     ]);
+
+    // Header Component for Exercise FlatList
+    const ExerciseHeaderComponent = () => {
+        return (
+            <View style={styles.header}>
+                <Text style={[styles.defaultText, { paddingLeft: 10, fontSize: 19 }]}>Exercise</Text>
+                <Text style={[styles.defaultText, { fontSize: 14 }]}>Duration/Reps</Text>
+                <Text style={[styles.defaultText, { paddingRight: 10, fontSize: 14 }]}>kCal</Text>
+            </View>
+        );
+    };
 
     // test data, will need to start off empty and be saved for each user
     const [water, setWater] = useState([
         { data: ['10 cups'] },
     ]);
 
-    // changes whether a section of the list is collapsed or not
-    const toggleCollapse = (section) => {
-        setCollapsedSections(prevState => ({
-            // keep collapsed boolean values for other sections
-            ...prevState,
+    // Header Component for Exercise FlatList
+    const WaterHeaderComponent = () => {
+        return (
+            <View style={styles.header}>
+                <Text style={[styles.defaultText, { paddingLeft: 10, fontSize: 19 }]}>Water</Text>
+                <Text style={[styles.defaultText, { fontSize: 14 }]}>{water[0].data}</Text>
+            </View>
+        );
+    };
 
-            // changes collapsed value for particular section
-            [section.title]: !prevState[section.title]
+    // State to keep track of expanded/collapsed sections
+    const [collapsedSections, setCollapsedSections] = useState({
+        Breakfast: false,
+        Lunch: false,
+        Dinner: false,
+    });
+
+    // Toggle collapse state
+    const toggleSection = (key) => {
+        setCollapsedSections((prevState) => ({
+            ...prevState,
+            [key]: !prevState[key],
         }));
+    };
+
+    // Render each section with collapsibility
+    const renderSection = ({ item }) => {
+        return (
+            <View>
+                {/* Section Header (Breakfast, Lunch, Dinner) */}
+                <TouchableOpacity onPress={() => toggleSection(item.key)}>
+                    <View style={[styles.sectionHeader, { flexDirection: 'row' }]}>
+                        <Text style={[styles.defaultText, { flex: 1, paddingVertical: 0, fontSize: 16, paddingLeft: 10 }]}>{item.title}</Text>
+
+                        <Feather name={collapsedSections[item.title] ? "chevron-down" : "chevron-up"} size={25} color='#CB9CF2'
+                            style={{
+                                paddingRight: 15
+                            }} />
+                    </View>
+
+                </TouchableOpacity>
+
+                {/* Render items only if the section is expanded */}
+                {!collapsedSections[item.key] && (
+                    <View>
+                        {item.data.map((food, index) => (
+                            <View key={index} style={styles.item}>
+                                <Text style={[styles.defaultWhiteText, { width: '35%', textAlign: 'left' }]}>{food}</Text>
+                                <Text style={[styles.defaultWhiteText, { width: '10%', textAlign: 'center' }]}>1</Text>
+                                <Text style={[styles.defaultWhiteText, { width: '40%', textAlign: 'right', paddingRight: 10 }]}>200</Text>
+                            </View>
+                        ))}
+                    </View>
+                )}
+            </View>
+        );
     };
 
     // // called when user clicks add button
@@ -105,18 +163,76 @@ const Tracker = () => {
                             <Feather name="more-vertical" size={30} color="#CB9CF2" />
                         </TouchableOpacity>
                     </View>
+                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', paddingVertical: 5 }}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={styles.defaultWhiteText}>
+                                Caloric Goal:
+                            </Text>
+                            <TextInput style={{ backgroundColor: '#1F2938', width: 50, height: 20, borderRadius: 5, marginHorizontal: 5, color: '#F2F4F3', paddingHorizontal: 5, textAlign: 'center' }}
+                                placeholder='2,400'
+                            />
+                        </View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
+                            <Text style={styles.defaultWhiteText}>
+                                Weight:
+                            </Text>
+                            <TextInput style={{ backgroundColor: '#1F2938', width: 70, height: 20, borderRadius: 5, marginLeft: 5, color: '#F2F4F3', paddingHorizontal: 5, textAlign: 'left' }}
+                                placeholder='105 lbs'
+                            />
+                            
+                            <Feather name="edit-2" size={14} color="#CB9CF2" style={{position: 'absolute', paddingRight: 2, verticalAlign: 'bottom'}}/>
+
+
+                        </View>
+                    </View>
 
                     {/* Top View to calculate user's calories eaten and burned with a formula visible to them */}
                     <View style={{ backgroundColor: '#1F2938', borderRadius: 5 }}>
-                        {/* Abstract formula to make numbers make sense*/}
-                        <Text style={styles.defaultWhiteText}>
-                            Eaten - Burned = blah blah
-                        </Text>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
+
+                            {/* Abstract formula to make numbers make sense*/}
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14, color: '#CB9CF2', width: '16%', textAlign: 'left' }]}>
+                                (Eaten
+                            </Text>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14 }]}> - </Text>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14, color: '#CB9CF2', width: '17%', textAlign: 'center' }]}>
+                                Burned)
+                            </Text>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14 }]}> - </Text>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14, color: '#CB9CF2', width: '15%', textAlign: 'center' }]}>
+                                BMR
+                            </Text>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14 }]}> = </Text>
+                            <Text style={[styles.defaultWhiteText, { textDecorationLine: 'underline', fontSize: 14, color: '#80FF72', width: '16%', textAlign: 'right' }]}>
+                                Surplus
+                            </Text>
+                        </View>
+
                         {/* TODO: Implement retrieval and calculation of calories burned and eaten */}
                         {/* Actual numbers of forumla */}
-                        <Text style={styles.defaultWhiteText}>
-                            Eaten - Burned = blah blah
-                        </Text>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'left', width: '16%' }]}>
+                                (2,400
+                            </Text>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'center' }]}>
+                                -
+                            </Text>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'center', width: '17%' }]}>
+                                200)
+                            </Text>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'center' }]}>
+                                -
+                            </Text>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'center', width: '15%' }]}>
+                                1,200
+                            </Text>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'center' }]}>
+                                =
+                            </Text>
+                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'right', width: '16%' }]}>
+                                800
+                            </Text>
+                        </View>
                     </View>
 
                     {/* Add Food Button */}
@@ -128,77 +244,11 @@ const Tracker = () => {
                     {/* View for SectionList to store all items of tracker */}
                     <View>
 
-                        {/* List to hold items */}
-                        <SectionList
-                            style={{
-                                backgroundColor: 'rgba(27,33,43,0.5)',
-                                borderRadius: 8,
-                            }}
-                            sections={foodList}
-                            keyExtractor={(item) => item}
-                            scrollEnabled={false}
-
-                            // Rendering items based on data set and their respective sections
-                            renderItem={({ item, section }) =>
-                                !collapsedSections[section.title] && (
-                                    <View>
-                                        <View style={{ backgroundColor: '#0E1116', flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15 }}>
-                                            <Text
-                                                style={[
-                                                    styles.defaultWhiteText,
-                                                    {
-                                                        paddingLeft: 30,
-                                                        paddingVertical: 7,
-                                                    }
-                                                ]}>
-                                                {item}
-                                            </Text>
-                                        </View>
-                                        <View style={{ height: 1, backgroundColor: 'rgba(242,244,243,0.2)' }} />
-                                    </View>
-                                )
-                            }
-                            // List header for Food list
-                            ListHeaderComponent={
-                                <View style={{ backgroundColor: '#1F2938' }}>
-                                    <Text style={[styles.defaultText, { paddingVertical: 10, paddingHorizontal: 15 }]}>
-                                        Food
-                                    </Text>
-                                    <View style={{ height: 2, backgroundColor: '#828282' }} />
-                                </View>
-
-                            }
-                            // Section headers for food types
-                            renderSectionHeader={({ section }) => (
-                                <View>
-                                    {/* Making sections collapsible */}
-                                    <TouchableOpacity onPress={() => toggleCollapse(section)}>
-                                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 5 }}>
-                                            <Text
-                                                style={[
-                                                    styles.defaultWhiteText,
-                                                    {
-                                                        paddingLeft: 10,
-                                                        flex: 1,
-                                                        fontFamily: 'Inter_600SemiBold',
-                                                        color: '#CB9CF2',
-                                                    }
-                                                ]}>
-                                                {section.title}
-                                            </Text>
-                                            {/* Icons for if collapsed/not */}
-                                            <Feather name={collapsedSections[section.title] ? "chevron-down" : "chevron-up"} size={25} color='#CB9CF2'
-                                                style={{
-                                                    alignSelf: 'flex-end',
-                                                    paddingVertical: 10
-                                                }} />
-                                        </View>
-                                    </TouchableOpacity>
-
-                                    {/* Borderline at bottom of Section Headers */}
-                                    <View style={{ height: 2, backgroundColor: '#828282' }} />
-                                </View>
-                            )}
+                        <FlatList
+                            data={foodSections}
+                            renderItem={renderSection}
+                            keyExtractor={(item) => item.key}
+                            ListHeaderComponent={HeaderComponent}
                         />
 
                         {/* Space Between Food and Water lists */}
@@ -257,7 +307,7 @@ const Tracker = () => {
                             scrollEnabled={false}
                             sections={exerciseList}
                             keyExtractor={(item) => item}
-                            
+
                             // Rendering Exercise items based on data set of user
                             renderItem={({ item, section }) =>
                                 !collapsedSections[section.title] && (
@@ -296,10 +346,12 @@ const Tracker = () => {
                     <View style={{ padding: 40 }}></View>
 
                     {/* pop up for adding food, water, or exercise*/}
-                    <Overlay isVisible={visible} onBackdropPress={toggleOverlay} 
-                    overlayStyle={{ backgroundColor: '#0E1116', borderRadius: 8, 
-                    borderColor: '#CB9CF2', borderWidth: 2, width: '75%', height: '50%', 
-                    flex: 0.4 }}>
+                    <Overlay isVisible={visible} onBackdropPress={toggleOverlay}
+                        overlayStyle={{
+                            backgroundColor: '#0E1116', borderRadius: 8,
+                            borderColor: '#CB9CF2', borderWidth: 2, width: '75%', height: '50%',
+                            flex: 0.4
+                        }}>
 
                         {/* View at top to hold exit button */}
                         <View style={{ paddingVertical: 8, paddingRight: 8, flexDirection: 'row-reverse' }}>
@@ -310,7 +362,7 @@ const Tracker = () => {
 
                         {/* View to hold input fields and sumbit button */}
                         <View style={[styles.viewContainer, {}]}>
-                            
+
                             {/* Food name input */}
                             <View style={{ padding: 10 }}>
                                 <TextInput style={styles.inputFieldStyle}
@@ -362,7 +414,7 @@ const Tracker = () => {
                             </TouchableOpacity>
 
                             {/* Shopping List Option Button */}
-                            <TouchableOpacity 
+                            <TouchableOpacity
                                 style={{ flexDirection: 'row', alignItems: 'center' }}
                                 onPressOut={toggleOptions}>
 
@@ -373,8 +425,8 @@ const Tracker = () => {
                             </TouchableOpacity>
 
                             {/* Zoom in Option Button */}
-                            <TouchableOpacity 
-                                style={{ flexDirection: 'row', alignItems: 'center', opacity: 0.2 }} 
+                            <TouchableOpacity
+                                style={{ flexDirection: 'row', alignItems: 'center', opacity: 0.2 }}
                                 disabled={true}>
 
                                 <Feather name="maximize-2" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
@@ -384,7 +436,7 @@ const Tracker = () => {
                             </TouchableOpacity>
 
                             {/* Zoom out Option Button */}
-                            <TouchableOpacity 
+                            <TouchableOpacity
                                 style={{ flexDirection: 'row', alignItems: 'center' }}
                                 onPress={() => router.push('/tracker-week')}
                                 onPressOut={toggleOptions}>
