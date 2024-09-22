@@ -40,7 +40,8 @@ const Profile = () => {
         setSaveVisibility(!saveVisibility)
     }
 
-    const opacity = saveVisibility ? 1: 0
+    // const opacity = saveVisibility ? 1: 0
+    const opacity = 1
 
     // test data, will need to start off empty and be saved for each user
     const [userInfo, setUserInfo] = useState([
@@ -83,6 +84,8 @@ const Profile = () => {
 
         // selected value of dropdown picker
         const [selectedValue, setSelectedValue] = useState({});
+        const [text, setText] = useState('');
+
 
         const renderText = () => {
             return (
@@ -97,6 +100,15 @@ const Profile = () => {
                     selectionColor={'#CB9CF2'}
                     onSubmitEditing={disableEditable}
                     onEndEditing={disableEditable}
+
+                    // onChangeText={toggleSaveVisibility}
+                    // onSelectionChange={toggleSaveVisibility}
+                    value={text}
+                    onChangeText={(textInput) => {
+                        setText(textInput); // Update the text state
+                        // setOpacity(1); // Show save button if there's text
+                        // setSaveVisibility(textInput.length > 0)
+                    }}
                 >
                 </TextInput>
             )

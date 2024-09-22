@@ -12,28 +12,69 @@ const Tracker = () => {
     const [foodName, setFoodName] = useState('')
     const [foodType, setFoodType] = useState('')
 
-    // saves visibility of add food pop up
+    // Saves visibility of add food pop up
     const [visible, setVisible] = useState(false);
 
-    // saves visibility of options pop up
+    // Saves visibility of options pop up
     const [visibleOptions, setVisibleOptions] = useState(false);
 
-    // change visibility of overlay
+    // Change visibility of overlay
     const toggleOverlay = () => {
         setVisible(!visible);
     };
 
-    // change visibility of options
+    // Change visibility of options
     const toggleOptions = () => {
         setVisibleOptions(!visibleOptions);
     };
 
-    // Sample data for Breakfast, Lunch, Dinner
+    // Sample data for Breakfast, Lunch, Dinner, and Snacks
     const [foodSections, setFoodSections] = useState([
-        { title: 'Breakfast', data: ['Eggs', 'Bacon', 'Toast'], key: 'breakfast' },
-        { title: 'Lunch', data: ['Chicken Salad', 'Rice'], key: 'lunch' },
-        { title: 'Dinner', data: ['Steak', 'Mashed Potatoes'], key: 'dinner' },
-    ])
+        {
+            title: 'Breakfast',
+            data: [
+                { title: 'Eggs', count: '2', kCal: '193' },
+                { title: 'Bacon', count: '2', kCal: '100' },
+                { title: 'Toast', count: '1', kCal: '80' }
+            ],
+            key: 'breakfast'
+        },
+        {
+            title: 'Lunch',
+            data: [
+                { title: 'Chicken Salad', count: '1', kCal: '350' },
+                { title: 'Rice', count: '1', kCal: '200' }
+            ],
+            key: 'lunch'
+        },
+        {
+            title: 'Dinner',
+            data: [
+                { title: 'Steak', count: '1', kCal: '500' },
+                { title: 'Mashed Potatoes', count: '2', kCal: '150' }
+            ],
+            key: 'dinner'
+        },
+        {
+            title: 'Snacks',
+            data: [
+                { title: 'Cheetos', count: '3', kCal: '300' },
+                { title: 'Doritos', count: '4', kCal: '290' }
+            ],
+            key: 'snacks'
+        }
+    ]);
+
+    // Test data, will need to start off empty and be saved for each user
+    const [exerciseList, setExerciseListList] = useState([
+        { exercise: 'Running', reps: '10 min', kCal: -30 },
+        { exercise: 'Swimming', reps: '30 min', kCal: -50  },
+    ]);
+
+    // Test data, will need to start off empty and be saved for each user, will only be one number that keeps increasing as user adds more
+    const [water, setWater] = useState([
+        10,
+    ]);
 
     // Header Component for Food FlatList
     const HeaderComponent = () => {
@@ -45,33 +86,24 @@ const Tracker = () => {
             </View>
         );
     };
-    // test data, will need to start off empty and be saved for each user
-    const [exerciseList, setExerciseListList] = useState([
-        { data: ['Running'] },
-    ]);
 
     // Header Component for Exercise FlatList
     const ExerciseHeaderComponent = () => {
         return (
             <View style={styles.header}>
                 <Text style={[styles.defaultText, { paddingLeft: 10, fontSize: 19 }]}>Exercise</Text>
-                <Text style={[styles.defaultText, { fontSize: 14 }]}>Duration/Reps</Text>
+                <Text style={[styles.defaultText, { fontSize: 14, textAlign: 'center'}]}>Duration/Reps</Text>
                 <Text style={[styles.defaultText, { paddingRight: 10, fontSize: 14 }]}>kCal</Text>
             </View>
         );
     };
 
-    // test data, will need to start off empty and be saved for each user
-    const [water, setWater] = useState([
-        { data: ['10 cups'] },
-    ]);
-
     // Header Component for Exercise FlatList
     const WaterHeaderComponent = () => {
         return (
-            <View style={styles.header}>
+            <View style={[styles.header, {borderBottomWidth: 0}]}>
                 <Text style={[styles.defaultText, { paddingLeft: 10, fontSize: 19 }]}>Water</Text>
-                <Text style={[styles.defaultText, { fontSize: 14 }]}>{water[0].data}</Text>
+                <Text style={[styles.defaultWhiteText, { paddingVertical: 15, paddingRight: 10 }]}>{water} cups</Text>
             </View>
         );
     };
@@ -81,6 +113,7 @@ const Tracker = () => {
         breakfast: false,
         lunch: false,
         dinner: false,
+        snacks: false,
     });
 
     // Toggle collapse state
@@ -93,7 +126,6 @@ const Tracker = () => {
 
     // Render each section with collapsibility
     const renderSection = ({ item }) => {
-
         return (
             <View>
                 {/* Section Header (Breakfast, Lunch, Dinner) */}
@@ -112,19 +144,36 @@ const Tracker = () => {
                 {/* Render items only if the section is expanded */}
                 {!collapsedSections[item.key] && (
                     <View>
-                        {item.data.map((food, index) => (
+                        {item.data.map((item, index) => (
                             <View key={index} style={styles.item}>
-                                <Text style={[styles.defaultWhiteText, { width: '35%', textAlign: 'left' }]}>{food}</Text>
-                                <Text style={[styles.defaultWhiteText, { width: '10%', textAlign: 'center' }]}>1</Text>
-                                <Text style={[styles.defaultWhiteText, { width: '40%', textAlign: 'right', paddingRight: 10 }]}>200</Text>
+                                <Text style={[styles.defaultWhiteText, { width: '35%', textAlign: 'left' }]}>{item.title}</Text>
+                                <Text style={[styles.defaultWhiteText, { width: '10%', textAlign: 'center' }]}>{item.count}</Text>
+                                <Text style={[styles.defaultWhiteText, { width: '40%', textAlign: 'right', paddingRight: 10 }]}>{item.kCal}</Text>
                             </View>
                         ))}
+
                     </View>
+
                 )}
             </View>
         );
     };
 
+    // Render each section with collapsibility
+    const renderExercise = ({ item }) => {
+        return (
+            <View>
+                {/* Render items only if the section is expanded */}
+                <View>
+                        <View style={[styles.item, {paddingLeft: 10}]}>
+                            <Text style={[styles.defaultWhiteText, { width: '30%', textAlign: 'left'}]}>{item.exercise}</Text>
+                            <Text style={[styles.defaultWhiteText, { width: '40%', textAlign: 'center'}]}>{item.reps}</Text>
+                            <Text style={[styles.defaultWhiteText, { width: '20%', textAlign: 'right', paddingRight: 10 }]}>{item.kCal}</Text>
+                        </View>
+                </View>
+            </View>
+        );
+    };
     // // called when user clicks add button
     // const handleAddFood = () => {
     //     // find the section that matches foodType entered by user
@@ -164,28 +213,27 @@ const Tracker = () => {
                             <Feather name="more-vertical" size={30} color="#CB9CF2" />
                         </TouchableOpacity>
                     </View>
+                    {/* Display Caloric Goal and Weight of User */}
                     <View style={{ justifyContent: 'space-between', flexDirection: 'row', paddingVertical: 5, alignItems: 'center' }}>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={styles.defaultWhiteText}>
                                 Caloric Goal:
                             </Text>
-                            <TextInput style={{ backgroundColor: '#1F2938', width: 50, height: 20, borderRadius: 5, marginHorizontal: 5, color: '#F2F4F3', paddingHorizontal: 5, textAlign: 'center' }}
+                            <TextInput style={{ backgroundColor: '#1F2938', width: 50, height: 20, borderRadius: 5, marginHorizontal: 5, color: '#F2F4F3', paddingHorizontal: 5, textAlign: 'center', fontSize: 16 }}
                                 placeholder='2,400'
                                 placeholderTextColor={'#F2F4F3'}
+                                editable={false}
                             />
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
                             <Text style={styles.defaultWhiteText}>
                                 Weight:
                             </Text>
-                            <TextInput style={{ backgroundColor: '#1F2938', width: 70, height: 20, borderRadius: 5, marginLeft: 5, color: '#F2F4F3', paddingHorizontal: 5, textAlign: 'left' }}
+                            <TextInput style={{ backgroundColor: '#1F2938', width: 70, height: 20, borderRadius: 5, marginLeft: 5, color: '#F2F4F3', paddingHorizontal: 5, textAlign: 'left', fontSize: 16 }}
                                 placeholder='105 lbs'
                                 placeholderTextColor={'#F2F4F3'}
                             />
-                            
-                            <Feather name="edit-2" size={14} color="#CB9CF2" style={{position: 'absolute', paddingRight: 2, verticalAlign: 'bottom'}}/>
-
-
+                            <Feather pointerEvents="none" name="edit-2" size={14} color="#CB9CF2" style={{ position: 'absolute', paddingRight: 2}} />
                         </View>
                     </View>
 
@@ -211,7 +259,7 @@ const Tracker = () => {
                             </Text>
                         </View>
 
-                        {/* TODO: Implement retrieval and calculation of calories burned and eaten */}
+                        {/* TODO: Implement retrieval and calculation of calories burned and eaten, placeholder numbers for now */}
                         {/* Actual numbers of forumla */}
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
                             <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'left', width: '19%' }]}>
@@ -244,7 +292,7 @@ const Tracker = () => {
                         <Feather name="plus" size={30} color="#1F2938" />
                     </TouchableOpacity>
 
-                    {/* View for SectionList to store all items of tracker */}
+                    {/* View for FlatList to store all items of tracker */}
                     <View>
 
                         <FlatList
@@ -258,7 +306,7 @@ const Tracker = () => {
                         <View style={{ margin: 20 }}></View>
 
                         {/* Water List */}
-                        <SectionList
+                        <FlatList
                             style={{
                                 backgroundColor: 'rgba(27,33,43,0.5)',
                                 borderRadius: 8,
@@ -267,81 +315,27 @@ const Tracker = () => {
                             sections={water}
                             keyExtractor={(item) => item}
 
-                            // Generating water amount drank by retrieving data(?)
-                            renderItem={({ item, section }) =>
-                                !collapsedSections[section.title] && (
-                                    <View>
-                                        <View style={{ backgroundColor: '#0E1116', flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15 }}>
-                                            <Text
-                                                style={[
-                                                    styles.defaultWhiteText,
-                                                    {
-                                                        paddingLeft: 30,
-                                                        paddingVertical: 7,
-                                                    }
-                                                ]}>
-                                                {item}
-                                            </Text>
-                                        </View>
-                                        <View style={{ height: 1, backgroundColor: 'rgba(242,244,243,0.2)' }} />
-                                    </View>
-                                )
-                            }
-                            // List Header for Water List
-                            ListHeaderComponent={
-                                <View style={{ backgroundColor: '#1F2938' }}>
-                                    <Text style={[styles.defaultText, { paddingVertical: 10, paddingHorizontal: 15 }]}>
-                                        Water
-                                    </Text>
-                                    <View style={{ height: 2, backgroundColor: '#828282' }} />
-                                </View>
-
-                            }
+                            // List Header for Water List (contains total drunk as well)
+                            ListHeaderComponent={WaterHeaderComponent}
                         />
                         {/* Space between Water and Exercise Lists */}
                         <View style={{ margin: 20 }}></View>
 
                         {/* Exercise List */}
-                        <SectionList
+                        <FlatList
                             style={{
-                                backgroundColor: 'rgba(27,33,43,0.5)',
                                 borderRadius: 8,
                             }}
+                            data={exerciseList}
                             scrollEnabled={false}
-                            sections={exerciseList}
-                            keyExtractor={(item) => item}
+                            // sections={exerciseList}
+                            keyExtractor={(item) => item.exercise}
+                            // List header for exercise
+                            ListHeaderComponent={ExerciseHeaderComponent}
 
                             // Rendering Exercise items based on data set of user
-                            renderItem={({ item, section }) =>
-                                !collapsedSections[section.title] && (
-                                    <View>
-                                        <View style={{ backgroundColor: '#0E1116', flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15 }}>
-                                            <Text
-                                                style={[
-                                                    styles.defaultWhiteText,
-                                                    {
-                                                        paddingLeft: 30,
-                                                        paddingVertical: 7,
-                                                    }
-                                                ]}>
-                                                {item}
-                                            </Text>
-                                        </View>
-                                        <View style={{ height: 1, backgroundColor: 'rgba(242,244,243,0.2)' }} />
-                                    </View>
-                                )
-                            }
+                            renderItem={renderExercise}
 
-                            // List Header for Exercise List
-                            ListHeaderComponent={
-                                <View style={{ backgroundColor: '#1F2938' }}>
-                                    <Text style={[styles.defaultText, { paddingVertical: 10, paddingHorizontal: 15 }]}>
-                                        Exercise
-                                    </Text>
-                                    <View style={{ height: 2, backgroundColor: '#828282' }} />
-                                </View>
-
-                            }
                         />
                     </View>
 
