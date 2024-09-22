@@ -229,7 +229,8 @@ const Tracker = () => {
                             <Text style={styles.defaultWhiteText}>
                                 Weight:
                             </Text>
-                            <TextInput style={{ backgroundColor: '#1F2938', width: 70, height: 20, borderRadius: 5, marginLeft: 5, color: '#F2F4F3', paddingHorizontal: 5, textAlign: 'left', fontSize: 16 }}
+                            <TextInput style={{ backgroundColor: '#1F2938', width: 75, height: 20, borderRadius: 5, marginLeft: 5, color: '#F2F4F3', paddingHorizontal: 5, textAlign: 'left', fontSize: 16 }}
+
                                 placeholder='105 lbs'
                                 placeholderTextColor={'#F2F4F3'}
                             />
