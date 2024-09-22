@@ -40,7 +40,7 @@ const Tracker = () => {
         return (
             <View style={styles.header}>
                 <Text style={[styles.defaultText, { paddingLeft: 10, fontSize: 19 }]}>Food</Text>
-                <Text style={[styles.defaultText, { width: '28%', fontSize: 14 }]}>Svg Count</Text>
+                <Text style={[styles.defaultText, { fontSize: 14, textAlign: 'center' }]}>Svg Count</Text>
                 <Text style={[styles.defaultText, { paddingRight: 10, fontSize: 14 }]}>kCal</Text>
             </View>
         );

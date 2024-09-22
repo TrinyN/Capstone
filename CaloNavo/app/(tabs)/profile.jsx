@@ -147,7 +147,7 @@ const Profile = () => {
                     )
                 default:
                     return (
-                        <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, paddingVertical: 10 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, paddingVertical: 10, paddingRight: 10 }}>
                             <View style={{ flex: 1 }}>
                                 {renderText()}
                             </View>
