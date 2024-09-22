@@ -105,6 +105,29 @@ const Tracker = () => {
                             <Feather name="more-vertical" size={30} color="#CB9CF2" />
                         </TouchableOpacity>
                     </View>
+                    {/* Display Caloric Goal and Weight of User */}
+                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', paddingVertical: 5, alignItems: 'center' }}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={styles.defaultWhiteText}>
+                                Caloric Goal:
+                            </Text>
+                            <TextInput style={{ backgroundColor: '#1F2938', width: 50, height: 20, borderRadius: 5, marginHorizontal: 5, color: '#F2F4F3', paddingHorizontal: 5, textAlign: 'center', fontSize: 16 }}
+                                placeholder='2,400'
+                                placeholderTextColor={'#F2F4F3'}
+                                editable={false}
+                            />
+                        </View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
+                            <Text style={styles.defaultWhiteText}>
+                                Weight:
+                            </Text>
+                            <TextInput style={{ backgroundColor: '#1F2938', width: 75, height: 20, borderRadius: 5, marginLeft: 5, color: '#F2F4F3', paddingHorizontal: 5, textAlign: 'left', fontSize: 16 }}
+                                placeholder='105 lbs'
+                                placeholderTextColor={'#F2F4F3'}
+                            />
+                            <Feather pointerEvents="none" name="edit-2" size={14} color="#CB9CF2" style={{ position: 'absolute', paddingRight: 2}} />
+                        </View>
+                    </View>
 
                     {/* Top View to calculate user's calories eaten and burned with a formula visible to them */}
                     <View style={{ backgroundColor: '#1F2938', borderRadius: 5 }}>

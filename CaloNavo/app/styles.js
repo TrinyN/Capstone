@@ -120,14 +120,16 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontFamily: 'Inter_400Regular',
         textAlign: 'left',
-        marginLeft: 10
+        marginHorizontal: 10,
+        width: '90%'
     },
     homeProgressBarTextRight: {
         color: '#F2F4F3',
         fontSize: 14,
         fontFamily: 'Inter_400Regular',
         textAlign: 'right',
-        marginRight: 10
+        marginHorizontal: 10,
+        width: '90%'
     },
     button: {
         backgroundColor: '#F2F4F3',

@@ -11,21 +11,13 @@ import { router } from 'expo-router';
 // comparing amounts to get color of text
 // options functionality
 
-// Function to design and display the tracker
+// Function to design and display the tracker and its related data
 const Tracker = () => {
-
-    // saves visibility of add food pop up
-    const [visible, setVisible] = useState(false);
 
     // saves visibility of options pop up
     const [visibleOptions, setVisibleOptions] = useState(false);
 
-    // change visibility of overlay
-    const toggleOverlay = () => {
-        setVisible(!visible);
-    };
-
-    // change visibility of options
+    // change visibility of options pop up
     const toggleOptions = () => {
         setVisibleOptions(!visibleOptions);
     };
@@ -40,28 +32,6 @@ const Tracker = () => {
         { title: 'Fri.', data: ['2500/2500'], goal: ['Balance'] },
         { title: 'Sat.', data: ['2500/2500'], goal: ['Balance'] },
     ]);
-
-    // // called when user clicks add button
-    // const handleAddFood = () => {
-    //     // find the section that matches foodType entered by user
-    //     const updatedShoppingList = shoppingList.map(section => {
-    //         if (section.title == foodType) {
-    //             // update the data array for the matched food type
-    //             return {
-    //                 ...section,
-    //                 data: [...section.data, foodName.charAt(0).toUpperCase() + foodName.slice(1).toLowerCase()] // Add the new food item
-    //             };
-    //         }
-    //         // return the section as is if it does not match
-    //         return section;
-    //     });
-
-    //     // update the shopping list
-    //     setShoppingList(updatedShoppingList)
-
-    //     // close overlay
-    //     toggleOverlay()
-    // }
 
     //  Returning the screen to display
     return (
@@ -86,7 +56,7 @@ const Tracker = () => {
                         </TouchableOpacity>
                     </View>
 
-                    {/* Top View to calculate user's calories eaten and burned with a formula visible to them */}
+                    {/* Top View to calculate user's average weight and water intake that week */}
                     <View 
                         style={{ 
                             backgroundColor: '#1F2938', 
@@ -140,7 +110,7 @@ const Tracker = () => {
                             keyExtractor={(item) => item}
                             scrollEnabled={false}
 
-                            // Rendering items based on data set and their respective sections
+                            // Rendering items based on data set and their respective sections (days)
                             renderItem={({ section }) => (
                                 <View>
                                     {/* Making sections collapsible */}
@@ -207,10 +177,10 @@ const Tracker = () => {
                                     <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'left' }]}>
                                         Day
                                     </Text>
-                                    <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'center'}]}>
+                                    <Text style={[styles.defaultText, { fontFamily: 'Inter_400Regular', fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'center'}]}>
                                         Calories
                                     </Text>
-                                    <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'right'}]}>
+                                    <Text style={[styles.defaultText, { fontFamily: 'Inter_400Regular', fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'right'}]}>
                                         Goal
                                     </Text>
 
@@ -231,14 +201,14 @@ const Tracker = () => {
                                     paddingHorizontal: 15 }}>
 
                                     <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'left' }]}>
-                                        Avg.
+                                        Avg:
                                     </Text>
                                     {/* Implement calculation of average calorie */}
-                                    <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'center'}]}>
+                                    <Text style={[styles.defaultText, { fontFamily: 'Inter_400Regular' ,fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'center'}]}>
                                         2,750
                                     </Text>
                                     {/* Implement comparison to average goal */}
-                                    <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'right'}]}>
+                                    <Text style={[styles.defaultText, { fontFamily: 'Inter_400Regular', fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'right'}]}>
                                         Balance
                                     </Text>
 

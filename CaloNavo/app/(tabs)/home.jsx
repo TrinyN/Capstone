@@ -52,7 +52,7 @@ const Home = () => {
                                         Calories
                                     </Text>
                                     <Progress.Bar
-                                        progress={0.5}
+                                        progress={0.7}
                                         color={'#CB9CF2'}
                                         unfilledColor={'#0E1116'}
                                         height={20}
@@ -61,6 +61,9 @@ const Home = () => {
                                         style={{ marginBottom: 5 }}>
                                         <Text style={[styles.homeProgressBarTextLeft, { position: 'absolute', flex: 0 }]}>
                                             1400
+                                        </Text>
+                                        <Text style={[styles.homeProgressBarTextRight, { position: 'absolute' }]}>
+                                            2000
                                         </Text>
                                     </Progress.Bar>
                                 </View>
@@ -71,7 +74,7 @@ const Home = () => {
                                         Carbs
                                     </Text>
                                     <Progress.Bar
-                                        progress={0.5}
+                                        progress={0.25}
                                         color={'#80FF72'}
                                         unfilledColor={'#0E1116'}
                                         height={20}
@@ -80,6 +83,9 @@ const Home = () => {
                                         style={{ marginBottom: 5 }}>
                                         <Text style={[styles.homeProgressBarTextLeft, { position: 'absolute', flex: 0 }]}>
                                             250
+                                        </Text>
+                                        <Text style={[styles.homeProgressBarTextRight, { position: 'absolute' }]}>
+                                            100
                                         </Text>
                                     </Progress.Bar>
                                 </View>
@@ -90,15 +96,18 @@ const Home = () => {
                                         Proteins
                                     </Text>
                                     <Progress.Bar
-                                        progress={0.5}
+                                        progress={0.6}
                                         color={'#7EE8FA'}
                                         unfilledColor={'#0E1116'}
                                         height={20}
                                         width={200}
                                         borderRadius={15}
                                         style={{ marginBottom: 5 }}>
-                                        <Text style={[styles.homeProgressBarTextLeft, { position: 'absolute', flex: 0 }]}>
+                                        <Text style={[styles.homeProgressBarTextLeft, { position: 'absolute' }]}>
                                             100
+                                        </Text>
+                                        <Text style={[styles.homeProgressBarTextRight, { position: 'absolute' }]}>
+                                            170
                                         </Text>
                                     </Progress.Bar>
                                 </View>
@@ -116,9 +125,12 @@ const Home = () => {
                                         width={200}
                                         borderRadius={15}
                                         style={{ marginBottom: 5 }}>
-                                        <Text style={[styles.homeProgressBarTextLeft, { position: 'absolute', flex: 0 }]}>
-                                            15
-                                        </Text>
+                                            <Text style={[styles.homeProgressBarTextLeft, { position: 'absolute' }]}>
+                                                15
+                                            </Text>
+                                            <Text style={[styles.homeProgressBarTextRight, { position: 'absolute' }]}>
+                                                30
+                                            </Text>
                                     </Progress.Bar>
                                 </View>
                             </View>
