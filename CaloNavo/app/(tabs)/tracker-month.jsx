@@ -32,13 +32,12 @@ const Tracker = () => {
 
     // test data, will need to start off empty and be saved for each user
     const [dayList, setDayList] = useState([
-        { title: 'Sun.', data: ['3000/2500'], goal: ['Surplus'] },
-        { title: 'Mon.', data: ['2750/2500'], goal: ['Balance'] },
-        { title: 'Tues.', data: ['1000/2500'], goal: ['Surplus'] },
-        { title: 'Wed.', data: ['2500/2500'], goal: ['Balance'] },
-        { title: 'Thurs.', data: ['2500/2500'], goal: ['Balance'] },
-        { title: 'Fri.', data: ['2500/2500'], goal: ['Balance'] },
-        { title: 'Sat.', data: ['2500/2500'], goal: ['Balance'] },
+        { title: '5/26-6/1', data: ['22,000'], goal: ['Surplus'] },
+        { title: '6/2-6/8', data: ['17,500'], goal: ['Balance'] },
+        { title: '6/9-6/15', data: ['17,000'], goal: ['Balance'] },
+        { title: '6/16-6/22', data: ['21,500'], goal: ['Surplus'] },
+        { title: '6/23-6/29', data: ['23,000'], goal: ['Surplus'] },
+        { title: '6/30-7/6', data: ['17,000'], goal: ['Balance'] }
     ]);
 
     // // called when user clicks add button
@@ -75,11 +74,11 @@ const Tracker = () => {
                     <View style={{ marginTop: 70, flexDirection: 'row', paddingBottom: 20, alignItems: 'center' }}>
                         {/* NOTE: Flex looks strange on very large (incompatible) screens like iPad, web */}
                         <Text style={[styles.titleText, { flex: 0.5 }]}>
-                            MONTH
+                            Month:
                         </Text>
                         {/* TODO: Make this text get the current week */}
                         <Text style={[styles.titleTextWhite, { flex: 1 }]}>
-                            MONTH
+                            June, 2024
                         </Text>
                         <TouchableOpacity onPress={toggleOptions} style={{ width: 30 }}>
                             <Feather name="more-vertical" size={30} color="#CB9CF2" />
@@ -91,15 +90,15 @@ const Tracker = () => {
                         style={{ 
                             backgroundColor: '#1F2938', 
                             borderRadius: 5, 
-                            flexDirection: 'row', 
+                            flexDirection: 'column', 
                             justifyContent: 'space-evenly',
                             paddingVertical: 5}}
                         >
 
                          {/* View to hold weight info at a glance */}
-                        <View>
+                        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
                             {/* Average weight of week */}
-                            <Text style={[styles.smallText, {color: '#CB9CF2'} ]}>
+                            <Text style={[styles.smallText, {color: '#CB9CF2', marginRight: 5} ]}>
                                 Average Weight:
                             </Text>
                             {/* TODO: Implement retrieval and calculation of average weight */}
@@ -110,15 +109,41 @@ const Tracker = () => {
                         </View>
                             
                         {/* View to hold water info at a glance */}
-                        <View>
+                        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
                             {/* Average water intake of week */}
-                            <Text style={[styles.smallText, {color: '#CB9CF2'}]}>
+                            <Text style={[styles.smallText, {color: '#CB9CF2', marginRight: 5}]}>
                                 Average Water:
                             </Text>
                             {/* TODO: Implement retrieval and calculation of average water drank */}
                             {/* Calculated average water */}
                             <Text style={[styles.smallText]}>
                                 80 fl oz of 72 fl oz
+                            </Text>
+                        </View>
+
+                        {/* View to hold monthly caloric goal at a glance */}
+                        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+                            {/* Monthly goal is set by user and displayed */}
+                            <Text style={[styles.smallText, {color: '#CB9CF2', marginRight: 5}]}>
+                                Monthly Caloric Goal:
+                            </Text>
+                            {/* TODO: Implement retrieval of user's goal and calculate based on them */}
+                            {/* Displayed goal */}
+                            <Text style={[styles.smallText]}>
+                                17,500 kcal
+                            </Text>
+                        </View>
+
+                        {/* View to hold allowed deviation at a glance */}
+                        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+                            {/* Allowed deviation from monthly goal (500 per week in example) */}
+                            <Text style={[styles.smallText, {color: '#CB9CF2', marginRight: 5}]}>
+                                Allowed Deviation:
+                            </Text>
+                            {/* TODO: Implement retrieval of user's goals and calculate based on them */}
+                            {/* Deviation displayed, 500 per day of week */}
+                            <Text style={[styles.smallText]}>
+                                2,500 kcal
                             </Text>
                         </View>
                         
@@ -157,8 +182,7 @@ const Tracker = () => {
                                                     {
                                                         flex: 1,
                                                         textAlign: 'left',
-                                                        fontFamily: 'Inter_400Regular',
-                                                        color: '#CB9CF2',
+                                                        fontFamily: 'Inter_400Regular'
                                                     }
                                                 ]}>
                                                 {section.title}
@@ -205,7 +229,7 @@ const Tracker = () => {
                                     paddingHorizontal: 15 }}>
 
                                     <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'left' }]}>
-                                        Day
+                                        Month
                                     </Text>
                                     <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'center'}]}>
                                         Calories
@@ -235,11 +259,11 @@ const Tracker = () => {
                                     </Text>
                                     {/* Implement calculation of average calorie */}
                                     <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'center'}]}>
-                                        2,750
+                                        19,667
                                     </Text>
                                     {/* Implement comparison to average goal */}
                                     <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'right'}]}>
-                                        Balance
+                                        Mixed
                                     </Text>
 
                                     <View style={{ height: 2, backgroundColor: '#828282' }} />
@@ -253,7 +277,7 @@ const Tracker = () => {
                     {/* Space between Exercise List and screen bottom */}
                     <View style={{ padding: 40 }}></View>
 
-                    {/* pop up for options */}
+                    {/* Pop up for options */}
                     <Overlay 
                         isVisible={visibleOptions} 
                         onBackdropPress={toggleOptions}
