@@ -13,19 +13,25 @@ import React, { useState } from 'react'
 // 5. Question component? - shared between all signup screens and report
 //      would contain the questions and answers (email and password included)
 
+// Function to handle the design and display of the Sign Up screen
 const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false)
 
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+
+                {/* Top of screen for back button */}
                 <View style={{ marginTop: 40, paddingLeft:25 }}>
                     <TouchableOpacity style={{ width: 35 }} onPress={() => router.push('')}>
                         <Feather name="chevron-left" size={35} color="#F2F4F3" />
                     </TouchableOpacity>
                 </View>
+
+                {/* Body of screen */}
                 <View style={[styles.viewContainer, { flex: 1 }]}>
 
+                    {/* Screen header */}
                     <View style={{ marginTop: 30, flex: 1 }}>
                         <Text style={[styles.titleText, { paddingBottom: 10 }]}>
                             So you are new?
@@ -34,9 +40,14 @@ const SignUp = () => {
                             Please choose a good email and safe password to get started!
                         </Text>
                     </View>
+
+                    {/* Cotent of screen */}
                     <View style={{ flex: 5, paddingBottom: 100 }}>
 
+                        {/* Q/A's for email and password */}
                         <View style={{ justifyContent: 'flex-start', paddingBottom: 100, flex: 1 }}>
+                            
+                            {/* email */}
                             <Text style={styles.defaultText}>
                                 Email:
                             </Text>
@@ -46,10 +57,10 @@ const SignUp = () => {
                                 placeholderTextColor='rgba(242,244,243, 0.2)'>
                             </TextInput>
 
+                            {/* password */}
                             <Text style={styles.defaultText}>
                                 Password:
                             </Text>
-
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <TextInput style={[styles.inputFieldStyle, { flex: 1 }]}
                                     placeholder='password'
@@ -62,7 +73,6 @@ const SignUp = () => {
                                 </TouchableOpacity>
                             </View>
 
-
                             {/* <Text style={styles.defaultText}>
                                 Confirm Password:
                             </Text>
@@ -71,12 +81,16 @@ const SignUp = () => {
                                 placeholder='password'
                                 secureTextEntry={true}> 
                             </TextInput> */}
-
                         </View>
+
+                        {/* Bottom of screen for buttons and info */}
                         <View style={{ justifyContent: 'flex-end', paddingBottom: 10, flex: 1 }}>
+                            
+                            {/* Signup button */}
                             <TouchableOpacity style={styles.button} onPress={() => router.push('/sign-up-2')}>
                                 <Text style={styles.buttonText}>Sign Up</Text>
                             </TouchableOpacity>
+                            {/* Divider */}
                             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                                 <View style={{ flex: 1, height: 1, backgroundColor: '#CB9CF2' }} />
                                 <Text style={[styles.smallText, { color: '#CB9CF2', paddingHorizontal: 10 }]}>
@@ -84,6 +98,7 @@ const SignUp = () => {
                                 </Text>
                                 <View style={{ flex: 1, height: 1, backgroundColor: '#CB9CF2' }} />
                             </View>
+                            {/* Google button */}
                             <TouchableOpacity style={[styles.button, { flexDirection: 'row', justifyContent: 'center' }]}>
                                 <Image
                                     source={require('../../assets/images/google-icon.png')}
@@ -94,6 +109,7 @@ const SignUp = () => {
                                 />
                                 <Text style={styles.buttonText}>Google</Text>
                             </TouchableOpacity>
+                            {/* Terms and conditions */}
                             <Text style={[styles.smallText, { fontSize: 12, color: '#828282' }]}>
                                 By clicking continue, you agree to our{' '}
                                 <Text style={{ color: '#F2F4F3' }}>
@@ -106,6 +122,7 @@ const SignUp = () => {
                                     Privacy Policy
                                 </Text>
                             </Text>
+                            {/* Redirect to sign in screen */}
                             <Text style={[styles.smallText, {}]}>
                                 Have an account?{' '}
                                 <Text onPress={() => router.push('/sign-in')}>
