@@ -6,9 +6,13 @@ import Feather from "react-native-vector-icons/Feather";
 import { useState } from 'react';
 import CustomDropdown from '../components/CustomDropdown';
 
-
-
-
+// REFACTORING FLAGGING - Needs a Component
+// 1. Screen component - sign up 2 and 3 and report all same
+// 2. Screen header component
+// 3. Add/Submit/Create button component
+// 4. Spacing components - bewteen question list and create button
+// 5. Question component? - shared between all signup screens and report
+//      would contain the questions and answers (email and password included)
 
 // Function to handle the design and display of the Sign In 2 screen
 const SignUp3 = () => {

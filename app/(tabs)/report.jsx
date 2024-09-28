@@ -5,6 +5,14 @@ import { router } from 'expo-router';
 
 // TODO: change so placeholders match users info
 // Function to handle the design of the Reports screen of CaloNavo
+
+// REFACTORING FLAGGING - Needs a Component
+// 1. Screen component - sign up 2 and 3 and report all same
+// 2. Screen header component
+// 3. Add button component /// Same idea as "Create PDF" button
+// 4. Spacing components - bewteen question list and create button
+// 5. Question component? - shared between all signup screens and report
+
 const Report = () => {
 
     return (

@@ -6,6 +6,17 @@ import { useState } from 'react';
 import { Overlay } from '@rneui/base';
 import { router } from 'expo-router';
 
+
+// TODO
+
+// REFACTORING FLAGGING - Needs a Component
+// 1. Screen component
+// 2. Screen header component
+// 3. At a glance = calculation header view component
+// 4. Render list component(s) - split into header, list, and footer?
+// 5. Options overlay component
+// 6. Add button component
+
 // Function to design and display the tracker
 const Tracker = () => {
 

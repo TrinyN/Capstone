@@ -11,6 +11,14 @@ import { router } from 'expo-router';
 // comparing amounts to get color of text
 // options functionality
 
+// REFACTORING FLAGGING - Needs a Component
+// 1. Screen component
+// 2. Screen header component
+// 3. At a glance header component
+// 4. Render list component(s) - split into header, list, and footer?
+// 5. Options overlay component
+// 6. Minor button component? (i.e. Zoom out = Zoom in = Take notes, etc.)
+
 // Function to design and display the tracker and its related data
 const Tracker = () => {
 
