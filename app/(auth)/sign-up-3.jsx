@@ -9,6 +9,7 @@ import CustomDropdown from '../components/CustomDropdown';
 
 
 
+
 // Function to handle the design and display of the Sign In 2 screen
 const SignUp3 = () => {
     const [userWeightGoal, setUserWeightGoal] = useState('')
@@ -37,7 +38,7 @@ const SignUp3 = () => {
 
                 {/* Top bar holding the back button */}
                 <View style={{ marginTop: 40, marginBottom: 10, paddingLeft: 25 }}>
-                    <TouchableOpacity style={{ width: 35 }} onPress={() => router.push('sign-up')}>
+                    <TouchableOpacity style={{ width: 35 }} onPress={() => router.back()}>
                         <Feather name="chevron-left" size={35} color="#F2F4F3" />
                     </TouchableOpacity>
                 </View>

@@ -1,4 +1,4 @@
-import { TouchableOpacity, TextInput, Text, View, SectionList, ScrollView } from 'react-native';
+import { TouchableOpacity, TextInput, Text, View, SectionList, Dimensions, ScrollView } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
@@ -15,6 +15,7 @@ import CustomDropdown from '../components/CustomDropdown';
 // make handle add food not work if same food name
 
 const ShoppingList = () => {
+    const { width, height } = Dimensions.get('window');
 
     const [collapsedSections, setCollapsedSections] = useState({})
 
@@ -285,17 +286,16 @@ const ShoppingList = () => {
                     {/* Popup/Overlay for adding food in shopping list */}
                     <Overlay isVisible={visible} onBackdropPress={toggleOverlay} 
                         overlayStyle={{ backgroundColor: '#0E1116', borderRadius: 8, 
-                        borderColor: '#CB9CF2', borderWidth: 2, width: '75%', height: '50%', 
-                        flex: 0.4 }}>
+                        borderColor: '#CB9CF2', borderWidth: 2, resizeMode:'contain', maxWidth: '70%', maxHeight: '40%'}}>
                         {/* View to hold the exit icon */}
-                        <View style={{ paddingVertical: 8, paddingRight: 8, flexDirection: 'row-reverse' }}>
+                        <View style={{ paddingTop: 8, paddingRight: 8, flexDirection: 'row-reverse' }}>
                             <TouchableOpacity onPress={toggleOverlay} style={{ width: 25 }}>
                                 <Feather name="x" size={25} color="#F2F4F3" />
                             </TouchableOpacity>
                         </View>
 
                         {/* Handling the input of a food into the shopping list */}
-                        <View style={[styles.viewContainer, {}]}>
+                        <View style={[styles.viewContainer, {justifyContent: 'center'}]}>
 
                             {/* Food Name input */}
                             <View style={{ padding: 10 }}>
@@ -319,7 +319,7 @@ const ShoppingList = () => {
                             </View>
 
                             {/* Submit button */}
-                            <View style={{ paddingHorizontal: 10 }}>
+                            <View style={{ paddingHorizontal: 10, paddingBottom: 10}}>
                                 <TouchableOpacity onPress={handleAddFood}
                                     style={[styles.button, { backgroundColor: '#CB9CF2' }]}>
                                     <Text style={styles.buttonText}>Submit</Text>
