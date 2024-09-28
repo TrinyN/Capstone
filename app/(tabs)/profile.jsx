@@ -1,4 +1,4 @@
-import { TouchableOpacity, TextInput, Text, View, FlatList, Dimensions , ScrollView } from 'react-native';
+import { TouchableOpacity, TextInput, Text, View, FlatList, Dimensions, ScrollView, Pressable } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
@@ -7,6 +7,7 @@ import { Overlay } from '@rneui/base';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { router } from 'expo-router';
 import PieChart from 'react-native-pie-chart'
+import CustomDatePicker from '../components/CustomDatePicker';
 
 
 
@@ -36,9 +37,9 @@ const Profile = () => {
 
     const [saveVisibility, setSaveVisibility] = useState(false);
 
-    const toggleSaveVisibility = () => {
-        setSaveVisibility(!saveVisibility)
-    }
+    // const toggleSaveVisibility = () => {
+    //     setSaveVisibility(!saveVisibility)
+    // }
 
     // const opacity = saveVisibility ? 1: 0
     const opacity = 1
@@ -48,7 +49,7 @@ const Profile = () => {
         { title: 'Email', value: 'trinynguyen@gmail.com', type: '', options: [] },
         { title: 'Name', value: 'Triny', type: 'text', options: [] },
         { title: 'Gender', value: 'Female', type: 'dropdown', options: ['Female', 'Male'] },
-        { title: 'Date of Birth', value: '08/23/2003', type: 'text', options: [] },
+        { title: 'Date of Birth', value: '08/23/2003', type: 'date', options: [] },
         { title: 'Height', value: '5 feet 0 in', type: 'text', options: [] },
         { title: 'Weight', value: '1,000 lbs', type: 'text', options: [] },
         { title: 'Caloric Goal', value: '2,400', type: 'text', options: [] },
@@ -86,7 +87,6 @@ const Profile = () => {
         const [selectedValue, setSelectedValue] = useState({});
         const [text, setText] = useState('');
 
-
         const renderText = () => {
             return (
                 <TextInput
@@ -95,11 +95,11 @@ const Profile = () => {
                     placeholder={value}
                     placeholderTextColor={'#F2F4F3'}
                     placeholderStyle={[styles.smallText, { textAlign: 'left', flex: 1, paddingLeft: 10 }]}
-                    editable={editable}
+                    // editable={editable}
                     style={[styles.smallText, { color: '#ABABAB', textAlign: 'left', flex: 1, paddingLeft: 10 }]}
                     selectionColor={'#CB9CF2'}
-                    onSubmitEditing={disableEditable}
-                    onEndEditing={disableEditable}
+                    // onSubmitEditing={disableEditable}
+                    // onEndEditing={disableEditable}
 
                     // onChangeText={toggleSaveVisibility}
                     // onSelectionChange={toggleSaveVisibility}
@@ -113,6 +113,7 @@ const Profile = () => {
                 </TextInput>
             )
         }
+
         const renderAppropriateField = () => {
             switch (type) {
 
@@ -158,6 +159,20 @@ const Profile = () => {
                         </View>
 
                     )
+
+                case 'date':
+                    return (
+                        <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1}}>
+                            <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}>
+                                <CustomDatePicker placeholder={value}/>
+                            </View>
+                            <View style={{ alignItems: 'flex-end', justifyContent: 'center', paddingRight: 12, paddingLeft: 10 }}>
+                                <TouchableOpacity style={{ pointerEvents: 'none', widthAndHeight: '100%' }}>
+                                    <Feather name={"edit-2"} size={15} color="#CB9CF2" />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    )
                 default:
                     return (
                         <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, paddingVertical: 10, paddingRight: 10 }}>
@@ -173,7 +188,7 @@ const Profile = () => {
         return (
             <View style={[{ justifyContent: 'center', backgroundColor, flexDirection: 'row', alignItems: 'center', flex: 1, height: 50 }]}>
                 <View style={{ width: '40%' }}>
-                    <Text style={[styles.smallText, { fontFamily: 'Inter_600SemiBold', color: '#CB9CF2', textAlign: 'left', paddingHorizontal: 10}]}>{title}</Text>
+                    <Text style={[styles.smallText, { fontFamily: 'Inter_600SemiBold', color: '#CB9CF2', textAlign: 'left', paddingHorizontal: 10 }]}>{title}</Text>
                 </View>
                 {renderAppropriateField()}
             </View>
@@ -188,7 +203,7 @@ const Profile = () => {
                 <View style={[styles.viewContainer, { flex: 1 }]}>
 
                     {/* Screen header */}
-                    <View style={{ marginTop: 70, flexDirection: 'row', paddingBottom: 30, alignItems: 'center' }}>
+                    <View style={{ marginTop: 70, flexDirection: 'row', paddingBottom: 83, alignItems: 'center' }}>
 
                         <Text style={[styles.titleText, { flex: 1 }]}>
                             Your Profile
@@ -200,18 +215,6 @@ const Profile = () => {
                         </TouchableOpacity>
 
                     </View>
-
-                        <View style={{}}>
-                            <View style={{ flexDirection: 'row-reverse', paddingBottom: 0, justifyContent: 'space-between' }}>
-                                <TouchableOpacity
-                                    disabled={!saveVisibility}
-                                    style={[styles.button, { opacity, backgroundColor: '#CB9CF2', paddingVertical: 0 }]}>
-                                    <Text style={[styles.defaultText, { color: '#0E1116', fontSize: 14, paddingVertical: 5 }]} >
-                                        Save
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
 
 
                     {/* Flat list to show profile information */}
@@ -226,7 +229,7 @@ const Profile = () => {
                     </View>
 
                     {/* Macro Pi Chart Container*/}
-                    <View style={{ paddingTop: 30, paddingBottom: 50 }}>
+                    <View style={{ paddingTop: 30, paddingBottom: 10 }}>
                         <View style={{ flexDirection: 'row', borderRadius: 10, backgroundColor: 'rgba(27,33,43,0.5)', justifyContent: 'space-between' }}>
                             <View style={{ justifyContent: 'center', padding: 20, justifyContent: 'space-evenly' }}>
 
@@ -234,21 +237,21 @@ const Profile = () => {
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <View style={{ width: 15, height: 15, borderRadius: 7.5, marginRight: 8, backgroundColor: '#80FF72' }} />
                                     <Text style={[styles.defaultWhiteText]}>
-                                        Carb {Number(Math.round((series[0]/(series[0] + series[1] + series[2]) * 100) + 'e' + 1) + 'e-' + 1)}{"%"}
+                                        Carb {Number(Math.round((series[0] / (series[0] + series[1] + series[2]) * 100) + 'e' + 1) + 'e-' + 1)}{"%"}
                                     </Text>
                                 </View>
 
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <View style={{ width: 15, height: 15, borderRadius: 7.5, marginRight: 8, backgroundColor: '#7EE8FA' }} />
                                     <Text style={styles.defaultWhiteText}>
-                                        Protein {Number(Math.round((series[1]/(series[0] + series[1] + series[2]) * 100) + 'e' + 1) + 'e-' + 1)}{"%"}
+                                        Protein {Number(Math.round((series[1] / (series[0] + series[1] + series[2]) * 100) + 'e' + 1) + 'e-' + 1)}{"%"}
                                     </Text>
                                 </View>
 
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <View style={{ width: 15, height: 15, borderRadius: 7.5, marginRight: 8, backgroundColor: '#FFF07C' }} />
                                     <Text style={styles.defaultWhiteText}>
-                                        Fat {Number(Math.round((series[2]/(series[0] + series[1] + series[2]) * 100) + 'e' + 1) + 'e-' + 1)}{"%"}
+                                        Fat {Number(Math.round((series[2] / (series[0] + series[1] + series[2]) * 100) + 'e' + 1) + 'e-' + 1)}{"%"}
                                     </Text>
                                 </View>
                             </View>
@@ -259,6 +262,18 @@ const Profile = () => {
                                     style={{ strokeWidth: '4', stroke: '#141920' }}
                                 />
                             </View>
+                        </View>
+                    </View>
+
+                    <View style={{}}>
+                        <View style={{ flexDirection: 'row-reverse', paddingBottom: 30, justifyContent: 'space-between' }}>
+                            <TouchableOpacity
+                                // disabled={!saveVisibility}
+                                style={[styles.button, { opacity, backgroundColor: '#CB9CF2', paddingVertical: 0 }]}>
+                                <Text style={[styles.defaultText, { color: '#0E1116', fontSize: 14, paddingVertical: 5 }]} >
+                                    Save
+                                </Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
 
