@@ -9,7 +9,11 @@ import { ListView } from 'react-native';
 import { color } from '@rneui/base';
 // import { LiquidGauge } from 'react-native-liquid-gauge'
 
-// TEST COMMIT USING VSCODE ON DESKTOP
+// REFACTORING FLAGGING - Needs a Component
+// 1. Screen component
+// 2. Screen header component - larger subtext (user's name)
+// 3. Individual panes/frames for different home panes? (ex: daily, water, notes, quick add)
+// 4. Progress bar component
 
 // Function that handles the design and display of the Home screen
 const Home = () => {

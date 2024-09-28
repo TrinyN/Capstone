@@ -14,6 +14,15 @@ import CustomDropdown from '../components/CustomDropdown';
 // input validation
 // make handle add food not work if same food name
 
+// REFACTORING FLAGGING - Needs a Component
+// 1. Screen component
+// 2. Screen header component
+// 3. Add button component
+// 4. Render list component(s) - split into header, list item, and footer?
+// 5. Options overlay component
+// 6. Minor button component? (i.e. Zoom out = Zoom in = Take notes, etc.)
+// 7. Spacing components
+
 const ShoppingList = () => {
     const { width, height } = Dimensions.get('window');
 
@@ -278,7 +287,7 @@ const ShoppingList = () => {
                         />
                     </View>
 
-                    {/* ??? */}
+                    {/* Spacing under the list */}
                     <View style={{ padding: 40 }}>
                     </View>
                     

@@ -16,6 +16,13 @@ import CustomDatePicker from '../components/CustomDatePicker';
 // make email not be editable and no edit icon next to it
 // change data types ex: birth date should be a date and allow user to pick from calendar maybe, height should allow user to input value for ft and also inches
 
+// REFACTORING FLAGGING - Needs a Component
+// 1. Screen component
+// 2. Screen header component
+// 3. Render list component(s) - list item
+// 6. Spacing component
+// 5. Pie chart container? - Not too necessary though
+// 6. Small button component? ~ CustomButton implementation?
 
 const Profile = () => {
     const { width } = Dimensions.get('window');
