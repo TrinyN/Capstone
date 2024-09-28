@@ -111,10 +111,10 @@ const CustomDatePicker = ({ placeholder, hasTitle }) => {
                             maximumDate={new Date()}
                         />
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                            <TouchableOpacity onPress={toggleDatepicker} style={styles.button}>
-                                <Text style={styles.buttonText}>Cancel</Text>
+                            <TouchableOpacity onPress={toggleDatepicker} style={[styles.button, {backgroundColor: 'transparent', borderWidth: 1, borderColor: '#F2F4F3'}]}>
+                                <Text style={[styles.buttonText, {color: '#F2F4F3'}]}>Cancel</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={confirmIOSDate} style={styles.button}>
+                            <TouchableOpacity onPress={confirmIOSDate} style={[styles.button, {backgroundColor: '#CB9CF2'}]}>
                                 <Text style={styles.buttonText}>Confirm</Text>
                             </TouchableOpacity>
                         </View>
