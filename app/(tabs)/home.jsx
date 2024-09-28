@@ -9,6 +9,8 @@ import { ListView } from 'react-native';
 import { color } from '@rneui/base';
 // import { LiquidGauge } from 'react-native-liquid-gauge'
 
+// TEST COMMIT USING VSCODE ON DESKTOP
+
 // Function that handles the design and display of the Home screen
 const Home = () => {
 
