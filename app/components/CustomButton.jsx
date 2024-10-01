@@ -1,14 +1,18 @@
 import { Text, TouchableOpacity } from 'react-native'
 import React from 'react'
+import styles from '../styles'
 
 const CustomButton = ({
-    title, 
+    title,
     handlePress,
 }) => {
     return (
-    <TouchableOpacity>
+        <TouchableOpacity onPress={handlePress} style={[styles.button, {backgroundColor: '#CB9CF2', zIndex: -1}]}>
+            <Text style={styles.buttonText}>
+                {title}
+            </Text>
+        </TouchableOpacity>
+    )
+}
 
-    </TouchableOpacity>
-)}
-
-export {CustomButton}
+export { CustomButton }

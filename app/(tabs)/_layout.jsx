@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tabs, Stack } from 'expo-router'
+import { Tabs } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import Feather from "react-native-vector-icons/Feather";
 
@@ -26,7 +26,6 @@ const TabsLayout = () => {
     
     return (
         <>
-        
             {/* Tabs for each of CaloNavo's tabs */}
             <Tabs screenOptions={{
                 tabBarActiveTintColor: '#CB9CF2',

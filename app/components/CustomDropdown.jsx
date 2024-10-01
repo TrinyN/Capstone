@@ -21,11 +21,11 @@ const CustomDropdown = ({ placeholder, setCustomValue, items, setItems }) => {
             setItems={setItems}
             theme="DARK"
             placeholder={placeholder}
-            style={[styles.inputFieldStyle, { borderWidth: 0 }]}
+            style={[styles.inputFieldStyle, { borderWidth: 0, minHeight: 30}]}
             borderColor='#0E1116'
             placeholderStyle={{ color: 'rgba(242,244,243, 0.2)', fontSize: 16 }}
             borderWidth={0}
-            dropDownContainerStyle={{ theme: "DARK", borderWidth: 0 }}
+            dropDownContainerStyle={{ theme: "DARK", borderWidth: 0}}
             textStyle={{ fontSize: 16, color: '#F2F4F3', paddingLeft: 5 }}
         />
     )

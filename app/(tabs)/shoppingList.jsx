@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import Checkbox from 'expo-checkbox';
 import { Overlay } from '@rneui/base';
 import CustomDropdown from '../components/CustomDropdown';
+import CustomPopUp from '../components/CustomPopUp';
 
 // todo:
 // save list for user
@@ -166,7 +167,7 @@ const ShoppingList = () => {
                 data: section.data.filter(item => !checkedItems[item])
             };
         });
-    
+
         setShoppingList(updatedShoppingList);
     };
 
@@ -193,7 +194,7 @@ const ShoppingList = () => {
 
                     {/* Add button */}
                     <TouchableOpacity onPress={toggleOverlay}
-                        style={[styles.button, { backgroundColor: '#CB9CF2', padding: 1 }]}>
+                        style={[styles.button, { backgroundColor: '#CB9CF2', padding: 1}]}>
                         <Feather name="plus" size={30} color="#1F2938" />
                     </TouchableOpacity>
 
@@ -290,63 +291,54 @@ const ShoppingList = () => {
                     {/* Spacing under the list */}
                     <View style={{ padding: 40 }}>
                     </View>
-                    
+
                     {/* NOTE: Adjust Overlay's flex or width/height to change its size properly */}
                     {/* Popup/Overlay for adding food in shopping list */}
-                    <Overlay isVisible={visible} onBackdropPress={toggleOverlay} 
-                        overlayStyle={{ backgroundColor: '#0E1116', borderRadius: 8, 
-                        borderColor: '#CB9CF2', borderWidth: 2, resizeMode:'contain', maxWidth: '70%', maxHeight: '40%'}}>
-                        {/* View to hold the exit icon */}
-                        <View style={{ paddingTop: 8, paddingRight: 8, flexDirection: 'row-reverse' }}>
-                            <TouchableOpacity onPress={toggleOverlay} style={{ width: 25 }}>
-                                <Feather name="x" size={25} color="#F2F4F3" />
-                            </TouchableOpacity>
-                        </View>
+                    <CustomPopUp visible={visible} toggleOverlay={toggleOverlay} hasBackButton={true}
+                        content={
+                            // Handling the input of a food into the shopping list
+                            <View style={{ paddingHorizontal: 30, paddingBottom: 20 }}>
+                                {/* Food Name input */}
+                                <View style={{ padding: 10 }}>
+                                    <TextInput style={styles.inputFieldStyle}
+                                        placeholder='Food Name'
+                                        selectionColor='#CB9CF2'
+                                        placeholderTextColor='rgba(242,244,243, 0.2)'
+                                        onChangeText={(text) => setFoodName(text)}
+                                    >
+                                    </TextInput>
+                                </View>
 
-                        {/* Handling the input of a food into the shopping list */}
-                        <View style={[styles.viewContainer, {justifyContent: 'center'}]}>
+                                {/* Food Type input */}
+                                <View style={{ padding: 10, zIndex: 1 }}>
+                                    <CustomDropdown
+                                        placeholder={'Food Type'}
+                                        setCustomValue={setFoodType}
+                                        items={items}
+                                        setItems={setItems}
+                                    />
+                                </View>
 
-                            {/* Food Name input */}
-                            <View style={{ padding: 10 }}>
-                                <TextInput style={styles.inputFieldStyle}
-                                    placeholder='Food Name'
-                                    selectionColor='#CB9CF2'
-                                    placeholderTextColor='rgba(242,244,243, 0.2)'
-                                    onChangeText={(text) => setFoodName(text)}
-                                >
-                                </TextInput>
+                                {/* Submit button */}
+                                <View style={{ paddingHorizontal: 10, paddingBottom: 10 }}>
+                                    <TouchableOpacity onPress={handleAddFood}
+                                        style={[styles.button, { backgroundColor: '#CB9CF2' }]}>
+                                        <Text style={styles.buttonText}>Submit</Text>
+                                    </TouchableOpacity>
+                                </View>
+
                             </View>
-
-                            {/* Food Type input */}
-                            <View style={{ padding: 10, zIndex: 1 }}>
-                                <CustomDropdown 
-                                placeholder={'Food Type'}    
-                                setCustomValue={setFoodType}     
-                                items={items}            
-                                setItems={setItems}           
-                                />
-                            </View>
-
-                            {/* Submit button */}
-                            <View style={{ paddingHorizontal: 10, paddingBottom: 10}}>
-                                <TouchableOpacity onPress={handleAddFood}
-                                    style={[styles.button, { backgroundColor: '#CB9CF2' }]}>
-                                    <Text style={styles.buttonText}>Submit</Text>
-                                </TouchableOpacity>
-                            </View>
-
-                        </View>
-
-                    </Overlay>
+                        }
+                    />
 
                     {/* Popup for options menu */}
-                    <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={[styles.optionsMenu, {justifyContent: 'center'}]}>
+                    <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={[styles.optionsMenu, { justifyContent: 'center' }]}>
 
                         {/* View to contain all options */}
-                        <View style={{ paddingHorizontal: 8, justifyContent: 'center'}}>
+                        <View style={{ paddingHorizontal: 8, justifyContent: 'center' }}>
 
                             {/* Resetting checkmarks */}
-                            <TouchableOpacity onPress={resetCheckmarks} style={{ flexDirection: 'row', alignItems: 'center'}}>
+                            <TouchableOpacity onPress={resetCheckmarks} style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Feather name="rotate-ccw" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
                                 <Text style={styles.optionsText}>
                                     Reset Checkmarks
@@ -382,7 +374,7 @@ const ShoppingList = () => {
                     </Overlay>
                 </View>
             </ScrollView>
-        </SafeAreaView>
+        </SafeAreaView >
     )
 }
 export default ShoppingList;
