@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@expo-google-fonts/inter": "^0.2.3",
-    "@react-native-community/datetimepicker": "8.0.1",
+    "@react-native-community/datetimepicker": "^8.0.1",
     "@react-native-picker/picker": "^2.8.0",
     "@react-native-vector-icons/feather": "^4.29.2-alpha.25",
     "@rneui/base": "^4.0.0-rc.7",
