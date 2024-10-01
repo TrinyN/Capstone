@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         paddingLeft: 15,
         paddingVertical: 10,
-        // height: 45
+        height: 45
         // selectionColor: '#CB9CF2',
         // placeholderTextColor:'rgba(242,244,243, 0.5)',
     },

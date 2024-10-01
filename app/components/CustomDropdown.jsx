@@ -21,7 +21,7 @@ const CustomDropdown = ({ placeholder, setCustomValue, items, setItems }) => {
             setItems={setItems}
             theme="DARK"
             placeholder={placeholder}
-            style={[styles.inputFieldStyle, { borderWidth: 0, minHeight: 30}]}
+            style={[styles.inputFieldStyle, { borderWidth: 0, minHeight: 45}]}
             borderColor='#0E1116'
             placeholderStyle={{ color: 'rgba(242,244,243, 0.2)', fontSize: 16 }}
             borderWidth={0}

@@ -1,11 +1,7 @@
-import { TextInput, TouchableOpacity, Text, View, Modal, ScrollView, Pressable, Platform } from 'react-native';
+import { TouchableOpacity, View} from 'react-native';
 import { Overlay } from '@rneui/base';
 import Feather from "react-native-vector-icons/Feather";
-import CustomDropdown from './CustomDropdown';
-import React, { useState } from 'react';
-import { CustomButton } from './CustomButton';
-import styles from '../styles';
-import { router } from 'expo-router';
+import React from 'react';
 
 // renders the frame, close overlay button, and back button if any
 
