@@ -3,8 +3,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
 import { useState } from 'react';
-import { Overlay } from '@rneui/base';
-import { router } from 'expo-router';
+import CustomPopUp from '../components/CustomPopUp';
+import { CustomButton } from '../components/CustomButton';
+import CustomDropdown from '../components/CustomDropdown';
+import { StyleSheet } from 'react-native';
+import CustomHeader from '../components/CustomHeader';
+import TrackerOptions from '../components/TrackerOptions';
+import TrackerInfo from '../components/TrackerInfo';
 
 
 // TODO
@@ -23,21 +28,55 @@ const Tracker = () => {
     const [foodName, setFoodName] = useState('')
     const [foodType, setFoodType] = useState('')
 
-    // Saves visibility of add food pop up
+    // Saves visibility of add pop up
     const [visible, setVisible] = useState(false);
 
-    // Saves visibility of options pop up
-    const [visibleOptions, setVisibleOptions] = useState(false);
-
-    // Change visibility of overlay
+    // Change visibility of add overlay
     const toggleOverlay = () => {
         setVisible(!visible);
     };
+
+    // Saves visibility of add water pop up
+    const [addWaterVisible, setAddWaterVisible] = useState(false);
+
+    // Change visibility of add water overlay
+    const toggleWaterOverlay = () => {
+        setAddWaterVisible(!addWaterVisible);
+        setTimeout(() => setVisible(false), 100)
+    };
+
+    // Saves visibility of add exercise pop up
+    const [addExerciseVisibile, setAddExerciseVisible] = useState(false);
+
+    // Change visibility of add exercise overlay
+    const toggleExerciseOverlay = () => {
+        setAddExerciseVisible(!addExerciseVisibile);
+        setTimeout(() => setVisible(false), 100)
+    };
+
+    // Saves visibility of options pop up
+    const [visibleOptions, setVisibleOptions] = useState(false);
 
     // Change visibility of options
     const toggleOptions = () => {
         setVisibleOptions(!visibleOptions);
     };
+
+    const [waterUnit, setWaterUnit] = useState('')
+    const [waterUnitTypes, setWaterUnitTypes] = useState([
+        { label: 'Cups', value: 'Cups' },
+        { label: 'Fl Oz', value: 'Fl Oz' },
+        { label: 'Gallon', value: 'Gallon' },
+
+    ]);
+
+    const [exerciseUnit, setExerciseUnit] = useState('')
+    const [exerciseUnitTypes, setExerciseUnitTypes] = useState([
+        { label: 'Minutes', value: 'Minutes' },
+        { label: 'Hours', value: 'Hours' },
+        { label: 'Reps', value: 'Reps' },
+
+    ]);
 
     // Sample data for Breakfast, Lunch, Dinner, and Snacks
     const [foodSections, setFoodSections] = useState([
@@ -79,7 +118,7 @@ const Tracker = () => {
     // Test data, will need to start off empty and be saved for each user
     const [exerciseList, setExerciseListList] = useState([
         { exercise: 'Running', reps: '10 min', kCal: -30 },
-        { exercise: 'Swimming', reps: '30 min', kCal: -50  },
+        { exercise: 'Swimming', reps: '30 min', kCal: -50 },
     ]);
 
     // Test data, will need to start off empty and be saved for each user, will only be one number that keeps increasing as user adds more
@@ -87,32 +126,10 @@ const Tracker = () => {
         10,
     ]);
 
-    // Header Component for Food FlatList
-    const HeaderComponent = () => {
-        return (
-            <View style={styles.header}>
-                <Text style={[styles.defaultText, { paddingLeft: 10, fontSize: 19 }]}>Food</Text>
-                <Text style={[styles.defaultText, { fontSize: 14, textAlign: 'center' }]}>Svg Count</Text>
-                <Text style={[styles.defaultText, { paddingRight: 10, fontSize: 14 }]}>kCal</Text>
-            </View>
-        );
-    };
-
-    // Header Component for Exercise FlatList
-    const ExerciseHeaderComponent = () => {
-        return (
-            <View style={styles.header}>
-                <Text style={[styles.defaultText, { paddingLeft: 10, fontSize: 19 }]}>Exercise</Text>
-                <Text style={[styles.defaultText, { fontSize: 14, textAlign: 'center'}]}>Duration/Reps</Text>
-                <Text style={[styles.defaultText, { paddingRight: 10, fontSize: 14 }]}>kCal</Text>
-            </View>
-        );
-    };
-
     // Header Component for Exercise FlatList
     const WaterHeaderComponent = () => {
         return (
-            <View style={[styles.header, {borderBottomWidth: 0}]}>
+            <View style={[styles.header, { borderBottomWidth: 0 }]}>
                 <Text style={[styles.defaultText, { paddingLeft: 10, fontSize: 19 }]}>Water</Text>
                 <Text style={[styles.defaultWhiteText, { paddingVertical: 15, paddingRight: 10 }]}>{water} cups</Text>
             </View>
@@ -176,36 +193,15 @@ const Tracker = () => {
             <View>
                 {/* Render items only if the section is expanded */}
                 <View>
-                        <View style={[styles.item, {paddingLeft: 10}]}>
-                            <Text style={[styles.defaultWhiteText, { width: '30%', textAlign: 'left'}]}>{item.exercise}</Text>
-                            <Text style={[styles.defaultWhiteText, { width: '40%', textAlign: 'center'}]}>{item.reps}</Text>
-                            <Text style={[styles.defaultWhiteText, { width: '20%', textAlign: 'right', paddingRight: 10 }]}>{item.kCal}</Text>
-                        </View>
+                    <View style={[styles.item, { paddingLeft: 10 }]}>
+                        <Text style={[styles.defaultWhiteText, { width: '30%', textAlign: 'left' }]}>{item.exercise}</Text>
+                        <Text style={[styles.defaultWhiteText, { width: '40%', textAlign: 'center' }]}>{item.reps}</Text>
+                        <Text style={[styles.defaultWhiteText, { width: '20%', textAlign: 'right', paddingRight: 10 }]}>{item.kCal}</Text>
+                    </View>
                 </View>
             </View>
         );
     };
-    // // called when user clicks add button
-    // const handleAddFood = () => {
-    //     // find the section that matches foodType entered by user
-    //     const updatedShoppingList = shoppingList.map(section => {
-    //         if (section.title == foodType) {
-    //             // update the data array for the matched food type
-    //             return {
-    //                 ...section,
-    //                 data: [...section.data, foodName.charAt(0).toUpperCase() + foodName.slice(1).toLowerCase()] // Add the new food item
-    //             };
-    //         }
-    //         // return the section as is if it does not match
-    //         return section;
-    //     });
-
-    //     // update the shopping list
-    //     setShoppingList(updatedShoppingList)
-
-    //     // close overlay
-    //     toggleOverlay()
-    // }
 
     //  Returning the screen to display
     return (
@@ -225,78 +221,8 @@ const Tracker = () => {
                         </TouchableOpacity>
                     </View>
                     {/* Display Caloric Goal and Weight of User */}
-                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', paddingVertical: 5, alignItems: 'center' }}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={styles.defaultWhiteText}>
-                                Caloric Goal:
-                            </Text>
-                            <TextInput style={{ backgroundColor: '#1F2938', width: 50, height: 20, borderRadius: 5, marginHorizontal: 5, color: '#F2F4F3', paddingHorizontal: 5, textAlign: 'center', fontSize: 16 }}
-                                placeholder='2,400'
-                                placeholderTextColor={'#F2F4F3'}
-                                editable={false}
-                            />
-                        </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                            <Text style={styles.defaultWhiteText}>
-                                Weight:
-                            </Text>
-                            <TextInput style={{ backgroundColor: '#1F2938', width: 75, height: 20, borderRadius: 5, marginLeft: 5, color: '#F2F4F3', paddingHorizontal: 5, textAlign: 'left', fontSize: 16 }}
-
-                                placeholder='105 lbs'
-                                placeholderTextColor={'#F2F4F3'}
-                            />
-                            <Feather pointerEvents="none" name="edit-2" size={14} color="#CB9CF2" style={{ position: 'absolute', paddingRight: 2}} />
-                        </View>
-                    </View>
-
                     {/* Top View to calculate user's calories eaten and burned with a formula visible to them */}
-                    <View style={{ backgroundColor: '#1F2938', borderRadius: 5 }}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
-
-                            {/* Abstract formula to make numbers make sense*/}
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14, color: '#CB9CF2', width: '19%', textAlign: 'left' }]}>
-                                (Eaten
-                            </Text>
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14 }]}> - </Text>
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14, color: '#CB9CF2', width: '22%', textAlign: 'center' }]}>
-                                Burned)
-                            </Text>
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14 }]}> - </Text>
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14, color: '#CB9CF2', width: '19%', textAlign: 'center' }]}>
-                                BMR
-                            </Text>
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14 }]}> = </Text>
-                            <Text style={[styles.defaultWhiteText, { textDecorationLine: 'underline', fontSize: 14, color: '#80FF72', width: '21%', textAlign: 'right' }]}>
-                                Surplus
-                            </Text>
-                        </View>
-
-                        {/* TODO: Implement retrieval and calculation of calories burned and eaten, placeholder numbers for now */}
-                        {/* Actual numbers of forumla */}
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'left', width: '19%' }]}>
-                                (2,400
-                            </Text>
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'center' }]}>
-                                -
-                            </Text>
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'center', width: '22%' }]}>
-                                200)
-                            </Text>
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'center' }]}>
-                                -
-                            </Text>
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'center', width: '19%' }]}>
-                                1,200
-                            </Text>
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'center' }]}>
-                                =
-                            </Text>
-                            <Text style={[styles.defaultWhiteText, { fontSize: 14, textAlign: 'right', width: '21%' }]}>
-                                800
-                            </Text>
-                        </View>
-                    </View>
+                    <TrackerInfo />
 
                     {/* Add Food Button */}
                     <TouchableOpacity onPress={toggleOverlay}
@@ -306,12 +232,13 @@ const Tracker = () => {
 
                     {/* View for FlatList to store all items of tracker */}
                     <View>
-
                         <FlatList
                             data={foodSections}
                             renderItem={renderSection}
                             keyExtractor={(item) => item.key}
-                            ListHeaderComponent={HeaderComponent}
+                            ListHeaderComponent={
+                                <CustomHeader title1={"Food"} title2={"Svg Count"} title3={"kCal"} />
+                            }
                             scrollEnabled={false}
                         />
 
@@ -321,11 +248,9 @@ const Tracker = () => {
                         {/* Water List */}
                         <FlatList
                             style={{
-                                backgroundColor: 'rgba(27,33,43,0.5)',
                                 borderRadius: 8,
                             }}
                             scrollEnabled={false}
-                            sections={water}
                             keyExtractor={(item) => item}
 
                             // List Header for Water List (contains total drunk as well)
@@ -341,10 +266,11 @@ const Tracker = () => {
                             }}
                             data={exerciseList}
                             scrollEnabled={false}
-                            // sections={exerciseList}
                             keyExtractor={(item) => item.exercise}
                             // List header for exercise
-                            ListHeaderComponent={ExerciseHeaderComponent}
+                            ListHeaderComponent={
+                                <CustomHeader title1={"Exercise"} title2={"Duration/Reps"} title3={"kCal"} />
+                            }
 
                             // Rendering Exercise items based on data set of user
                             renderItem={renderExercise}
@@ -355,112 +281,92 @@ const Tracker = () => {
                     {/* Space between Exercise List and screen bottom */}
                     <View style={{ padding: 40 }}></View>
 
-                    {/* pop up for adding food, water, or exercise*/}
-                    <Overlay isVisible={visible} onBackdropPress={toggleOverlay}
-                        overlayStyle={{
-                            backgroundColor: '#0E1116', borderRadius: 8,
-                            borderColor: '#CB9CF2', borderWidth: 2, width: '75%', height: '50%',
-                            flex: 0.4
-                        }}>
+                    {/* Pop ups for adding food, water, or exercise*/}
+                    <CustomPopUp visible={visible} toggleOverlay={toggleOverlay} hasBackButton={false}
+                        content={
+                            <View style={{ paddingHorizontal: 20, paddingBottom: 20, alignItems: 'center', alignContent: 'center' }}>
+                                <Text style={[styles.defaultWhiteText, { textAlign: 'center' }]}>
+                                    Which would you like to add?
+                                </Text>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <CustomButton title={"   Water   "} handlePress={toggleWaterOverlay} />
+                                    <View style={{ paddingHorizontal: 10 }}>
+                                        <CustomButton title={"   Food   "} />
+                                    </View>
+                                    <CustomButton title={"Exercise"} handlePress={toggleExerciseOverlay} />
+                                </View>
+                            </View>}
+                    />
+                    <CustomPopUp visible={addWaterVisible} toggleOverlay={toggleWaterOverlay} hasBackButton={true}
+                        content={
+                            <View style={{ paddingHorizontal: 30, paddingBottom: 20, justifyContent: 'center' }}>
+                                <Text style={[styles.defaultWhiteText, { textAlign: 'center' }]}>
+                                    How much water did you drink?
+                                </Text>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: 20, paddingBottom: 10 }}>
+                                    <TextInput style={[styles.inputFieldStyle, { flex: 1 }]} placeholder='10' selectionColor='#CB9CF2' placeholderTextColor='rgba(242,244,243, 0.2)'>
+                                    </TextInput>
+                                    {/* <Text style={[styles.defaultWhiteText, { paddingLeft: 10 }]}>
+                                        Cups
+                                    </Text> */}
+                                    <View style={{ flex: 1, paddingLeft: 10 }}>
+                                        <CustomDropdown
+                                            placeholder={'Cups'}
+                                            setCustomValue={setWaterUnit}
+                                            items={waterUnitTypes}
+                                            setItems={setWaterUnitTypes}
+                                        />
+                                    </View>
+                                </View >
+                                <CustomButton title={"Sumbit"} />
+                            </View>}
+                    />
 
-                        {/* View at top to hold exit button */}
-                        <View style={{ paddingVertical: 8, paddingRight: 8, flexDirection: 'row-reverse' }}>
-                            <TouchableOpacity onPress={toggleOverlay} style={{ width: 25 }}>
-                                <Feather name="x" size={25} color="#F2F4F3" />
-                            </TouchableOpacity>
-                        </View>
+                    <CustomPopUp visible={addExerciseVisibile} toggleOverlay={toggleExerciseOverlay} hasBackButton={true}
+                        content={
+                            <View style={{ paddingHorizontal: 30, paddingBottom: 20, justifyContent: 'center' }}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: 20 }}>
+                                    <TextInput style={[styles.inputFieldStyle, { flex: 1 }]} placeholder='Exercise' selectionColor='#CB9CF2' placeholderTextColor='rgba(242,244,243, 0.2)'>
+                                    </TextInput>
+                                </View >
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: 20 }}>
+                                    <View style={{ flex: 1, paddingRight: 10 }}>
+                                        <TextInput style={[styles.inputFieldStyle]} placeholder='10' selectionColor='#CB9CF2' placeholderTextColor='rgba(242,244,243, 0.2)'>
+                                        </TextInput>
+                                    </View >
+                                    <View style={{ flex: 1.25}}>
 
-                        {/* View to hold input fields and sumbit button */}
-                        <View style={[styles.viewContainer, {}]}>
-
-                            {/* Food name input */}
-                            <View style={{ padding: 10 }}>
-                                <TextInput style={styles.inputFieldStyle}
-                                    placeholder='Food Name'
-                                    selectionColor='#CB9CF2'
-                                    placeholderTextColor='rgba(242,244,243, 0.2)'
-                                    onChangeText={(text) => setFoodName(text)}
-                                >
-                                </TextInput>
+                                        <CustomDropdown
+                                            placeholder={'Minutes'}
+                                            setCustomValue={setExerciseUnit}
+                                            items={exerciseUnitTypes}
+                                            setItems={setExerciseUnitTypes}
+                                        />
+                                    </View >
+                                </View >
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: 5, zIndex: -1}}>
+                                    <View style={{ flex: 1, paddingRight: 10 }}>
+                                        <CustomButton title="Calculate" />
+                                    </View >
+                                    <TextInput style={[styles.inputFieldStyle, { flex: 1.1}]} placeholder='Cals Burned' selectionColor='#CB9CF2' placeholderTextColor='rgba(242,244,243, 0.2)'>
+                                    </TextInput>
+                                </View >
+                                <CustomButton title={"Sumbit"} />
                             </View>
-
-                            {/* Food type dropdown */}
-                            <View style={{ padding: 10 }}>
-                                <TextInput style={[styles.inputFieldStyle]}
-                                    placeholder='Food Type'
-                                    selectionColor='#CB9CF2'
-                                    placeholderTextColor='rgba(242,244,243, 0.2)'
-                                    onChangeText={(text) => setFoodType(text)}
-                                >
-                                </TextInput>
-                            </View>
-
-                            {/* Submit button */}
-                            <View style={{ paddingHorizontal: 10 }}>
-                                <TouchableOpacity
-                                    style={[styles.button, { backgroundColor: '#CB9CF2' }]}>
-                                    <Text style={styles.buttonText}>Submit</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </Overlay>
+                        }
+                    />
 
                     {/* pop up for options */}
-                    <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={[styles.optionsMenu, { width: '70%' }]}>
-
-
-                        {/* View containing option choices */}
-                        <View style={{ paddingHorizontal: 8, justifyContent: 'center' }}>
-
-                            {/* Notes Option Button */}
-                            {/* TODO: Choose:
-                                1. REMOVE take notes from tracker WEEK and MONTH screens
-                                2. WHEN PRESSED make user choose a DATE to apply notes to */}
-                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Feather name="edit-3" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
-                                <Text style={styles.optionsText}>
-                                    Take Notes
-                                </Text>
-                            </TouchableOpacity>
-
-                            {/* Shopping List Option Button */}
-                            <TouchableOpacity
-                                style={{ flexDirection: 'row', alignItems: 'center' }}
-                                onPressOut={toggleOptions}>
-
-                                <Feather name="shopping-cart" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
-                                <Text style={styles.optionsText}>
-                                    Generate Shopping List
-                                </Text>
-                            </TouchableOpacity>
-
-                            {/* Zoom in Option Button */}
-                            <TouchableOpacity
-                                style={{ flexDirection: 'row', alignItems: 'center', opacity: 0.2 }}
-                                disabled={true}>
-
-                                <Feather name="maximize-2" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
-                                <Text style={styles.optionsText}>
-                                    Zoom In
-                                </Text>
-                            </TouchableOpacity>
-
-                            {/* Zoom out Option Button */}
-                            <TouchableOpacity
-                                style={{ flexDirection: 'row', alignItems: 'center' }}
-                                onPress={() => router.push('/tracker-week')}
-                                onPressOut={toggleOptions}>
-
-                                <Feather name="minimize-2" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
-                                <Text style={styles.optionsText}>
-                                    Zoom Out
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </Overlay>
+                    <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} />
                 </View>
             </ScrollView>
         </SafeAreaView>
     )
 }
 export default Tracker;
+
+
+
+// const styles = StyleSheet.create({
+//     const
+// })

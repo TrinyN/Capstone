@@ -138,7 +138,8 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginBottom: 15,
         borderRadius: 8,
-        activeOpacity: 0.7
+        activeOpacity: 0.7, 
+        minHeight: 30, 
     },
     buttonText: {
         color: '#0E1116',
@@ -152,6 +153,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         paddingLeft: 15,
         paddingVertical: 10,
+        // height: 45
         // selectionColor: '#CB9CF2',
         // placeholderTextColor:'rgba(242,244,243, 0.5)',
     },
