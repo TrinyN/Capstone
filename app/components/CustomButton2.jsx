@@ -1,29 +1,55 @@
 import { TouchableOpacity, StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 
-export default function CustomButton2({ isGoogle, text, onPress }) {
-    return (
-        // Is Google true?
-        {isGoogle} ?
-        <TouchableOpacity onPress={onPress}>
-            <View style={apStyle.googleButton}>
-                <Image style={apStyle.googleLogo} 
-                    source={require('../../assets/images/google-icon.png')}
-                    />
-                <Text style={apStyle.buttonText}>Google</Text>
-            </View>
-        </TouchableOpacity>     
-        // Else is not Google
-        :
-        <TouchableOpacity onPress={onPress}>
-            <View style={apStyle.button}>
-                <Text style={apStyle.buttonText}>
-                    { text }
-                </Text>
-            </View>
-        </TouchableOpacity>
-    )
+// ONLY ALLOWED IN TYPESCRIPT - RESTRICTS TYPES
+// type buttonType = 'primary' | 'small'| 'google';
+
+// interface buttonProps {
+//     type: ButtonType;
+//     title: String;
+//     onPress: () => void;
+// }
+
+const CustomButton2 = ({ type, text, onPress }) => {
+        
+    if (type === 'google') {
+        return (
+            // If is google button
+            <TouchableOpacity onPress={onPress}>
+                <View style={apStyle.buttonGoogle}>
+                    <Image style={apStyle.googleLogo} 
+                        source={require('../../assets/images/google-icon.png')}
+                        />
+                    <Text style={apStyle.buttonText}>Google</Text>
+                </View>
+            </TouchableOpacity> 
+        )
+    } else if (type === 'normal') {    
+        return (
+            // Else is normal button
+            <TouchableOpacity onPress={onPress}>
+                <View style={apStyle.button}>
+                    <Text style={apStyle.buttonText}>
+                        { text }
+                    </Text>
+                </View>
+            </TouchableOpacity>
+        )
+    } else if (type === 'small') {
+        return (
+            // Else is small button
+            <TouchableOpacity onPress={onPress}>
+                <View style={apStyle.buttonSm}>
+                    <Text style={apStyle.buttonText}>
+                        { text }
+                    </Text>
+                </View>
+            </TouchableOpacity>
+        )
+    }
 }
+
+export default CustomButton2;
 
 const apStyle = StyleSheet.create({
     button: {
@@ -35,12 +61,18 @@ const apStyle = StyleSheet.create({
         borderRadius: 8,
         activeOpacity: 0.7
     },
-    buttonText: {
-        color: '#0E1116',
-        fontSize: 16,
-        fontFamily: 'Inter_500Medium',
+    buttonSm: {
+        height: '50%', // temporary
+        width: '50%', // temporary
+        backgroundColor: '#F2F4F3',
+        padding: 10,
+        alignItems: 'center',
+        marginTop: 15,
+        marginBottom: 15,
+        borderRadius: 8,
+        activeOpacity: 0.7
     },
-    googleButton: {
+    buttonGoogle: {
         backgroundColor: '#F2F4F3',
         padding: 10,
         alignItems: 'center',
@@ -54,6 +86,11 @@ const apStyle = StyleSheet.create({
     googleLogo: {
         width: '9%',
         height: '100%'
-    }
+    },
+    buttonText: {
+        color: '#0E1116',
+        fontSize: 16,
+        fontFamily: 'Inter_500Medium',
+    },
 
 })

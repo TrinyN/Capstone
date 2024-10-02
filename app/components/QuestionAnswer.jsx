@@ -1,19 +1,18 @@
 import { Text, TextInput, View, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
-import { TextInput } from "react-native-web";
 
-const QuestionAnswer = (props) => {
+const QuestionAnswer = (ansType, placeholder, question) => {
 
     return (
 
         <View style={apStyle.container}>
             <Text style={apStyle.question}>
-                {props.question}
+                {question}
             </Text>
 
             {/* Add in way to accept response */}
             <TextInput 
                 style={apStyle.textAnswer} 
-                placeholder={props.placeholder}
+                placeholder={placeholder}
                 selectionColor='#CB9CF2'
                 placeholderTextColor='rgba(242,244,243, 0.2)'>     
             </TextInput>
