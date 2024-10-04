@@ -64,7 +64,7 @@ const apStyle = StyleSheet.create({
     buttonSm: {
         height: '50%', // temporary
         width: '50%', // temporary
-        backgroundColor: '#F2F4F3',
+        backgroundColor: '#CB9CF2',
         padding: 10,
         alignItems: 'center',
         marginTop: 15,
