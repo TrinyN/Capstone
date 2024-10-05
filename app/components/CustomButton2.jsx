@@ -10,6 +10,7 @@ import React from "react";
 //     onPress: () => void;
 // }
 
+// Function that returns the CustomButton2 given certain fields to determine its behavior
 const CustomButton2 = ({ type, text, onPress }) => {
         
     if (type === 'google') {
@@ -35,7 +36,7 @@ const CustomButton2 = ({ type, text, onPress }) => {
                 </View>
             </TouchableOpacity>
         )
-    } else if (type === 'small') {
+    } else if (type === 'small') { // FINISH IMPLEMENTING (found on profile)
         return (
             // Else is small button
             <TouchableOpacity onPress={onPress}>

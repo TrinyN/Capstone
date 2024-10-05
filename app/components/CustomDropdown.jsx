@@ -2,7 +2,7 @@ import styles from '../styles';
 import { useState} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 
-
+// Function that returns the CustomDropdown given certain fields to determine its behavior
 const CustomDropdown = ({ placeholder, setCustomValue, items, setItems }) => {
 
     const [open, setOpen] = useState(false);
@@ -27,6 +27,7 @@ const CustomDropdown = ({ placeholder, setCustomValue, items, setItems }) => {
             borderWidth={0}
             dropDownContainerStyle={{ theme: "DARK", borderWidth: 0}}
             textStyle={{ fontSize: 16, color: '#F2F4F3', paddingLeft: 5 }}
+            containerStyle={{ zIndex: 3 }}
         />
     )
 }
