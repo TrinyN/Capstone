@@ -6,7 +6,7 @@ import Feather from "react-native-vector-icons/Feather";
 import { Overlay } from '@rneui/base';
 import { router } from 'expo-router';
 import React from 'react'
-
+// TODO: change color of zoom in zoom out depending on tracker screen version
 const TrackerOptions = ({
     visibleOptions, 
     toggleOptions

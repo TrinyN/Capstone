@@ -49,28 +49,6 @@ const Tracker = () => {
         { title: '6/30-7/6', data: ['17,000'], goal: ['Balance'] }
     ]);
 
-    // // called when user clicks add button
-    // const handleAddFood = () => {
-    //     // find the section that matches foodType entered by user
-    //     const updatedShoppingList = shoppingList.map(section => {
-    //         if (section.title == foodType) {
-    //             // update the data array for the matched food type
-    //             return {
-    //                 ...section,
-    //                 data: [...section.data, foodName.charAt(0).toUpperCase() + foodName.slice(1).toLowerCase()] // Add the new food item
-    //             };
-    //         }
-    //         // return the section as is if it does not match
-    //         return section;
-    //     });
-
-    //     // update the shopping list
-    //     setShoppingList(updatedShoppingList)
-
-    //     // close overlay
-    //     toggleOverlay()
-    // }
-
     //  Returning the screen to display
     return (
         <SafeAreaView style={styles.container}>
