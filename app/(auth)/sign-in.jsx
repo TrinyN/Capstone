@@ -24,7 +24,6 @@ const SignIn = () => {
     return (
         <CustomScreen
             title='Glad to see you again!'
-            hasBackButton={true}
             screenContent={
 
                 // {/* View to hold prompts and fields at top and buttons on bottom */}

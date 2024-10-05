@@ -7,6 +7,7 @@ import { router } from 'expo-router';
 import Feather from "react-native-vector-icons/Feather";
 import { ListView } from 'react-native';
 import { color } from '@rneui/base';
+import CustomScreen from '../components/CustomScreen';
 // import { LiquidGauge } from 'react-native-liquid-gauge'
 
 // REFACTORING FLAGGING - Needs a Component
@@ -19,26 +20,12 @@ import { color } from '@rneui/base';
 const Home = () => {
 
     return (
-        <SafeAreaView style={styles.container}>
-            {/* This screen is not Scrollable, so a regular view was used. May be changed in the future. */}
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 
-                {/* The "body" of the screen, including its major elements */}
-                <View style={[styles.viewContainer, { flex: 1 }]}>
-
-                    {/* Screen header */}
-                    <View style={{ marginTop: 70, flex: 1 }}>
-
-                        <Text style={ styles.titleText }>
-                            Welcome back,
-                        </Text>
-                        {/* TODO: Make it get the name of the user to display */}
-                        <Text style={[styles.titleTextWhite, { paddingBottom: 50 }]}>
-                            Bob
-                        </Text>
-
-                    </View>
-
+        <CustomScreen
+            title='Welcome back'
+            title2='Bob' // test value, need to change
+            screenContent={
+                <View>
                     {/* View to contain all other major elements, like the frames for each quick tool */}
                     <View style={{ flex: 5, paddingBottom: 50 }}>
 
@@ -49,11 +36,11 @@ const Home = () => {
                             </Text>
 
                             {/* View that holds the progress bars and their labels */}
-                            <View style={{ flexDirection: 'column', paddingBottom: 10,  }}>
+                            <View style={{ flexDirection: 'column', paddingBottom: 10, }}>
 
                                 {/* TODO: progress of bars should be calculated using eaten/total calories */}
                                 {/* Calorie Progress */}
-                                <View style={{ flexDirection: 'row',  }} >
+                                <View style={{ flexDirection: 'row', }} >
                                     <Text style={[styles.homeProgressLabelText, { color: '#CB9CF2', flex: 1 }]}>
                                         Calories
                                     </Text>
@@ -131,12 +118,12 @@ const Home = () => {
                                         width={200}
                                         borderRadius={15}
                                         style={{ marginBottom: 5 }}>
-                                            <Text style={[styles.homeProgressBarTextLeft, { position: 'absolute' }]}>
-                                                15
-                                            </Text>
-                                            <Text style={[styles.homeProgressBarTextRight, { position: 'absolute' }]}>
-                                                30
-                                            </Text>
+                                        <Text style={[styles.homeProgressBarTextLeft, { position: 'absolute' }]}>
+                                            15
+                                        </Text>
+                                        <Text style={[styles.homeProgressBarTextRight, { position: 'absolute' }]}>
+                                            30
+                                        </Text>
                                     </Progress.Bar>
                                 </View>
                             </View>
@@ -150,7 +137,7 @@ const Home = () => {
 
                                 {/* Water Goal Display Frame */}
                                 {/* NOTE: If water bottle placement becomes an issue, check this paddingBottom */}
-                                <View style={[styles.viewHomeFrameTall, {alignContent: 'center', paddingBottom: 85}]}> 
+                                <View style={[styles.viewHomeFrameTall, { alignContent: 'center', paddingBottom: 85 }]}>
 
                                     {/* TouchableOpacity to make frame contents a button */}
                                     <TouchableOpacity
@@ -161,7 +148,7 @@ const Home = () => {
                                             flex: 1,
                                             flexDirection: 'column',
                                         }}
-                                        onPress={() => router.push('/tracker')}> 
+                                        onPress={() => router.push('/tracker')}>
 
                                         <Text style={styles.frameTextWhite}>
                                             Staying {'\n'}
@@ -199,7 +186,7 @@ const Home = () => {
                                                 // right: -30
                                             }}
                                         />
-                                        
+
                                     </TouchableOpacity>
 
                                 </View>
@@ -256,12 +243,10 @@ const Home = () => {
                         </View>
 
                     </View>
-
                 </View>
+            }
+        />
 
-
-            </ScrollView>
-        </SafeAreaView>
     )
 }
 export default Home;

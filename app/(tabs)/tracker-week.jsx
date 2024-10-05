@@ -5,6 +5,7 @@ import Feather from "react-native-vector-icons/Feather";
 import { useState, useEffect } from 'react';
 import { Overlay } from '@rneui/base';
 import { router } from 'expo-router';
+import CustomScreen from '../components/CustomScreen';
 
 // todo:
 // calculating averages
@@ -43,41 +44,29 @@ const Tracker = () => {
 
     //  Returning the screen to display
     return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 
-                {/* The "body" of the screen, including its major elements */}
-                <View style={[styles.viewContainer, { flex: 1 }]}>
-
-                    {/* Screen Header */}
-                    <View style={{ marginTop: 70, flexDirection: 'row', paddingBottom: 20, alignItems: 'center' }}>
-                        {/* NOTE: Flex looks strange on very large (incompatible) screens like iPad, web */}
-                        <Text style={[styles.titleText, { flex: 0.5 }]}>
-                            Week:
-                        </Text>
-                        {/* TODO: Make this text get the current week */}
-                        <Text style={[styles.titleTextWhite, { flex: 1 }]}>
-                            6/9 - 6/15
-                        </Text>
-                        <TouchableOpacity onPress={toggleOptions} style={{ width: 30 }}>
-                            <Feather name="more-vertical" size={30} color="#CB9CF2" />
-                        </TouchableOpacity>
-                    </View>
-
+        <CustomScreen
+            title='Week:'
+            title2='6/9 - 6/15' // test value, need to change
+            hasOptions={true}
+            toggleOptions={toggleOptions}
+            screenContent={
+                <View>
                     {/* Top View to calculate user's average weight and water intake that week */}
-                    <View 
-                        style={{ 
-                            backgroundColor: '#1F2938', 
-                            borderRadius: 5, 
-                            flexDirection: 'row', 
+                    <View
+                        style={{
+                            backgroundColor: '#1F2938',
+                            borderRadius: 5,
+                            flexDirection: 'row',
                             justifyContent: 'space-evenly',
-                            paddingVertical: 5}}
-                        >
+                            paddingVertical: 5
+                        }}
+                    >
 
-                         {/* View to hold weight info at a glance */}
+                        {/* View to hold weight info at a glance */}
                         <View>
                             {/* Average weight of week */}
-                            <Text style={[styles.smallText, {color: '#CB9CF2'} ]}>
+                            <Text style={[styles.smallText, { color: '#CB9CF2' }]}>
                                 Average Weight:
                             </Text>
                             {/* TODO: Implement retrieval and calculation of average weight */}
@@ -86,11 +75,11 @@ const Tracker = () => {
                                 102.5 lbs
                             </Text>
                         </View>
-                            
+
                         {/* View to hold water info at a glance */}
                         <View>
                             {/* Average water intake of week */}
-                            <Text style={[styles.smallText, {color: '#CB9CF2'}]}>
+                            <Text style={[styles.smallText, { color: '#CB9CF2' }]}>
                                 Average Water:
                             </Text>
                             {/* TODO: Implement retrieval and calculation of average water drank */}
@@ -99,7 +88,7 @@ const Tracker = () => {
                                 80 fl oz of 72 fl oz
                             </Text>
                         </View>
-                        
+
                     </View>
 
                     {/* Space between Stats View and Week List */}
@@ -122,52 +111,53 @@ const Tracker = () => {
                             renderItem={({ section }) => (
                                 <View>
                                     {/* Making sections collapsible */}
-                                        <View style={{ 
-                                            flexDirection: 'row', 
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center', 
-                                            paddingHorizontal: 15,
-                                            paddingVertical: '7%' }}>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        paddingHorizontal: 15,
+                                        paddingVertical: '7%'
+                                    }}>
 
-                                            <Text
-                                                style={[
-                                                    styles.defaultWhiteText,
-                                                    {
-                                                        flex: 1,
-                                                        textAlign: 'left',
-                                                        fontFamily: 'Inter_400Regular',
-                                                        color: '#CB9CF2',
-                                                    }
-                                                ]}>
-                                                {section.title}
-                                            </Text>
-                                            {/* TODO: Comparison to determine text color */}
-                                            <Text
-                                                style={[
-                                                    styles.defaultWhiteText,
-                                                    {
-                                                        flex: 1,
-                                                        textAlign: 'center',
-                                                        fontFamily: 'Inter_400Regular',
-                                                        color: '#80FF72',
-                                                    }
-                                                ]}>
-                                                {section.data}
-                                            </Text>
-                                            {/* TODO: Comparison to determine text color */}
-                                            <Text
-                                                style={[
-                                                    styles.defaultWhiteText,
-                                                    {
-                                                        flex: 1,
-                                                        textAlign: 'right',
-                                                        fontFamily: 'Inter_400Regular',
-                                                        color: '#80FF72',
-                                                    }
-                                                ]}>
-                                                {section.goal}
-                                            </Text>
-                                        </View>
+                                        <Text
+                                            style={[
+                                                styles.defaultWhiteText,
+                                                {
+                                                    flex: 1,
+                                                    textAlign: 'left',
+                                                    fontFamily: 'Inter_400Regular',
+                                                    color: '#CB9CF2',
+                                                }
+                                            ]}>
+                                            {section.title}
+                                        </Text>
+                                        {/* TODO: Comparison to determine text color */}
+                                        <Text
+                                            style={[
+                                                styles.defaultWhiteText,
+                                                {
+                                                    flex: 1,
+                                                    textAlign: 'center',
+                                                    fontFamily: 'Inter_400Regular',
+                                                    color: '#80FF72',
+                                                }
+                                            ]}>
+                                            {section.data}
+                                        </Text>
+                                        {/* TODO: Comparison to determine text color */}
+                                        <Text
+                                            style={[
+                                                styles.defaultWhiteText,
+                                                {
+                                                    flex: 1,
+                                                    textAlign: 'right',
+                                                    fontFamily: 'Inter_400Regular',
+                                                    color: '#80FF72',
+                                                }
+                                            ]}>
+                                            {section.goal}
+                                        </Text>
+                                    </View>
 
                                     {/* Borderline at bottom of Section Headers */}
                                     <View style={{ height: 2, backgroundColor: '#828282' }} />
@@ -175,20 +165,21 @@ const Tracker = () => {
                             )}
                             // List header for week list
                             ListHeaderComponent={
-                                <View style={{ 
-                                    backgroundColor: '#1F2938', 
-                                    flexDirection: 'row', 
-                                    justifyContent: 'space-between', 
+                                <View style={{
+                                    backgroundColor: '#1F2938',
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
                                     alignItems: 'center',
-                                    paddingHorizontal: 15 }}>
+                                    paddingHorizontal: 15
+                                }}>
 
                                     <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'left' }]}>
                                         Day
                                     </Text>
-                                    <Text style={[styles.defaultText, { fontFamily: 'Inter_400Regular', fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'center'}]}>
+                                    <Text style={[styles.defaultText, { fontFamily: 'Inter_400Regular', fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'center' }]}>
                                         Calories
                                     </Text>
-                                    <Text style={[styles.defaultText, { fontFamily: 'Inter_400Regular', fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'right'}]}>
+                                    <Text style={[styles.defaultText, { fontFamily: 'Inter_400Regular', fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'right' }]}>
                                         Goal
                                     </Text>
 
@@ -197,26 +188,27 @@ const Tracker = () => {
 
                             }
                             // Section headers for food types
-                            
+
 
                             // Footer to calculate averages
                             ListFooterComponent={
-                                <View style={{ 
-                                    backgroundColor: '#1F2938', 
-                                    flexDirection: 'row', 
-                                    justifyContent: 'space-between', 
+                                <View style={{
+                                    backgroundColor: '#1F2938',
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
                                     alignItems: 'center',
-                                    paddingHorizontal: 15 }}>
+                                    paddingHorizontal: 15
+                                }}>
 
                                     <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'left' }]}>
                                         Avg:
                                     </Text>
                                     {/* Implement calculation of average calorie */}
-                                    <Text style={[styles.defaultText, { fontFamily: 'Inter_400Regular' ,fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'center'}]}>
+                                    <Text style={[styles.defaultText, { fontFamily: 'Inter_400Regular', fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'center' }]}>
                                         2,750
                                     </Text>
                                     {/* Implement comparison to average goal */}
-                                    <Text style={[styles.defaultText, { fontFamily: 'Inter_400Regular', fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'right'}]}>
+                                    <Text style={[styles.defaultText, { fontFamily: 'Inter_400Regular', fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'right' }]}>
                                         Balance
                                     </Text>
 
@@ -232,8 +224,8 @@ const Tracker = () => {
                     <View style={{ padding: 40 }}></View>
 
                     {/* pop up for options */}
-                    <Overlay 
-                        isVisible={visibleOptions} 
+                    <Overlay
+                        isVisible={visibleOptions}
                         onBackdropPress={toggleOptions}
                         overlayStyle={[styles.optionsMenu, { width: '70%' }]}>
 
@@ -250,7 +242,7 @@ const Tracker = () => {
                             </TouchableOpacity>
 
                             {/* Shoping List Option Button */}
-                            <TouchableOpacity 
+                            <TouchableOpacity
                                 style={{ flexDirection: 'row', alignItems: 'center' }}
                                 onPressOut={toggleOptions}>
 
@@ -262,7 +254,7 @@ const Tracker = () => {
 
                             {/* Zoom in Option Button */}
                             {/* NOTE: onPressOut closes overlay so it doesn't stay open when moving to new screen */}
-                            <TouchableOpacity 
+                            <TouchableOpacity
                                 style={{ flexDirection: 'row', alignItems: 'center' }}
                                 onPress={() => router.push('/tracker')}
                                 onPressOut={toggleOptions}>
@@ -274,7 +266,7 @@ const Tracker = () => {
                             </TouchableOpacity>
 
                             {/* Zoom out Option Button */}
-                            <TouchableOpacity 
+                            <TouchableOpacity
                                 style={{ flexDirection: 'row', alignItems: 'center' }}
                                 onPress={() => router.push('/tracker-month')}
                                 onPressOut={toggleOptions}>
@@ -287,8 +279,12 @@ const Tracker = () => {
                         </View>
                     </Overlay>
                 </View>
-            </ScrollView>
-        </SafeAreaView>
+            }
+        />
+
+
+
+
     )
 }
 export default Tracker;

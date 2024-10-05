@@ -10,7 +10,7 @@ import { StyleSheet } from 'react-native';
 import CustomHeader from '../components/CustomHeader';
 import TrackerOptions from '../components/TrackerOptions';
 import TrackerInfo from '../components/TrackerInfo';
-
+import CustomScreen from '../components/CustomScreen';
 
 // TODO
 
@@ -205,21 +205,14 @@ const Tracker = () => {
 
     //  Returning the screen to display
     return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 
-                {/* The "body" of the screen, including its major elements */}
-                <View style={[styles.viewContainer, { flex: 1 }]}>
-
-                    {/* Screen Header */}
-                    <View style={{ marginTop: 70, flexDirection: 'row', paddingBottom: 20, alignItems: 'center' }}>
-                        <Text style={[styles.titleText, { flex: 1 }]}>
-                            Tracker
-                        </Text>
-                        <TouchableOpacity onPress={toggleOptions} style={{ width: 30 }}>
-                            <Feather name="more-vertical" size={30} color="#CB9CF2" />
-                        </TouchableOpacity>
-                    </View>
+        <CustomScreen
+            title='Day:'
+            title2='Monday 8/6' // test value, need to change
+            hasOptions={true}
+            toggleOptions={toggleOptions}
+            screenContent={
+                <View>
                     {/* Display Caloric Goal and Weight of User */}
                     {/* Top View to calculate user's calories eaten and burned with a formula visible to them */}
                     <TrackerInfo />
@@ -334,7 +327,7 @@ const Tracker = () => {
                                         <TextInput style={[styles.inputFieldStyle]} placeholder='10' selectionColor='#CB9CF2' placeholderTextColor='rgba(242,244,243, 0.2)'>
                                         </TextInput>
                                     </View >
-                                    <View style={{ flex: 1.25}}>
+                                    <View style={{ flex: 1.25 }}>
 
                                         <CustomDropdown
                                             placeholder={'Minutes'}
@@ -344,11 +337,11 @@ const Tracker = () => {
                                         />
                                     </View >
                                 </View >
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: 5, zIndex: -1}}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: 5, zIndex: -1 }}>
                                     <View style={{ flex: 1, paddingRight: 10 }}>
                                         <CustomButton title="Calculate" />
                                     </View >
-                                    <TextInput style={[styles.inputFieldStyle, { flex: 1.1}]} placeholder='Cals Burned' selectionColor='#CB9CF2' placeholderTextColor='rgba(242,244,243, 0.2)'>
+                                    <TextInput style={[styles.inputFieldStyle, { flex: 1.1 }]} placeholder='Cals Burned' selectionColor='#CB9CF2' placeholderTextColor='rgba(242,244,243, 0.2)'>
                                     </TextInput>
                                 </View >
                                 <CustomButton title={"Sumbit"} />
@@ -359,8 +352,16 @@ const Tracker = () => {
                     {/* pop up for options */}
                     <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} />
                 </View>
-            </ScrollView>
-        </SafeAreaView>
+            }
+        />
+
+
+
+
+
+
+
+
     )
 }
 export default Tracker;

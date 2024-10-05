@@ -21,7 +21,6 @@ const SignUp = () => {
         <CustomScreen
             title='So you are new?'
             info='Please choose a good email and safe password to get started!'
-            hasBackButton={true}
             screenContent={
                 // {/* Cotent of screen */}
                 <View style={{ flex: 5, paddingBottom: 100 }}>
