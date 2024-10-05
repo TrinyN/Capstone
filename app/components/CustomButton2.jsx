@@ -1,0 +1,96 @@
+import { TouchableOpacity, StyleSheet, Text, View, Image } from "react-native";
+import React from "react";
+
+// ONLY ALLOWED IN TYPESCRIPT - RESTRICTS TYPES
+// type buttonType = 'primary' | 'small'| 'google';
+
+// interface buttonProps {
+//     type: ButtonType;
+//     title: String;
+//     onPress: () => void;
+// }
+
+const CustomButton2 = ({ type, text, onPress }) => {
+        
+    if (type === 'google') {
+        return (
+            // If is google button
+            <TouchableOpacity onPress={onPress}>
+                <View style={apStyle.buttonGoogle}>
+                    <Image style={apStyle.googleLogo} 
+                        source={require('../../assets/images/google-icon.png')}
+                        />
+                    <Text style={apStyle.buttonText}>Google</Text>
+                </View>
+            </TouchableOpacity> 
+        )
+    } else if (type === 'normal') {    
+        return (
+            // Else is normal button
+            <TouchableOpacity onPress={onPress}>
+                <View style={apStyle.button}>
+                    <Text style={apStyle.buttonText}>
+                        { text }
+                    </Text>
+                </View>
+            </TouchableOpacity>
+        )
+    } else if (type === 'small') {
+        return (
+            // Else is small button
+            <TouchableOpacity onPress={onPress}>
+                <View style={apStyle.buttonSm}>
+                    <Text style={apStyle.buttonText}>
+                        { text }
+                    </Text>
+                </View>
+            </TouchableOpacity>
+        )
+    }
+}
+
+export default CustomButton2;
+
+const apStyle = StyleSheet.create({
+    button: {
+        backgroundColor: '#F2F4F3',
+        padding: 10,
+        alignItems: 'center',
+        marginTop: 15,
+        marginBottom: 15,
+        borderRadius: 8,
+        activeOpacity: 0.7
+    },
+    buttonSm: {
+        height: '50%', // temporary
+        width: '50%', // temporary
+        backgroundColor: '#CB9CF2',
+        padding: 10,
+        alignItems: 'center',
+        marginTop: 15,
+        marginBottom: 15,
+        borderRadius: 8,
+        activeOpacity: 0.7
+    },
+    buttonGoogle: {
+        backgroundColor: '#F2F4F3',
+        padding: 10,
+        alignItems: 'center',
+        marginTop: 15,
+        marginBottom: 15,
+        borderRadius: 8,
+        activeOpacity: 0.7,
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    googleLogo: {
+        width: '9%',
+        height: '100%'
+    },
+    buttonText: {
+        color: '#0E1116',
+        fontSize: 16,
+        fontFamily: 'Inter_500Medium',
+    },
+
+})
