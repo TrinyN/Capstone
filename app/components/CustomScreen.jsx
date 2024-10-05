@@ -30,7 +30,7 @@ const CustomScreen = ({
                 <View style={[styles.viewContainer, { flex: 1 }]}>
 
                     {/* Screen Header */}
-                    <View style={{ marginTop: 70, flexDirection: 'row', paddingBottom: 25, alignItems: 'center' }}>
+                    <View style={{ marginTop: 70, flexDirection: 'row', paddingBottom: 10, alignItems: 'center' }}>
                         {/* NOTE: Flex looks strange on very large (incompatible) screens like iPad, web */}
 
                             <Text style={[styles.titleText, {flex: 1, flexDirection: 'row'}]}>
@@ -48,10 +48,13 @@ const CustomScreen = ({
                         }
 
                     </View>
-                    <Text style={[styles.defaultWhiteText, { fontSize: 20, paddingBottom: 10 }]}>
+                    <Text style={[styles.defaultWhiteText, { fontFamily: 'Inter_200ExtraLight', fontSize: 20, paddingBottom: 30 }]}>
                         {info}
                     </Text>
+                    {/* <View style = {{justifyContent: 'flex-end'}}> */}
                     {screenContent}
+                    {/* </View> */}
+                    
                 </View>
             </ScrollView>
         </SafeAreaView>

@@ -7,6 +7,7 @@ import { Overlay } from '@rneui/base';
 import CustomDropdown from '../components/CustomDropdown';
 import CustomPopUp from '../components/CustomPopUp';
 import CustomScreen from '../components/CustomScreen';
+import CustomButton2 from '../components/CustomButton2';
 
 // todo:
 // save list for user
@@ -180,10 +181,10 @@ const ShoppingList = () => {
 
                 <View>
                     {/* Add button */}
-                    <TouchableOpacity onPress={toggleOverlay}
-                        style={[styles.button, { backgroundColor: '#CB9CF2', padding: 1 }]}>
-                        <Feather name="plus" size={30} color="#1F2938" />
-                    </TouchableOpacity>
+                    <CustomButton2
+                        type='add'
+                        onPress={toggleOverlay}
+                    />
 
                     {/* View holding numerous lists for the grocery list */}
                     <View>

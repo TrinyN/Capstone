@@ -228,10 +228,6 @@ const Tracker = () => {
                 </View>
             }
         />
-
-
-
-
     )
 }
 export default Tracker;

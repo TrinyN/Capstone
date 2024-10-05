@@ -247,7 +247,6 @@ const Tracker = () => {
 
                                     <View style={{ height: 2, backgroundColor: '#828282' }} />
                                 </View>
-
                             }
                         />
 
@@ -261,7 +260,6 @@ const Tracker = () => {
                 </View>
             }
         />
-
     )
 }
 export default Tracker;

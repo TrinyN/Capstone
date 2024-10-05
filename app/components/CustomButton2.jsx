@@ -1,5 +1,7 @@
 import { TouchableOpacity, StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
+import Feather from "react-native-vector-icons/Feather";
+
 
 // ONLY ALLOWED IN TYPESCRIPT - RESTRICTS TYPES
 // type buttonType = 'primary' | 'small'| 'google';
@@ -12,37 +14,45 @@ import React from "react";
 
 // Function that returns the CustomButton2 given certain fields to determine its behavior
 const CustomButton2 = ({ type, text, onPress }) => {
-        
+
     if (type === 'google') {
         return (
             // If is google button
             <TouchableOpacity onPress={onPress}>
                 <View style={apStyle.buttonGoogle}>
-                    <Image style={apStyle.googleLogo} 
+                    <Image style={apStyle.googleLogo}
                         source={require('../../assets/images/google-icon.png')}
-                        />
+                    />
                     <Text style={apStyle.buttonText}>Google</Text>
                 </View>
-            </TouchableOpacity> 
+            </TouchableOpacity>
         )
-    } else if (type === 'normal') {    
+    } else if (type === 'normal') {
         return (
             // Else is normal button
             <TouchableOpacity onPress={onPress}>
                 <View style={apStyle.button}>
                     <Text style={apStyle.buttonText}>
-                        { text }
+                        {text}
                     </Text>
                 </View>
             </TouchableOpacity>
         )
-    } else if (type === 'small') { // FINISH IMPLEMENTING (found on profile)
+    }
+    else if (type === 'add') {
+        return (
+            <TouchableOpacity onPress={onPress}
+                style={[apStyle.button, { backgroundColor: '#CB9CF2', padding: 1 }]} >
+                <Feather name="plus" size={30} color="#1F2938" />
+            </TouchableOpacity >
+        )
+    } else if (type === 'small') {
         return (
             // Else is small button
             <TouchableOpacity onPress={onPress}>
                 <View style={apStyle.buttonSm}>
                     <Text style={apStyle.buttonText}>
-                        { text }
+                        {text}
                     </Text>
                 </View>
             </TouchableOpacity>

@@ -114,7 +114,7 @@ const Tracker = () => {
         }
     ]);
 
-    // Test data, will need to start off empty and be saved for each user
+    // Test data
     const [exerciseList, setExerciseListList] = useState([
         { exercise: 'Running', reps: '10 min', kCal: -30 },
         { exercise: 'Swimming', reps: '30 min', kCal: -50 },
@@ -353,14 +353,6 @@ const Tracker = () => {
                 </View>
             }
         />
-
-
-
-
-
-
-
-
     )
 }
 export default Tracker;

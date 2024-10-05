@@ -1,12 +1,8 @@
-import { TextInput, TouchableOpacity, Text, View, ScrollView, FlatList, Image, ImageBackground } from 'react-native';
+import { TouchableOpacity, Text, View, Image } from 'react-native';
 import * as Progress from 'react-native-progress';
-import { SafeAreaView } from "react-native-safe-area-context";
 import styles from '../styles';
-import { StatusBar } from 'expo-status-bar';
 import { router } from 'expo-router';
 import Feather from "react-native-vector-icons/Feather";
-import { ListView } from 'react-native';
-import { color } from '@rneui/base';
 import CustomScreen from '../components/CustomScreen';
 // import { LiquidGauge } from 'react-native-liquid-gauge'
 
@@ -24,10 +20,8 @@ const Home = () => {
             title='Welcome back'
             title2='Bob' // test value, need to change
             screenContent={
-                <View>
-                    {/* View to contain all other major elements, like the frames for each quick tool */}
-                    <View style={{ flex: 5, paddingBottom: 50 }}>
-
+                // {/* View to contain all other major elements, like the frames for each quick tool */}
+                <View style={{ flex: 5, paddingBottom: 50 }}>
                         {/* Wide View Frame for Daily Diet Progress */}
                         <View style={styles.viewHomeFrameWide}>
                             <Text style={[styles.frameTextWhite, { paddingVertical: 5, paddingBottom: 10 }]}>
@@ -241,7 +235,7 @@ const Home = () => {
                             </View>
                         </View>
 
-                    </View>
+                    
                 </View>
             }
         />
