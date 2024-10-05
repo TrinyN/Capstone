@@ -20,7 +20,6 @@ import CustomScreen from '../components/CustomScreen';
 const Home = () => {
 
     return (
-
         <CustomScreen
             title='Welcome back'
             title2='Bob' // test value, need to change

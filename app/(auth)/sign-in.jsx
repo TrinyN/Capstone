@@ -1,10 +1,5 @@
-import { Image, TextInput, TouchableOpacity, Text, View, ScrollView } from 'react-native';
-import { SafeAreaView } from "react-native-safe-area-context";
-import styles from '../styles';
-import { router } from 'expo-router';
-import Feather from "react-native-vector-icons/Feather";
+import { View } from 'react-native';
 import React, { useState } from 'react';
-import CustomButton2 from '../components/CustomButton2';
 import QuestionAnswer from '../components/QuestionAnswer';
 import CustomScreen from '../components/CustomScreen';
 import CustomAuthButton from '../components/CustomAuthButton';

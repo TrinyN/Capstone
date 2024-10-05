@@ -1,8 +1,6 @@
-import { TextInput, TouchableOpacity, Text, View, ScrollView } from 'react-native';
-import { SafeAreaView } from "react-native-safe-area-context";
+import { TextInput, TouchableOpacity, Text, View } from 'react-native';
 import styles from '../styles';
 import { router } from 'expo-router';
-import Feather from "react-native-vector-icons/Feather";
 import CustomDatePicker from '../components/CustomDatePicker';
 import CustomDropdown from '../components/CustomDropdown';
 import { useState } from 'react';

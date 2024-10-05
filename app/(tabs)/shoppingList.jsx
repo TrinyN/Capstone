@@ -1,5 +1,4 @@
-import { TouchableOpacity, TextInput, Text, View, SectionList, Dimensions, ScrollView } from 'react-native';
-import { SafeAreaView } from "react-native-safe-area-context";
+import { TouchableOpacity, TextInput, Text, View, SectionList, Dimensions } from 'react-native';
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
 import { useState, useEffect } from 'react';

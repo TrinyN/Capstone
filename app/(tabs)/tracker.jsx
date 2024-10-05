@@ -1,22 +1,21 @@
-import { TouchableOpacity, TextInput, Text, View, FlatList, ScrollView } from 'react-native';
-import { SafeAreaView } from "react-native-safe-area-context";
+import { TouchableOpacity, TextInput, Text, View, FlatList } from 'react-native';
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
 import { useState } from 'react';
 import CustomPopUp from '../components/CustomPopUp';
 import { CustomButton } from '../components/CustomButton';
 import CustomDropdown from '../components/CustomDropdown';
-import { StyleSheet } from 'react-native';
 import CustomHeader from '../components/CustomHeader';
 import TrackerOptions from '../components/TrackerOptions';
 import TrackerInfo from '../components/TrackerInfo';
 import CustomScreen from '../components/CustomScreen';
 
+
 // TODO
 
 // REFACTORING FLAGGING - Needs a Component
-// 1. Screen component
-// 2. Screen header component
+// 1. Screen component DONE
+// 2. Screen header component 
 // 3. At a glance = calculation header view component
 // 4. Render list component(s) - split into header, list, and footer?
 // 5. Options overlay component
@@ -350,7 +349,7 @@ const Tracker = () => {
                     />
 
                     {/* pop up for options */}
-                    <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} />
+                    <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Day' />
                 </View>
             }
         />
