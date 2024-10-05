@@ -1,5 +1,4 @@
-import { TouchableOpacity, TextInput, Text, View, SectionList, Dimensions, ScrollView } from 'react-native';
-import { SafeAreaView } from "react-native-safe-area-context";
+import { TouchableOpacity, TextInput, Text, View, SectionList, Dimensions } from 'react-native';
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
 import { useState, useEffect } from 'react';
@@ -7,6 +6,7 @@ import Checkbox from 'expo-checkbox';
 import { Overlay } from '@rneui/base';
 import CustomDropdown from '../components/CustomDropdown';
 import CustomPopUp from '../components/CustomPopUp';
+import CustomScreen from '../components/CustomScreen';
 
 // todo:
 // save list for user
@@ -172,29 +172,16 @@ const ShoppingList = () => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <CustomScreen
+            title='Shopping List'
+            hasOptions={true}
+            toggleOptions={toggleOptions}
+            screenContent={
 
-                {/* The "body" of the screen view */}
-                <View style={[styles.viewContainer, { flex: 1 }]}>
-
-                    {/* Screen header */}
-                    <View style={{ marginTop: 70, flexDirection: 'row', paddingBottom: 20, alignItems: 'center' }}>
-
-                        <Text style={[styles.titleText, { flex: 1 }]}>
-                            Shopping List
-                        </Text>
-
-                        {/* Options button */}
-                        <TouchableOpacity onPress={toggleOptions} style={{ width: 30 }}>
-                            <Feather name="more-vertical" size={30} color="#CB9CF2" />
-                        </TouchableOpacity>
-
-                    </View>
-
+                <View>
                     {/* Add button */}
                     <TouchableOpacity onPress={toggleOverlay}
-                        style={[styles.button, { backgroundColor: '#CB9CF2', padding: 1}]}>
+                        style={[styles.button, { backgroundColor: '#CB9CF2', padding: 1 }]}>
                         <Feather name="plus" size={30} color="#1F2938" />
                     </TouchableOpacity>
 
@@ -373,8 +360,16 @@ const ShoppingList = () => {
 
                     </Overlay>
                 </View>
-            </ScrollView>
-        </SafeAreaView >
+
+
+
+
+
+
+            }
+        />
+
+
     )
 }
 export default ShoppingList;

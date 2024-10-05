@@ -30,15 +30,16 @@ const CustomScreen = ({
                 <View style={[styles.viewContainer, { flex: 1 }]}>
 
                     {/* Screen Header */}
-                    <View style={{ marginTop: 70, flexDirection: 'row', paddingBottom: 20, alignItems: 'center' }}>
+                    <View style={{ marginTop: 70, flexDirection: 'row', paddingBottom: 25, alignItems: 'center' }}>
                         {/* NOTE: Flex looks strange on very large (incompatible) screens like iPad, web */}
-                        <Text style={[styles.titleText]}>
-                            {title}
-                        </Text>
-                        {/* TODO: Make this text get the current week */}
-                        <Text style={[styles.titleTextWhite]}>
-                            {title2}
-                        </Text>
+
+                            <Text style={[styles.titleText, {flex: 1, flexDirection: 'row'}]}>
+                                {title} {" "}
+                                {/* TODO: Make this text get the current week */}
+                                <Text style={[styles.titleTextWhite]}>
+                                    {title2}
+                                </Text>
+                            </Text>
 
                         {hasOptions &&
                             <TouchableOpacity onPress={toggleOptions} style={{ width: 30 }}>
@@ -47,7 +48,7 @@ const CustomScreen = ({
                         }
 
                     </View>
-                    <Text style={[styles.defaultWhiteText, { fontSize: 20, paddingBottom: 40 }]}>
+                    <Text style={[styles.defaultWhiteText, { fontSize: 20, paddingBottom: 10 }]}>
                         {info}
                     </Text>
                     {screenContent}

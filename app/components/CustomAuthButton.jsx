@@ -7,17 +7,17 @@ import CustomButton2 from './CustomButton2';
 const CustomAuthButton = ({
     authType
 }) => {
-    let title;
+    let buttonTitle;
     let routerPush;
 
     if (authType == 'Log In') {
-        title = "Sign Up"
+        buttonTitle = "Sign Up"
         switchAuthType = '/sign-up'
         routerPush = '/home' // need to authorize first, google button needs to be changed too
 
     }
     else {
-        title = "Log In"
+        buttonTitle = "Log In"
         switchAuthType = '/sign-in'
         routerPush = '/sign-up-2'
     }
@@ -64,7 +64,7 @@ const CustomAuthButton = ({
                 <Text onPress={() => router.push(switchAuthType)}>
 
                     <Text style={{ color: '#CB9CF2', textDecorationLine: "underline" }}>
-                        {title}
+                        {buttonTitle}
                     </Text>
                 </Text>
             </Text>

@@ -181,17 +181,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#1F2938',
         borderRadius: 5,
         // width: 200, 
-        width: '60%',
-        height: 130,
+        // width: '60%',
+        // height: 130,
         // height: '20%',
         position: 'absolute',
         top: 100,
         right: 50,
-
-        // fontSize: 15,
-        // fontFamily: 'Inter_400Regular',
-        // textAlign: 'left',
-        // paddingVertical: 5
     },
 
     // Header styles

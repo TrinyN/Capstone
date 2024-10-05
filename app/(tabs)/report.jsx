@@ -1,5 +1,4 @@
-import { TextInput, TouchableOpacity, Text, View, ScrollView } from 'react-native';
-import { SafeAreaView } from "react-native-safe-area-context";
+import { TextInput, TouchableOpacity, Text, View } from 'react-native';
 import styles from '../styles';
 import { router } from 'expo-router';
 import CustomScreen from '../components/CustomScreen';
