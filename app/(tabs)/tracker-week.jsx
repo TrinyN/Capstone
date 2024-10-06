@@ -1,8 +1,6 @@
-import { TouchableOpacity, Text, View, SectionList } from 'react-native';
+import { Text, View, SectionList } from 'react-native';
 import styles from '../styles';
-import Feather from "react-native-vector-icons/Feather";
 import { useState } from 'react';
-import { Overlay } from '@rneui/base';
 import { router } from 'expo-router';
 import CustomScreen from '../components/CustomScreen';
 import TrackerOptions from '../components/TrackerOptions';
@@ -46,8 +44,8 @@ const Tracker = () => {
     const pinch = Gesture.Pinch()
 
         .onUpdate((event) => {
-            // zoom in
             if (event.scale > 1) {
+                // zoom in
                 router.push('/tracker');
 
             } else if (event.scale < 1) {
