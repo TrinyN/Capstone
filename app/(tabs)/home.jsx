@@ -4,6 +4,7 @@ import styles from '../styles';
 import { router } from 'expo-router';
 import Feather from "react-native-vector-icons/Feather";
 import CustomScreen from '../components/CustomScreen';
+import ProgressBar from '../components/ProgressBar';
 // import { LiquidGauge } from 'react-native-liquid-gauge'
 
 // REFACTORING FLAGGING - Needs a Component
@@ -32,93 +33,14 @@ const Home = () => {
                             <View style={{ flexDirection: 'column', paddingBottom: 10, }}>
 
                                 {/* TODO: progress of bars should be calculated using eaten/total calories */}
-                                {/* Calorie Progress */}
-                                <View style={{ flexDirection: 'row', }} >
-                                    <Text style={[styles.homeProgressLabelText, { color: '#CB9CF2', flex: 1 }]}>
-                                        Calories
-                                    </Text>
-                                    <Progress.Bar
-                                        progress={0.7}
-                                        color={'#CB9CF2'}
-                                        unfilledColor={'#0E1116'}
-                                        height={20}
-                                        width={200}
-                                        borderRadius={15}
-                                        style={{ marginBottom: 5 }}>
-                                        <Text style={[styles.homeProgressBarTextLeft, { position: 'absolute', flex: 0 }]}>
-                                            1400
-                                        </Text>
-                                        <Text style={[styles.homeProgressBarTextRight, { position: 'absolute' }]}>
-                                            2000
-                                        </Text>
-                                    </Progress.Bar>
-                                </View>
 
-                                {/* Carbs progress */}
-                                <View style={{ flexDirection: 'row' }} >
-                                    <Text style={[styles.homeProgressLabelText, { color: '#80FF72', flex: 1 }]}>
-                                        Carbs
-                                    </Text>
-                                    <Progress.Bar
-                                        progress={0.25}
-                                        color={'#80FF72'}
-                                        unfilledColor={'#0E1116'}
-                                        height={20}
-                                        width={200}
-                                        borderRadius={15}
-                                        style={{ marginBottom: 5 }}>
-                                        <Text style={[styles.homeProgressBarTextLeft, { position: 'absolute', flex: 0 }]}>
-                                            250
-                                        </Text>
-                                        <Text style={[styles.homeProgressBarTextRight, { position: 'absolute' }]}>
-                                            100
-                                        </Text>
-                                    </Progress.Bar>
-                                </View>
-
-                                {/* Proteins progress */}
-                                <View style={{ flexDirection: 'row' }} >
-                                    <Text style={[styles.homeProgressLabelText, { color: '#7EE8FA', flex: 1 }]}>
-                                        Proteins
-                                    </Text>
-                                    <Progress.Bar
-                                        progress={0.6}
-                                        color={'#7EE8FA'}
-                                        unfilledColor={'#0E1116'}
-                                        height={20}
-                                        width={200}
-                                        borderRadius={15}
-                                        style={{ marginBottom: 5 }}>
-                                        <Text style={[styles.homeProgressBarTextLeft, { position: 'absolute' }]}>
-                                            100
-                                        </Text>
-                                        <Text style={[styles.homeProgressBarTextRight, { position: 'absolute' }]}>
-                                            170
-                                        </Text>
-                                    </Progress.Bar>
-                                </View>
-
-                                {/* Fats progress */}
-                                <View style={{ flexDirection: 'row' }} >
-                                    <Text style={[styles.homeProgressLabelText, { color: '#FFF07C', flex: 1 }]}>
-                                        Fats
-                                    </Text>
-                                    <Progress.Bar
-                                        progress={0.5}
-                                        color={'#FFF07C'}
-                                        unfilledColor={'#0E1116'}
-                                        height={20}
-                                        width={200}
-                                        borderRadius={15}
-                                        style={{ marginBottom: 5 }}>
-                                        <Text style={[styles.homeProgressBarTextLeft, { position: 'absolute' }]}>
-                                            15
-                                        </Text>
-                                        <Text style={[styles.homeProgressBarTextRight, { position: 'absolute' }]}>
-                                            30
-                                        </Text>
-                                    </Progress.Bar>
-                                </View>
+                                {/* test values, will have to change */}
+                                {/* Progress Bars */}
+                                <ProgressBar title='Calories' progress={1400} total={2000}/>
+                                <ProgressBar title='Carbs' progress={200} total={300}/>
+                                <ProgressBar title='Proteins' progress={100} total={170}/>
+                                <ProgressBar title='Fats' progress={15} total={30}/>
+                                
                             </View>
                         </View>
 
@@ -181,15 +103,14 @@ const Home = () => {
                                         />
 
                                     </TouchableOpacity>
-
                                 </View>
                             </View>
 
                             {/* FlatList for right column, containing Quick Track and Notes frames */}
-                            <View style={[styles.containerColumn, { marginLeft: 15 }]}>
+                            <View style={[styles.containerColumn, { marginLeft: 15}]}>
 
                                 {/* Quick Track Frame */}
-                                <View style={[styles.viewHomeFrameNormal, { marginBottom: 20 }]}>
+                                <View style={[styles.viewHomeFrameNormal, { marginBottom: 20}]}>
 
                                     {/* Touchable Opacity to make entire frame a button */}
                                     {/* TODO: Add popup for quick tracker */}
@@ -214,7 +135,7 @@ const Home = () => {
                                 </View>
 
                                 {/* Take Notes Frame */}
-                                <View style={styles.viewHomeFrameNormal}>
+                                <View style={[styles.viewHomeFrameNormal, { paddingBottom: 20 }]}>
 
                                     {/* Touchable Opacity for making entire Notes frame a button */}
                                     <TouchableOpacity
@@ -229,9 +150,7 @@ const Home = () => {
                                         </Text>
                                         <Feather name='edit-3' size={55} color={'#CB9CF2'} />
                                     </TouchableOpacity>
-
                                 </View>
-
                             </View>
                         </View>
 
