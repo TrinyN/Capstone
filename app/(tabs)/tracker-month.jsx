@@ -6,6 +6,7 @@ import { Overlay } from '@rneui/base';
 import { router } from 'expo-router';
 import CustomScreen from '../components/CustomScreen';
 import TrackerOptions from '../components/TrackerOptions';
+import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 // todo:
 // calculating averages
@@ -50,216 +51,230 @@ const Tracker = () => {
         { title: '6/30-7/6', data: ['17,000'], goal: ['Balance'] }
     ]);
 
+    const pinch = Gesture.Pinch()
+
+        .onUpdate((event) => {
+            // zoom in
+            if (event.scale > 1) {
+                router.push('/tracker-week');
+
+            }
+        })
+        .runOnJS(true);
+
     //  Returning the screen to display
     return (
-
-        <CustomScreen
-            title='Month:'
-            title2='June, 2024' // test value, need to change
-            hasOptions={true}
-            toggleOptions={toggleOptions}
-            screenContent={
-                <View>
-                    {/* Top View to calculate user's calories eaten and burned with a formula visible to them */}
-                    <View
-                        style={{
-                            backgroundColor: '#1F2938',
-                            borderRadius: 5,
-                            flexDirection: 'column',
-                            justifyContent: 'space-evenly',
-                            paddingVertical: 5
-                        }}
-                    >
-
-                        {/* View to hold weight info at a glance */}
-                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-                            {/* Average weight of week */}
-                            <Text style={[styles.smallText, { color: '#CB9CF2', marginRight: 5 }]}>
-                                Average Weight:
-                            </Text>
-                            {/* TODO: Implement retrieval and calculation of average weight */}
-                            {/* Calculated average weight */}
-                            <Text style={[styles.smallText]}>
-                                102.5 lbs
-                            </Text>
-                        </View>
-
-                        {/* View to hold water info at a glance */}
-                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-                            {/* Average water intake of week */}
-                            <Text style={[styles.smallText, { color: '#CB9CF2', marginRight: 5 }]}>
-                                Average Water:
-                            </Text>
-                            {/* TODO: Implement retrieval and calculation of average water drank */}
-                            {/* Calculated average water */}
-                            <Text style={[styles.smallText]}>
-                                80 fl oz of 72 fl oz
-                            </Text>
-                        </View>
-
-                        {/* View to hold monthly caloric goal at a glance */}
-                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-                            {/* Monthly goal is set by user and displayed */}
-                            <Text style={[styles.smallText, { color: '#CB9CF2', marginRight: 5 }]}>
-                                Monthly Caloric Goal:
-                            </Text>
-                            {/* TODO: Implement retrieval of user's goal and calculate based on them */}
-                            {/* Displayed goal */}
-                            <Text style={[styles.smallText]}>
-                                17,500 kcal
-                            </Text>
-                        </View>
-
-                        {/* View to hold allowed deviation at a glance */}
-                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-                            {/* Allowed deviation from monthly goal (500 per week in example) */}
-                            <Text style={[styles.smallText, { color: '#CB9CF2', marginRight: 5 }]}>
-                                Allowed Deviation:
-                            </Text>
-                            {/* TODO: Implement retrieval of user's goals and calculate based on them */}
-                            {/* Deviation displayed, 500 per day of week */}
-                            <Text style={[styles.smallText]}>
-                                2,500 kcal
-                            </Text>
-                        </View>
-
-                    </View>
-
-                    {/* Space between Stats View and Week List */}
-                    <View style={{ margin: 10 }}></View>
-
-                    {/* View for SectionList to store all items of tracker */}
-                    <View>
-
-                        {/* List to hold items */}
-                        <SectionList
-                            style={{
-                                backgroundColor: 'rgba(27,33,43,0.5)',
-                                borderRadius: 8,
-                            }}
-                            sections={dayList}
-                            keyExtractor={(item) => item}
-                            scrollEnabled={false}
-
-                            // Rendering items based on data set and their respective sections
-                            renderItem={({ section }) => (
-                                <View>
-                                    {/* Making sections collapsible */}
-                                    <View style={{
-                                        flexDirection: 'row',
-                                        justifyContent: 'space-between',
-                                        alignItems: 'center',
-                                        paddingHorizontal: 15,
-                                        paddingVertical: '7%'
-                                    }}>
-
-                                        <Text
-                                            style={[
-                                                styles.defaultWhiteText,
-                                                {
-                                                    flex: 1,
-                                                    textAlign: 'left',
-                                                    fontFamily: 'Inter_400Regular'
-                                                }
-                                            ]}>
-                                            {section.title}
-                                        </Text>
-                                        {/* TODO: Comparison to determine text color */}
-                                        <Text
-                                            style={[
-                                                styles.defaultWhiteText,
-                                                {
-                                                    flex: 1,
-                                                    textAlign: 'center',
-                                                    fontFamily: 'Inter_400Regular',
-                                                    color: '#80FF72',
-                                                }
-                                            ]}>
-                                            {section.data}
-                                        </Text>
-                                        {/* TODO: Comparison to determine text color */}
-                                        <Text
-                                            style={[
-                                                styles.defaultWhiteText,
-                                                {
-                                                    flex: 1,
-                                                    textAlign: 'right',
-                                                    fontFamily: 'Inter_400Regular',
-                                                    color: '#80FF72',
-                                                }
-                                            ]}>
-                                            {section.goal}
-                                        </Text>
-                                    </View>
-
-                                    {/* Borderline at bottom of Section Headers */}
-                                    <View style={{ height: 2, backgroundColor: '#828282' }} />
-                                </View>
-                            )}
-                            // List header for week list
-                            ListHeaderComponent={
-                                <View style={{
+        <GestureHandlerRootView>
+            <GestureDetector gesture={pinch}>
+                <CustomScreen
+                    title='Month:'
+                    title2='June, 2024' // test value, need to change
+                    hasOptions={true}
+                    toggleOptions={toggleOptions}
+                    screenContent={
+                        <View>
+                            {/* Top View to calculate user's calories eaten and burned with a formula visible to them */}
+                            <View
+                                style={{
                                     backgroundColor: '#1F2938',
-                                    flexDirection: 'row',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center',
-                                    paddingHorizontal: 15
-                                }}>
+                                    borderRadius: 5,
+                                    flexDirection: 'column',
+                                    justifyContent: 'space-evenly',
+                                    paddingVertical: 5
+                                }}
+                            >
 
-                                    <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'left' }]}>
-                                        Month
+                                {/* View to hold weight info at a glance */}
+                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+                                    {/* Average weight of week */}
+                                    <Text style={[styles.smallText, { color: '#CB9CF2', marginRight: 5 }]}>
+                                        Average Weight:
                                     </Text>
-                                    <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'center' }]}>
-                                        Calories
+                                    {/* TODO: Implement retrieval and calculation of average weight */}
+                                    {/* Calculated average weight */}
+                                    <Text style={[styles.smallText]}>
+                                        102.5 lbs
                                     </Text>
-                                    <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'right' }]}>
-                                        Goal
-                                    </Text>
-
-                                    <View style={{ height: 2, backgroundColor: '#828282' }} />
                                 </View>
 
-                            }
-                            // Section headers for food types
-
-
-                            // Footer to calculate averages
-                            ListFooterComponent={
-                                <View style={{
-                                    backgroundColor: '#1F2938',
-                                    flexDirection: 'row',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center',
-                                    paddingHorizontal: 15
-                                }}>
-
-                                    <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'left' }]}>
-                                        Avg.
+                                {/* View to hold water info at a glance */}
+                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+                                    {/* Average water intake of week */}
+                                    <Text style={[styles.smallText, { color: '#CB9CF2', marginRight: 5 }]}>
+                                        Average Water:
                                     </Text>
-                                    {/* Implement calculation of average calorie */}
-                                    <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'center' }]}>
-                                        19,667
+                                    {/* TODO: Implement retrieval and calculation of average water drank */}
+                                    {/* Calculated average water */}
+                                    <Text style={[styles.smallText]}>
+                                        80 fl oz of 72 fl oz
                                     </Text>
-                                    {/* Implement comparison to average goal */}
-                                    <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'right' }]}>
-                                        Mixed
-                                    </Text>
-
-                                    <View style={{ height: 2, backgroundColor: '#828282' }} />
                                 </View>
-                            }
-                        />
 
-                    </View>
+                                {/* View to hold monthly caloric goal at a glance */}
+                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+                                    {/* Monthly goal is set by user and displayed */}
+                                    <Text style={[styles.smallText, { color: '#CB9CF2', marginRight: 5 }]}>
+                                        Monthly Caloric Goal:
+                                    </Text>
+                                    {/* TODO: Implement retrieval of user's goal and calculate based on them */}
+                                    {/* Displayed goal */}
+                                    <Text style={[styles.smallText]}>
+                                        17,500 kcal
+                                    </Text>
+                                </View>
 
-                    {/* Space between Exercise List and screen bottom */}
-                    <View style={{ padding: 40 }}></View>
+                                {/* View to hold allowed deviation at a glance */}
+                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+                                    {/* Allowed deviation from monthly goal (500 per week in example) */}
+                                    <Text style={[styles.smallText, { color: '#CB9CF2', marginRight: 5 }]}>
+                                        Allowed Deviation:
+                                    </Text>
+                                    {/* TODO: Implement retrieval of user's goals and calculate based on them */}
+                                    {/* Deviation displayed, 500 per day of week */}
+                                    <Text style={[styles.smallText]}>
+                                        2,500 kcal
+                                    </Text>
+                                </View>
 
-                    {/* pop up for options */}
-                    <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Month' />
-                </View>
-            }
-        />
+                            </View>
+
+                            {/* Space between Stats View and Week List */}
+                            <View style={{ margin: 10 }}></View>
+
+                            {/* View for SectionList to store all items of tracker */}
+                            <View>
+
+                                {/* List to hold items */}
+                                <SectionList
+                                    style={{
+                                        backgroundColor: 'rgba(27,33,43,0.5)',
+                                        borderRadius: 8,
+                                    }}
+                                    sections={dayList}
+                                    keyExtractor={(item) => item}
+                                    scrollEnabled={false}
+
+                                    // Rendering items based on data set and their respective sections
+                                    renderItem={({ section }) => (
+                                        <View>
+                                            {/* Making sections collapsible */}
+                                            <View style={{
+                                                flexDirection: 'row',
+                                                justifyContent: 'space-between',
+                                                alignItems: 'center',
+                                                paddingHorizontal: 15,
+                                                paddingVertical: '7%'
+                                            }}>
+
+                                                <Text
+                                                    style={[
+                                                        styles.defaultWhiteText,
+                                                        {
+                                                            flex: 1,
+                                                            textAlign: 'left',
+                                                            fontFamily: 'Inter_400Regular'
+                                                        }
+                                                    ]}>
+                                                    {section.title}
+                                                </Text>
+                                                {/* TODO: Comparison to determine text color */}
+                                                <Text
+                                                    style={[
+                                                        styles.defaultWhiteText,
+                                                        {
+                                                            flex: 1,
+                                                            textAlign: 'center',
+                                                            fontFamily: 'Inter_400Regular',
+                                                            color: '#80FF72',
+                                                        }
+                                                    ]}>
+                                                    {section.data}
+                                                </Text>
+                                                {/* TODO: Comparison to determine text color */}
+                                                <Text
+                                                    style={[
+                                                        styles.defaultWhiteText,
+                                                        {
+                                                            flex: 1,
+                                                            textAlign: 'right',
+                                                            fontFamily: 'Inter_400Regular',
+                                                            color: '#80FF72',
+                                                        }
+                                                    ]}>
+                                                    {section.goal}
+                                                </Text>
+                                            </View>
+
+                                            {/* Borderline at bottom of Section Headers */}
+                                            <View style={{ height: 2, backgroundColor: '#828282' }} />
+                                        </View>
+                                    )}
+                                    // List header for week list
+                                    ListHeaderComponent={
+                                        <View style={{
+                                            backgroundColor: '#1F2938',
+                                            flexDirection: 'row',
+                                            justifyContent: 'space-between',
+                                            alignItems: 'center',
+                                            paddingHorizontal: 15
+                                        }}>
+
+                                            <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'left' }]}>
+                                                Month
+                                            </Text>
+                                            <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'center' }]}>
+                                                Calories
+                                            </Text>
+                                            <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'right' }]}>
+                                                Goal
+                                            </Text>
+
+                                            <View style={{ height: 2, backgroundColor: '#828282' }} />
+                                        </View>
+
+                                    }
+                                    // Section headers for food types
+
+
+                                    // Footer to calculate averages
+                                    ListFooterComponent={
+                                        <View style={{
+                                            backgroundColor: '#1F2938',
+                                            flexDirection: 'row',
+                                            justifyContent: 'space-between',
+                                            alignItems: 'center',
+                                            paddingHorizontal: 15
+                                        }}>
+
+                                            <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'left' }]}>
+                                                Avg.
+                                            </Text>
+                                            {/* Implement calculation of average calorie */}
+                                            <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'center' }]}>
+                                                19,667
+                                            </Text>
+                                            {/* Implement comparison to average goal */}
+                                            <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'right' }]}>
+                                                Mixed
+                                            </Text>
+
+                                            <View style={{ height: 2, backgroundColor: '#828282' }} />
+                                        </View>
+                                    }
+                                />
+
+                            </View>
+
+                            {/* Space between Exercise List and screen bottom */}
+                            <View style={{ padding: 40 }}></View>
+
+                            {/* pop up for options */}
+                            <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Month' />
+                        </View>
+                    }
+                />
+            </GestureDetector>
+        </GestureHandlerRootView>
     )
 }
 export default Tracker;

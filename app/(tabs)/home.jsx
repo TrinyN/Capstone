@@ -17,7 +17,7 @@ const Home = () => {
 
     return (
         <CustomScreen
-            title='Welcome back'
+            title='Welcome back,'
             title2='Bob' // test value, need to change
             screenContent={
                 // {/* View to contain all other major elements, like the frames for each quick tool */}

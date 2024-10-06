@@ -51,9 +51,8 @@ const CustomScreen = ({
                     <Text style={[styles.defaultWhiteText, { fontFamily: 'Inter_200ExtraLight', fontSize: 20, paddingBottom: 30 }]}>
                         {info}
                     </Text>
-                    {/* <View style = {{justifyContent: 'flex-end'}}> */}
+                    
                     {screenContent}
-                    {/* </View> */}
                     
                 </View>
             </ScrollView>
