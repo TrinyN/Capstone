@@ -283,7 +283,7 @@ const ShoppingList = () => {
 
                     {/* NOTE: Adjust Overlay's flex or width/height to change its size properly */}
                     {/* Popup/Overlay for adding food in shopping list */}
-                    <CustomPopUp visible={visible} toggleOverlay={toggleOverlay} hasBackButton={true}
+                    <CustomPopUp visible={visible} toggleOverlay={toggleOverlay} hasBackButton={false}
                         content={
                             // Handling the input of a food into the shopping list
                             <View style={{ paddingHorizontal: 30, paddingBottom: 20 }}>
