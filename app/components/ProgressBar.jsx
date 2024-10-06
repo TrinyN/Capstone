@@ -1,6 +1,5 @@
-import { Text, View } from 'react-native'
+import { Text, View, StyleSheet } from 'react-native'
 import React from 'react'
-import styles from '../styles'
 import * as Progress from 'react-native-progress';
 
 const ProgressBar = ({
@@ -22,10 +21,9 @@ const ProgressBar = ({
         color = '#CB9CF2'
     }
 
-
     return (
         <View style={{ flexDirection: 'row' }} >
-            <Text style={[styles.homeProgressLabelText, { color, flex: 1 }]}>
+            <Text style={[progressStyles.homeProgressLabelText, { color, flex: 1 }]}>
                 {title}
             </Text>
             <Progress.Bar
@@ -36,10 +34,10 @@ const ProgressBar = ({
                 width={200}
                 borderRadius={15}
                 style={{ marginBottom: 5 }}>
-                <Text style={[styles.homeProgressBarTextLeft, { position: 'absolute' }]}>
+                <Text style={[progressStyles.homeProgressBarTextLeft, { position: 'absolute' }]}>
                     {progress}
                 </Text>
-                <Text style={[styles.homeProgressBarTextRight, { position: 'absolute' }]}>
+                <Text style={[progressStyles.homeProgressBarTextRight, { position: 'absolute' }]}>
                     {total}
                 </Text>
             </Progress.Bar>
@@ -48,3 +46,27 @@ const ProgressBar = ({
 }
 
 export default ProgressBar
+
+const progressStyles = StyleSheet.create({
+    homeProgressLabelText: {
+        color: '#0E1116',
+        fontFamily: 'Inter_600SemiBold',
+        marginVertical: 3
+    }, 
+    homeProgressBarTextLeft: {
+        color: '#0E1116',
+        fontSize: 14,
+        fontFamily: 'Inter_400Regular',
+        textAlign: 'left',
+        marginHorizontal: 10,
+        width: '90%'
+    },
+    homeProgressBarTextRight: {
+        color: '#F2F4F3',
+        fontSize: 14,
+        fontFamily: 'Inter_400Regular',
+        textAlign: 'right',
+        marginHorizontal: 10,
+        width: '90%'
+    },
+})

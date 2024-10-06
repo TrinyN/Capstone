@@ -1,4 +1,4 @@
-import { TouchableOpacity, TextInput, Text, View, FlatList } from 'react-native';
+import { TouchableOpacity, TextInput, Text, View, FlatList, StyleSheet } from 'react-native';
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
 import { useState } from 'react';
@@ -158,6 +158,8 @@ const Tracker = () => {
                 {/* Section Header (Breakfast, Lunch, Dinner) */}
                 <TouchableOpacity onPress={() => toggleSection(item.key)}>
                     <View style={[styles.sectionHeader, { flexDirection: 'row' }]}>
+
+                        {/* make style for maybe */}
                         <Text style={[styles.defaultText, { flex: 1, paddingVertical: 0, fontSize: 16, paddingLeft: 10, alignSelf: 'center' }]}>{item.title}</Text>
 
                         <Feather name={collapsedSections[item.key] ? "chevron-down" : "chevron-up"} size={25} color='#CB9CF2'
@@ -365,6 +367,6 @@ export default Tracker;
 
 
 
-// const styles = StyleSheet.create({
-//     const
-// })
+const trackerTtyles = StyleSheet.create({
+    
+})

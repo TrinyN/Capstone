@@ -1,4 +1,4 @@
-import { TouchableOpacity, TextInput, Text, View, SectionList, Dimensions } from 'react-native';
+import { StyleSheet, TouchableOpacity, TextInput, Text, View, SectionList, Dimensions } from 'react-native';
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
 import { useState, useEffect } from 'react';
@@ -205,7 +205,7 @@ const ShoppingList = () => {
                                     <View>
 
                                         {/* View to hold checkbox and item name */}
-                                        <View style={{ backgroundColor: '#0E1116', flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15 }}>
+                                        <View style={[shopListStyles.listContainer, { backgroundColor: '#0E1116'}]}>
 
                                             {/* Checkboxes for items on list */}
                                             <Checkbox
@@ -243,7 +243,7 @@ const ShoppingList = () => {
                                     {/* Turning headers into buttons to allow collapse */}
                                     <TouchableOpacity onPress={() => toggleCollapse(section)}>
                                         {/* Setting up section headers to allow for a label and chevron icon */}
-                                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 5 }}>
+                                        <View style={shopListStyles.listContainer}>
                                             {/* Section label/names */}
                                             <Text
                                                 style={[
@@ -371,3 +371,12 @@ const ShoppingList = () => {
     )
 }
 export default ShoppingList;
+
+
+const shopListStyles = StyleSheet.create({
+    listContainer: {
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        paddingHorizontal: 15 
+    }
+})

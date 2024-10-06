@@ -19,26 +19,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 35,
         flex: 1
     },
-    viewFrameContainer: {
-        height: '100%',
-        width: '100%',
-        backgroundColor: '#0E1116',
-        paddingVertical: 30,
-        flex: 2, // Adjust this to balance proportions of home screen top and bottom
-        justifyContent: 'space-between',
-        flexDirection: 'column'
-    },
-    // Example: Daily Diet Progess Frame, Home
-    viewHomeFrameWide: {
-        height: '100%',
-        width: '100%',
-        backgroundColor: '#1F2938',
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        flex: 1,
-        justifyContent: 'space-between',
-        borderRadius: 8
-    },
+
+    // HOME PAGE STYLES
+
+
     // Example: Quick Add Frame, Home
     viewHomeFrameNormal: {
         height: '100%',
@@ -56,7 +40,9 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 15,
         flex: 1,
-        borderRadius: 8
+        borderRadius: 8,
+        alignContent: 'center', 
+        paddingBottom: 85 
     },
     // Example: Columns of home screen
     containerColumn: {
@@ -68,6 +54,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignContent: 'center',
     },
+// HOME STYLES END
+
+
+
+
+
     welcomeText: {
         color: '#CB9CF2',
         fontSize: 50,
@@ -109,27 +101,6 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter_400Regular',
         textAlign: 'center',
         paddingVertical: 5
-    },
-    homeProgressLabelText: {
-        color: '#0E1116',
-        fontFamily: 'Inter_600SemiBold',
-        marginVertical: 3
-    },
-    homeProgressBarTextLeft: {
-        color: '#0E1116',
-        fontSize: 14,
-        fontFamily: 'Inter_400Regular',
-        textAlign: 'left',
-        marginHorizontal: 10,
-        width: '90%'
-    },
-    homeProgressBarTextRight: {
-        color: '#F2F4F3',
-        fontSize: 14,
-        fontFamily: 'Inter_400Regular',
-        textAlign: 'right',
-        marginHorizontal: 10,
-        width: '90%'
     },
     button: {
         backgroundColor: '#F2F4F3',
@@ -221,11 +192,6 @@ const styles = StyleSheet.create({
         paddingLeft: 30, 
         alignItems: 'center'
     },
-
-
-
-
-
 });
 
 export default styles;

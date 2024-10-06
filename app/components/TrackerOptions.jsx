@@ -39,7 +39,7 @@ const TrackerOptions = ({
             {/* View containing option choices */}
             <View style={{ paddingHorizontal: 8, justifyContent: 'center' }}>
 
-                {/* Notes Option Button */}
+                {/* Notes Option Button. Only appears on day view */}
                 {/* TODO: Choose:
         1. WHEN PRESSED make user choose a DATE to apply notes to */}
                 {view == 'Day' &&
@@ -51,12 +51,13 @@ const TrackerOptions = ({
                     </TouchableOpacity>
                 }
 
-                {/* Shopping List Option Button */}
+                {/* Generate Shopping List Option Button. Won't appear on month view */}
+                {(view == 'Day' || view == 'Week') &&
                 <OptionItem
                     title={"Generate Shopping List"}
                     icon={"shopping-cart"}
                 />
-
+                }
                 {/* Zoom in Option Button */}
                 <OptionItem
                     title={"Zoom In"}
