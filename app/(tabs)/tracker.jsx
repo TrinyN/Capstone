@@ -43,6 +43,8 @@ const Tracker = () => {
     // Change visibility of add overlay
     const toggleOverlay = () => {
         setVisible(!visible);
+        setAddWaterVisible(false)
+        setAddExerciseVisible(false)
     };
 
     // Saves visibility of add water pop up
@@ -51,7 +53,7 @@ const Tracker = () => {
     // Change visibility of add water overlay
     const toggleWaterOverlay = () => {
         setAddWaterVisible(!addWaterVisible);
-        setTimeout(() => setVisible(false), 100)
+        setVisible(false)
     };
 
     // Saves visibility of add exercise pop up
@@ -60,7 +62,7 @@ const Tracker = () => {
     // Change visibility of add exercise overlay
     const toggleExerciseOverlay = () => {
         setAddExerciseVisible(!addExerciseVisibile);
-        setTimeout(() => setVisible(false), 100)
+        setVisible(false)
     };
 
     // Saves visibility of options pop up
@@ -283,7 +285,7 @@ const Tracker = () => {
                             <View style={{ padding: 40 }}></View>
 
                             {/* Pop ups for adding food, water, or exercise*/}
-                            <CustomPopUp visible={visible} toggleOverlay={toggleOverlay} hasBackButton={false}
+                            <CustomPopUp visible={visible} toggleOverlay={toggleOverlay} hasBackButton={false} 
                                 content={
                                     <View style={{ paddingHorizontal: 20, paddingBottom: 20, alignItems: 'center', alignContent: 'center' }}>
                                         <Text style={[styles.defaultWhiteText, { textAlign: 'center' }]}>
@@ -298,7 +300,7 @@ const Tracker = () => {
                                         </View>
                                     </View>}
                             />
-                            <CustomPopUp visible={addWaterVisible} toggleOverlay={toggleWaterOverlay} hasBackButton={true}
+                            <CustomPopUp visible={addWaterVisible} toggleOverlay={toggleWaterOverlay} hasBackButton={true} previousOverlay={toggleOverlay}
                                 content={
                                     <View style={{ paddingHorizontal: 30, paddingBottom: 20, justifyContent: 'center' }}>
                                         <Text style={[styles.defaultWhiteText, { textAlign: 'center' }]}>
@@ -320,7 +322,7 @@ const Tracker = () => {
                                     </View>}
                             />
 
-                            <CustomPopUp visible={addExerciseVisibile} toggleOverlay={toggleExerciseOverlay} hasBackButton={true}
+                            <CustomPopUp visible={addExerciseVisibile} toggleOverlay={toggleExerciseOverlay} hasBackButton={true} previousOverlay={toggleOverlay}
                                 content={
                                     <View style={{ paddingHorizontal: 30, paddingBottom: 20, justifyContent: 'center' }}>
                                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: 20 }}>
