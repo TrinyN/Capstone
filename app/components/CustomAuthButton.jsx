@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View } from 'react-native';
+import { TouchableOpacity, Text, View } from 'react-native';
 import styles from '../styles';
 import { router } from 'expo-router';
 import CustomButton2 from './CustomButton2';
@@ -61,12 +61,11 @@ const CustomAuthButton = ({
             <Text style={[styles.smallText, {}]}>
                 Don't have an account?{' '}
 
-                <Text onPress={() => router.push(switchAuthType)}>
-
+                <TouchableOpacity onPress={() => router.push(switchAuthType)} style={{height: 15}}>
                     <Text style={{ color: '#CB9CF2', textDecorationLine: "underline" }}>
                         {buttonTitle}
                     </Text>
-                </Text>
+                </TouchableOpacity>
             </Text>
         </View>
     )

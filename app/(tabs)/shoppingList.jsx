@@ -8,6 +8,7 @@ import CustomDropdown from '../components/CustomDropdown';
 import CustomPopUp from '../components/CustomPopUp';
 import CustomScreen from '../components/CustomScreen';
 import CustomButton2 from '../components/CustomButton2';
+import OptionItem from '../components/OptionItem';
 
 // todo:
 // save list for user
@@ -326,51 +327,47 @@ const ShoppingList = () => {
                         <View style={{ paddingHorizontal: 8, justifyContent: 'center' }}>
 
                             {/* Resetting checkmarks */}
-                            <TouchableOpacity onPress={resetCheckmarks} style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Feather name="rotate-ccw" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
-                                <Text style={styles.optionsText}>
-                                    Reset Checkmarks
-                                </Text>
-                            </TouchableOpacity>
-
-                            {/* Deleting all items from list */}
-                            <TouchableOpacity onPress={deleteAll} style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Feather name="trash-2" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
-                                <Text style={styles.optionsText}>
-                                    Delete All
-                                </Text>
-                            </TouchableOpacity>
+                            <OptionItem
+                                title={"Reset Checkmarks"}
+                                icon={"rotate-ccw"}
+                                onPress={resetCheckmarks}
+                                isShoppingList={true}
+                                opacity = {1}
+                            />
 
                             {/* Deleting checked items from list */}
-                            <TouchableOpacity onPress={deleteCheckedItems} style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Feather name="x-square" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
-                                <Text style={styles.optionsText}>
-                                    Delete Checked
-                                </Text>
-                            </TouchableOpacity>
+                            <OptionItem
+                                title={"Delete Checked"}
+                                icon={"x-square"}
+                                onPress={deleteCheckedItems}
+                                isShoppingList={true}
+                                opacity = {1}
+                            />
+
+                            {/* Deleting all items from list */}
+                            <OptionItem
+                                title={"Delete All"}
+                                icon={"trash-2"}
+                                onPress={deleteAll}
+                                isShoppingList={true}
+                                opacity = {1}
+                            />
 
                             {/* Generating list from tracker screen(s) */}
-                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Feather name="shopping-cart" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
-                                <Text style={styles.optionsText}>
-                                    Generate List
-                                </Text>
-                            </TouchableOpacity>
+                            <OptionItem
+                                title={"Generate List"}
+                                icon={"shopping-cart"}
+                                // onPress={}
+                                isShoppingList={true}
+                                opacity = {1}
+                            />
 
                         </View>
 
                     </Overlay>
                 </View>
-
-
-
-
-
-
             }
         />
-
-
     )
 }
 export default ShoppingList;

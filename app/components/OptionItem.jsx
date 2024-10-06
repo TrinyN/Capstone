@@ -1,0 +1,42 @@
+import { TouchableOpacity, Text, View } from 'react-native';
+import styles from '../styles';
+import Feather from "react-native-vector-icons/Feather";
+import { Overlay } from '@rneui/base';
+import React from 'react'
+import { router } from 'expo-router';
+
+
+const OptionItem = ({
+    title,
+    icon,
+    zoomRoute,
+    opacity,
+    toggleOptions,
+    isShoppingList,
+    onPress
+}) => {
+
+    // if shopping list, button performs function, else zoom in/out
+    const handlePress = () => {
+        if (isShoppingList) {
+            onPress();
+        } else {
+            router.push(zoomRoute);
+        }
+    };
+    return (
+        <TouchableOpacity
+            style={{ flexDirection: 'row', alignItems: 'center', opacity }}
+            onPress={handlePress}
+            onPressOut={toggleOptions}
+            disabled={opacity != 1}
+        >
+
+            <Feather name={icon} size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
+            <Text style={styles.optionsText}>
+                {title}
+            </Text>
+        </TouchableOpacity>
+    )
+}
+export default OptionItem
