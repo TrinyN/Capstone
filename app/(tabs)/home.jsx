@@ -5,6 +5,8 @@ import { router } from 'expo-router';
 import Feather from "react-native-vector-icons/Feather";
 import CustomScreen from '../components/CustomScreen';
 import ProgressBar from '../components/ProgressBar';
+import HomeFrame from '../components/HomeFrame';
+
 // import { LiquidGauge } from 'react-native-liquid-gauge'
 
 // REFACTORING FLAGGING - Needs a Component
@@ -110,47 +112,10 @@ const Home = () => {
                             <View style={[styles.containerColumn, { marginLeft: 15}]}>
 
                                 {/* Quick Track Frame */}
-                                <View style={[styles.viewHomeFrameNormal, { marginBottom: 20}]}>
-
-                                    {/* Touchable Opacity to make entire frame a button */}
-                                    {/* TODO: Add popup for quick tracker */}
-                                    <TouchableOpacity
-                                        style={{
-                                            alignItems: 'center',
-                                            height: '100%',
-                                            width: '100%'
-                                        }}
-                                        onPress={() => router.push('/tracker')}>
-                                        <Text style={styles.frameTextWhite}>
-                                            Quick Track
-                                        </Text>
-                                        {/* How to fill pruple with dark plus (~Figma)??? */}
-                                        {/* Issue: SVG (including stroke and fill) no long supported for feather */}
-                                        <Feather name='plus-circle'
-                                            size={55}
-                                            color={'#CB9CF2'}
-                                        />
-                                    </TouchableOpacity>
-
-                                </View>
+                                <HomeFrame title='Quick Track'/>
 
                                 {/* Take Notes Frame */}
-                                <View style={[styles.viewHomeFrameNormal, { paddingBottom: 20 }]}>
-
-                                    {/* Touchable Opacity for making entire Notes frame a button */}
-                                    <TouchableOpacity
-                                        style={{
-                                            alignItems: 'center',
-                                            height: '100%',
-                                            width: '100%'
-                                        }}
-                                        onPress={() => router.push('/home')}>
-                                        <Text style={styles.frameTextWhite}>
-                                            Notes
-                                        </Text>
-                                        <Feather name='edit-3' size={55} color={'#CB9CF2'} />
-                                    </TouchableOpacity>
-                                </View>
+                                    <HomeFrame title='Notes'/>
                             </View>
                         </View>
 
