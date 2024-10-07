@@ -217,13 +217,10 @@ const ShoppingList = () => {
                                             {/* Item names */}
                                             <Text
                                                 style={[
-                                                    styles.defaultWhiteText,
+                                                    styles.defaultWhiteText, shopListStyles.itemsCheckable,
                                                     {
-                                                        paddingLeft: 30,
-                                                        paddingVertical: 10,
                                                         textDecorationLine: checkedItems[item] ? 'line-through' : 'none',
                                                         color: checkedItems[item] ? '#ABABAB' : '#F2F4F3',
-                                                        textDecorationColor: '#F2F4F3'
                                                     }
                                                 ]}>
                                                 {item}
@@ -232,7 +229,7 @@ const ShoppingList = () => {
                                         </View>
 
                                         {/* Divider lines between items */}
-                                        <View style={{ height: 1, backgroundColor: 'rgba(242,244,243,0.2)' }} />
+                                        <View style={shopListStyles.thinBorderLine} />
                                     </View>
                                 )
                             }
@@ -247,13 +244,9 @@ const ShoppingList = () => {
                                             {/* Section label/names */}
                                             <Text
                                                 style={[
-                                                    styles.defaultWhiteText,
+                                                    styles.defaultWhiteText, shopListStyles.sectionCheckable, 
                                                     {
-                                                        paddingLeft: 10,
-                                                        flex: 1,
-                                                        fontFamily: 'Inter_600SemiBold',
                                                         textDecorationLine: areAllItemsChecked(section.data) ? 'line-through' : 'none',
-                                                        textDecorationColor: '#CB9CF2',
                                                         color: areAllItemsChecked(section.data) ? '#6F5882' : '#CB9CF2',
                                                     }
                                                 ]}>
@@ -271,7 +264,7 @@ const ShoppingList = () => {
                                     </TouchableOpacity>
 
                                     {/* Borderline at bottom of the section headers */}
-                                    <View style={{ height: 2, backgroundColor: '#828282' }} />
+                                    <View style={shopListStyles.borderLine} />
                                 </View>
                             )}
                         />
@@ -332,7 +325,6 @@ const ShoppingList = () => {
                                 icon={"rotate-ccw"}
                                 onPress={resetCheckmarks}
                                 isShoppingList={true}
-                                opacity = {1}
                             />
 
                             {/* Deleting checked items from list */}
@@ -341,7 +333,6 @@ const ShoppingList = () => {
                                 icon={"x-square"}
                                 onPress={deleteCheckedItems}
                                 isShoppingList={true}
-                                opacity = {1}
                             />
 
                             {/* Deleting all items from list */}
@@ -350,7 +341,6 @@ const ShoppingList = () => {
                                 icon={"trash-2"}
                                 onPress={deleteAll}
                                 isShoppingList={true}
-                                opacity = {1}
                             />
 
                             {/* Generating list from tracker screen(s) */}
@@ -359,7 +349,6 @@ const ShoppingList = () => {
                                 icon={"shopping-cart"}
                                 // onPress={}
                                 isShoppingList={true}
-                                opacity = {1}
                             />
 
                         </View>
@@ -378,5 +367,24 @@ const shopListStyles = StyleSheet.create({
         flexDirection: 'row', 
         alignItems: 'center', 
         paddingHorizontal: 15 
-    }
+    },
+    itemsCheckable:{
+        paddingLeft: 30,
+        paddingVertical: 10,
+        textDecorationColor: '#F2F4F3'
+    }, 
+    sectionCheckable:{
+        paddingLeft: 10,
+        flex: 1,
+        fontFamily: 'Inter_600SemiBold',
+        textDecorationColor: '#CB9CF2',
+    },
+    borderLine:{
+        height: 2, 
+        backgroundColor: '#828282' 
+    },
+    thinBorderLine:{
+        height: 1, 
+        backgroundColor: 'rgba(242,244,243,0.2)'
+    },
 })

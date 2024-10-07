@@ -29,7 +29,7 @@ const OptionItem = ({
             style={{ flexDirection: 'row', alignItems: 'center', opacity }}
             onPress={handlePress}
             onPressOut={toggleOptions}
-            disabled={opacity != 1}
+            disabled={opacity == 0.2}
         >
 
             <Feather name={icon} size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
