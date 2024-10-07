@@ -1,7 +1,6 @@
-import { TouchableOpacity, Text, View } from 'react-native';
+import { TouchableOpacity, Text } from 'react-native';
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
-import { Overlay } from '@rneui/base';
 import React from 'react'
 import { router } from 'expo-router';
 

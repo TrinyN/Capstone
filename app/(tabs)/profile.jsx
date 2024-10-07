@@ -1,15 +1,12 @@
-import { TouchableOpacity, TextInput, Text, View, FlatList, Dimensions, ScrollView } from 'react-native';
+import { TouchableOpacity, Text, View, FlatList, Dimensions, ScrollView } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Overlay } from '@rneui/base';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { router } from 'expo-router';
 import PieChart from 'react-native-pie-chart'
-import CustomDatePicker from '../components/CustomDatePicker';
 import ProfileItem from '../components/ProfileItem';
-
 import { userDataItems } from '../constants/profileData';
 
 

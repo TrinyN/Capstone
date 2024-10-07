@@ -2,7 +2,6 @@ import { TouchableOpacity, View } from 'react-native';
 import { Overlay } from '@rneui/base';
 import Feather from "react-native-vector-icons/Feather";
 import React from 'react';
-import { router } from 'expo-router';
 
 // renders the frame, close overlay button, and back button if any
 

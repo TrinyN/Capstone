@@ -7,17 +7,17 @@ import CustomButton2 from './CustomButton2';
 const CustomAuthButton = ({
     authType
 }) => {
-    let buttonTitle;
+    let linkTitle;
     let routerPush;
 
     if (authType == 'Log In') {
-        buttonTitle = "Sign Up"
+        linkTitle = "Sign Up"
         switchAuthType = '/sign-up'
         routerPush = '/home' // need to authorize first, google button needs to be changed too
 
     }
     else {
-        buttonTitle = "Log In"
+        linkTitle = "Log In"
         switchAuthType = '/sign-in'
         routerPush = '/sign-up-2'
     }
@@ -64,7 +64,7 @@ const CustomAuthButton = ({
                 </Text>
                 <TouchableOpacity onPress={() => router.push(switchAuthType)}>
                     <Text style={[styles.smallText, { color: '#CB9CF2', textDecorationLine: "underline"}]}>
-                        {buttonTitle}
+                        {linkTitle}
                     </Text>
                 </TouchableOpacity>
 

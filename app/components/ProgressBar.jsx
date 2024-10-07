@@ -37,10 +37,10 @@ const ProgressBar = ({
                 width={200}
                 borderRadius={15}
                 style={{ marginBottom: 10, justifyContent: 'center'}}>
-                <Text style={[progressStyles.homeProgressBarTextLeft, { position: 'absolute' }]}>
+                <Text style={[progressStyles.homeProgressBarText, {textAlign: 'left'}]}>
                     {progress}
                 </Text>
-                <Text style={[progressStyles.homeProgressBarTextRight, { position: 'absolute' }]}>
+                <Text style={[progressStyles.homeProgressBarText, {textAlign: 'right'}]}>
                     {total}
                 </Text>
             </Progress.Bar>
@@ -56,20 +56,12 @@ const progressStyles = StyleSheet.create({
         fontFamily: 'Inter_600SemiBold',
         marginVertical: 3
     }, 
-    homeProgressBarTextLeft: {
+    homeProgressBarText: {
         color: '#0E1116',
         fontSize: 14,
         fontFamily: 'Inter_400Regular',
-        textAlign: 'left',
         marginHorizontal: 10,
-        width: '90%'
-    },
-    homeProgressBarTextRight: {
-        color: '#F2F4F3',
-        fontSize: 14,
-        fontFamily: 'Inter_400Regular',
-        textAlign: 'right',
-        marginHorizontal: 10,
-        width: '90%'
+        width: '90%', 
+        position: 'absolute'
     },
 })

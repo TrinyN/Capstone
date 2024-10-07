@@ -1,7 +1,6 @@
-import { TextInput, TouchableOpacity, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import styles from '../styles';
 import { router } from 'expo-router';
-import { useState } from 'react';
 import CustomDropdown from '../components/CustomDropdown';
 import CustomScreen from '../components/CustomScreen';
 import QuestionAnswer from '../components/QuestionAnswer';

@@ -1,4 +1,4 @@
-import { Text, TextInput, View, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, TextInput, View, StyleSheet } from "react-native";
 import CustomDatePicker from "./CustomDatePicker";
 import CustomDropdown from './CustomDropdown';
 
@@ -57,12 +57,7 @@ const QuestionAnswer = (
                 </View>
             </View>
         )
-    }
-
-                            {/* Sex question and field */}
-                        
-
-                        
+    }                  
 }
 
 export default QuestionAnswer;
