@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, Text, View } from 'react-native';
+import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 import styles from '../styles';
 import { router } from 'expo-router';
 import CustomButton2 from './CustomButton2';
@@ -30,13 +30,13 @@ const CustomAuthButton = ({
                 onPress={() => { router.push(routerPush) }}>
             </CustomButton2>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                <View style={{ flex: 1, height: 1, backgroundColor: '#CB9CF2' }} />
+            <View style={authStyle.container}>
+                <View style={authStyle.dividerLine} />
                 {/* Divider between buttons */}
                 <Text style={[styles.smallText, { color: '#CB9CF2', paddingHorizontal: 10 }]}>
                     or continue with
                 </Text>
-                <View style={{ flex: 1, height: 1, backgroundColor: '#CB9CF2' }} />
+                <View style={authStyle.dividerLine} />
             </View>
 
             <CustomButton2 type='google'
@@ -56,10 +56,10 @@ const CustomAuthButton = ({
                     Privacy Policy
                 </Text>
             </Text>
-            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+            <View style={authStyle.container}>
 
                 {/* Reroute to Sign Up */}
-                <Text style={[styles.smallText, {}]}>
+                <Text style={styles.smallText}>
                     Don't have an account?{' '}
                 </Text>
                 <TouchableOpacity onPress={() => router.push(switchAuthType)}>
@@ -75,3 +75,16 @@ const CustomAuthButton = ({
 }
 
 export default CustomAuthButton          
+
+const authStyle = StyleSheet.create({
+    container:{
+        flexDirection: 'row', justifyContent: 'center', alignItems: 'center'
+    },
+
+    dividerLine:{
+        flex: 1, 
+        height: 1, 
+        backgroundColor: '#CB9CF2'
+    }
+
+})
