@@ -12,6 +12,8 @@ import CustomScreen from '../components/CustomScreen';
 import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { router } from 'expo-router';
 
+import { useWaterUnitTypesOptions,useExerciseUnitOptions } from '../constants/dropdownOptions';
+import { useExerciseData, useFoodData, useWaterData } from '../constants/trackerData';
 
 // TODO
 
@@ -73,69 +75,22 @@ const Tracker = () => {
         setVisibleOptions(!visibleOptions);
     };
 
-    const [waterUnit, setWaterUnit] = useState('')
-    const [waterUnitTypes, setWaterUnitTypes] = useState([
-        { label: 'Cups', value: 'Cups' },
-        { label: 'Fl Oz', value: 'Fl Oz' },
-        { label: 'Gallon', value: 'Gallon' },
+    // Handle dropdown menu options for water unit type
+    const { waterUnit, setWaterUnit,
+        waterUnitTypes, setWaterUnitTypes} = useWaterUnitTypesOptions();
 
-    ]);
-
-    const [exerciseUnit, setExerciseUnit] = useState('')
-    const [exerciseUnitTypes, setExerciseUnitTypes] = useState([
-        { label: 'Minutes', value: 'Minutes' },
-        { label: 'Hours', value: 'Hours' },
-        { label: 'Reps', value: 'Reps' },
-
-    ]);
+    // Handle dropdown menu options for exervise unit type
+    const { exerciseUnit, setExerciseUnit,
+        exerciseUnitTypes, setExerciseUnitTypes} = useExerciseUnitOptions();
 
     // Sample data for Breakfast, Lunch, Dinner, and Snacks
-    const [foodSections, setFoodSections] = useState([
-        {
-            title: 'Breakfast',
-            data: [
-                { title: 'Eggs', count: '2', kCal: '193' },
-                { title: 'Bacon', count: '2', kCal: '100' },
-                { title: 'Toast', count: '1', kCal: '80' }
-            ],
-            key: 'breakfast'
-        },
-        {
-            title: 'Lunch',
-            data: [
-                { title: 'Chicken Salad', count: '1', kCal: '350' },
-                { title: 'Rice', count: '1', kCal: '200' }
-            ],
-            key: 'lunch'
-        },
-        {
-            title: 'Dinner',
-            data: [
-                { title: 'Steak', count: '1', kCal: '500' },
-                { title: 'Mashed Potatoes', count: '2', kCal: '150' }
-            ],
-            key: 'dinner'
-        },
-        {
-            title: 'Snacks',
-            data: [
-                { title: 'Cheetos', count: '3', kCal: '300' },
-                { title: 'Doritos', count: '4', kCal: '290' }
-            ],
-            key: 'snacks'
-        }
-    ]);
+    const { foodSections, setFoodSections } = useFoodData(); 
 
-    // Test data
-    const [exerciseList, setExerciseListList] = useState([
-        { exercise: 'Running', reps: '10 min', kCal: -30 },
-        { exercise: 'Swimming', reps: '30 min', kCal: -50 },
-    ]);
+    // Sample exercise data
+    const { exerciseList, setExerciseList } = useExerciseData();
 
     // Test data, will need to start off empty and be saved for each user, will only be one number that keeps increasing as user adds more
-    const [water, setWater] = useState([
-        10,
-    ]);
+    const {water, setWater} = useWaterData
 
     // State to keep track of expanded/collapsed sections
     const [collapsedSections, setCollapsedSections] = useState({

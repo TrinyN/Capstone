@@ -6,6 +6,10 @@ import CustomDropdown from '../components/CustomDropdown';
 import CustomScreen from '../components/CustomScreen';
 import QuestionAnswer from '../components/QuestionAnswer';
 import CustomButton2 from '../components/CustomButton2';
+import { useDietPlanBooleanOptions,
+    useDietPlanOptions,
+    useWeightGoalOptions
+ } from '../constants/dropdownOptions';
 
 // REFACTORING FLAGGING - Needs a Component
 // 1. Screen component - sign up 2 and 3 and report all same
@@ -14,25 +18,16 @@ import CustomButton2 from '../components/CustomButton2';
 // Function to handle the design and display of the Sign In 2 screen
 const SignUp3 = () => {
     // Handling user choice of diet plan or not
-    const [userDietPlanBoolean, setUserDietPlanBoolean] = useState(false)
-    const [dietPlanBoolean, setDietPlanBoolean] = useState([
-        { label: 'Yes', value: true },
-        { label: 'No', value: false },
-    ]);
+    const { userDietPlanBoolean, setUserDietPlanBoolean, 
+dietPlanBoolean, setDietPlanBoolean } = useDietPlanBooleanOptions();
+
     // Handling user choice of diet plan
-    const [userDietPlan, setUserDietPlan] = useState('')
-    const [dietPlan, setDietPlan] = useState([
-        { label: 'Keto', value: 'Keto' },
-        { label: 'Vegan', value: 'Vegan' },
-        { label: 'Vegetarian', value: 'Vegetarian' },
-    ]);
+    const {userDietPlan, setUserDietPlan, 
+        dietPlan, setDietPlan} = useDietPlanOptions();
+
     // Handling user's weight goal answer
-    const [userWeightGoal, setUserWeightGoal] = useState('')
-    const [weightGoal, setWeightGoal] = useState([
-        { label: 'Cut / Lose Weight', value: 'Cut / Lose Weight' },
-        { label: 'Bulk / Gain Weight', value: 'Bulk / Gain Weight' },
-        { label: 'Maintain', value: 'Maintain' },
-    ]);
+    const {userWeightGoal, setUserWeightGoal, 
+        weightGoal, setWeightGoal} = useWeightGoalOptions();
 
     return (
         <CustomScreen

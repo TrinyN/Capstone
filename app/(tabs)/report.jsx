@@ -54,7 +54,7 @@ const Report = () => {
                     {/* Submit Button */}
                     <CustomButton2
                         type={'normal'}
-                        text={'Craete PDF'}
+                        text={'Create PDF'}
                         onPress={() => router.push('/home')}>
                     </CustomButton2>
                 </View>

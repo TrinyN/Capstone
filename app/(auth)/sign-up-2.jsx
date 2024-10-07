@@ -7,6 +7,7 @@ import { useState } from 'react';
 import CustomScreen from '../components/CustomScreen';
 import QuestionAnswer from '../components/QuestionAnswer';
 import CustomButton2 from '../components/CustomButton2';
+import { useSexOptions } from '../constants/dropdownOptions';
 
 // REFACTORING FLAGGING - Needs a Component
 // 1. Screen component - sign up 2 and 3 and report all same
@@ -16,11 +17,7 @@ import CustomButton2 from '../components/CustomButton2';
 const SignUp2 = () => {
 
     // Handle dropdown menu options for sex question
-    const [userSex, setUserSex] = useState('')
-    const [sex, setSex] = useState([
-        { label: 'Female', value: 'Female' },
-        { label: 'Male', value: 'Male' },
-    ]);
+    const { userSex, setUserSex, sex, setSex } = useSexOptions();
     
     return (
         <CustomScreen

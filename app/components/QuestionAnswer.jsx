@@ -1,6 +1,6 @@
 import { Text, TextInput, View, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
-import CustomDatePicker from '../components/CustomDatePicker';
-import CustomDropdown from '../components/CustomDropdown';
+import CustomDatePicker from "./CustomDatePicker";
+import CustomDropdown from './CustomDropdown';
 
 // Function that returns the QuestionAnswer given certain fields to determine its behavior
 const QuestionAnswer = (
