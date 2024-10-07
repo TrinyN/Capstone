@@ -23,9 +23,12 @@ const ProgressBar = ({
 
     return (
         <View style={{ flexDirection: 'row' }} >
-            <Text style={[progressStyles.homeProgressLabelText, { color, flex: 1 }]}>
+            <View style = {{flex: 1}}>
+            <Text style={[progressStyles.homeProgressLabelText, { color}]} numberOfLines={1}>
                 {title}
             </Text>
+            </View>
+            
             <Progress.Bar
                 progress={progress/total}
                 color={color}
@@ -33,7 +36,7 @@ const ProgressBar = ({
                 height={20}
                 width={200}
                 borderRadius={15}
-                style={{ marginBottom: 5 }}>
+                style={{ marginBottom: 10, justifyContent: 'center'}}>
                 <Text style={[progressStyles.homeProgressBarTextLeft, { position: 'absolute' }]}>
                     {progress}
                 </Text>

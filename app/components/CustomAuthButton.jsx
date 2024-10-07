@@ -40,7 +40,7 @@ const CustomAuthButton = ({
             </View>
 
             <CustomButton2 type='google'
-                onPress={() => { router.push(routerPush) }}> 
+                onPress={() => { router.push(routerPush) }}>
             </CustomButton2>
 
             {/* Disclaimers, policies */}
@@ -56,18 +56,21 @@ const CustomAuthButton = ({
                     Privacy Policy
                 </Text>
             </Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
 
-            {/* Reroute to Sign Up */}
-            <Text style={[styles.smallText, {}]}>
-                Don't have an account?{' '}
-
-                <TouchableOpacity onPress={() => router.push(switchAuthType)} style={{height: 15}}>
-                    <Text style={{ color: '#CB9CF2', textDecorationLine: "underline" }}>
+                {/* Reroute to Sign Up */}
+                <Text style={[styles.smallText, {}]}>
+                    Don't have an account?{' '}
+                </Text>
+                <TouchableOpacity onPress={() => router.push(switchAuthType)}>
+                    <Text style={[styles.smallText, { color: '#CB9CF2', textDecorationLine: "underline"}]}>
                         {buttonTitle}
                     </Text>
                 </TouchableOpacity>
-            </Text>
+
+            </View>
         </View>
+
     )
 }
 

@@ -22,15 +22,15 @@ const Home = () => {
             title2='Bob' // test value, need to change
             screenContent={
                 // {/* View to contain all other major elements, like the frames for each quick tool */}
-                <View style={{ flex: 5, paddingBottom: 50 }}>
+                <View style={{ flex: 5, paddingBottom: 20 }}>
                     {/* Wide View Frame for Daily Diet Progress */}
                     <View style={homeStyles.viewHomeFrameWide}>
-                        <Text style={[styles.frameTextWhite, { paddingVertical: 5, paddingBottom: 10 }]}>
+                        <Text style={[styles.frameTextWhite, { paddingVertical: 5, paddingBottom: 15 }]}>
                             Your Daily Diet Progress:
                         </Text>
 
                         {/* View that holds the progress bars and their labels */}
-                        <View style={{ flexDirection: 'column', paddingBottom: 10, }}>
+                        <View style={{ flexDirection: 'column'}}>
 
                             {/* TODO: progress of bars should be calculated using eaten/total calories */}
 
@@ -87,8 +87,8 @@ const homeStyles = StyleSheet.create({
         height: '100%',
         width: '100%',
         backgroundColor: '#1F2938',
-        paddingVertical: 10,
-        paddingHorizontal: 20,
+        paddingVertical: 15,
+        paddingHorizontal: '5%',
         flex: 1,
         justifyContent: 'space-between',
         borderRadius: 8

@@ -19,47 +19,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 35,
         flex: 1
     },
-
-    // HOME PAGE STYLES
-
-
-    // Example: Quick Add Frame, Home
-    viewHomeFrameNormal: {
-        height: '100%',
-        width: '100%',
-        backgroundColor: '#1F2938',
-        paddingVertical: 20,
-        flex: 1,
-        borderRadius: 8
-    },
-    // Example: Water Goal Frame, Home
-    viewHomeFrameTall: {
-        height: '100%',
-        width: '100%',
-        backgroundColor: '#1F2938',
-        paddingVertical: 10,
-        paddingHorizontal: 15,
-        flex: 1,
-        borderRadius: 8,
-        alignContent: 'center', 
-        paddingBottom: 85 
-    },
-    // Example: Columns of home screen
-    containerColumn: {
-        height: '100%',
-        width: '100%',
-        backgroundColor: '#0E1116',
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignContent: 'center',
-    },
-// HOME STYLES END
-
-
-
-
-
     welcomeText: {
         color: '#CB9CF2',
         fontSize: 50,
