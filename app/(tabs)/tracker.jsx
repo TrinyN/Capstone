@@ -90,7 +90,7 @@ const Tracker = () => {
     const { exerciseList, setExerciseList } = useExerciseData();
 
     // Test data, will need to start off empty and be saved for each user, will only be one number that keeps increasing as user adds more
-    const {water, setWater} = useWaterData
+    const {water, setWater} = useWaterData()
 
     // State to keep track of expanded/collapsed sections
     const [collapsedSections, setCollapsedSections] = useState({

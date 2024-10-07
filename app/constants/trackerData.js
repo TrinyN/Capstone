@@ -72,7 +72,7 @@ export const useWaterData = () => {
     // Test data, will need to start off empty and be saved for each user, 
     //      will only be one number that keeps increasing as user adds more
     const [water, setWater] = useState([
-        10,
+        10
     ]);
     
     return {
