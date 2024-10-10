@@ -1,6 +1,5 @@
 import React from 'react'
 import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
-import styles from '../../styles';
 import { router } from 'expo-router';
 import CustomButton2 from './CustomButton2';
 
@@ -14,7 +13,6 @@ const CustomAuthButton = ({
         linkTitle = "Sign Up"
         switchAuthType = '/sign-up'
         routerPush = '/home' // need to authorize first, google button needs to be changed too
-
     }
     else {
         linkTitle = "Log In"
@@ -22,18 +20,17 @@ const CustomAuthButton = ({
         routerPush = '/sign-up-2'
     }
     return (
-
         // {/* View to hold the buttons at the bottom */}
-        <View style={{ justifyContent: 'flex-end', paddingBottom: 10, flex: 1 }}>
+        <View style={authStyle.container}>
             <CustomButton2 type='normal'
                 text={authType}
                 onPress={() => { router.push(routerPush) }}>
             </CustomButton2>
 
-            <View style={authStyle.container}>
+            <View style={authStyle.subContainer}>
                 <View style={authStyle.dividerLine} />
                 {/* Divider between buttons */}
-                <Text style={[styles.smallText, { color: '#CB9CF2', paddingHorizontal: 10 }]}>
+                <Text style={[authStyle.smallText, { color: '#CB9CF2' }]}>
                     or continue with
                 </Text>
                 <View style={authStyle.dividerLine} />
@@ -44,7 +41,7 @@ const CustomAuthButton = ({
             </CustomButton2>
 
             {/* Disclaimers, policies */}
-            <Text style={[styles.smallText, { fontSize: 12, color: '#828282' }]}>
+            <Text style={[authStyle.smallText, { color: '#828282' }]}>
                 By clicking continue, you agree to our{' '}
                 <Text style={{ color: '#F2F4F3' }}>
                     Terms of Service{' '}
@@ -56,18 +53,20 @@ const CustomAuthButton = ({
                     Privacy Policy
                 </Text>
             </Text>
-            <View style={authStyle.container}>
+            <View style={authStyle.subContainer}>
 
                 {/* Reroute to Sign Up */}
-                <Text style={styles.smallText}>
+                <Text style={authStyle.smallText}>
                     Don't have an account?{' '}
                 </Text>
                 <TouchableOpacity onPress={() => router.push(switchAuthType)}>
-                    <Text style={[styles.smallText, { color: '#CB9CF2', textDecorationLine: "underline"}]}>
+                    <Text style={[authStyle.smallText, { color: '#CB9CF2', 
+                        textDecorationLine: "underline", 
+                        paddingHorizontal:0}]}
+                    >
                         {linkTitle}
                     </Text>
                 </TouchableOpacity>
-
             </View>
         </View>
 
@@ -78,13 +77,27 @@ export default CustomAuthButton
 
 const authStyle = StyleSheet.create({
     container:{
-        flexDirection: 'row', justifyContent: 'center', alignItems: 'center'
+        justifyContent: 'flex-end', 
+        paddingBottom: 10,
+        flex: 1
     },
-
+    subContainer:{
+        flexDirection: 'row', 
+        justifyContent: 'center', 
+        alignItems: 'center'
+    },
     dividerLine:{
         flex: 1, 
         height: 1, 
         backgroundColor: '#CB9CF2'
-    }
+    },
+    smallText: {
+        color: '#F2F4F3',
+        fontSize: 14,
+        fontFamily: 'Inter_400Regular',
+        textAlign: 'center',
+        paddingVertical: 5,
+        paddingHorizontal: 10
+    },
 
 })

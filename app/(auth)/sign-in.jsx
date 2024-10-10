@@ -39,7 +39,6 @@ const SignIn = () => {
                 </View>
             }
         >
-
         </CustomScreen>
     )
 }

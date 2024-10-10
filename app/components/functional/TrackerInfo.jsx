@@ -1,19 +1,17 @@
 
 
 import { Text, View, TextInput, StyleSheet } from 'react-native';
-import styles from '../../styles';
 import Feather from "react-native-vector-icons/Feather";
 import React from 'react'
 
 const TrackerInfo = ({
     // will have to pass in user's weight and allow user to change it
-
 }) => {
     return (
         <View>
             <View style={{ justifyContent: 'space-between', flexDirection: 'row', paddingVertical: 12, alignItems: 'center' }}>
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={styles.defaultWhiteText}>
+                    <Text style={trackerInfoStyle.defaultWhiteText}>
                         Caloric Goal:
                     </Text>
                     <TextInput style={[trackerInfoStyle.input, { textAlign: 'center', width: 60, marginHorizontal: 5}]}
@@ -23,7 +21,7 @@ const TrackerInfo = ({
                     />
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                    <Text style={styles.defaultWhiteText}>
+                    <Text style={trackerInfoStyle.defaultWhiteText}>
                         Weight:
                     </Text>
                     <TextInput style={[trackerInfoStyle.input, { width: 75, paddingHorizontal: 5, textAlign: 'left'}]}
@@ -49,7 +47,7 @@ const TrackerInfo = ({
                     <Text style={[trackerInfoStyle.defaultText, { textAlign: 'center', color: '#CB9CF2', width: '19%' }]}>
                         BMR
                     </Text>
-                    <Text style={[trackerInfoStyle.defaultText, styles.defaultWhiteText, { fontSize: 14 }]}> = </Text>
+                    <Text style={[trackerInfoStyle.defaultText, trackerInfoStyle.defaultWhiteText, { fontSize: 14 }]}> = </Text>
                     <Text style={[trackerInfoStyle.defaultText, { textAlign: 'right', textDecorationLine: 'underline', color: '#80FF72', width: '21%' }]}>
                         Surplus
                     </Text>
@@ -92,6 +90,11 @@ const trackerInfoStyle = StyleSheet.create({
         color: '#F2F4F3',
         fontFamily: 'Inter_400Regular',
         fontSize: 14
+    },
+    defaultWhiteText: {
+        color: '#F2F4F3',
+        fontSize: 16,
+        fontFamily: 'Inter_400Regular',
     },
     smallLeftText:{
         width: '19%', 

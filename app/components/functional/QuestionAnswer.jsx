@@ -28,7 +28,6 @@ const QuestionAnswer = (
                     </TextInput>
                 </View>
             </View>
-
         )
     } else if (type === 'date') { // NOT IMPLEMENTED YET
         return (
@@ -41,7 +40,6 @@ const QuestionAnswer = (
         )
     } else if (type === 'password') {
         const [showPassword, setShowPassword] = useState(false)
-
         return (
             <View style={apStyle.container}>
                 {/* Question */}
@@ -66,7 +64,6 @@ const QuestionAnswer = (
             </View>
         )
     } else if (type === 'dropdown') { // NOT IMPLEMENTED YET
-
         return (
             <View style={apStyle.container}>
                 {/* Question */}

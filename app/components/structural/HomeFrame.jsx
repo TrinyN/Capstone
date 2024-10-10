@@ -1,7 +1,6 @@
 import Feather from "react-native-vector-icons/Feather";
 import { Text, TouchableOpacity, View, Image, StyleSheet } from 'react-native'
 import React from 'react'
-import styles from '../../styles'
 import { router } from 'expo-router';
 
 
@@ -13,7 +12,7 @@ const HomeFrame = ({
 }) => {
     let marginBottom
     let icon
-    let style = homeFrameStyles.viewHomeFrameNormal // default style
+    let style = homeFrameStyle.viewHomeFrameNormal // default style
 
     if (title == "Quick Track") {
         marginBottom = 20
@@ -23,7 +22,7 @@ const HomeFrame = ({
         icon = 'edit-3'
     }
     else {
-        style = homeFrameStyles.viewHomeFrameTall
+        style = homeFrameStyle.viewHomeFrameTall
     }
 
     return (
@@ -40,7 +39,7 @@ const HomeFrame = ({
                     flexDirection: 'column',
                 }}
                 onPress={() => router.push('/tracker')}>
-                <Text style={styles.frameTextWhite}>
+                <Text style={homeFrameStyle.frameTextWhite}>
                     {title}
                 </Text>
 
@@ -49,7 +48,7 @@ const HomeFrame = ({
                     // {/* TODO: Add calculation of water progress */}
                     // {/* View Containing Water Bottle and Water Progress */}
 
-                    // {/* <View styles={{flex: 1, flexDirection: 'column'}}> */}
+                    // {/* <View style={{flex: 1, flexDirection: 'column'}}> */}
                     // {/* <LiquidGauge
                     //         config={{
                     //         circleColor: '#0E1116',
@@ -93,8 +92,7 @@ const HomeFrame = ({
 
 export default HomeFrame
 
-
-const homeFrameStyles = StyleSheet.create({
+const homeFrameStyle = StyleSheet.create({
     // Example: Quick Add Frame, Home
     viewHomeFrameNormal: {
         height: '100%',
@@ -115,5 +113,12 @@ const homeFrameStyles = StyleSheet.create({
         borderRadius: 8,
         alignContent: 'center',
         paddingBottom: 85,
+    },
+    frameTextWhite: {
+        color: '#F2F4F3',
+        fontSize: 20,
+        paddingVertical: 10,
+        fontFamily: 'Inter_600SemiBold',
+        textAlign: 'center',
     },
 })

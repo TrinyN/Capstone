@@ -1,6 +1,5 @@
-import { TouchableOpacity, Text, View, ScrollView } from 'react-native';
+import { TouchableOpacity, Text, View, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
-import styles from '../../styles';
 import Feather from "react-native-vector-icons/Feather";
 import { router } from 'expo-router';
 
@@ -15,7 +14,7 @@ const CustomScreen = ({
     screenContent
 }) => {
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={apStyle.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 {/* Render back button if needed */}
                 {hasBackButton &&
@@ -27,16 +26,16 @@ const CustomScreen = ({
                 }
 
                 {/* The "body" of the screen, including its major elements */}
-                <View style={[styles.viewContainer, { flex: 1 }]}>
+                <View style={[apStyle.viewContainer, { flex: 1 }]}>
 
                     {/* Screen Header */}
                     <View style={{ marginTop: 70, flexDirection: 'row', paddingBottom: 10, alignItems: 'center' }}>
                         {/* NOTE: Flex looks strange on very large (incompatible) screens like iPad, web */}
 
-                            <Text style={[styles.titleText, {flex: 1, flexDirection: 'row'}]}>
+                            <Text style={[apStyle.titleText, {flex: 1, flexDirection: 'row'}]}>
                                 {title} {" "}
                                 {/* TODO: Make this text get the current week */}
-                                <Text style={[styles.titleTextWhite]}>
+                                <Text style={[apStyle.titleTextWhite]}>
                                     {title2}
                                 </Text>
                             </Text>
@@ -48,7 +47,7 @@ const CustomScreen = ({
                         }
 
                     </View>
-                    <Text style={[styles.defaultWhiteText, { fontFamily: 'Inter_200ExtraLight', fontSize: 20, paddingBottom: 30 }]}>
+                    <Text style={[apStyle.defaultWhiteText, { fontFamily: 'Inter_200ExtraLight', fontSize: 20, paddingBottom: 30 }]}>
                         {info}
                     </Text>
                     
@@ -62,3 +61,32 @@ const CustomScreen = ({
 }
 
 export default CustomScreen
+
+const apStyle = StyleSheet.create({
+    container: {
+        height: '100%',
+        flexGrow: 1,
+        backgroundColor: '#0E1116'
+    },
+    viewContainer: {
+        height: '100%',
+        backgroundColor: '#0E1116',
+        paddingHorizontal: 35,
+        flex: 1
+    },
+    titleText: {
+        color: '#CB9CF2',
+        fontSize: 28,
+        fontFamily: 'Inter_600SemiBold',
+    },
+    titleTextWhite: {
+        color: '#F2F4F3',
+        fontSize: 28,
+        fontFamily: 'Inter_600SemiBold',
+    },
+    defaultWhiteText: {
+        color: '#F2F4F3',
+        fontSize: 16,
+        fontFamily: 'Inter_400Regular',
+    },
+})

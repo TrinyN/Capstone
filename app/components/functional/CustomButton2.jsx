@@ -2,7 +2,6 @@ import { TouchableOpacity, StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import Feather from "react-native-vector-icons/Feather";
 
-
 // ONLY ALLOWED IN TYPESCRIPT - RESTRICTS TYPES
 // type buttonType = 'primary' | 'small'| 'google';
 
@@ -44,7 +43,7 @@ const CustomButton2 = ({ type, text, onPress }) => {
             <TouchableOpacity onPress={onPress}
                 style={[apStyle.button, { backgroundColor: '#CB9CF2', padding: 1 }]} >
                 <Feather name="plus" size={30} color="#1F2938" />
-            </TouchableOpacity >
+            </TouchableOpacity>
         )
     } else if (type === 'small') {
         return (
@@ -64,6 +63,8 @@ export default CustomButton2;
 
 const apStyle = StyleSheet.create({
     button: {
+        height: 45,
+        width:'100%',
         backgroundColor: '#F2F4F3',
         padding: 10,
         alignItems: 'center',
@@ -84,6 +85,8 @@ const apStyle = StyleSheet.create({
         activeOpacity: 0.7
     },
     buttonGoogle: {
+        height: 45,
+        width: '100%',
         backgroundColor: '#F2F4F3',
         padding: 10,
         alignItems: 'center',

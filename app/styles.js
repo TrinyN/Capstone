@@ -107,7 +107,6 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         paddingVertical: 3
     },
-
     optionsMenu: {
         backgroundColor: '#1F2938',
         borderRadius: 5,

@@ -14,5 +14,4 @@ const CustomButton = ({
         </TouchableOpacity>
     )
 }
-
 export { CustomButton }

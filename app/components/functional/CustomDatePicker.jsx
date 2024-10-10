@@ -1,5 +1,4 @@
-import { TextInput, TouchableOpacity, Text, View, Modal, Pressable, Platform } from 'react-native';
-import styles from '../../styles';
+import { TextInput, TouchableOpacity, Text, View, Modal, Pressable, Platform, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useState } from 'react';
 
@@ -48,10 +47,10 @@ const CustomDatePicker = ({ placeholder, hasTitle }) => {
             {hasTitle ? (
                 <Pressable onPress={toggleDatepicker}>
                     {/* Age question and field */}
-                    <Text style={styles.defaultText}>
+                    <Text style={apStyle.defaultText}>
                         {placeholder}
                     </Text>
-                    <TextInput style={styles.inputFieldStyle}
+                    <TextInput style={apStyle.inputFieldStyle}
                         selectionColor='#CB9CF2'
                         placeholderTextColor='rgba(242,244,243, 0.2)'
                         placeholder='06/01/3024'
@@ -65,7 +64,7 @@ const CustomDatePicker = ({ placeholder, hasTitle }) => {
                 <Pressable onPress={toggleDatepicker} style={{}}>
                     <View style={{ justifyContent: 'center' }}>
                         <TextInput
-                            style={[styles.smallText, { color: '#ABABAB', textAlign: 'left', paddingLeft: 10 }]}
+                            style={apStyle.smallText}
                             placeholder={placeholder}
                             placeholderTextColor={'#F2F4F3'}
                             editable={false}
@@ -78,10 +77,8 @@ const CustomDatePicker = ({ placeholder, hasTitle }) => {
 
                 </Pressable>
             )}
-
-
+            {/* Android date picker */}
             {showPicker && Platform.OS === "android" && (
-
                 <DateTimePicker
                     mode='date'
                     display='spinner'
@@ -93,12 +90,11 @@ const CustomDatePicker = ({ placeholder, hasTitle }) => {
                     maximumDate={new Date()}
 
                 />
-
             )}
-
+            {/* IOS date picker */}
             {showPicker && Platform.OS === "ios" && (
                 <Modal transparent={true} animationType="slide" style={{ justifyContent: 'center' }}>
-                    <View style={{ backgroundColor: '#0E1116', bottom: 0, position: 'absolute', alignSelf: 'center', width: '100%' }}>
+                    <View style={apStyle.iosDateView}>
                         <DateTimePicker
                             mode='date'
                             display='spinner'
@@ -110,19 +106,75 @@ const CustomDatePicker = ({ placeholder, hasTitle }) => {
                             maximumDate={new Date()}
                         />
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                            <TouchableOpacity onPress={toggleDatepicker} style={[styles.button, {backgroundColor: 'transparent', borderWidth: 1, borderColor: '#F2F4F3'}]}>
-                                <Text style={[styles.buttonText, {color: '#F2F4F3'}]}>Cancel</Text>
+                            {/* Toggle date button */}
+                            <TouchableOpacity onPress={toggleDatepicker} 
+                                style={[apStyle.button, {backgroundColor: 'transparent', borderWidth: 1, borderColor: '#F2F4F3'}]}
+                            >
+                                <Text style={[apStyle.buttonText, {color: '#F2F4F3'}]}>Cancel</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={confirmIOSDate} style={[styles.button, {backgroundColor: '#CB9CF2'}]}>
-                                <Text style={styles.buttonText}>Confirm</Text>
+                            {/* Confirm date button */}
+                            <TouchableOpacity onPress={confirmIOSDate} 
+                                style={[apStyle.button, {backgroundColor: '#CB9CF2'}]}
+                            >
+                                <Text style={apStyle.buttonText}>Confirm</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </Modal>
             )}
         </View>
-
     )
 }
 
 export default CustomDatePicker
+
+const apStyle = StyleSheet.create({
+    defaultText: {
+        color: '#CB9CF2',
+        fontSize: 20,
+        // paddingLeft:25,
+        paddingVertical: 15,
+        fontFamily: 'Inter_600SemiBold',
+    },
+    inputFieldStyle: {
+        color: '#F2F4F3',
+        backgroundColor: 'rgba(97, 98, 131, 0.2)',
+        borderRadius: 8,
+        fontSize: 16,
+        paddingLeft: 15,
+        paddingVertical: 10,
+        height: 45
+        // selectionColor: '#CB9CF2',
+        // placeholderTextColor:'rgba(242,244,243, 0.5)',
+    },
+    smallText: {
+        color: '#ABABAB',
+        fontSize: 14,
+        fontFamily: 'Inter_400Regular',
+        textAlign: 'left',
+        paddingVertical: 5,
+        paddingLeft: 10
+    },
+    iosDateView:{
+        backgroundColor: '#0E1116', 
+        bottom: 0, 
+        position: 'absolute', 
+        alignSelf: 'center',
+        width: '100%'
+    },
+    button: {
+        backgroundColor: '#F2F4F3',
+        padding: 10,
+        alignItems: 'center',
+        marginTop: 15,
+        marginBottom: 15,
+        borderRadius: 8,
+        activeOpacity: 0.7, 
+        minHeight: 30, 
+    },
+    buttonText: {
+        color: '#0E1116',
+        fontSize: 16,
+        fontFamily: 'Inter_500Medium',
+    },
+})

@@ -8,7 +8,6 @@ import { useState, useRef } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import CustomDatePicker from './CustomDatePicker';
 import Feather from "react-native-vector-icons/Feather";
-import styles from '../../styles'; // Only smallText used
 
 // NEEDS REFACTORING == too long maybe
 
@@ -46,9 +45,9 @@ const ProfileItem = ({ title, value, index, type, options }) => {
                 multiline={false}
                 placeholder={value}
                 placeholderTextColor={'#F2F4F3'}
-                placeholderStyle={[styles.smallText, profileStyle.text]}
+                placeholderStyle={[profileStyle.smallText, profileStyle.text]}
                 // editable={editable}
-                style={[styles.smallText, profileStyle.text, { color: '#ABABAB'}]}
+                style={[profileStyle.smallText, profileStyle.text, { color: '#ABABAB'}]}
                 selectionColor={'#CB9CF2'}
                 // onSubmitEditing={disableEditable}
                 // onEndEditing={disableEditable}
@@ -68,7 +67,7 @@ const ProfileItem = ({ title, value, index, type, options }) => {
     // Choosing the proper display depending of the passed ProfileItem type
     const renderAppropriateField = () => {
         switch (type) {
-
+            // Dropdown Field
             case 'dropdown':
                 return (
                     <View style={{ flex: 1, justifyContent: 'center' }}>
@@ -88,13 +87,13 @@ const ProfileItem = ({ title, value, index, type, options }) => {
                             style={profileStyle.dropdownStyle}
                             theme='DARK'
                             placeholder={value}
-                            placeholderStyle={[styles.smallText, { textAlign: 'left' }]}
+                            placeholderStyle={[profileStyle.smallText, { textAlign: 'left' }]}
                             dropDownContainerStyle={{ theme: 'DARK', borderWidth: 0, position: 'absolute' }}
-                            textStyle={[styles.smallText, { color: '#ABABAB', textAlign: 'left' }]}
+                            textStyle={[profileStyle.smallText, { color: '#ABABAB', textAlign: 'left' }]}
                         />
                     </View>
                 )
-
+            // Text field
             case 'text':
                 return (
                     <View style={[profileStyle.dataContainer, { paddingVertical: 10 }]}>
@@ -109,7 +108,7 @@ const ProfileItem = ({ title, value, index, type, options }) => {
                         </View>
                     </View>
                 )
-
+            // Date field
             case 'date':
                 return (
                     <View style={profileStyle.dataContainer}>
@@ -132,17 +131,15 @@ const ProfileItem = ({ title, value, index, type, options }) => {
                     </View>
                 )
         }
-
     };
     // Returning the display for the items used, dependent on the type passed through to choose a the proper style
     return (
         <View style={[profileStyle.dataContainer, { justifyContent: 'center', backgroundColor, height: 50 }]}>
             <View style={{ width: '40%' }}>
-                <Text style={[styles.smallText, { fontFamily: 'Inter_600SemiBold', color: '#CB9CF2', textAlign: 'left', paddingHorizontal: 10 }]}>{title}</Text>
+                <Text style={[profileStyle.smallText, { fontFamily: 'Inter_600SemiBold', color: '#CB9CF2', textAlign: 'left', paddingHorizontal: 10 }]}>{title}</Text>
             </View>
             {renderAppropriateField()}
         </View>
-
     );
 };
 
@@ -171,5 +168,12 @@ const profileStyle = StyleSheet.create({
         backgroundColor: 'transparent', 
         borderWidth: 0, 
         paddingHorizontal: 10
-    }
+    },
+    smallText: {
+        color: '#F2F4F3',
+        fontSize: 14,
+        fontFamily: 'Inter_400Regular',
+        textAlign: 'center',
+        paddingVertical: 5
+    },
 })
