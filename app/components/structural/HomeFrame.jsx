@@ -31,13 +31,7 @@ const HomeFrame = ({
 
             {/* Touchable Opacity to make entire frame a button */}
             <TouchableOpacity
-                style={{
-                    alignItems: 'center',
-                    height: '100%',
-                    width: '100%',
-                    flex: 1,
-                    flexDirection: 'column',
-                }}
+                style={[homeFrameStyles.frameContent, {flex: 1, flexDirection: 'column'}]}
                 onPress={() => router.push('/tracker')}>
                 <Text style={homeFrameStyle.frameTextWhite}>
                     {title}
@@ -68,18 +62,11 @@ const HomeFrame = ({
 
                     <Image
                         source={require('../../../assets/images/water-bottle-1.png')}
-                        style={{
-                            height: '100%',
-                            width: '100%',
-                            alignItems: 'center',
-                            resizeMode: 'contain',
-                            position: 'relative',
-                            // right: -30
-                        }}
+                        style={[homeFrameStyles.frameContent, {resizeMode: 'contain', position: 'relative'}]}
                     />
                 ) : (
-                // {/* How to fill pruple with dark plus (~Figma)??? */}
-                // {/* Issue: SVG (including stroke and fill) no long supported for feather */}
+                    // {/* How to fill pruple with dark plus (~Figma)??? */}
+                    // {/* Issue: SVG (including stroke and fill) no long supported for feather */}
                     <Feather name={icon}
                         size={55}
                         color={'#CB9CF2'}
@@ -121,4 +108,9 @@ const homeFrameStyle = StyleSheet.create({
         fontFamily: 'Inter_600SemiBold',
         textAlign: 'center',
     },
+    frameContent: {
+        alignItems: 'center',
+        height: '100%',
+        width: '100%',
+    }
 })

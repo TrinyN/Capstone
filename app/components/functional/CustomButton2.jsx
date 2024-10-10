@@ -74,8 +74,8 @@ const apStyle = StyleSheet.create({
         activeOpacity: 0.7
     },
     buttonSm: {
-        height: '50%', // temporary
-        width: '50%', // temporary
+        // height: '50%', // temporary
+        // width: '50%', // temporary
         backgroundColor: '#CB9CF2',
         padding: 10,
         alignItems: 'center',

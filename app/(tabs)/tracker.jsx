@@ -240,7 +240,7 @@ const Tracker = () => {
                             <View style={{ padding: 40 }}></View>
 
                             {/* Pop ups for adding food, water, or exercise*/}
-                            <CustomPopUp visible={visible} toggleOverlay={toggleOverlay} hasBackButton={false}
+                            <CustomPopUp visible={visible} toggleOverlay={toggleOverlay}
                                 content={
                                     <View style={{ paddingHorizontal: 20, paddingBottom: 20, alignItems: 'center', alignContent: 'center' }}>
                                         <Text style={[styles.defaultWhiteText, { textAlign: 'center' }]}>

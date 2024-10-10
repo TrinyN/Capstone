@@ -11,14 +11,16 @@ const CustomScreen = ({
     hasOptions,
     toggleOptions,
     info,
-    screenContent
+    screenContent,
+    hasLogOutButton,
+    toggleLogOut
 }) => {
     return (
         <SafeAreaView style={apStyle.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 {/* Render back button if needed */}
                 {hasBackButton &&
-                    <View style={{ marginTop: 40, marginBottom: 10, paddingLeft: 25 }}>
+                    <View style={apStyle.backButtonContainer}>
                         <TouchableOpacity style={{ width: 35 }} onPress={() => router.back()}>
                             <Feather name="chevron-left" size={35} color="#F2F4F3" />
                         </TouchableOpacity>
@@ -29,33 +31,39 @@ const CustomScreen = ({
                 <View style={[apStyle.viewContainer, { flex: 1 }]}>
 
                     {/* Screen Header */}
-                    <View style={{ marginTop: 70, flexDirection: 'row', paddingBottom: 10, alignItems: 'center' }}>
+                    <View style={apStyle.headerContainer}>
                         {/* NOTE: Flex looks strange on very large (incompatible) screens like iPad, web */}
 
-                            <Text style={[apStyle.titleText, {flex: 1, flexDirection: 'row'}]}>
-                                {title} {" "}
-                                {/* TODO: Make this text get the current week */}
-                                <Text style={[apStyle.titleTextWhite]}>
-                                    {title2}
-                                </Text>
+                        <Text style={[apStyle.titleText, { flex: 1, flexDirection: 'row' }]}>
+                            {title} {" "}
+                            {/* TODO: Make this text get the current week */}
+                            <Text style={[apStyle.titleTextWhite]}>
+                                {title2}
                             </Text>
+                        </Text>
 
-                        {hasOptions &&
-                            <TouchableOpacity onPress={toggleOptions} style={{ width: 30 }}>
-                                <Feather name="more-vertical" size={30} color="#CB9CF2" />
-                            </TouchableOpacity>
-                        }
+                    {hasOptions &&
+                        <TouchableOpacity onPress={toggleOptions} style={{ width: 30 }}>
+                            <Feather name="more-vertical" size={30} color="#CB9CF2" />
+                        </TouchableOpacity>
+                    }
 
-                    </View>
-                    <Text style={[apStyle.defaultWhiteText, { fontFamily: 'Inter_200ExtraLight', fontSize: 20, paddingBottom: 30 }]}>
-                        {info}
-                    </Text>
-                    
-                    {screenContent}
-                    
+                    {hasLogOutButton &&
+                        <TouchableOpacity onPress={toggleLogOut} style={{ width: 30 }}>
+                            <Feather name="log-out" size={30} color="#CB9CF2" />
+                        </TouchableOpacity>
+                    }
+
                 </View>
-            </ScrollView>
-        </SafeAreaView>
+                <Text style={[apStyle.defaultWhiteText, { fontFamily: 'Inter_200ExtraLight', fontSize: 20, paddingBottom: 30 }]}>
+                    {info}
+                </Text>
+
+                {screenContent}
+
+            </View>
+        </ScrollView>
+        </SafeAreaView >
 
     )
 }
@@ -89,4 +97,13 @@ const apStyle = StyleSheet.create({
         fontSize: 16,
         fontFamily: 'Inter_400Regular',
     },
+    backButtonContainer: {
+        marginTop: 40, marginBottom: 10, paddingLeft: 25
+    },
+    headerContainer: {
+        marginTop: 70, flexDirection: 'row', paddingBottom: 10, alignItems: 'center'
+    },
+    text: {
+        fontFamily: 'Inter_200ExtraLight', fontSize: 20, paddingBottom: 30
+    }
 })

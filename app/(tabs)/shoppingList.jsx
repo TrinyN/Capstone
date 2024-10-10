@@ -220,13 +220,8 @@ const ShoppingList = () => {
                                             </Text>
                                             {/* Icons used depending on whether header is collapsed or open */}
                                             <Feather name={collapsedSections[section.title] ? "chevron-down" : "chevron-up"} size={25} color='#CB9CF2'
-                                                style={{
-                                                    alignSelf: 'flex-end',
-                                                    paddingVertical: 10
-                                                }} />
-
+                                                style={{ alignSelf: 'flex-end', paddingVertical: 10 }} />
                                         </View>
-
                                     </TouchableOpacity>
 
                                     {/* Borderline at bottom of the section headers */}

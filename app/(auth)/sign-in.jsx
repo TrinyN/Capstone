@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 import QuestionAnswer from '../components/functional/QuestionAnswer';
 import CustomScreen from '../components/structural/CustomScreen';
 import CustomAuthButton from '../components/functional/CustomAuthButton';
