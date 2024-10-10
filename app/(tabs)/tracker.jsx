@@ -247,7 +247,7 @@ const Tracker = () => {
                             <AddWater
                                 addWaterVisible={addWaterVisible}
                                 toggleWaterOverlay={toggleWaterOverlay}
-                                toggleOverlay={toggleOverlay}
+                                previousOverlay={toggleOverlay}
                                 setWaterUnit={setWaterUnit}
                                 waterUnitTypes={waterUnitTypes}
                                 setWaterUnitTypes={setWaterUnitTypes}
@@ -255,7 +255,7 @@ const Tracker = () => {
                             <AddExercise
                                 addExerciseVisible={addExerciseVisible}
                                 toggleExerciseOverlay={toggleExerciseOverlay}
-                                toggleOverlay={toggleOverlay}
+                                previousOverlay={toggleOverlay}
                                 setExerciseUnit={setExerciseUnit}
                                 exerciseUnitTypes={exerciseUnitTypes}
                                 setExerciseUnitTypes={setExerciseUnitTypes}

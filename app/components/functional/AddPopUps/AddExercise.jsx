@@ -5,9 +5,9 @@ import styles from '../../../styles';
 import CustomDropdown from '../CustomDropdown';
 import { CustomButton } from '../CustomButton';
 
-const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, toggleOverlay, setExerciseUnit, exerciseUnitTypes, setExerciseUnitTypes }) => {
+const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverlay, setExerciseUnit, exerciseUnitTypes, setExerciseUnitTypes }) => {
     return (
-        <CustomPopUp visible={addExerciseVisible} toggleOverlay={toggleExerciseOverlay} hasBackButton={true} previousOverlay={toggleOverlay}
+        <CustomPopUp visible={addExerciseVisible} toggleOverlay={toggleExerciseOverlay} hasBackButton={true} previousOverlay={previousOverlay}
             content={
                 <View style={{ paddingHorizontal: 30, paddingBottom: 20, justifyContent: 'center' }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: 20 }}>

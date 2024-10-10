@@ -4,9 +4,9 @@ import CustomPopUp from '../../structural/CustomPopUp';
 import styles from '../../../styles';
 import CustomDropdown from '../CustomDropdown';
 import { CustomButton } from '../CustomButton';
-const AddWater = ({ addWaterVisible, toggleWaterOverlay, toggleOverlay, setWaterUnit, waterUnitTypes, setWaterUnitTypes }) => {
+const AddWater = ({ addWaterVisible, toggleWaterOverlay, previousOverlay, setWaterUnit, waterUnitTypes, setWaterUnitTypes }) => {
     return (
-        <CustomPopUp visible={addWaterVisible} toggleOverlay={toggleWaterOverlay} hasBackButton={true} previousOverlay={toggleOverlay}
+        <CustomPopUp visible={addWaterVisible} toggleOverlay={toggleWaterOverlay} hasBackButton={true} previousOverlay={previousOverlay}
             content={
                 <View style={{ paddingHorizontal: 30, paddingBottom: 20, justifyContent: 'center' }}>
                     <Text style={[styles.defaultWhiteText, { textAlign: 'center' }]}>
