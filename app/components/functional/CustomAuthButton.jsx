@@ -41,7 +41,7 @@ const CustomAuthButton = ({
             </CustomButton2>
 
             {/* Disclaimers, policies */}
-            <Text style={[authStyle.smallText, { color: '#828282' }]}>
+            <Text style={[authStyle.smallText, { fontSize: 12, color: '#828282' }]}>
                 By clicking continue, you agree to our{' '}
                 <Text style={{ color: '#F2F4F3' }}>
                     Terms of Service{' '}
@@ -56,7 +56,7 @@ const CustomAuthButton = ({
             <View style={authStyle.subContainer}>
 
                 {/* Reroute to Sign Up */}
-                <Text style={authStyle.smallText}>
+                <Text style={[authStyle.smallText, {paddingHorizontal: 0}]}>
                     Don't have an account?{' '}
                 </Text>
                 <TouchableOpacity onPress={() => router.push(switchAuthType)}>
