@@ -96,6 +96,8 @@ const trackerInfoStyle = StyleSheet.create({
     smallLeftText:{
         width: '19%', 
         textAlign: 'left', 
+        fontFamily: 'Inter_400Regular',
+        fontSize: 14
     }, 
     input:{
         backgroundColor: '#1F2938', 

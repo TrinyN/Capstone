@@ -125,7 +125,7 @@ const Profile = () => {
                     </View>
 
                     <View style={{}}>
-                        <View style={{ flexDirection: 'row-reverse', paddingBottom: 30, justifyContent: 'space-between' }}>
+                        <View style={{ flexDirection: 'row-reverse', justifyContent: 'space-between' }}>
                             <TouchableOpacity
                                 // disabled={!saveVisibility}
                                 style={[styles.button, { opacity, backgroundColor: '#CB9CF2', paddingVertical: 0 }]}>

@@ -15,7 +15,6 @@ import CustomAuthButton from '../components/functional/CustomAuthButton';
 
 // Function to handle the design and display of the Sign Up screen
 const SignUp = () => {
-    const [showPassword, setShowPassword] = useState(false)
 
     return (
         <CustomScreen
@@ -29,30 +28,12 @@ const SignUp = () => {
                     <View style={{ justifyContent: 'flex-start', paddingBottom: 100, flex: 1 }}>
 
                         {/* email */}
-                        <Text style={styles.defaultText}>
-                            Email:
-                        </Text>
-                        <TextInput style={styles.inputFieldStyle}
-                            placeholder='your_email@gmail.com'
-                            selectionColor='#CB9CF2'
-                            placeholderTextColor='rgba(242,244,243, 0.2)'>
-                        </TextInput>
+
+                        <QuestionAnswer type='text' placeholder='your_email@gmail.com' question='Email:'/>
 
                         {/* password */}
-                        <Text style={styles.defaultText}>
-                            Password:
-                        </Text>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <TextInput style={[styles.inputFieldStyle, { flex: 1 }]}
-                                placeholder='password'
-                                secureTextEntry={!showPassword}
-                                selectionColor='#CB9CF2'
-                                placeholderTextColor='rgba(242,244,243, 0.2)'
-                            />
-                            <TouchableOpacity style={{ width: 25, position: 'absolute', right: 10 }} onPress={() => setShowPassword(!showPassword)}>
-                                <Feather name={!showPassword ? "eye" : "eye-off"} size={25} color='rgba(242,244,243,0.5)' />
-                            </TouchableOpacity>
-                        </View>
+
+                        <QuestionAnswer type='password' question='Password:'/>
 
                         {/* <Text style={styles.defaultText}>
                                 Confirm Password:

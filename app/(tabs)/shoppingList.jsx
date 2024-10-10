@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, TextInput, Text, View, SectionList, Dimensions } from 'react-native';
+import { StyleSheet, TouchableOpacity, TextInput, Text, View, SectionList } from 'react-native';
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
 import { useState, useEffect } from 'react';
@@ -9,7 +9,7 @@ import CustomPopUp from '../components/structural/CustomPopUp';
 import CustomScreen from '../components/structural/CustomScreen';
 import CustomButton2 from '../components/functional/CustomButton2';
 import OptionItem from '../components/functional/OptionItem';
-
+import { shoppingListData } from '../constants/shoppingListData';
 // todo:
 // save list for user
 // generate shopping list functionality
@@ -18,16 +18,16 @@ import OptionItem from '../components/functional/OptionItem';
 // make handle add food not work if same food name
 
 // REFACTORING FLAGGING - Needs a Component
-// 1. Screen component
-// 2. Screen header component
-// 3. Add button component
+// 1. Screen component DONE
+// 2. Screen header component DONE?
+// 3. Add button component DONE
 // 4. Render list component(s) - split into header, list item, and footer?
 // 5. Options overlay component
 // 6. Minor button component? (i.e. Zoom out = Zoom in = Take notes, etc.)
 // 7. Spacing components
 
 const ShoppingList = () => {
-    const { width, height } = Dimensions.get('window');
+    const { setItems, items, shoppingList, setShoppingList, emptyShoppingList } = shoppingListData();
 
     const [collapsedSections, setCollapsedSections] = useState({})
 
@@ -56,30 +56,6 @@ const ShoppingList = () => {
     const toggleOptions = () => {
         setVisibleOptions(!visibleOptions);
     };
-
-    const [items, setItems] = useState([
-        { label: 'Fruit', value: 'Fruit' },
-        { label: 'Vegetable', value: 'Vegetable' },
-        { label: 'Protein', value: 'Protein' },
-        { label: 'Dairy', value: 'Dairy' },
-        { label: 'Grain', value: 'Grain' },
-        { label: 'Snack', value: 'Snack' },
-        { label: 'Beverage', value: 'Beverage' },
-        { label: 'Misc.', value: 'Misc.' }
-
-    ]);
-
-    // test data, will need to start off empty and be saved for each user
-    const [shoppingList, setShoppingList] = useState([
-        { title: 'Fruit', data: ['Apples', 'Bananas', 'Oranges'] },
-        { title: 'Vegetable', data: ['Carrots', 'Broccoli', 'Spinach'] },
-        { title: 'Protein', data: ['Chicken', 'Beef', 'Tofu'] },
-        { title: 'Dairy', data: ['Milk', 'Yogurt', 'Cheese'] },
-        { title: 'Grain', data: ['Oatmeal'] },
-        { title: 'Snack', data: ['Popcorn', 'Dorittos', 'Cheetos'] },
-        { title: 'Beverage', data: ['Orange Juice', 'Coke', 'Fanta'] },
-        { title: 'Misc.', data: ['Broom', 'Sponge'] },
-    ]);
 
     // collapses section if all items within are checked off
     useEffect(() => {
@@ -149,16 +125,6 @@ const ShoppingList = () => {
     }
 
     const deleteAll = () => {
-        const emptyShoppingList = [
-            { title: 'Fruit', data: [] },
-            { title: 'Vegetable', data: [] },
-            { title: 'Protein', data: [] },
-            { title: 'Dairy', data: [] },
-            { title: 'Grain', data: [] },
-            { title: 'Snack', data: [] },
-            { title: 'Beverage', data: [] },
-            { title: 'Misc.', data: [] },
-        ];
         setShoppingList(emptyShoppingList)
     };
 
@@ -181,7 +147,7 @@ const ShoppingList = () => {
             screenContent={
 
                 <View>
-                    {/* Add button */}
+                    {/* Add Food Button */}
                     <CustomButton2
                         type='add'
                         onPress={toggleOverlay}
@@ -205,7 +171,7 @@ const ShoppingList = () => {
                                     <View>
 
                                         {/* View to hold checkbox and item name */}
-                                        <View style={[shopListStyles.listContainer, { backgroundColor: '#0E1116'}]}>
+                                        <View style={[shopListStyles.listContainer, { backgroundColor: '#0E1116' }]}>
 
                                             {/* Checkboxes for items on list */}
                                             <Checkbox
@@ -244,7 +210,7 @@ const ShoppingList = () => {
                                             {/* Section label/names */}
                                             <Text
                                                 style={[
-                                                    styles.defaultWhiteText, shopListStyles.sectionCheckable, 
+                                                    styles.defaultWhiteText, shopListStyles.sectionCheckable,
                                                     {
                                                         textDecorationLine: areAllItemsChecked(section.data) ? 'line-through' : 'none',
                                                         color: areAllItemsChecked(section.data) ? '#6F5882' : '#CB9CF2',
@@ -268,10 +234,6 @@ const ShoppingList = () => {
                                 </View>
                             )}
                         />
-                    </View>
-
-                    {/* Spacing under the list */}
-                    <View style={{ padding: 40 }}>
                     </View>
 
                     {/* NOTE: Adjust Overlay's flex or width/height to change its size properly */}
@@ -364,27 +326,27 @@ export default ShoppingList;
 
 const shopListStyles = StyleSheet.create({
     listContainer: {
-        flexDirection: 'row', 
-        alignItems: 'center', 
-        paddingHorizontal: 15 
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 15
     },
-    itemsCheckable:{
+    itemsCheckable: {
         paddingLeft: 30,
         paddingVertical: 10,
         textDecorationColor: '#F2F4F3'
-    }, 
-    sectionCheckable:{
+    },
+    sectionCheckable: {
         paddingLeft: 10,
         flex: 1,
         fontFamily: 'Inter_600SemiBold',
         textDecorationColor: '#CB9CF2',
     },
-    borderLine:{
-        height: 2, 
-        backgroundColor: '#828282' 
+    borderLine: {
+        height: 2,
+        backgroundColor: '#828282'
     },
-    thinBorderLine:{
-        height: 1, 
+    thinBorderLine: {
+        height: 1,
         backgroundColor: 'rgba(242,244,243,0.2)'
     },
 })

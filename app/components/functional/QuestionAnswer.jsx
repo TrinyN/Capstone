@@ -1,13 +1,15 @@
-import { Text, TextInput, View, StyleSheet } from "react-native";
+import { Text, TextInput, View, TouchableOpacity, StyleSheet } from "react-native";
 import CustomDatePicker from "./CustomDatePicker";
 import CustomDropdown from './CustomDropdown';
+import Feather from "react-native-vector-icons/Feather";
+import React, { useState } from 'react';
 
 // Function that returns the QuestionAnswer given certain fields to determine its behavior
 const QuestionAnswer = (
-    {type, question, placeholder, setCustomValue, items, setItems, hasTitle}) => {
+    { type, question, placeholder, setCustomValue, items, setItems, hasTitle }) => {
 
     // If the answer will be a text input
-    if (type === 'text'){
+    if (type === 'text') {
         return (
             <View style={apStyle.container}>
                 {/* Question */}
@@ -18,23 +20,49 @@ const QuestionAnswer = (
                 {/* Add in way to accept response */}
                 {/* Answer TextInput */}
                 <View style={apStyle.answerView}>
-                    <TextInput 
-                        style={apStyle.textAnswer} 
+                    <TextInput
+                        style={apStyle.textAnswer}
                         placeholder={placeholder}
                         selectionColor='#CB9CF2'
-                        placeholderTextColor='rgba(242,244,243, 0.2)'>     
+                        placeholderTextColor='rgba(242,244,243, 0.2)'>
                     </TextInput>
                 </View>
             </View>
-            
+
         )
     } else if (type === 'date') { // NOT IMPLEMENTED YET
         return (
             <View style={apStyle.container}>
                 {/* Question and answer both handled in other component */}
-                <CustomDatePicker 
-                    placeholder={placeholder} 
+                <CustomDatePicker
+                    placeholder={placeholder}
                     hasTitle={hasTitle} />
+            </View>
+        )
+    } else if (type === 'password') {
+        const [showPassword, setShowPassword] = useState(false)
+
+        return (
+            <View style={apStyle.container}>
+                {/* Question */}
+                <Text style={apStyle.question}>
+                    {question}
+                </Text>
+
+                {/* Add in way to accept response */}
+                {/* Answer TextInput */}
+                <View style={apStyle.answerView}>
+                    <TextInput
+                        style={apStyle.textAnswer}
+                        placeholder={type}
+                        secureTextEntry={!showPassword}
+                        selectionColor='#CB9CF2'
+                        placeholderTextColor='rgba(242,244,243, 0.2)'>
+                    </TextInput>
+                    <TouchableOpacity style={{ width: 25, position: 'absolute', right: 10 }} onPress={() => setShowPassword(!showPassword)}>
+                        <Feather name={!showPassword ? "eye" : "eye-off"} size={25} color='rgba(242,244,243,0.5)' />
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     } else if (type === 'dropdown') { // NOT IMPLEMENTED YET
@@ -57,7 +85,7 @@ const QuestionAnswer = (
                 </View>
             </View>
         )
-    }                  
+    }
 }
 
 export default QuestionAnswer;
@@ -65,7 +93,7 @@ export default QuestionAnswer;
 const apStyle = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent:'flex-start'
+        justifyContent: 'flex-start'
     },
     question: {
         color: '#CB9CF2',
@@ -73,7 +101,7 @@ const apStyle = StyleSheet.create({
         paddingVertical: 15,
         fontFamily: 'Inter_600SemiBold',
     },
-    answerView : {
+    answerView: {
         flexDirection: 'row',
         alignItems: 'center'
     },

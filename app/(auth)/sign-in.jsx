@@ -14,7 +14,6 @@ import CustomAuthButton from '../components/functional/CustomAuthButton';
 
 //  Function to handle the design and display of the Sign In screen
 const SignIn = () => {
-    const [showPassword, setShowPassword] = useState(false)
 
     return (
         <CustomScreen
@@ -29,16 +28,12 @@ const SignIn = () => {
                             {/* Email prompt and field */}
                             <QuestionAnswer type='text'
                                 question='Email:'
-                                placeholder='your_email@gmail.com'>
-                            </QuestionAnswer>
+                                placeholder='your_email@gmail.com' />
 
                             {/* Password prompt and field */}
-                            <QuestionAnswer type='text'
-                                question='Password:'
-                                placeholder='password'>
-                            </QuestionAnswer>
+                            <QuestionAnswer type='password' question='Password:' />
                         </View>
-
+                    {/* Component for log in buttons, discretion statement and link to sign up page */}
                     <CustomAuthButton authType={"Log In"}/>
 
                 </View>

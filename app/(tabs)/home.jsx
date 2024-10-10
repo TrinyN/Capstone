@@ -22,7 +22,7 @@ const Home = () => {
             title2='Bob' // test value, need to change
             screenContent={
                 // {/* View to contain all other major elements, like the frames for each quick tool */}
-                <View style={{ flex: 5, paddingBottom: 20 }}>
+                <View style={{ flex: 5 }}>
                     {/* Wide View Frame for Daily Diet Progress */}
                     <View style={homeStyles.viewHomeFrameWide}>
                         <Text style={[styles.frameTextWhite, { paddingVertical: 5, paddingBottom: 15 }]}>

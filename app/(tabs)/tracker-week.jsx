@@ -234,9 +234,6 @@ const Tracker = () => {
 
                             </View>
 
-                            {/* Space between Exercise List and screen bottom */}
-                            <View style={{ padding: 40 }}></View>
-
                             {/* pop up for options */}
                             <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Week' />
                         </View>

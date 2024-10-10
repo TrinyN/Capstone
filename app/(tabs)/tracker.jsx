@@ -11,8 +11,8 @@ import TrackerInfo from '../components/functional/TrackerInfo';
 import CustomScreen from '../components/structural/CustomScreen';
 import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { router } from 'expo-router';
-
-import { useWaterUnitTypesOptions,useExerciseUnitOptions } from '../constants/dropdownOptions';
+import CustomButton2 from '../components/functional/CustomButton2';
+import { useWaterUnitTypesOptions, useExerciseUnitOptions } from '../constants/dropdownOptions';
 import { useExerciseData, useFoodData, useWaterData } from '../constants/trackerData';
 
 // TODO
@@ -23,7 +23,7 @@ import { useExerciseData, useFoodData, useWaterData } from '../constants/tracker
 // 3. At a glance = calculation header view component
 // 4. Render list component(s) - split into header, list, and footer?
 // 5. Options overlay component
-// 6. Add button component
+// 6. Add button component DONE
 
 // Function to design and display the tracker
 const Tracker = () => {
@@ -77,20 +77,20 @@ const Tracker = () => {
 
     // Handle dropdown menu options for water unit type
     const { waterUnit, setWaterUnit,
-        waterUnitTypes, setWaterUnitTypes} = useWaterUnitTypesOptions();
+        waterUnitTypes, setWaterUnitTypes } = useWaterUnitTypesOptions();
 
     // Handle dropdown menu options for exervise unit type
     const { exerciseUnit, setExerciseUnit,
-        exerciseUnitTypes, setExerciseUnitTypes} = useExerciseUnitOptions();
+        exerciseUnitTypes, setExerciseUnitTypes } = useExerciseUnitOptions();
 
     // Sample data for Breakfast, Lunch, Dinner, and Snacks
-    const { foodSections, setFoodSections } = useFoodData(); 
+    const { foodSections, setFoodSections } = useFoodData();
 
     // Sample exercise data
     const { exerciseList, setExerciseList } = useExerciseData();
 
     // Test data, will need to start off empty and be saved for each user, will only be one number that keeps increasing as user adds more
-    const {water, setWater} = useWaterData()
+    const { water, setWater } = useWaterData()
 
     // State to keep track of expanded/collapsed sections
     const [collapsedSections, setCollapsedSections] = useState({
@@ -117,7 +117,7 @@ const Tracker = () => {
                     <View style={[styles.sectionHeader, { flexDirection: 'row' }]}>
 
                         {/* make style for maybe */}
-                        <Text style={[styles.defaultText, { flex: 1, paddingVertical: 0, fontSize: 16, paddingLeft: 10, alignSelf: 'center' }]}>{item.title}</Text>
+                        <Text style={trackerStyles.foodSectionStyle}>{item.title}</Text>
 
                         <Feather name={collapsedSections[item.key] ? "chevron-down" : "chevron-up"} size={25} color='#CB9CF2'
                             style={{
@@ -127,7 +127,7 @@ const Tracker = () => {
 
                 </TouchableOpacity>
 
-                {/* Render items only if the section is expanded */}
+                {/* Render food items only if the section is expanded */}
                 {!collapsedSections[item.key] && (
                     <View>
                         {item.data.map((item, index) => (
@@ -145,7 +145,7 @@ const Tracker = () => {
         );
     };
 
-    // Render each section with collapsibility
+    // Render each item in the exercise table
     const renderExercise = ({ item }) => {
         return (
             <View>
@@ -178,10 +178,10 @@ const Tracker = () => {
                             <TrackerInfo />
 
                             {/* Add Food Button */}
-                            <TouchableOpacity onPress={toggleOverlay}
-                                style={[styles.button, { backgroundColor: '#CB9CF2', padding: 1 }]}>
-                                <Feather name="plus" size={30} color="#1F2938" />
-                            </TouchableOpacity>
+                            <CustomButton2
+                                type='add'
+                                onPress={toggleOverlay}
+                            />
 
                             {/* View for FlatList to store all items of tracker */}
                             <View>
@@ -240,7 +240,7 @@ const Tracker = () => {
                             <View style={{ padding: 40 }}></View>
 
                             {/* Pop ups for adding food, water, or exercise*/}
-                            <CustomPopUp visible={visible} toggleOverlay={toggleOverlay} hasBackButton={false} 
+                            <CustomPopUp visible={visible} toggleOverlay={toggleOverlay} hasBackButton={false}
                                 content={
                                     <View style={{ paddingHorizontal: 20, paddingBottom: 20, alignItems: 'center', alignContent: 'center' }}>
                                         <Text style={[styles.defaultWhiteText, { textAlign: 'center' }]}>
@@ -324,6 +324,14 @@ export default Tracker;
 
 
 
-const trackerTtyles = StyleSheet.create({
-    
+const trackerStyles = StyleSheet.create({
+    foodSectionStyle: {
+        color: '#CB9CF2',
+        fontFamily: 'Inter_600SemiBold',
+        flex: 1, 
+        paddingVertical: 0, 
+        fontSize: 16, 
+        paddingLeft: 10, 
+        alignSelf: 'center'
+    }
 })

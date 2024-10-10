@@ -17,7 +17,7 @@ const Report = () => {
             info = "Help us double check everything to set up your PDF report!"
             screenContent={
                 // {/* View that holds all of the questions and fields */ }
-                < View style={{ flex: 5, paddingBottom: 20}}>
+                <View style={{ flex: 5 }}>
 
                     {/* Questions */}
                     {/* Diet plan question and field */}

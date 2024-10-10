@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
         height: '100%',
         backgroundColor: '#0E1116',
         paddingHorizontal: 0,
-        flex: 1
+        flex: 1, 
+        paddingBottom: 40
     },
     viewContainer: {
         height: '100%',
