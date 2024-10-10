@@ -12,7 +12,7 @@ const HomeFrame = ({
 }) => {
     let marginBottom
     let icon
-    let style = homeFrameStyle.viewHomeFrameNormal // default style
+    let style = homeFrameStyles.viewHomeFrameNormal // default style
 
     if (title == "Quick Track") {
         marginBottom = 20
@@ -22,7 +22,7 @@ const HomeFrame = ({
         icon = 'edit-3'
     }
     else {
-        style = homeFrameStyle.viewHomeFrameTall
+        style = homeFrameStyles.viewHomeFrameTall
     }
 
     return (
@@ -33,7 +33,7 @@ const HomeFrame = ({
             <TouchableOpacity
                 style={[homeFrameStyles.frameContent, {flex: 1, flexDirection: 'column'}]}
                 onPress={() => router.push('/tracker')}>
-                <Text style={homeFrameStyle.frameTextWhite}>
+                <Text style={homeFrameStyles.frameTextWhite}>
                     {title}
                 </Text>
 
@@ -79,7 +79,7 @@ const HomeFrame = ({
 
 export default HomeFrame
 
-const homeFrameStyle = StyleSheet.create({
+const homeFrameStyles = StyleSheet.create({
     // Example: Quick Add Frame, Home
     viewHomeFrameNormal: {
         height: '100%',
