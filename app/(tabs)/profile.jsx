@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Overlay } from '@rneui/base';
 import { router } from 'expo-router';
 import PieChart from 'react-native-pie-chart'
-import ProfileItem from '../components/ProfileItem';
+import ProfileItem from '../components/functional/ProfileItem';
 import { userDataItems } from '../constants/profileData';
 
 

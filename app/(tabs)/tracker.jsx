@@ -2,13 +2,13 @@ import { TouchableOpacity, TextInput, Text, View, FlatList, StyleSheet } from 'r
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
 import { useState } from 'react';
-import CustomPopUp from '../components/CustomPopUp';
-import { CustomButton } from '../components/CustomButton';
-import CustomDropdown from '../components/CustomDropdown';
-import CustomHeader from '../components/CustomHeader';
-import TrackerOptions from '../components/TrackerOptions';
-import TrackerInfo from '../components/TrackerInfo';
-import CustomScreen from '../components/CustomScreen';
+import CustomPopUp from '../components/structural/CustomPopUp';
+import { CustomButton } from '../components/functional/CustomButton';
+import CustomDropdown from '../components/functional/CustomDropdown';
+import CustomHeader from '../components/structural/CustomHeader';
+import TrackerOptions from '../components/functional/TrackerOptions';
+import TrackerInfo from '../components/functional/TrackerInfo';
+import CustomScreen from '../components/structural/CustomScreen';
 import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { router } from 'expo-router';
 
@@ -273,7 +273,7 @@ const Tracker = () => {
                                                 />
                                             </View>
                                         </View >
-                                        <CustomButton title={"Sumbit"} />
+                                        <CustomButton title={"Submit"} />
                                     </View>}
                             />
 
@@ -306,7 +306,7 @@ const Tracker = () => {
                                             <TextInput style={[styles.inputFieldStyle, { flex: 1.1 }]} placeholder='Cals Burned' selectionColor='#CB9CF2' placeholderTextColor='rgba(242,244,243, 0.2)'>
                                             </TextInput>
                                         </View >
-                                        <CustomButton title={"Sumbit"} />
+                                        <CustomButton title={"Submit"} />
                                     </View>
                                 }
                             />

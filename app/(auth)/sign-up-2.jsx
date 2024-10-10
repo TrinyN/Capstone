@@ -1,8 +1,8 @@
 import { View } from 'react-native';
 import { router } from 'expo-router';
-import CustomScreen from '../components/CustomScreen';
-import QuestionAnswer from '../components/QuestionAnswer';
-import CustomButton2 from '../components/CustomButton2';
+import CustomScreen from '../components/structural/CustomScreen';
+import QuestionAnswer from '../components/functional/QuestionAnswer';
+import CustomButton2 from '../components/functional/CustomButton2';
 import { useSexOptions } from '../constants/dropdownOptions';
 
 // REFACTORING FLAGGING - Needs a Component

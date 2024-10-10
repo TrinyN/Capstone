@@ -1,8 +1,8 @@
 import { View } from 'react-native';
 import { router } from 'expo-router';
-import CustomScreen from '../components/CustomScreen';
-import CustomButton2 from '../components/CustomButton2';
-import QuestionAnswer from '../components/QuestionAnswer';
+import CustomScreen from '../components/structural/CustomScreen';
+import CustomButton2 from '../components/functional/CustomButton2';
+import QuestionAnswer from '../components/functional/QuestionAnswer';
 // TODO: change so placeholders match users info
 // Function to handle the design of the Reports screen of CaloNavo
 

@@ -2,8 +2,8 @@ import { Text, View, SectionList } from 'react-native';
 import styles from '../styles';
 import { useState } from 'react';
 import { router } from 'expo-router';
-import CustomScreen from '../components/CustomScreen';
-import TrackerOptions from '../components/TrackerOptions';
+import CustomScreen from '../components/structural/CustomScreen';
+import TrackerOptions from '../components/functional/TrackerOptions';
 import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 // todo:

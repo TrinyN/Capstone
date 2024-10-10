@@ -1,8 +1,8 @@
 import { View } from 'react-native';
 import React, { useState } from 'react';
-import QuestionAnswer from '../components/QuestionAnswer';
-import CustomScreen from '../components/CustomScreen';
-import CustomAuthButton from '../components/CustomAuthButton';
+import QuestionAnswer from '../components/functional/QuestionAnswer';
+import CustomScreen from '../components/structural/CustomScreen';
+import CustomAuthButton from '../components/functional/CustomAuthButton';
 
 // REFACTORING FLAGGING - Needs a Component
 // 1. Screen component - sign up and sign in are same screen

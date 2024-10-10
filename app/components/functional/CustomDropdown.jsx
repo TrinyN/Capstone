@@ -1,4 +1,4 @@
-import styles from '../styles';
+import styles from '../../styles';
 import { useState} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 

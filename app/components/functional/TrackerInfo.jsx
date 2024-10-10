@@ -1,7 +1,7 @@
 
 
 import { Text, View, TextInput, StyleSheet } from 'react-native';
-import styles from '../styles';
+import styles from '../../styles';
 import Feather from "react-native-vector-icons/Feather";
 import React from 'react'
 

@@ -1,6 +1,6 @@
 import { TouchableOpacity, Text, View, ScrollView } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
-import styles from '../styles';
+import styles from '../../styles';
 import Feather from "react-native-vector-icons/Feather";
 import { router } from 'expo-router';
 

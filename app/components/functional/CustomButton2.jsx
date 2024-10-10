@@ -21,7 +21,7 @@ const CustomButton2 = ({ type, text, onPress }) => {
             <TouchableOpacity onPress={onPress}>
                 <View style={apStyle.buttonGoogle}>
                     <Image style={apStyle.googleLogo}
-                        source={require('../../assets/images/google-icon.png')}
+                        source={require('../../../assets/images/google-icon.png')}
                     />
                     <Text style={apStyle.buttonText}>Google</Text>
                 </View>

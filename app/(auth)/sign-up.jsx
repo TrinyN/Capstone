@@ -2,8 +2,8 @@ import { TextInput, TouchableOpacity, Text, View } from 'react-native';
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
 import React, { useState } from 'react'
-import CustomScreen from '../components/CustomScreen';
-import CustomAuthButton from '../components/CustomAuthButton';
+import CustomScreen from '../components/structural/CustomScreen';
+import CustomAuthButton from '../components/functional/CustomAuthButton';
 
 // REFACTORING FLAGGING - Needs a Component
 // 1. Screen component - sign up and sign in are same screen

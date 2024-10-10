@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native'
 import React from 'react'
-import styles from '../styles'
+import styles from '../../styles'
 
 const CustomHeader = ({
     title1,

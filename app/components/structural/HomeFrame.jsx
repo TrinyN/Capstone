@@ -1,7 +1,7 @@
 import Feather from "react-native-vector-icons/Feather";
 import { Text, TouchableOpacity, View, Image, StyleSheet } from 'react-native'
 import React from 'react'
-import styles from '../styles'
+import styles from '../../styles'
 import { router } from 'expo-router';
 
 
@@ -68,7 +68,7 @@ const HomeFrame = ({
                     //     /> */}
 
                     <Image
-                        source={require('../../assets/images/water-bottle-1.png')}
+                        source={require('../../../assets/images/water-bottle-1.png')}
                         style={{
                             height: '100%',
                             width: '100%',

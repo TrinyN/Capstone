@@ -8,7 +8,7 @@ import { useState, useRef } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import CustomDatePicker from './CustomDatePicker';
 import Feather from "react-native-vector-icons/Feather";
-import styles from '../styles'; // Only smallText used
+import styles from '../../styles'; // Only smallText used
 
 // NEEDS REFACTORING == too long maybe
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
-import styles from '../styles';
+import styles from '../../styles';
 import { router } from 'expo-router';
 import CustomButton2 from './CustomButton2';
 

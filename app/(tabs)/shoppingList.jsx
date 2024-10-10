@@ -4,11 +4,11 @@ import Feather from "react-native-vector-icons/Feather";
 import { useState, useEffect } from 'react';
 import Checkbox from 'expo-checkbox';
 import { Overlay } from '@rneui/base';
-import CustomDropdown from '../components/CustomDropdown';
-import CustomPopUp from '../components/CustomPopUp';
-import CustomScreen from '../components/CustomScreen';
-import CustomButton2 from '../components/CustomButton2';
-import OptionItem from '../components/OptionItem';
+import CustomDropdown from '../components/functional/CustomDropdown';
+import CustomPopUp from '../components/structural/CustomPopUp';
+import CustomScreen from '../components/structural/CustomScreen';
+import CustomButton2 from '../components/functional/CustomButton2';
+import OptionItem from '../components/functional/OptionItem';
 
 // todo:
 // save list for user

@@ -1,8 +1,8 @@
 import { Text, View, StyleSheet } from 'react-native';
 import styles from '../styles';
-import CustomScreen from '../components/CustomScreen';
-import ProgressBar from '../components/ProgressBar';
-import HomeFrame from '../components/HomeFrame';
+import CustomScreen from '../components/structural/CustomScreen';
+import ProgressBar from '../components/functional/ProgressBar';
+import HomeFrame from '../components/structural/HomeFrame';
 
 
 // import { LiquidGauge } from 'react-native-liquid-gauge'

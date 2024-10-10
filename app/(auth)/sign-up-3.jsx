@@ -1,10 +1,10 @@
 import { Text, View } from 'react-native';
 import styles from '../styles';
 import { router } from 'expo-router';
-import CustomDropdown from '../components/CustomDropdown';
-import CustomScreen from '../components/CustomScreen';
-import QuestionAnswer from '../components/QuestionAnswer';
-import CustomButton2 from '../components/CustomButton2';
+import CustomDropdown from '../components/functional/CustomDropdown';
+import CustomScreen from '../components/structural/CustomScreen';
+import QuestionAnswer from '../components/functional/QuestionAnswer';
+import CustomButton2 from '../components/functional/CustomButton2';
 import { useDietPlanBooleanOptions,
     useDietPlanOptions,
     useWeightGoalOptions
