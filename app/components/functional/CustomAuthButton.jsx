@@ -97,7 +97,7 @@ const authStyle = StyleSheet.create({
         fontFamily: 'Inter_400Regular',
         textAlign: 'center',
         paddingVertical: 5,
-        paddingHorizontal: 10
+        paddingHorizontal: 5
     },
 
 })
