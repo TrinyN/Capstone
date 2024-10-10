@@ -31,7 +31,7 @@ const HomeFrame = ({
 
             {/* Touchable Opacity to make entire frame a button */}
             <TouchableOpacity
-                style={[homeFrameStyles.frameContent, {flex: 1, flexDirection: 'column'}]}
+                style={[homeFrameStyle.frameContent, {flex: 1, flexDirection: 'column'}]}
                 onPress={() => router.push('/tracker')}>
                 <Text style={homeFrameStyles.frameTextWhite}>
                     {title}
@@ -62,7 +62,7 @@ const HomeFrame = ({
 
                     <Image
                         source={require('../../../assets/images/water-bottle-1.png')}
-                        style={[homeFrameStyles.frameContent, {resizeMode: 'contain', position: 'relative'}]}
+                        style={[homeFrameStyle.frameContent, {resizeMode: 'contain', position: 'relative'}]}
                     />
                 ) : (
                     // {/* How to fill pruple with dark plus (~Figma)??? */}
