@@ -41,7 +41,7 @@ const CustomButton2 = ({ type, text, onPress }) => {
     else if (type === 'add') {
         return (
             <TouchableOpacity onPress={onPress}
-                style={[apStyle.button, { backgroundColor: '#CB9CF2', padding: 1 }]} >
+                style={[apStyle.button, { height: 33, backgroundColor: '#CB9CF2', padding: 1 }]} >
                 <Feather name="plus" size={30} color="#1F2938" />
             </TouchableOpacity>
         )
