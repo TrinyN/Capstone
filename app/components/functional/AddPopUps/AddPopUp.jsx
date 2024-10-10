@@ -1,19 +1,30 @@
-import { Text, TouchableOpacity } from 'react-native'
+import { Text, View } from 'react-native'
 import React from 'react'
 import CustomPopUp from '../../structural/CustomPopUp'
+import { CustomButton } from '../CustomButton'
 import styles from '../../../styles'
 
-const AddPopUp = ({
-    title,
-    handlePress,
-}) => {
+const AddPopUp = ({ visible, toggleOverlay, toggleWaterOverlay, toggleExerciseOverlay }) => {
     return (
-        <TouchableOpacity onPress={handlePress} style={[styles.button, {backgroundColor: '#CB9CF2', zIndex: -1}]}>
-            <Text style={styles.buttonText}>
-                {title}
-            </Text>
-        </TouchableOpacity>
-    )
-}
+        <CustomPopUp
+            visible={visible}
+            toggleOverlay={toggleOverlay}
+            content={
+                <View style={{ paddingHorizontal: 20, paddingBottom: 20, alignItems: 'center' }}>
+                    <Text style={[styles.defaultWhiteText, { textAlign: 'center' }]}>
+                        Which would you like to add?
+                    </Text>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <CustomButton title={"   Water   "} handlePress={toggleWaterOverlay} />
+                        <View style={{ paddingHorizontal: 10 }}>
+                            <CustomButton title={"   Food   "} />
+                        </View>
+                        <CustomButton title={"Exercise"} handlePress={toggleExerciseOverlay} />
+                    </View>
+                </View>
+            }
+        />
+    );
+};
 
-export default AddPopUp
+export default AddPopUp;
