@@ -20,12 +20,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 35,
         flex: 1
     },
-    welcomeText: {
-        color: '#CB9CF2',
-        fontSize: 50,
-        textAlign: 'center',
-        fontFamily: 'Inter_700Bold',
-    },
     defaultText: {
         color: '#CB9CF2',
         fontSize: 20,
@@ -44,16 +38,6 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         fontFamily: 'Inter_600SemiBold',
         textAlign: 'center',
-    },
-    titleText: {
-        color: '#CB9CF2',
-        fontSize: 28,
-        fontFamily: 'Inter_600SemiBold',
-    },
-    titleTextWhite: {
-        color: '#F2F4F3',
-        fontSize: 28,
-        fontFamily: 'Inter_600SemiBold',
     },
     smallText: {
         color: '#F2F4F3',

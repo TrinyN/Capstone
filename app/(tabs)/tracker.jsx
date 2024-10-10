@@ -1,10 +1,7 @@
-import { TouchableOpacity, TextInput, Text, View, FlatList, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, View, FlatList, StyleSheet } from 'react-native';
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
 import { useState } from 'react';
-import CustomPopUp from '../components/structural/CustomPopUp';
-import { CustomButton } from '../components/functional/CustomButton';
-import CustomDropdown from '../components/functional/CustomDropdown';
 import CustomHeader from '../components/structural/CustomHeader';
 import TrackerOptions from '../components/functional/TrackerOptions';
 import TrackerInfo from '../components/functional/TrackerInfo';
@@ -14,6 +11,7 @@ import { router } from 'expo-router';
 import CustomButton2 from '../components/functional/CustomButton2';
 import { useWaterUnitTypesOptions, useExerciseUnitOptions } from '../constants/dropdownOptions';
 import { useExerciseData, useFoodData, useWaterData } from '../constants/trackerData';
+import { AddWater, AddExercise, AddPopUp } from '../components/functional/AddPopUps';
 
 // TODO
 
@@ -39,33 +37,33 @@ const Tracker = () => {
     const [foodName, setFoodName] = useState('')
     const [foodType, setFoodType] = useState('')
 
-    // Saves visibility of add pop up
-    const [visible, setVisible] = useState(false);
+    // // Saves visibility of add pop up
+    // const [visible, setVisible] = useState(false);
 
-    // Change visibility of add overlay
-    const toggleOverlay = () => {
-        setVisible(!visible);
-        setAddWaterVisible(false)
-        setAddExerciseVisible(false)
-    };
+    // // Change visibility of add overlay
+    // const toggleOverlay = () => {
+    //     setVisible(!visible);
+    //     setAddWaterVisible(false)
+    //     setAddExerciseVisible(false)
+    // };
 
-    // Saves visibility of add water pop up
-    const [addWaterVisible, setAddWaterVisible] = useState(false);
+    // // Saves visibility of add water pop up
+    // const [addWaterVisible, setAddWaterVisible] = useState(false);
 
-    // Change visibility of add water overlay
-    const toggleWaterOverlay = () => {
-        setAddWaterVisible(!addWaterVisible);
-        setVisible(false)
-    };
+    // // Change visibility of add water overlay
+    // const toggleWaterOverlay = () => {
+    //     setAddWaterVisible(!addWaterVisible);
+    //     setVisible(false)
+    // };
 
-    // Saves visibility of add exercise pop up
-    const [addExerciseVisibile, setAddExerciseVisible] = useState(false);
+    // // Saves visibility of add exercise pop up
+    // const [addExerciseVisible, setAddExerciseVisible] = useState(false);
 
-    // Change visibility of add exercise overlay
-    const toggleExerciseOverlay = () => {
-        setAddExerciseVisible(!addExerciseVisibile);
-        setVisible(false)
-    };
+    // // Change visibility of add exercise overlay
+    // const toggleExerciseOverlay = () => {
+    //     setAddExerciseVisible(!addExerciseVisible);
+    //     setVisible(false)
+    // };
 
     // Saves visibility of options pop up
     const [visibleOptions, setVisibleOptions] = useState(false);
@@ -238,9 +236,30 @@ const Tracker = () => {
 
                             {/* Space between Exercise List and screen bottom */}
                             <View style={{ padding: 40 }}></View>
-
+                            <AddPopUp
+                                visible={visible}
+                                toggleOverlay={toggleOverlay}
+                                toggleWaterOverlay={toggleWaterOverlay}
+                                toggleExerciseOverlay={toggleExerciseOverlay}
+                            />
+                            <AddWater
+                                addWaterVisible={addWaterVisible}
+                                toggleWaterOverlay={toggleWaterOverlay}
+                                toggleOverlay={toggleOverlay}
+                                setWaterUnit={setWaterUnit}
+                                waterUnitTypes={waterUnitTypes}
+                                setWaterUnitTypes={setWaterUnitTypes}
+                            />
+                            <AddExercise
+                                addExerciseVisible={addExerciseVisible}
+                                toggleExerciseOverlay={toggleExerciseOverlay}
+                                toggleOverlay={toggleOverlay}
+                                setExerciseUnit={setExerciseUnit}
+                                exerciseUnitTypes={exerciseUnitTypes}
+                                setExerciseUnitTypes={setExerciseUnitTypes}
+                            />
                             {/* Pop ups for adding food, water, or exercise*/}
-                            <CustomPopUp visible={visible} toggleOverlay={toggleOverlay}
+                            {/* <CustomPopUp visible={visible} toggleOverlay={toggleOverlay}
                                 content={
                                     <View style={{ paddingHorizontal: 20, paddingBottom: 20, alignItems: 'center', alignContent: 'center' }}>
                                         <Text style={[styles.defaultWhiteText, { textAlign: 'center' }]}>
@@ -275,9 +294,9 @@ const Tracker = () => {
                                         </View >
                                         <CustomButton title={"Submit"} />
                                     </View>}
-                            />
+                            /> */}
 
-                            <CustomPopUp visible={addExerciseVisibile} toggleOverlay={toggleExerciseOverlay} hasBackButton={true} previousOverlay={toggleOverlay}
+                            {/* <CustomPopUp visible={addExerciseVisibile} toggleOverlay={toggleExerciseOverlay} hasBackButton={true} previousOverlay={toggleOverlay}
                                 content={
                                     <View style={{ paddingHorizontal: 30, paddingBottom: 20, justifyContent: 'center' }}>
                                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: 20 }}>
@@ -309,7 +328,7 @@ const Tracker = () => {
                                         <CustomButton title={"Submit"} />
                                     </View>
                                 }
-                            />
+                            /> */}
 
                             {/* pop up for options */}
                             <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Day' />
@@ -328,10 +347,10 @@ const trackerStyles = StyleSheet.create({
     foodSectionStyle: {
         color: '#CB9CF2',
         fontFamily: 'Inter_600SemiBold',
-        flex: 1, 
-        paddingVertical: 0, 
-        fontSize: 16, 
-        paddingLeft: 10, 
+        flex: 1,
+        paddingVertical: 0,
+        fontSize: 16,
+        paddingLeft: 10,
         alignSelf: 'center'
     }
 })

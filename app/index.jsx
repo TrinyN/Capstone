@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { TouchableOpacity, Text, Image, View, ScrollView } from 'react-native';
+import { TouchableOpacity, Text, Image, View, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from 'expo-router';
 import styles from './styles';
@@ -36,10 +36,10 @@ export default function App() {
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <View style={styles.viewContainer}>
                     <View style={{ flex: 4}}>
-                        <Text style={[styles.welcomeText, { fontSize: 24, textAlign: 'center', paddingTop: 100 }]}>
+                        <Text style={[indexStyle.welcomeText, { fontSize: 24, textAlign: 'center', paddingTop: 100 }]}>
                             Welcome to
                         </Text>
-                        <Text style={styles.welcomeText}>
+                        <Text style={indexStyle.welcomeText}>
                             CaloNavo
                         </Text>
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -94,3 +94,12 @@ export default function App() {
         </SafeAreaView>
     )
 }
+
+const indexStyle = StyleSheet.create({
+    welcomeText: {
+        color: '#CB9CF2',
+        fontSize: 50,
+        textAlign: 'center',
+        fontFamily: 'Inter_700Bold',
+    },
+})
