@@ -29,11 +29,6 @@ const Tracker = () => {
     // saves visibility of options pop up
     const [visibleOptions, setVisibleOptions] = useState(false);
 
-    // change visibility of overlay
-    const toggleOverlay = () => {
-        setVisible(!visible);
-    };
-
     // change visibility of options
     const toggleOptions = () => {
         setVisibleOptions(!visibleOptions);
