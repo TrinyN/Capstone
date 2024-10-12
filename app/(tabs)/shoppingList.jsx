@@ -21,8 +21,7 @@ import ShoppingListOptions from '../components/functional/ShoppingListOptions';
 // 2. Screen header component DONE?
 // 3. Add button component DONE
 // 4. Render list component(s) - split into header, list item, and footer?
-// 5. Options overlay component
-// 6. Minor button component? (i.e. Zoom out = Zoom in = Take notes, etc.)
+// 5. Options overlay component DONE
 // 7. Spacing components
 
 const ShoppingList = () => {
@@ -85,7 +84,6 @@ const ShoppingList = () => {
     const handleAddFood = () => {
 
         if (foodName != '') {
-
             // find the section that matches foodType entered by user
             const updatedShoppingList = shoppingList.map(section => {
                 if (section.title == foodType.toString()) {
@@ -105,7 +103,6 @@ const ShoppingList = () => {
             // delete food name after it's added to the list
             setFoodName('')
         }
-
         // close overlay
         toggleOverlay()
     }
@@ -134,7 +131,6 @@ const ShoppingList = () => {
 
                     {/* View holding numerous lists for the grocery list */}
                     <View>
-
                         {/* List of groceries */}
                         <SectionList
                             style={{
@@ -148,17 +144,14 @@ const ShoppingList = () => {
                             renderItem={({ item, section }) =>
                                 !collapsedSections[section.title] && (
                                     <View>
-
                                         {/* View to hold checkbox and item name */}
                                         <View style={[shopListStyles.listContainer, { backgroundColor: '#0E1116' }]}>
-
                                             {/* Checkboxes for items on list */}
                                             <Checkbox
                                                 color='#CB9CF2'
                                                 value={!!checkedItems[item]}
                                                 onValueChange={() => toggleChecked(item)}
                                             />
-
                                             {/* Item names */}
                                             <Text
                                                 style={[
@@ -170,7 +163,6 @@ const ShoppingList = () => {
                                                 ]}>
                                                 {item}
                                             </Text>
-
                                         </View>
 
                                         {/* Divider lines between items */}
@@ -210,13 +202,12 @@ const ShoppingList = () => {
                         />
                     </View>
 
-                    {/* NOTE: Adjust Overlay's flex or width/height to change its size properly */}
                     {/* Popup/Overlay for adding food in shopping list */}
                     <CustomPopUp visible={visible} toggleOverlay={toggleOverlay} hasBackButton={false}
                         content={
                             // Handling the input of a food into the shopping list
                             <View style={{ paddingHorizontal: 30, paddingBottom: 20 }}>
-                                {/* Food Name input */}
+                                {/* Food Name Input */}
                                 <View style={{ padding: 10 }}>
                                     <TextInput style={styles.inputFieldStyle}
                                         placeholder='Food Name'
@@ -227,7 +218,7 @@ const ShoppingList = () => {
                                     </TextInput>
                                 </View>
 
-                                {/* Food Type input */}
+                                {/* Food Type Input */}
                                 <View style={{ padding: 10, zIndex: 1 }}>
                                     <CustomDropdown
                                         placeholder={'Food Type'}
@@ -237,14 +228,13 @@ const ShoppingList = () => {
                                     />
                                 </View>
 
-                                {/* Submit button */}
+                                {/* Submit Button */}
                                 <View style={{ paddingHorizontal: 10, paddingBottom: 10 }}>
                                     <TouchableOpacity onPress={handleAddFood}
                                         style={[styles.button, { backgroundColor: '#CB9CF2' }]}>
                                         <Text style={styles.buttonText}>Submit</Text>
                                     </TouchableOpacity>
                                 </View>
-
                             </View>
                         }
                     />
