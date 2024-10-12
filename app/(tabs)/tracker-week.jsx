@@ -1,10 +1,11 @@
-import { Text, View, SectionList } from 'react-native';
+import { Text, View, SectionList, StyleSheet } from 'react-native';
 import styles from '../styles';
 import { useState } from 'react';
 import { router } from 'expo-router';
 import CustomScreen from '../components/structural/CustomScreen';
 import TrackerOptions from '../components/functional/TrackerOptions';
 import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useDayListData } from '../constants/trackerWeekData';
 
 // todo:
 // calculating averages
@@ -12,12 +13,8 @@ import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-g
 // options functionality
 
 // REFACTORING FLAGGING - Needs a Component
-// 1. Screen component
-// 2. Screen header component
 // 3. At a glance header component
 // 4. Render list component(s) - split into header, list, and footer?
-// 5. Options overlay component
-// 6. Minor button component? (i.e. Zoom out = Zoom in = Take notes, etc.)
 
 // Function to design and display the tracker and its related data
 const Tracker = () => {
@@ -26,20 +23,10 @@ const Tracker = () => {
     const [visibleOptions, setVisibleOptions] = useState(false);
 
     // change visibility of options pop up
-    const toggleOptions = () => {
-        setVisibleOptions(!visibleOptions);
-    };
+    const toggleOptions = () => {setVisibleOptions(!visibleOptions)};
 
     // test data, will need to start off empty and be saved for each user
-    const [dayList, setDayList] = useState([
-        { title: 'Sun.', data: ['3000/2500'], goal: ['Surplus'] },
-        { title: 'Mon.', data: ['2750/2500'], goal: ['Balance'] },
-        { title: 'Tues.', data: ['1000/2500'], goal: ['Surplus'] },
-        { title: 'Wed.', data: ['2500/2500'], goal: ['Balance'] },
-        { title: 'Thurs.', data: ['2500/2500'], goal: ['Balance'] },
-        { title: 'Fri.', data: ['2500/2500'], goal: ['Balance'] },
-        { title: 'Sat.', data: ['2500/2500'], goal: ['Balance'] },
-    ]);
+    const { dayList, setDayList } = useDayListData();
 
     const pinch = Gesture.Pinch()
 
@@ -67,15 +54,7 @@ const Tracker = () => {
                     screenContent={
                         <View>
                             {/* Top View to calculate user's average weight and water intake that week */}
-                            <View
-                                style={{
-                                    backgroundColor: '#1F2938',
-                                    borderRadius: 5,
-                                    flexDirection: 'row',
-                                    justifyContent: 'space-evenly',
-                                    paddingVertical: 5
-                                }}
-                            >
+                            <View style={trackerWeekStyle.calcView}>
 
                                 {/* View to hold weight info at a glance */}
                                 <View>
@@ -102,7 +81,6 @@ const Tracker = () => {
                                         80 fl oz of 72 fl oz
                                     </Text>
                                 </View>
-
                             </View>
 
                             {/* Space between Stats View and Week List */}
@@ -110,13 +88,9 @@ const Tracker = () => {
 
                             {/* View for SectionList to store all items of tracker */}
                             <View>
-
                                 {/* List to hold items */}
                                 <SectionList
-                                    style={{
-                                        backgroundColor: 'rgba(27,33,43,0.5)',
-                                        borderRadius: 8,
-                                    }}
+                                    style={trackerWeekStyle.daySectionList}
                                     sections={dayList}
                                     keyExtractor={(item) => item}
                                     scrollEnabled={false}
@@ -124,51 +98,18 @@ const Tracker = () => {
                                     // Rendering items based on data set and their respective sections (days)
                                     renderItem={({ section }) => (
                                         <View>
-                                            {/* Making sections collapsible */}
-                                            <View style={{
-                                                flexDirection: 'row',
-                                                justifyContent: 'space-between',
-                                                alignItems: 'center',
-                                                paddingHorizontal: 15,
-                                                paddingVertical: '7%'
-                                            }}>
+                                            {/* Sections of Day List */}
+                                            <View style={trackerWeekStyle.daySection}>
 
-                                                <Text
-                                                    style={[
-                                                        styles.defaultWhiteText,
-                                                        {
-                                                            flex: 1,
-                                                            textAlign: 'left',
-                                                            fontFamily: 'Inter_400Regular',
-                                                            color: '#CB9CF2',
-                                                        }
-                                                    ]}>
+                                                <Text style={[styles.defaultWhiteText, trackerWeekStyle.dayName]}>
                                                     {section.title}
                                                 </Text>
                                                 {/* TODO: Comparison to determine text color */}
-                                                <Text
-                                                    style={[
-                                                        styles.defaultWhiteText,
-                                                        {
-                                                            flex: 1,
-                                                            textAlign: 'center',
-                                                            fontFamily: 'Inter_400Regular',
-                                                            color: '#80FF72',
-                                                        }
-                                                    ]}>
+                                                <Text style={[styles.defaultWhiteText, trackerWeekStyle.dayCals]}>
                                                     {section.data}
                                                 </Text>
                                                 {/* TODO: Comparison to determine text color */}
-                                                <Text
-                                                    style={[
-                                                        styles.defaultWhiteText,
-                                                        {
-                                                            flex: 1,
-                                                            textAlign: 'right',
-                                                            fontFamily: 'Inter_400Regular',
-                                                            color: '#80FF72',
-                                                        }
-                                                    ]}>
+                                                <Text style={[styles.defaultWhiteText, trackerWeekStyle.dayGoal]}>
                                                     {section.goal}
                                                 </Text>
                                             </View>
@@ -179,58 +120,43 @@ const Tracker = () => {
                                     )}
                                     // List header for week list
                                     ListHeaderComponent={
-                                        <View style={{
-                                            backgroundColor: '#1F2938',
-                                            flexDirection: 'row',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center',
-                                            paddingHorizontal: 15
-                                        }}>
+                                        <View style={trackerWeekStyle.sectionListHeadFoot}>
 
-                                            <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'left' }]}>
+                                            <Text style={[trackerWeekStyle.headerText, {fontFamily:'Inter_600SemiBold'}]}>
                                                 Day
                                             </Text>
-                                            <Text style={[styles.defaultText, { fontFamily: 'Inter_400Regular', fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'center' }]}>
+                                            <Text style={[trackerWeekStyle.headerText, {textAlign:'center'}]}>
                                                 Calories
                                             </Text>
-                                            <Text style={[styles.defaultText, { fontFamily: 'Inter_400Regular', fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'right' }]}>
+                                            <Text style={[trackerWeekStyle.headerText, {textAlign:'right'}]}>
                                                 Goal
                                             </Text>
 
                                             <View style={{ height: 2, backgroundColor: '#828282' }} />
                                         </View>
-
                                     }
                                     // Section headers for food types
-
-
                                     // Footer to calculate averages
                                     ListFooterComponent={
-                                        <View style={{
-                                            backgroundColor: '#1F2938',
-                                            flexDirection: 'row',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center',
-                                            paddingHorizontal: 15
-                                        }}>
+                                        <View style={trackerWeekStyle.sectionListHeadFoot}>
 
-                                            <Text style={[styles.defaultText, { fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'left' }]}>
+                                            <Text style={trackerWeekStyle.headerText}>
                                                 Avg:
                                             </Text>
                                             {/* Implement calculation of average calorie */}
-                                            <Text style={[styles.defaultText, { fontFamily: 'Inter_400Regular', fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'center' }]}>
+                                            <Text style={[trackerWeekStyle.headerText, {textAlign:'center'}]}>
                                                 2,750
                                             </Text>
                                             {/* Implement comparison to average goal */}
-                                            <Text style={[styles.defaultText, { fontFamily: 'Inter_400Regular', fontSize: 18, paddingVertical: 10, flex: 1, textAlign: 'right' }]}>
+                                            <Text style={[trackerWeekStyle.headerText, {textAlign:'right'}]}>
                                                 Balance
                                             </Text>
 
                                             <View style={{ height: 2, backgroundColor: '#828282' }} />
                                         </View>
-
                                     }
                                 />
+                                <View style={{ padding: 40 }}></View>
 
                             </View>
 
@@ -244,3 +170,56 @@ const Tracker = () => {
     )
 }
 export default Tracker;
+
+const trackerWeekStyle = ({
+    calcView: {
+        backgroundColor: '#1F2938',
+        borderRadius: 5,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        paddingVertical: 5
+    },
+    daySectionList: {
+        backgroundColor: 'rgba(27,33,43,0.5)',
+        borderRadius: 8,
+    },
+    sectionListHeadFoot:{
+        backgroundColor: '#1F2938',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 15
+    },
+    daySection: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 15,
+        paddingVertical: '7%'
+    },
+    dayName: {
+        flex: 1,
+        textAlign: 'left',
+        fontFamily: 'Inter_400Regular',
+        color: '#CB9CF2',
+    },
+    dayCals: {
+        flex: 1,
+        textAlign: 'center',
+        fontFamily: 'Inter_400Regular',
+        color: '#80FF72',                        // HOW TO MAKE THIS CONDITIONAL
+    },
+    dayGoal: {
+        flex: 1,
+        textAlign: 'right',
+        fontFamily: 'Inter_400Regular',
+        color: '#80FF72',                        // HOW TO MAKE THIS CONDITIONAL
+    },
+    headerText:{
+        color: '#CB9CF2',
+        fontSize: 18, 
+        paddingVertical: 10, 
+        flex: 1,
+        textAlign: 'left'
+    }
+})
