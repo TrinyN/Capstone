@@ -13,14 +13,14 @@ import { useWaterUnitTypesOptions, useExerciseUnitOptions } from '../constants/d
 import { useExerciseData, useFoodData, useWaterData } from '../constants/trackerData';
 import { AddWater, AddExercise, AddPopUp } from '../components/functional/AddPopUps';
 import { CollapseSection } from '../constants/CollapseSection';
-// TODO
+// TODO: the use of add pop up components arent the most efficient
 
 // REFACTORING FLAGGING - Needs a Component
 // 1. Screen component DONE
 // 2. Screen header component 
 // 3. At a glance = calculation header view component
 // 4. Render list component(s) - split into header, list, and footer?
-// 5. Options overlay component
+// 5. Options overlay component DONE
 // 6. Add button component DONE
 
 // Function to design and display the tracker
@@ -157,9 +157,14 @@ const Tracker = () => {
                     toggleOptions={toggleOptions}
                     screenContent={
                         <View>
-                            {/* Display Caloric Goal and Weight of User */}
-                            {/* Top View to calculate user's calories eaten and burned with a formula visible to them */}
-                            <TrackerInfo />
+                            {/* test values, will need to get users info from database */}
+                            <TrackerInfo
+                                caloricGoal={2400}
+                                weight={105}
+                                eaten={2400}
+                                burned={200}
+                                bmr={1200}
+                            />
 
                             {/* Add Food Button */}
                             <CustomButton2
