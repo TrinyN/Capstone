@@ -6,18 +6,17 @@ import CustomScreen from '../components/structural/CustomScreen';
 import TrackerOptions from '../components/functional/TrackerOptions';
 import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useDayListData } from '../constants/trackerWeekData';
+import GlanceText from '../components/structural/GlanceText';
 
 // todo:
 // calculating averages
 // comparing amounts to get color of text
-// options functionality
 
 // REFACTORING FLAGGING - Needs a Component
-// 3. At a glance header component
 // 4. Render list component(s) - split into header, list, and footer?
 
 // Function to design and display the tracker and its related data
-const Tracker = () => {
+const TrackerWeek = () => {
 
     // saves visibility of options pop up
     const [visibleOptions, setVisibleOptions] = useState(false);
@@ -57,30 +56,10 @@ const Tracker = () => {
                             <View style={trackerWeekStyle.calcView}>
 
                                 {/* View to hold weight info at a glance */}
-                                <View>
-                                    {/* Average weight of week */}
-                                    <Text style={[styles.smallText, { color: '#CB9CF2' }]}>
-                                        Average Weight:
-                                    </Text>
-                                    {/* TODO: Implement retrieval and calculation of average weight */}
-                                    {/* Calculated average weight */}
-                                    <Text style={[styles.smallText]}>
-                                        102.5 lbs
-                                    </Text>
-                                </View>
+                                <GlanceText type='vert' prompt='Average Weight:' text='102.5 lbs'></GlanceText>
 
                                 {/* View to hold water info at a glance */}
-                                <View>
-                                    {/* Average water intake of week */}
-                                    <Text style={[styles.smallText, { color: '#CB9CF2' }]}>
-                                        Average Water:
-                                    </Text>
-                                    {/* TODO: Implement retrieval and calculation of average water drank */}
-                                    {/* Calculated average water */}
-                                    <Text style={[styles.smallText]}>
-                                        80 fl oz of 72 fl oz
-                                    </Text>
-                                </View>
+                                <GlanceText type='vert' prompt='Average Water:' text='80 fl oz of 72 fl oz'></GlanceText>
                             </View>
 
                             {/* Space between Stats View and Week List */}
@@ -135,7 +114,6 @@ const Tracker = () => {
                                             <View style={{ height: 2, backgroundColor: '#828282' }} />
                                         </View>
                                     }
-                                    // Section headers for food types
                                     // Footer to calculate averages
                                     ListFooterComponent={
                                         <View style={trackerWeekStyle.sectionListHeadFoot}>
@@ -157,9 +135,7 @@ const Tracker = () => {
                                     }
                                 />
                                 <View style={{ padding: 40 }}></View>
-
                             </View>
-
                             {/* pop up for options */}
                             <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Week' />
                         </View>
@@ -169,7 +145,7 @@ const Tracker = () => {
         </GestureHandlerRootView>
     )
 }
-export default Tracker;
+export default TrackerWeek;
 
 const trackerWeekStyle = ({
     calcView: {
