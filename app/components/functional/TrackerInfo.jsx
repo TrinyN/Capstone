@@ -11,19 +11,31 @@ const TrackerInfo = ({
 }) => {
     // renders the formula either with the variables or actual values
     const renderFormula = ({ type }) => {
-        const textDecorationLine = type === 'formula' ? 'underline' : 'none'
-        const color = type === 'formula' ? '#CB9CF2' : '#F2F4F3'
-        const goalColor = type === 'formula' ? '#80FF72' : '#F2F4F3'
-
-        const eatenValue = type === 'formula' ? 'Eaten' : eaten
-        const burnValue = type === 'formula' ? 'Burned' : burned
-        const bmrValue = type === 'formula' ? 'BMR' : bmr
-        const overallValue = type === 'formula' ? 'Surplus' : eaten - burned - bmr // change from surplus, balance, and deficit
+        const values = type === 'formula'
+            ? {
+                textDecorationLine: 'underline',
+                color: '#CB9CF2',
+                goalColor: '#80FF72',
+                eatenValue: 'Eaten',
+                burnValue: 'Burned',
+                bmrValue: 'BMR',
+                overallValue: 'Surplus'
+            }
+            : {
+                textDecorationLine: 'none',
+                color: '#F2F4F3',
+                goalColor: '#F2F4F3',
+                eatenValue: eaten,
+                burnValue: burned,
+                bmrValue: bmr,
+                overallValue: eaten - burned - bmr
+            };
+        const { textDecorationLine, color, goalColor, eatenValue, burnValue, bmrValue, overallValue } = values;
 
         return (
             <View style={trackerInfoStyle.formulaContainer}>
                 {/* Abstract formula to make numbers make sense*/}
-                <Text style={[trackerInfoStyle.smallLeftText, { color }]}>
+                <Text style={[trackerInfoStyle.LeftAlText, { color }]}>
                     ({eatenValue}
                 </Text>
                 <Text style={[trackerInfoStyle.defaultText,]}> - </Text>
@@ -35,7 +47,7 @@ const TrackerInfo = ({
                     {bmrValue}
                 </Text>
                 <Text style={[trackerInfoStyle.defaultText]}> = </Text>
-                <Text style={[trackerInfoStyle.smallRightText, { textDecorationLine, color: goalColor }]}>
+                <Text style={[trackerInfoStyle.RightAlText, { textDecorationLine, color: goalColor }]}>
                     {overallValue}
                 </Text>
             </View>
@@ -47,7 +59,7 @@ const TrackerInfo = ({
             {/* Display Caloric Goal and Weight of User */}
             <View style={{ justifyContent: 'space-between', flexDirection: 'row', paddingVertical: 12, alignItems: 'center' }}>
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={[trackerInfoStyle.defaultText, {fontSize: 16}]}>
+                    <Text style={[trackerInfoStyle.defaultText, { fontSize: 16 }]}>
                         Caloric Goal:
                     </Text>
                     <TextInput style={[trackerInfoStyle.input, { textAlign: 'center', width: 60, marginHorizontal: 5 }]}
@@ -57,7 +69,7 @@ const TrackerInfo = ({
                     />
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                    <Text style={[trackerInfoStyle.defaultText, {fontSize: 16}]}>
+                    <Text style={[trackerInfoStyle.defaultText, { fontSize: 16 }]}>
                         Weight:
                     </Text>
                     <TextInput style={[trackerInfoStyle.input, { width: 75, paddingHorizontal: 5, textAlign: 'left' }]}
@@ -88,17 +100,17 @@ const trackerInfoStyle = StyleSheet.create({
     defaultText: {
         color: '#F2F4F3',
         fontFamily: 'Inter_400Regular',
-        fontSize: 14, 
+        fontSize: 14,
         textAlign: 'center',
     },
-    smallLeftText: {
+    LeftAlText: {
         width: '19%',
         textAlign: 'left',
         fontFamily: 'Inter_400Regular',
         fontSize: 14,
     },
-    smallRightText: {
-        textAlign: 'right', 
+    RightAlText: {
+        textAlign: 'right',
         width: '21%',
         fontFamily: 'Inter_400Regular',
         fontSize: 14,
