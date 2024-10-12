@@ -3,13 +3,12 @@ import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
 import { useState, useEffect } from 'react';
 import Checkbox from 'expo-checkbox';
-import { Overlay } from '@rneui/base';
 import CustomDropdown from '../components/functional/CustomDropdown';
 import CustomPopUp from '../components/structural/CustomPopUp';
 import CustomScreen from '../components/structural/CustomScreen';
 import CustomButton2 from '../components/functional/CustomButton2';
-import OptionItem from '../components/functional/OptionItem';
 import { shoppingListData } from '../constants/shoppingListData';
+import ShoppingListOptions from '../components/functional/ShoppingListOptions';
 // todo:
 // save list for user
 // generate shopping list functionality
@@ -27,34 +26,39 @@ import { shoppingListData } from '../constants/shoppingListData';
 // 7. Spacing components
 
 const ShoppingList = () => {
-    const { setItems, items, shoppingList, setShoppingList, emptyShoppingList } = shoppingListData();
-
-    const [collapsedSections, setCollapsedSections] = useState({})
-
-    const [checkedItems, setCheckedItems] = useState({});
+    const { setItems, items, shoppingList, setShoppingList } = shoppingListData();
 
     const [foodName, setFoodName] = useState('')
     const [foodType, setFoodType] = useState('')
 
-    // saves visibility of add food pop up
-    const [visible, setVisible] = useState(false);
+    const [checkedItems, setCheckedItems] = useState({});
+    // changes whether a food item is checked or not
+    const toggleChecked = (item) => {
+        setCheckedItems(prevState => ({
+            // keep checked values for other food items
+            ...prevState,
 
-    // saves visibility of options pop up
-    const [visibleOptions, setVisibleOptions] = useState(false);
+            // change checked value for particular food item
+            [item]: !prevState[item]
+        }));
+    };
 
     // boolean value, true if all food items are checked
     const areAllItemsChecked = (items) => {
         return items.every(item => checkedItems[item]);
     };
 
-    // change visibility of overlay
-    const toggleOverlay = () => {
-        setVisible(!visible);
-    };
+    const [collapsedSections, setCollapsedSections] = useState({})
 
-    // change visibility of options
-    const toggleOptions = () => {
-        setVisibleOptions(!visibleOptions);
+    // changes whether a section of the list is collapsed or not
+    const toggleCollapse = (section) => {
+        setCollapsedSections(prevState => ({
+            // keep collapsed boolean values for other sections
+            ...prevState,
+
+            // changes collapsed value for particular section
+            [section.title]: !prevState[section.title]
+        }));
     };
 
     // collapses section if all items within are checked off
@@ -69,26 +73,12 @@ const ShoppingList = () => {
         });
     }, [checkedItems]);
 
-    // changes whether a section of the list is collapsed or not
-    const toggleCollapse = (section) => {
-        setCollapsedSections(prevState => ({
-            // keep collapsed boolean values for other sections
-            ...prevState,
+    // saves visibility of add food pop up
+    const [visible, setVisible] = useState(false);
 
-            // changes collapsed value for particular section
-            [section.title]: !prevState[section.title]
-        }));
-    };
-
-    // changes whether a food item is checked or not
-    const toggleChecked = (item) => {
-        setCheckedItems(prevState => ({
-            // keep checked values for other food items
-            ...prevState,
-
-            // change checked value for particular food item
-            [item]: !prevState[item]
-        }));
+    // change visibility of add food overlay
+    const toggleOverlay = () => {
+        setVisible(!visible);
     };
 
     // called when user clicks add button
@@ -120,23 +110,12 @@ const ShoppingList = () => {
         toggleOverlay()
     }
 
-    const resetCheckmarks = () => {
-        setCheckedItems({})
-    }
+    // // saves visibility of options pop up
+    const [visibleOptions, setVisibleOptions] = useState(false);
 
-    const deleteAll = () => {
-        setShoppingList(emptyShoppingList)
-    };
-
-    const deleteCheckedItems = () => {
-        const updatedShoppingList = shoppingList.map(section => {
-            return {
-                ...section,
-                data: section.data.filter(item => !checkedItems[item])
-            };
-        });
-
-        setShoppingList(updatedShoppingList);
+    // // change visibility of options
+    const toggleOptions = () => {
+        setVisibleOptions(!visibleOptions);
     };
 
     return (
@@ -271,46 +250,14 @@ const ShoppingList = () => {
                     />
 
                     {/* Popup for options menu */}
-                    <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={[styles.optionsMenu, { justifyContent: 'center' }]}>
-
-                        {/* View to contain all options */}
-                        <View style={{ paddingHorizontal: 8, justifyContent: 'center' }}>
-
-                            {/* Resetting checkmarks */}
-                            <OptionItem
-                                title={"Reset Checkmarks"}
-                                icon={"rotate-ccw"}
-                                onPress={resetCheckmarks}
-                                isShoppingList={true}
-                            />
-
-                            {/* Deleting checked items from list */}
-                            <OptionItem
-                                title={"Delete Checked"}
-                                icon={"x-square"}
-                                onPress={deleteCheckedItems}
-                                isShoppingList={true}
-                            />
-
-                            {/* Deleting all items from list */}
-                            <OptionItem
-                                title={"Delete All"}
-                                icon={"trash-2"}
-                                onPress={deleteAll}
-                                isShoppingList={true}
-                            />
-
-                            {/* Generating list from tracker screen(s) */}
-                            <OptionItem
-                                title={"Generate List"}
-                                icon={"shopping-cart"}
-                                // onPress={}
-                                isShoppingList={true}
-                            />
-
-                        </View>
-
-                    </Overlay>
+                    <ShoppingListOptions
+                        setShoppingList={setShoppingList}
+                        setCheckedItems={setCheckedItems}
+                        toggleOptions={toggleOptions}
+                        visibleOptions={visibleOptions}
+                        checkedItems={checkedItems}
+                        shoppingList={shoppingList}
+                    />
                 </View>
             }
         />
