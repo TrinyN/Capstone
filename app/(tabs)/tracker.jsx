@@ -12,7 +12,7 @@ import CustomButton2 from '../components/functional/CustomButton2';
 import { useWaterUnitTypesOptions, useExerciseUnitOptions } from '../constants/dropdownOptions';
 import { useExerciseData, useFoodData, useWaterData } from '../constants/trackerData';
 import { AddWater, AddExercise, AddPopUp } from '../components/functional/AddPopUps';
-
+import { CollapseSection } from '../constants/CollapseSection';
 // TODO
 
 // REFACTORING FLAGGING - Needs a Component
@@ -33,6 +33,8 @@ const Tracker = () => {
             }
         })
         .runOnJS(true);
+
+    const { collapsedSections, toggleCollapse } = CollapseSection();
 
     const [foodName, setFoodName] = useState('')
     const [foodType, setFoodType] = useState('')
@@ -90,28 +92,12 @@ const Tracker = () => {
     // Test data, will need to start off empty and be saved for each user, will only be one number that keeps increasing as user adds more
     const { water, setWater } = useWaterData()
 
-    // State to keep track of expanded/collapsed sections
-    const [collapsedSections, setCollapsedSections] = useState({
-        breakfast: false,
-        lunch: false,
-        dinner: false,
-        snacks: false,
-    });
-
-    // Toggle collapse state
-    const toggleSection = (key) => {
-        setCollapsedSections((prevState) => ({
-            ...prevState,
-            [key]: !prevState[key],
-        }));
-    };
-
     // Render each section with collapsibility
     const renderSection = ({ item }) => {
         return (
             <View>
                 {/* Section Header (Breakfast, Lunch, Dinner) */}
-                <TouchableOpacity onPress={() => toggleSection(item.key)}>
+                <TouchableOpacity onPress={() => toggleCollapse(item.key)}>
                     <View style={[styles.sectionHeader, { flexDirection: 'row' }]}>
 
                         {/* make style for maybe */}
@@ -259,7 +245,7 @@ const Tracker = () => {
                                 setExerciseUnit={setExerciseUnit}
                                 exerciseUnitTypes={exerciseUnitTypes}
                                 setExerciseUnitTypes={setExerciseUnitTypes}
-                            />                           
+                            />
 
                             {/* pop up for options */}
                             <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Day' />

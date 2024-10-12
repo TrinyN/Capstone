@@ -9,6 +9,7 @@ import CustomScreen from '../components/structural/CustomScreen';
 import CustomButton2 from '../components/functional/CustomButton2';
 import { shoppingListData } from '../constants/shoppingListData';
 import ShoppingListOptions from '../components/functional/ShoppingListOptions';
+import { CollapseSection} from '../constants/CollapseSection';
 // todo:
 // save list for user
 // generate shopping list functionality
@@ -25,12 +26,16 @@ import ShoppingListOptions from '../components/functional/ShoppingListOptions';
 // 7. Spacing components
 
 const ShoppingList = () => {
+
+    const { collapsedSections, setCollapsedSections, toggleCollapse } = CollapseSection();
+
     const { setItems, items, shoppingList, setShoppingList } = shoppingListData();
 
     const [foodName, setFoodName] = useState('')
     const [foodType, setFoodType] = useState('')
 
     const [checkedItems, setCheckedItems] = useState({});
+
     // changes whether a food item is checked or not
     const toggleChecked = (item) => {
         setCheckedItems(prevState => ({
@@ -47,19 +52,6 @@ const ShoppingList = () => {
         return items.every(item => checkedItems[item]);
     };
 
-    const [collapsedSections, setCollapsedSections] = useState({})
-
-    // changes whether a section of the list is collapsed or not
-    const toggleCollapse = (section) => {
-        setCollapsedSections(prevState => ({
-            // keep collapsed boolean values for other sections
-            ...prevState,
-
-            // changes collapsed value for particular section
-            [section.title]: !prevState[section.title]
-        }));
-    };
-
     // collapses section if all items within are checked off
     useEffect(() => {
         shoppingList.forEach(section => {
@@ -72,7 +64,7 @@ const ShoppingList = () => {
         });
     }, [checkedItems]);
 
-    // saves visibility of add food pop up
+    // visibility of the add food overlay
     const [visible, setVisible] = useState(false);
 
     // change visibility of add food overlay
@@ -80,9 +72,8 @@ const ShoppingList = () => {
         setVisible(!visible);
     };
 
-    // called when user clicks add button
+    // called when user clicks add button, allows user to add food in shopping list
     const handleAddFood = () => {
-
         if (foodName != '') {
             // find the section that matches foodType entered by user
             const updatedShoppingList = shoppingList.map(section => {
@@ -175,7 +166,7 @@ const ShoppingList = () => {
                                 // View for the headers
                                 <View>
                                     {/* Turning headers into buttons to allow collapse */}
-                                    <TouchableOpacity onPress={() => toggleCollapse(section)}>
+                                    <TouchableOpacity onPress={() => toggleCollapse(section.title)}>
                                         {/* Setting up section headers to allow for a label and chevron icon */}
                                         <View style={shopListStyles.listContainer}>
                                             {/* Section label/names */}
