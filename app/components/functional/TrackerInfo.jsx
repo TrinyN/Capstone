@@ -15,11 +15,11 @@ const TrackerInfo = ({
             ? {
                 textDecorationLine: 'underline',
                 color: '#CB9CF2',
-                goalColor: '#80FF72',
+                goalColor: '#80FF72', // 3 diff colors depending on users goals, will need to add later
                 eatenValue: 'Eaten',
                 burnValue: 'Burned',
                 bmrValue: 'BMR',
-                overallValue: 'Surplus'
+                overallValue: 'Surplus' // will need to change between surplus, balance, deficit depending on value
             }
             : {
                 textDecorationLine: 'none',
