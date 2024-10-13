@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { StyleSheet } from 'react-native';
+import styles from '../../styles';
 
 // Function that returns the CustomDropdown given certain fields to determine its behavior
 const CustomDropdown = ({ placeholder, setCustomValue, items, setItems }) => {
@@ -21,7 +22,7 @@ const CustomDropdown = ({ placeholder, setCustomValue, items, setItems }) => {
             setItems={setItems}
             theme="DARK"
             placeholder={placeholder}
-            style={[apStyle.inputFieldStyle, { borderWidth: 0, minHeight: 45}]}
+            style={[styles.inputFieldStyle, { borderWidth: 0, minHeight: 45}]}
             borderColor='#0E1116'
             placeholderStyle={{ color: 'rgba(242,244,243, 0.2)', fontSize: 16 }}
             borderWidth={0}
@@ -34,14 +35,6 @@ const CustomDropdown = ({ placeholder, setCustomValue, items, setItems }) => {
 
 export default CustomDropdown
 
-const apStyle = StyleSheet.create({
-    inputFieldStyle: {
-        color: '#F2F4F3',
-        backgroundColor: 'rgba(97, 98, 131, 0.2)',
-        borderRadius: 8,
-        fontSize: 16,
-        paddingLeft: 15,
-        paddingVertical: 10,
-        height: 45
-    },
+const localStyle = StyleSheet.create({
+    
 })

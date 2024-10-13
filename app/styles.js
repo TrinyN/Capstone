@@ -1,52 +1,37 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    container: {
+    container: { // good
         height: '100%',
         flexGrow: 1,
         backgroundColor: '#0E1116'
     },
-    // To use only as a replacement for screens that do not need a ScrollView
-    viewContainerMain: {
-        height: '100%',
-        backgroundColor: '#0E1116',
-        paddingHorizontal: 0,
-        flex: 1, 
-        paddingBottom: 40
-    },
-    viewContainer: {
+    viewContainer: { // good
         height: '100%',
         backgroundColor: '#0E1116',
         paddingHorizontal: 35,
         flex: 1
     },
-    defaultText: {
+    defaultText: { // good
         color: '#CB9CF2',
         fontSize: 20,
         // paddingLeft:25,
         paddingVertical: 15,
         fontFamily: 'Inter_600SemiBold',
     },
-    defaultWhiteText: {
+    defaultWhiteText: { // good
         color: '#F2F4F3',
         fontSize: 16,
         fontFamily: 'Inter_400Regular',
     },
-    frameTextWhite: {
-        color: '#F2F4F3',
-        fontSize: 20,
-        paddingVertical: 10,
-        fontFamily: 'Inter_600SemiBold',
-        textAlign: 'center',
-    },
-    smallText: {
+    smallText: { // good
         color: '#F2F4F3',
         fontSize: 14,
         fontFamily: 'Inter_400Regular',
         textAlign: 'center',
         paddingVertical: 5
     },
-    button: {
+    button: { // profile shlist custBut good?
         backgroundColor: '#F2F4F3',
         padding: 10,
         alignItems: 'center',
@@ -56,12 +41,12 @@ const styles = StyleSheet.create({
         activeOpacity: 0.7, 
         minHeight: 30, 
     },
-    buttonText: {
+    buttonText: { // good
         color: '#0E1116',
         fontSize: 16,
         fontFamily: 'Inter_500Medium',
     },
-    inputFieldStyle: {
+    inputFieldStyle: { // good
         color: '#F2F4F3',
         backgroundColor: 'rgba(97, 98, 131, 0.2)',
         borderRadius: 8,
@@ -72,68 +57,20 @@ const styles = StyleSheet.create({
         // selectionColor: '#CB9CF2',
         // placeholderTextColor:'rgba(242,244,243, 0.5)',
     },
-    dropdownFieldStyle: {
-        backgroundColor: 'rgba(97, 98, 131, 0.2)',
-        borderRadius: 8,
-        fontSize: 16
-    },
-    smallText: {
-        color: '#F2F4F3',
-        fontSize: 14,
-        fontFamily: 'Inter_400Regular',
-        textAlign: 'center',
-        paddingVertical: 5
-    },
-    optionsText: {
+    optionsText: { // good
         color: '#F2F4F3',
         fontSize: 15,
         fontFamily: 'Inter_300Light',
         textAlign: 'left',
         paddingVertical: 3
     },
-    optionsMenu: {
-        backgroundColor: '#1F2938',
-        borderRadius: 5,
-        // width: 200, 
-        // width: '60%',
-        // height: 130,
-        // height: '20%',
-        position: 'absolute',
-        top: 100,
-        right: 50,
-    },
-
     // Header styles
-    header: {
-        flexDirection: 'row',
-        backgroundColor: '#1F2938',
-        justifyContent: 'space-between',
-        borderTopLeftRadius: 8,
-        borderTopRightRadius: 8,
-        alignItems: 'flex-end',
-        borderBottomWidth: 2,
-        borderBottomColor: '#828282',
-    },
-    headerText: {
-        fontWeight: 'bold',
+    headerText: { // good
         color: '#CB9CF2',
-    },
-    // Section header (Breakfast, Lunch, Dinner)
-    sectionHeader: {
-        paddingVertical: 10,
-        borderBottomWidth: 2,
-        borderBottomColor: '#828282',
-        backgroundColor: 'rgba(27,33,43,0.5)'
-    },
-    // List item styles (Eggs, Bacon, Toast, etc.)
-    item: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingVertical: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#828282',
-        paddingLeft: 30, 
-        alignItems: 'center'
+        fontSize: 18, 
+        paddingVertical: 10, 
+        flex: 1,
+        textAlign: 'left'
     },
 });
 

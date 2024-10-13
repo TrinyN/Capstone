@@ -2,6 +2,7 @@ import { TouchableOpacity, Text, View, ScrollView, StyleSheet } from 'react-nati
 import { SafeAreaView } from "react-native-safe-area-context";
 import Feather from "react-native-vector-icons/Feather";
 import { router } from 'expo-router';
+import styles from '../../styles';
 
 // renders outer screens, title, and if needed additional information, back button, and options button
 const CustomScreen = ({
@@ -16,11 +17,11 @@ const CustomScreen = ({
     toggleLogOut
 }) => {
     return (
-        <SafeAreaView style={apStyle.container}>
+        <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 {/* Render back button if needed */}
                 {hasBackButton &&
-                    <View style={apStyle.backButtonContainer}>
+                    <View style={localStyle.backButtonContainer}>
                         <TouchableOpacity style={{ width: 35 }} onPress={() => router.back()}>
                             <Feather name="chevron-left" size={35} color="#F2F4F3" />
                         </TouchableOpacity>
@@ -28,16 +29,16 @@ const CustomScreen = ({
                 }
 
                 {/* The "body" of the screen, including its major elements */}
-                <View style={[apStyle.viewContainer, { flex: 1 }]}>
+                <View style={[styles.viewContainer, { flex: 1 }]}>
 
                     {/* Screen Header */}
-                    <View style={apStyle.headerContainer}>
+                    <View style={localStyle.headerContainer}>
                         {/* NOTE: Flex looks strange on very large (incompatible) screens like iPad, web */}
 
-                        <Text style={[apStyle.titleText, { flex: 1, flexDirection: 'row' }]}>
+                        <Text style={[localStyle.titleText, { flex: 1, flexDirection: 'row' }]}>
                             {title} {" "}
                             {/* TODO: Make this text get the current week */}
-                            <Text style={[apStyle.titleTextWhite]}>
+                            <Text style={[localStyle.titleTextWhite]}>
                                 {title2}
                             </Text>
                         </Text>
@@ -55,7 +56,7 @@ const CustomScreen = ({
                     }
 
                 </View>
-                <Text style={[apStyle.defaultWhiteText, { fontFamily: 'Inter_200ExtraLight', fontSize: 20, paddingBottom: 30 }]}>
+                <Text style={[styles.defaultWhiteText, { fontFamily: 'Inter_200ExtraLight', fontSize: 20, paddingBottom: 30 }]}>
                     {info}
                 </Text>
 
@@ -70,18 +71,7 @@ const CustomScreen = ({
 
 export default CustomScreen
 
-const apStyle = StyleSheet.create({
-    container: {
-        height: '100%',
-        flexGrow: 1,
-        backgroundColor: '#0E1116'
-    },
-    viewContainer: {
-        height: '100%',
-        backgroundColor: '#0E1116',
-        paddingHorizontal: 35,
-        flex: 1
-    },
+const localStyle = StyleSheet.create({
     titleText: {
         color: '#CB9CF2',
         fontSize: 28,
@@ -91,11 +81,6 @@ const apStyle = StyleSheet.create({
         color: '#F2F4F3',
         fontSize: 28,
         fontFamily: 'Inter_600SemiBold',
-    },
-    defaultWhiteText: {
-        color: '#F2F4F3',
-        fontSize: 16,
-        fontFamily: 'Inter_400Regular',
     },
     backButtonContainer: {
         marginTop: 40, marginBottom: 10, paddingLeft: 25

@@ -33,21 +33,21 @@ const TrackerInfo = ({
         const { textDecorationLine, color, goalColor, eatenValue, burnValue, bmrValue, overallValue } = values;
 
         return (
-            <View style={trackerInfoStyle.formulaContainer}>
+            <View style={localStyle.formulaContainer}>
                 {/* Abstract formula to make numbers make sense*/}
-                <Text style={[trackerInfoStyle.LeftAlText, { color }]}>
+                <Text style={[localStyle.LeftAlText, { color }]}>
                     ({eatenValue}
                 </Text>
-                <Text style={[trackerInfoStyle.defaultText,]}> - </Text>
-                <Text style={[trackerInfoStyle.defaultText, { color, width: '22%' }]}>
+                <Text style={[localStyle.mainText,]}> - </Text>
+                <Text style={[localStyle.mainText, { color, width: '22%' }]}>
                     {burnValue})
                 </Text>
-                <Text style={[trackerInfoStyle.defaultText,]}> - </Text>
-                <Text style={[trackerInfoStyle.defaultText, { color, width: '19%' }]}>
+                <Text style={[localStyle.mainText,]}> - </Text>
+                <Text style={[localStyle.mainText, { color, width: '19%' }]}>
                     {bmrValue}
                 </Text>
-                <Text style={[trackerInfoStyle.defaultText]}> = </Text>
-                <Text style={[trackerInfoStyle.RightAlText, { textDecorationLine, color: goalColor }]}>
+                <Text style={[localStyle.mainText]}> = </Text>
+                <Text style={[localStyle.RightAlText, { textDecorationLine, color: goalColor }]}>
                     {overallValue}
                 </Text>
             </View>
@@ -59,20 +59,20 @@ const TrackerInfo = ({
             {/* Display Caloric Goal and Weight of User */}
             <View style={{ justifyContent: 'space-between', flexDirection: 'row', paddingVertical: 12, alignItems: 'center' }}>
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={[trackerInfoStyle.defaultText, { fontSize: 16 }]}>
+                    <Text style={[localStyle.mainText, { fontSize: 16 }]}>
                         Caloric Goal:
                     </Text>
-                    <TextInput style={[trackerInfoStyle.input, { textAlign: 'center', width: 60, marginHorizontal: 5 }]}
+                    <TextInput style={[localStyle.input, { textAlign: 'center', width: 60, marginHorizontal: 5 }]}
                         placeholder={caloricGoal}
                         placeholderTextColor={'#F2F4F3'}
                         editable={false}
                     />
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                    <Text style={[trackerInfoStyle.defaultText, { fontSize: 16 }]}>
+                    <Text style={[localStyle.mainText, { fontSize: 16 }]}>
                         Weight:
                     </Text>
-                    <TextInput style={[trackerInfoStyle.input, { width: 75, paddingHorizontal: 5, textAlign: 'left' }]}
+                    <TextInput style={[localStyle.input, { width: 75, paddingHorizontal: 5, textAlign: 'left' }]}
 
                         placeholder={weight + ' lbs'}
                         placeholderTextColor={'#F2F4F3'}
@@ -96,8 +96,8 @@ const TrackerInfo = ({
 
 export default TrackerInfo
 
-const trackerInfoStyle = StyleSheet.create({
-    defaultText: {
+const localStyle = StyleSheet.create({
+    mainText: {
         color: '#F2F4F3',
         fontFamily: 'Inter_400Regular',
         fontSize: 14,

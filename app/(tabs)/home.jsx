@@ -24,8 +24,8 @@ const Home = () => {
                 // {/* View to contain all other major elements, like the frames for each quick tool */}
                 <View style={{ flex: 5 }}>
                     {/* Wide View Frame for Daily Diet Progress */}
-                    <View style={homeStyles.viewHomeFrameWide}>
-                        <Text style={[styles.frameTextWhite, { paddingVertical: 5, paddingBottom: 15 }]}>
+                    <View style={localStyle.viewHomeFrameWide}>
+                        <Text style={[localStyle.summTitle]}>
                             Your Daily Diet Progress:
                         </Text>
 
@@ -45,10 +45,10 @@ const Home = () => {
                     </View>
 
                     {/* Two FlatLists to hold two separate columns of quick tool frames, with frames of different heights */}
-                    <View style={[homeStyles.viewFrameContainer]}>
+                    <View style={[localStyle.viewFrameContainer]}>
 
                         {/* FlatList for left column, containing water goal display frame */}
-                        <View style={[homeStyles.containerColumn, { marginRight: 15 }]}>
+                        <View style={[localStyle.containerColumn, { marginRight: 15 }]}>
 
                             {/* Water Goal Display Frame */}
                             {/* NOTE: If water bottle placement becomes an issue, check this paddingBottom */}
@@ -56,7 +56,7 @@ const Home = () => {
                         </View>
 
                         {/* FlatList for right column, containing Quick Track and Notes frames */}
-                        <View style={[homeStyles.containerColumn, { marginLeft: 15 }]}>
+                        <View style={[localStyle.containerColumn, { marginLeft: 15 }]}>
 
                             {/* Quick Track Frame */}
                             <HomeFrame title='Quick Track' />
@@ -72,7 +72,7 @@ const Home = () => {
 }
 export default Home;
 
-const homeStyles = StyleSheet.create({
+const localStyle = StyleSheet.create({
     viewFrameContainer: {
         height: '100%',
         width: '100%',
@@ -102,5 +102,13 @@ const homeStyles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignContent: 'center',
+    },
+    summTitle: { // home homeFrame
+        color: '#F2F4F3',
+        fontSize: 20,
+        paddingTop: 5, 
+        paddingBottom: 20,
+        fontFamily: 'Inter_600SemiBold',
+        textAlign: 'center',
     },
 })

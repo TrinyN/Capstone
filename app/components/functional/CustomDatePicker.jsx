@@ -1,6 +1,7 @@
 import { TextInput, TouchableOpacity, Text, View, Modal, Pressable, Platform, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useState } from 'react';
+import styles from '../../styles';
 
 const CustomDatePicker = ({ placeholder, hasTitle }) => {
     const [date, setDate] = useState(new Date())
@@ -47,10 +48,10 @@ const CustomDatePicker = ({ placeholder, hasTitle }) => {
             {hasTitle ? (
                 <Pressable onPress={toggleDatepicker}>
                     {/* Age question and field */}
-                    <Text style={apStyle.defaultText}>
+                    <Text style={styles.defaultText}>
                         {placeholder}
                     </Text>
-                    <TextInput style={apStyle.inputFieldStyle}
+                    <TextInput style={styles.inputFieldStyle}
                         selectionColor='#CB9CF2'
                         placeholderTextColor='rgba(242,244,243, 0.2)'
                         placeholder='06/01/3024'
@@ -64,7 +65,7 @@ const CustomDatePicker = ({ placeholder, hasTitle }) => {
                 <Pressable onPress={toggleDatepicker} style={{}}>
                     <View style={{ justifyContent: 'center' }}>
                         <TextInput
-                            style={apStyle.smallText}
+                            style={localStyle.inputText}
                             placeholder={placeholder}
                             placeholderTextColor={'#F2F4F3'}
                             editable={false}
@@ -94,7 +95,7 @@ const CustomDatePicker = ({ placeholder, hasTitle }) => {
             {/* IOS date picker */}
             {showPicker && Platform.OS === "ios" && (
                 <Modal transparent={true} animationType="slide" style={{ justifyContent: 'center' }}>
-                    <View style={apStyle.iosDateView}>
+                    <View style={localStyle.iosDateView}>
                         <DateTimePicker
                             mode='date'
                             display='spinner'
@@ -108,15 +109,15 @@ const CustomDatePicker = ({ placeholder, hasTitle }) => {
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                             {/* Toggle date button */}
                             <TouchableOpacity onPress={toggleDatepicker} 
-                                style={[apStyle.button, {backgroundColor: 'transparent', borderWidth: 1, borderColor: '#F2F4F3'}]}
+                                style={[localStyle.button, {backgroundColor: 'transparent', borderWidth: 1, borderColor: '#F2F4F3'}]}
                             >
-                                <Text style={[apStyle.buttonText, {color: '#F2F4F3'}]}>Cancel</Text>
+                                <Text style={[styles.buttonText, {color: '#F2F4F3'}]}>Cancel</Text>
                             </TouchableOpacity>
                             {/* Confirm date button */}
                             <TouchableOpacity onPress={confirmIOSDate} 
-                                style={[apStyle.button, {backgroundColor: '#CB9CF2'}]}
+                                style={[localStyle.button, {backgroundColor: '#CB9CF2'}]}
                             >
-                                <Text style={apStyle.buttonText}>Confirm</Text>
+                                <Text style={styles.buttonText}>Confirm</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -128,26 +129,8 @@ const CustomDatePicker = ({ placeholder, hasTitle }) => {
 
 export default CustomDatePicker
 
-const apStyle = StyleSheet.create({
-    defaultText: {
-        color: '#CB9CF2',
-        fontSize: 20,
-        // paddingLeft:25,
-        paddingVertical: 15,
-        fontFamily: 'Inter_600SemiBold',
-    },
-    inputFieldStyle: {
-        color: '#F2F4F3',
-        backgroundColor: 'rgba(97, 98, 131, 0.2)',
-        borderRadius: 8,
-        fontSize: 16,
-        paddingLeft: 15,
-        paddingVertical: 10,
-        height: 45
-        // selectionColor: '#CB9CF2',
-        // placeholderTextColor:'rgba(242,244,243, 0.5)',
-    },
-    smallText: {
+const localStyle = StyleSheet.create({
+    inputText: {
         color: '#ABABAB',
         fontSize: 14,
         fontFamily: 'Inter_400Regular',
@@ -171,10 +154,5 @@ const apStyle = StyleSheet.create({
         borderRadius: 8,
         activeOpacity: 0.7, 
         minHeight: 30, 
-    },
-    buttonText: {
-        color: '#0E1116',
-        fontSize: 16,
-        fontFamily: 'Inter_500Medium',
     },
 })

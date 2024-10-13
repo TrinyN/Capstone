@@ -58,7 +58,7 @@ const Profile = () => {
     const PieChartLegend = ({ macro, index, color }) => {
         return (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <View style={[profileStyle.legendStyle, { backgroundColor: color }]} />
+                <View style={[localStyle.legendStyle, { backgroundColor: color }]} />
                 <Text style={styles.defaultWhiteText}>
                     {macro} {percentageCalc(index)}{"%"}
                 </Text>
@@ -74,7 +74,7 @@ const Profile = () => {
             screenContent={
                 <View>
                     {/* Flat list to show profile information */}
-                    <View style={profileStyle.container}>
+                    <View style={localStyle.container}>
                         <FlatList
                             data={userInfo}
                             renderItem={({ item, index }) =>
@@ -95,8 +95,8 @@ const Profile = () => {
 
                     {/* Macro Pi Chart Container*/}
                     <View style={{ paddingTop: 30, paddingBottom: 10 }}>
-                        <View style={[profileStyle.container, { flexDirection: 'row', justifyContent: 'space-between' }]}>
-                            <View style={profileStyle.legendContainer}>
+                        <View style={[localStyle.container, { flexDirection: 'row', justifyContent: 'space-between' }]}>
+                            <View style={localStyle.legendContainer}>
                                 <PieChartLegend macro={"Carb"} index={0} color='#80FF72' />
                                 <PieChartLegend macro={"Protein"} index={1} color='#7EE8FA' />
                                 <PieChartLegend macro={"Fat"} index={2} color='#FFF07C' />
@@ -126,13 +126,13 @@ const Profile = () => {
                     </View>
 
                     {/* Popup for log out */}
-                    <Overlay isVisible={visibleLogOut} onBackdropPress={toggleLogOut} overlayStyle={profileStyle.overlayStyle}>
-                        <View style={profileStyle.overlayHeader}>
+                    <Overlay isVisible={visibleLogOut} onBackdropPress={toggleLogOut} overlayStyle={localStyle.overlayStyle}>
+                        <View style={localStyle.overlayHeader}>
                             <Text style={[styles.defaultText, { color: '#F2F4F3', textAlign: 'center' }]}>
                                 Are you sure you want to log out?
                             </Text>
-                            <View style={profileStyle.overlayContainer}>
-                                <TouchableOpacity onPress={toggleLogOut} style={[styles.button, profileStyle.button]}>
+                            <View style={localStyle.overlayContainer}>
+                                <TouchableOpacity onPress={toggleLogOut} style={[styles.button, localStyle.button]}>
                                     <Text style={[styles.buttonText, { color: '#F2F4F3' }]}>Cancel</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() => { router.push('') }} style={[styles.button, { backgroundColor: '#CB9CF2', width: '40%' }]}>
@@ -149,7 +149,7 @@ const Profile = () => {
 }
 export default Profile;
 
-const profileStyle = StyleSheet.create({
+const localStyle = StyleSheet.create({
     container: {
         borderRadius: 10, 
         backgroundColor: 'rgba(27,33,43,0.5)'

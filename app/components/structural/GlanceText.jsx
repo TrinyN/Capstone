@@ -18,9 +18,9 @@ const GlanceText = ({ type, prompt, text}) => {
         )
     } else if (type === 'horiz') {
         return (
-            <View style={glanceTextStyle.subCalcView}>
+            <View style={localStyle.subCalcView}>
                 {/* Average weight of week */}
-                <Text style={[styles.smallText, glanceTextStyle.calcViewText]}>
+                <Text style={[styles.smallText, localStyle.calcViewText]}>
                     {prompt}
                 </Text>
                 {/* TODO: Implement retrieval and calculation of average weight */}
@@ -34,7 +34,7 @@ const GlanceText = ({ type, prompt, text}) => {
 }
 export default GlanceText;
 
-const glanceTextStyle = StyleSheet.create({
+const localStyle = StyleSheet.create({
     subCalcView:{
         flex: 1, 
         flexDirection: 'row',

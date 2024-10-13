@@ -1,6 +1,7 @@
 import { TouchableOpacity, StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import Feather from "react-native-vector-icons/Feather";
+import styles from "../../styles";
 
 // ONLY ALLOWED IN TYPESCRIPT - RESTRICTS TYPES
 // type buttonType = 'primary' | 'small'| 'google';
@@ -18,11 +19,11 @@ const CustomButton2 = ({ type, text, onPress }) => {
         return (
             // If is google button
             <TouchableOpacity onPress={onPress}>
-                <View style={apStyle.buttonGoogle}>
-                    <Image style={apStyle.googleLogo}
+                <View style={localStyle.buttonGoogle}>
+                    <Image style={localStyle.googleLogo}
                         source={require('../../../assets/images/google-icon.png')}
                     />
-                    <Text style={apStyle.buttonText}>Google</Text>
+                    <Text style={styles.buttonText}>Google</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -30,8 +31,8 @@ const CustomButton2 = ({ type, text, onPress }) => {
         return (
             // Else is normal button
             <TouchableOpacity onPress={onPress}>
-                <View style={apStyle.button}>
-                    <Text style={apStyle.buttonText}>
+                <View style={localStyle.button}>
+                    <Text style={styles.buttonText}>
                         {text}
                     </Text>
                 </View>
@@ -41,7 +42,7 @@ const CustomButton2 = ({ type, text, onPress }) => {
     else if (type === 'add') {
         return (
             <TouchableOpacity onPress={onPress}
-                style={[apStyle.button, { height: 33, backgroundColor: '#CB9CF2', padding: 1 }]} >
+                style={[localStyle.button, { height: 33, backgroundColor: '#CB9CF2', padding: 1 }]} >
                 <Feather name="plus" size={30} color="#1F2938" />
             </TouchableOpacity>
         )
@@ -49,8 +50,8 @@ const CustomButton2 = ({ type, text, onPress }) => {
         return (
             // Else is small button
             <TouchableOpacity onPress={onPress}>
-                <View style={apStyle.buttonSm}>
-                    <Text style={apStyle.buttonText}>
+                <View style={localStyle.buttonSm}>
+                    <Text style={styles.buttonText}>
                         {text}
                     </Text>
                 </View>
@@ -61,7 +62,7 @@ const CustomButton2 = ({ type, text, onPress }) => {
 
 export default CustomButton2;
 
-const apStyle = StyleSheet.create({
+const localStyle = StyleSheet.create({
     button: {
         height: 45,
         width:'100%',
@@ -100,11 +101,6 @@ const apStyle = StyleSheet.create({
     googleLogo: {
         width: '9%',
         height: '100%'
-    },
-    buttonText: {
-        color: '#0E1116',
-        fontSize: 16,
-        fontFamily: 'Inter_500Medium',
     },
 
 })

@@ -9,9 +9,9 @@ const CustomPopUp = ({ visible, toggleOverlay, content, hasBackButton, previousO
     const iconColor = hasBackButton ? "#F2F4F3" : "transparent"
     return (
         <Overlay isVisible={visible} onBackdropPress={toggleOverlay}
-            overlayStyle={PopUpStyle.overlayStyle}>
+            overlayStyle={localStyle.overlayStyle}>
             {/* View at top to hold exit button */}
-            <View style={PopUpStyle.headerStyle}>
+            <View style={localStyle.headerStyle}>
                 <TouchableOpacity onPress={previousOverlay} style={{ width: 30 }} disabled={!hasBackButton}>
                     <Feather name="chevron-left" size={30} color={iconColor} />
                 </TouchableOpacity>
@@ -29,7 +29,7 @@ const CustomPopUp = ({ visible, toggleOverlay, content, hasBackButton, previousO
 
 export default CustomPopUp
 
-const PopUpStyle = StyleSheet.create({
+const localStyle = StyleSheet.create({
     overlayStyle: {
         backgroundColor: '#0E1116', 
         borderRadius: 8,

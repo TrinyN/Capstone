@@ -34,7 +34,7 @@ const TrackerOptions = ({
     const zoomOutOpac = zoomOut ? 1 : 0.2
 
     return (
-        <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={[apStyle.optionsMenu]}>
+        <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={[localStyle.optionsMenu]}>
 
             {/* View containing option choices */}
             <View style={{ paddingHorizontal: 8, justifyContent: 'center' }}>
@@ -45,7 +45,7 @@ const TrackerOptions = ({
                 {view == 'Day' &&
                     <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Feather name="edit-3" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
-                        <Text style={apStyle.optionsText}>
+                        <Text style={styles.optionsText}>
                             Take Notes
                         </Text>
                     </TouchableOpacity>
@@ -80,7 +80,7 @@ const TrackerOptions = ({
 
 export default TrackerOptions
 
-const apStyle = StyleSheet.create({
+const localStyle = StyleSheet.create({
     optionsMenu: {
         backgroundColor: '#1F2938',
         borderRadius: 5,
@@ -92,11 +92,5 @@ const apStyle = StyleSheet.create({
         top: 100,
         right: 50,
     },
-    optionsText: {
-        color: '#F2F4F3',
-        fontSize: 15,
-        fontFamily: 'Inter_300Light',
-        textAlign: 'left',
-        paddingVertical: 3
-    },
+    
 })

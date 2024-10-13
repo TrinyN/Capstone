@@ -136,7 +136,7 @@ const ShoppingList = () => {
                                 !collapsedSections[section.title] && (
                                     <View>
                                         {/* View to hold checkbox and item name */}
-                                        <View style={[shopListStyles.listContainer, { backgroundColor: '#0E1116' }]}>
+                                        <View style={[localStyle.listContainer, { backgroundColor: '#0E1116' }]}>
                                             {/* Checkboxes for items on list */}
                                             <Checkbox
                                                 color='#CB9CF2'
@@ -146,7 +146,7 @@ const ShoppingList = () => {
                                             {/* Item names */}
                                             <Text
                                                 style={[
-                                                    styles.defaultWhiteText, shopListStyles.itemsCheckable,
+                                                    styles.defaultWhiteText, localStyle.itemsCheckable,
                                                     {
                                                         textDecorationLine: checkedItems[item] ? 'line-through' : 'none',
                                                         color: checkedItems[item] ? '#ABABAB' : '#F2F4F3',
@@ -157,7 +157,7 @@ const ShoppingList = () => {
                                         </View>
 
                                         {/* Divider lines between items */}
-                                        <View style={shopListStyles.thinBorderLine} />
+                                        <View style={localStyle.thinBorderLine} />
                                     </View>
                                 )
                             }
@@ -168,11 +168,11 @@ const ShoppingList = () => {
                                     {/* Turning headers into buttons to allow collapse */}
                                     <TouchableOpacity onPress={() => toggleCollapse(section.title)}>
                                         {/* Setting up section headers to allow for a label and chevron icon */}
-                                        <View style={shopListStyles.listContainer}>
+                                        <View style={localStyle.listContainer}>
                                             {/* Section label/names */}
                                             <Text
                                                 style={[
-                                                    styles.defaultWhiteText, shopListStyles.sectionCheckable,
+                                                    styles.defaultWhiteText, localStyle.sectionCheckable,
                                                     {
                                                         textDecorationLine: areAllItemsChecked(section.data) ? 'line-through' : 'none',
                                                         color: areAllItemsChecked(section.data) ? '#6F5882' : '#CB9CF2',
@@ -187,7 +187,7 @@ const ShoppingList = () => {
                                     </TouchableOpacity>
 
                                     {/* Borderline at bottom of the section headers */}
-                                    <View style={shopListStyles.borderLine} />
+                                    <View style={localStyle.borderLine} />
                                 </View>
                             )}
                         />
@@ -247,7 +247,7 @@ const ShoppingList = () => {
 export default ShoppingList;
 
 
-const shopListStyles = StyleSheet.create({
+const localStyle = StyleSheet.create({
     listContainer: {
         flexDirection: 'row',
         alignItems: 'center',

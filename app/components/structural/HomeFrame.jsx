@@ -12,7 +12,7 @@ const HomeFrame = ({
 }) => {
     let marginBottom
     let icon
-    let style = homeFrameStyles.viewHomeFrameNormal // default style
+    let style = localStyle.viewHomeFrameNormal // default style
 
     if (title == "Quick Track") {
         marginBottom = 20
@@ -22,7 +22,7 @@ const HomeFrame = ({
         icon = 'edit-3'
     }
     else {
-        style = homeFrameStyles.viewHomeFrameTall
+        style = localStyle.viewHomeFrameTall
     }
 
     return (
@@ -31,9 +31,9 @@ const HomeFrame = ({
 
             {/* Touchable Opacity to make entire frame a button */}
             <TouchableOpacity
-                style={[homeFrameStyles.frameContent, {flex: 1, flexDirection: 'column'}]}
+                style={[localStyle.frameContent, {flex: 1, flexDirection: 'column'}]}
                 onPress={() => router.push('/tracker')}>
-                <Text style={homeFrameStyles.frameTextWhite}>
+                <Text style={localStyle.frameTitle}>
                     {title}
                 </Text>
 
@@ -62,7 +62,7 @@ const HomeFrame = ({
 
                     <Image
                         source={require('../../../assets/images/water-bottle-1.png')}
-                        style={[homeFrameStyles.frameContent, {resizeMode: 'contain', position: 'relative'}]}
+                        style={[localStyle.frameContent, {resizeMode: 'contain', position: 'relative'}]}
                     />
                 ) : (
                     // {/* How to fill pruple with dark plus (~Figma)??? */}
@@ -79,7 +79,7 @@ const HomeFrame = ({
 
 export default HomeFrame
 
-const homeFrameStyles = StyleSheet.create({
+const localStyle = StyleSheet.create({
     // Example: Quick Add Frame, Home
     viewHomeFrameNormal: {
         height: '100%',
@@ -101,7 +101,7 @@ const homeFrameStyles = StyleSheet.create({
         alignContent: 'center',
         paddingBottom: 85,
     },
-    frameTextWhite: {
+    frameTitle: {
         color: '#F2F4F3',
         fontSize: 20,
         paddingVertical: 10,

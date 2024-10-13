@@ -98,10 +98,10 @@ const Tracker = () => {
             <View>
                 {/* Section Header (Breakfast, Lunch, Dinner) */}
                 <TouchableOpacity onPress={() => toggleCollapse(item.key)}>
-                    <View style={[styles.sectionHeader, { flexDirection: 'row' }]}>
+                    <View style={[localStyle.sectionHeader, { flexDirection: 'row' }]}>
 
                         {/* make style for maybe */}
-                        <Text style={trackerStyles.foodSectionStyle}>{item.title}</Text>
+                        <Text style={localStyle.foodSectionStyle}>{item.title}</Text>
 
                         <Feather name={collapsedSections[item.key] ? "chevron-down" : "chevron-up"} size={25} color='#CB9CF2'
                             style={{
@@ -115,7 +115,7 @@ const Tracker = () => {
                 {!collapsedSections[item.key] && (
                     <View>
                         {item.data.map((item, index) => (
-                            <View key={index} style={styles.item}>
+                            <View key={index} style={localStyle.item}>
                                 <Text style={[styles.defaultWhiteText, { width: '35%', textAlign: 'left' }]}>{item.title}</Text>
                                 <Text style={[styles.defaultWhiteText, { width: '10%', textAlign: 'center' }]}>{item.count}</Text>
                                 <Text style={[styles.defaultWhiteText, { width: '40%', textAlign: 'right', paddingRight: 10 }]}>{item.kCal}</Text>
@@ -135,7 +135,7 @@ const Tracker = () => {
             <View>
                 {/* Render items only if the section is expanded */}
                 <View>
-                    <View style={[styles.item, { paddingLeft: 10 }]}>
+                    <View style={[localStyle.item, { paddingLeft: 10 }]}>
                         <Text style={[styles.defaultWhiteText, { width: '30%', textAlign: 'left' }]}>{item.exercise}</Text>
                         <Text style={[styles.defaultWhiteText, { width: '40%', textAlign: 'center' }]}>{item.reps}</Text>
                         <Text style={[styles.defaultWhiteText, { width: '20%', textAlign: 'right', paddingRight: 10 }]}>{item.kCal}</Text>
@@ -265,7 +265,7 @@ export default Tracker;
 
 
 
-const trackerStyles = StyleSheet.create({
+const localStyle = StyleSheet.create({
     foodSectionStyle: {
         color: '#CB9CF2',
         fontFamily: 'Inter_600SemiBold',
@@ -274,5 +274,21 @@ const trackerStyles = StyleSheet.create({
         fontSize: 16,
         paddingLeft: 10,
         alignSelf: 'center'
-    }
+    },
+    sectionHeader: { // tr 
+        paddingVertical: 10,
+        borderBottomWidth: 2,
+        borderBottomColor: '#828282',
+        backgroundColor: 'rgba(27,33,43,0.5)'
+    },
+    // List item styles (Eggs, Bacon, Toast, etc.)
+    item: { // tr 
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#828282',
+        paddingLeft: 30, 
+        alignItems: 'center'
+    },
 })

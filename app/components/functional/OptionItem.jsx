@@ -31,7 +31,7 @@ const OptionItem = ({
         >
 
             <Feather name={icon} size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
-            <Text style={apStyle.optionsText}>
+            <Text style={styles.optionsText}>
                 {title}
             </Text>
         </TouchableOpacity>
@@ -39,12 +39,6 @@ const OptionItem = ({
 }
 export default OptionItem
 
-const apStyle = StyleSheet.create({
-    optionsText: {
-        color: '#F2F4F3',
-        fontSize: 15,
-        fontFamily: 'Inter_300Light',
-        textAlign: 'left',
-        paddingVertical: 3
-    },
+const localStyle = StyleSheet.create({
+    
 })

@@ -36,10 +36,10 @@ export default function App() {
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <View style={styles.viewContainer}>
                     <View style={{ flex: 4}}>
-                        <Text style={[indexStyle.welcomeText, { fontSize: 24, textAlign: 'center', paddingTop: 100 }]}>
+                        <Text style={[localStyle.welcomeText, { fontSize: 24, textAlign: 'center', paddingTop: 100 }]}>
                             Welcome to
                         </Text>
-                        <Text style={indexStyle.welcomeText}>
+                        <Text style={localStyle.welcomeText}>
                             CaloNavo
                         </Text>
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -95,7 +95,7 @@ export default function App() {
     )
 }
 
-const indexStyle = StyleSheet.create({
+const localStyle = StyleSheet.create({
     welcomeText: {
         color: '#CB9CF2',
         fontSize: 50,

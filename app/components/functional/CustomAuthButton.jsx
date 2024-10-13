@@ -2,6 +2,7 @@ import React from 'react'
 import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 import { router } from 'expo-router';
 import CustomButton2 from './CustomButton2';
+import styles from '../../styles';
 
 const CustomAuthButton = ({
     authType
@@ -21,19 +22,19 @@ const CustomAuthButton = ({
     }
     return (
         // {/* View to hold the buttons at the bottom */}
-        <View style={authStyle.container}>
+        <View style={localStyle.container}>
             <CustomButton2 type='normal'
                 text={authType}
                 onPress={() => { router.push(routerPush) }}>
             </CustomButton2>
 
-            <View style={authStyle.subContainer}>
-                <View style={authStyle.dividerLine} />
+            <View style={localStyle.subContainer}>
+                <View style={localStyle.dividerLine} />
                 {/* Divider between buttons */}
-                <Text style={[authStyle.smallText, { color: '#CB9CF2' }]}>
+                <Text style={[styles.smallText, { color: '#CB9CF2', paddingHorizontal:5 }]}>
                     or continue with
                 </Text>
-                <View style={authStyle.dividerLine} />
+                <View style={localStyle.dividerLine} />
             </View>
 
             <CustomButton2 type='google'
@@ -41,7 +42,7 @@ const CustomAuthButton = ({
             </CustomButton2>
 
             {/* Disclaimers, policies */}
-            <Text style={[authStyle.smallText, { fontSize: 12, color: '#828282' }]}>
+            <Text style={[styles.smallText, { fontSize: 12, color: '#828282' }]}>
                 By clicking continue, you agree to our{' '}
                 <Text style={{ color: '#F2F4F3' }}>
                     Terms of Service{' '}
@@ -53,16 +54,15 @@ const CustomAuthButton = ({
                     Privacy Policy
                 </Text>
             </Text>
-            <View style={authStyle.subContainer}>
+            <View style={localStyle.subContainer}>
 
                 {/* Reroute to Sign Up */}
-                <Text style={[authStyle.smallText, {paddingHorizontal: 0}]}>
+                <Text style={[styles.smallText]}>
                     Don't have an account?{' '}
                 </Text>
                 <TouchableOpacity onPress={() => router.push(switchAuthType)}>
-                    <Text style={[authStyle.smallText, { color: '#CB9CF2', 
-                        textDecorationLine: "underline", 
-                        paddingHorizontal:0}]}
+                    <Text style={[styles.smallText, { color: '#CB9CF2', 
+                        textDecorationLine: "underline"}]}
                     >
                         {linkTitle}
                     </Text>
@@ -75,7 +75,7 @@ const CustomAuthButton = ({
 
 export default CustomAuthButton          
 
-const authStyle = StyleSheet.create({
+const localStyle = StyleSheet.create({
     container:{
         justifyContent: 'flex-end', 
         paddingBottom: 10,
@@ -91,13 +91,4 @@ const authStyle = StyleSheet.create({
         height: 1, 
         backgroundColor: '#CB9CF2'
     },
-    smallText: {
-        color: '#F2F4F3',
-        fontSize: 14,
-        fontFamily: 'Inter_400Regular',
-        textAlign: 'center',
-        paddingVertical: 5,
-        paddingHorizontal: 5
-    },
-
 })

@@ -11,17 +11,17 @@ const QuestionAnswer = (
     // If the answer will be a text input
     if (type === 'text') {
         return (
-            <View style={apStyle.container}>
+            <View style={localStyle.container}>
                 {/* Question */}
-                <Text style={apStyle.question}>
+                <Text style={localStyle.question}>
                     {question}
                 </Text>
 
                 {/* Add in way to accept response */}
                 {/* Answer TextInput */}
-                <View style={apStyle.answerView}>
+                <View style={localStyle.answerView}>
                     <TextInput
-                        style={apStyle.textAnswer}
+                        style={localStyle.textAnswer}
                         placeholder={placeholder}
                         selectionColor='#CB9CF2'
                         placeholderTextColor='rgba(242,244,243, 0.2)'>
@@ -31,7 +31,7 @@ const QuestionAnswer = (
         )
     } else if (type === 'date') { // NOT IMPLEMENTED YET
         return (
-            <View style={apStyle.container}>
+            <View style={localStyle.container}>
                 {/* Question and answer both handled in other component */}
                 <CustomDatePicker
                     placeholder={placeholder}
@@ -41,17 +41,17 @@ const QuestionAnswer = (
     } else if (type === 'password') {
         const [showPassword, setShowPassword] = useState(false)
         return (
-            <View style={apStyle.container}>
+            <View style={localStyle.container}>
                 {/* Question */}
-                <Text style={apStyle.question}>
+                <Text style={localStyle.question}>
                     {question}
                 </Text>
 
                 {/* Add in way to accept response */}
                 {/* Answer TextInput */}
-                <View style={apStyle.answerView}>
+                <View style={localStyle.answerView}>
                     <TextInput
-                        style={apStyle.textAnswer}
+                        style={localStyle.textAnswer}
                         placeholder={type}
                         secureTextEntry={!showPassword}
                         selectionColor='#CB9CF2'
@@ -65,9 +65,9 @@ const QuestionAnswer = (
         )
     } else if (type === 'dropdown') { // NOT IMPLEMENTED YET
         return (
-            <View style={apStyle.container}>
+            <View style={localStyle.container}>
                 {/* Question */}
-                <Text style={apStyle.question}>
+                <Text style={localStyle.question}>
                     {question}
                 </Text>
 
@@ -87,7 +87,7 @@ const QuestionAnswer = (
 
 export default QuestionAnswer;
 
-const apStyle = StyleSheet.create({
+const localStyle = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start'

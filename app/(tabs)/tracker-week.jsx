@@ -53,7 +53,7 @@ const TrackerWeek = () => {
                     screenContent={
                         <View>
                             {/* Top View to calculate user's average weight and water intake that week */}
-                            <View style={trackerWeekStyle.calcView}>
+                            <View style={localStyle.calcView}>
 
                                 {/* View to hold weight info at a glance */}
                                 <GlanceText type='vert' prompt='Average Weight:' text='102.5 lbs'></GlanceText>
@@ -69,7 +69,7 @@ const TrackerWeek = () => {
                             <View>
                                 {/* List to hold items */}
                                 <SectionList
-                                    style={trackerWeekStyle.daySectionList}
+                                    style={localStyle.daySectionList}
                                     sections={dayList}
                                     keyExtractor={(item) => item}
                                     scrollEnabled={false}
@@ -78,17 +78,17 @@ const TrackerWeek = () => {
                                     renderItem={({ section }) => (
                                         <View>
                                             {/* Sections of Day List */}
-                                            <View style={trackerWeekStyle.daySection}>
+                                            <View style={localStyle.daySection}>
 
-                                                <Text style={[styles.defaultWhiteText, trackerWeekStyle.dayName]}>
+                                                <Text style={[styles.defaultWhiteText, localStyle.dayName]}>
                                                     {section.title}
                                                 </Text>
                                                 {/* TODO: Comparison to determine text color */}
-                                                <Text style={[styles.defaultWhiteText, trackerWeekStyle.dayCals]}>
+                                                <Text style={[styles.defaultWhiteText, localStyle.dayCals]}>
                                                     {section.data}
                                                 </Text>
                                                 {/* TODO: Comparison to determine text color */}
-                                                <Text style={[styles.defaultWhiteText, trackerWeekStyle.dayGoal]}>
+                                                <Text style={[styles.defaultWhiteText, localStyle.dayGoal]}>
                                                     {section.goal}
                                                 </Text>
                                             </View>
@@ -99,15 +99,15 @@ const TrackerWeek = () => {
                                     )}
                                     // List header for week list
                                     ListHeaderComponent={
-                                        <View style={trackerWeekStyle.sectionListHeadFoot}>
+                                        <View style={localStyle.sectionListHeadFoot}>
 
-                                            <Text style={[trackerWeekStyle.headerText, {fontFamily:'Inter_600SemiBold'}]}>
+                                            <Text style={[styles.headerText, {fontFamily:'Inter_600SemiBold'}]}>
                                                 Day
                                             </Text>
-                                            <Text style={[trackerWeekStyle.headerText, {textAlign:'center'}]}>
+                                            <Text style={[styles.headerText, {textAlign:'center'}]}>
                                                 Calories
                                             </Text>
-                                            <Text style={[trackerWeekStyle.headerText, {textAlign:'right'}]}>
+                                            <Text style={[styles.headerText, {textAlign:'right'}]}>
                                                 Goal
                                             </Text>
 
@@ -116,17 +116,17 @@ const TrackerWeek = () => {
                                     }
                                     // Footer to calculate averages
                                     ListFooterComponent={
-                                        <View style={trackerWeekStyle.sectionListHeadFoot}>
+                                        <View style={localStyle.sectionListHeadFoot}>
 
-                                            <Text style={trackerWeekStyle.headerText}>
+                                            <Text style={styles.headerText}>
                                                 Avg:
                                             </Text>
                                             {/* Implement calculation of average calorie */}
-                                            <Text style={[trackerWeekStyle.headerText, {textAlign:'center'}]}>
+                                            <Text style={[styles.headerText, {textAlign:'center'}]}>
                                                 2,750
                                             </Text>
                                             {/* Implement comparison to average goal */}
-                                            <Text style={[trackerWeekStyle.headerText, {textAlign:'right'}]}>
+                                            <Text style={[styles.headerText, {textAlign:'right'}]}>
                                                 Balance
                                             </Text>
 
@@ -147,7 +147,7 @@ const TrackerWeek = () => {
 }
 export default TrackerWeek;
 
-const trackerWeekStyle = ({
+const localStyle = StyleSheet.create({
     calcView: {
         backgroundColor: '#1F2938',
         borderRadius: 5,
@@ -191,11 +191,4 @@ const trackerWeekStyle = ({
         fontFamily: 'Inter_400Regular',
         color: '#80FF72',                        // HOW TO MAKE THIS CONDITIONAL
     },
-    headerText:{
-        color: '#CB9CF2',
-        fontSize: 18, 
-        paddingVertical: 10, 
-        flex: 1,
-        textAlign: 'left'
-    }
 })

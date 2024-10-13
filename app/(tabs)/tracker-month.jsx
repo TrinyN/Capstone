@@ -52,7 +52,7 @@ const TrackerMonth = () => {
                     screenContent={
                         <View>
                             {/* Top View to calculate user's calories eaten and burned with a formula visible to them */}
-                            <View style={trackerMonthStyle.calcView}>
+                            <View style={localStyle.calcView}>
 
                                 {/* Weight info at a glance */}
                                 <GlanceText type='horiz' prompt='Average Weight:' text='102.5'></GlanceText>
@@ -74,7 +74,7 @@ const TrackerMonth = () => {
                             <View>
                                 {/* List to hold items */}
                                 <SectionList
-                                    style={trackerMonthStyle.weekSectionList}
+                                    style={localStyle.weekSectionList}
                                     sections={weekList}
                                     keyExtractor={(item) => item}
                                     scrollEnabled={false}
@@ -83,17 +83,17 @@ const TrackerMonth = () => {
                                     renderItem={({ section }) => (
                                         <View>
                                             {/* Making sections collapsible */}
-                                            <View style={trackerMonthStyle.weekSection}>
+                                            <View style={localStyle.weekSection}>
 
-                                                <Text style={[styles.defaultWhiteText, trackerMonthStyle.weekName]}>
+                                                <Text style={[styles.defaultWhiteText, localStyle.weekName]}>
                                                     {section.title}
                                                 </Text>
                                                 {/* TODO: Comparison to determine text color */}
-                                                <Text style={[styles.defaultWhiteText, trackerMonthStyle.weekCals]}>
+                                                <Text style={[styles.defaultWhiteText, localStyle.weekCals]}>
                                                     {section.data}
                                                 </Text>
                                                 {/* TODO: Comparison to determine text color */}
-                                                <Text style={[styles.defaultWhiteText, trackerMonthStyle.weekGoal]}>
+                                                <Text style={[styles.defaultWhiteText, localStyle.weekGoal]}>
                                                     {section.goal}
                                                 </Text>
                                             </View>
@@ -104,14 +104,14 @@ const TrackerMonth = () => {
                                     )}
                                     // List header for week list
                                     ListHeaderComponent={
-                                        <View style={trackerMonthStyle.sectionListHeadFoot}>
-                                            <Text style={[trackerMonthStyle.headerText, {fontFamily: 'Inter_600SemiBold'}]}>
+                                        <View style={localStyle.sectionListHeadFoot}>
+                                            <Text style={[styles.headerText, {fontFamily: 'Inter_600SemiBold'}]}>
                                                 Month
                                             </Text>
-                                            <Text style={[trackerMonthStyle.headerText, {textAlign: 'center'}]}>
+                                            <Text style={[styles.headerText, {textAlign: 'center'}]}>
                                                 Calories
                                             </Text>
-                                            <Text style={[trackerMonthStyle.headerText, {textAlign: 'right'}]}>
+                                            <Text style={[styles.headerText, {textAlign: 'right'}]}>
                                                 Goal
                                             </Text>
                                             <View style={{ height: 2, backgroundColor: '#828282' }} />
@@ -119,16 +119,16 @@ const TrackerMonth = () => {
                                     }
                                     // Footer to calculate averages
                                     ListFooterComponent={
-                                        <View style={trackerMonthStyle.sectionListHeadFoot}>
-                                            <Text style={trackerMonthStyle.headerText}>
+                                        <View style={localStyle.sectionListHeadFoot}>
+                                            <Text style={styles.headerText}>
                                                 Avg.
                                             </Text>
                                             {/* Implement calculation of average calorie */}
-                                            <Text style={[trackerMonthStyle.headerText, { textAlign: 'center' }]}>
+                                            <Text style={[styles.headerText, { textAlign: 'center' }]}>
                                                 19,667
                                             </Text>
                                             {/* Implement comparison to average goal */}
-                                            <Text style={[trackerMonthStyle.headerText, { textAlign: 'right' }]}>
+                                            <Text style={[styles.headerText, { textAlign: 'right' }]}>
                                                 Mixed
                                             </Text>
                                             <View style={{ height: 2, backgroundColor: '#828282' }} />
@@ -148,7 +148,7 @@ const TrackerMonth = () => {
 }
 export default TrackerMonth;
 
-const trackerMonthStyle = StyleSheet.create({
+const localStyle = StyleSheet.create({
     calcView: {
         backgroundColor: '#1F2938',
         borderRadius: 5,
@@ -190,12 +190,5 @@ const trackerMonthStyle = StyleSheet.create({
         textAlign: 'right',
         fontFamily: 'Inter_400Regular',
         color: '#80FF72',                      // CONDITIONALIZE?
-    },
-    headerText:{
-        color: '#CB9CF2',
-        fontSize: 18, 
-        paddingVertical: 10, 
-        flex: 1,
-        textAlign: 'left'
     },
 })
