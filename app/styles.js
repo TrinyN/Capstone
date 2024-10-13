@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
     defaultText: {
         color: '#CB9CF2',
         fontSize: 20,
-        // paddingLeft:25,
         paddingVertical: 15,
         fontFamily: 'Inter_600SemiBold',
     },
@@ -54,8 +53,6 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
         paddingVertical: 10,
         height: 45
-        // selectionColor: '#CB9CF2',
-        // placeholderTextColor:'rgba(242,244,243, 0.5)',
     },
     optionsText: {
         color: '#F2F4F3',
