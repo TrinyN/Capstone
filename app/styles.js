@@ -1,37 +1,37 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    container: { // good
+    container: {
         height: '100%',
         flexGrow: 1,
         backgroundColor: '#0E1116'
     },
-    viewContainer: { // good
+    viewContainer: {
         height: '100%',
         backgroundColor: '#0E1116',
         paddingHorizontal: 35,
         flex: 1
     },
-    defaultText: { // good
+    defaultText: {
         color: '#CB9CF2',
         fontSize: 20,
         // paddingLeft:25,
         paddingVertical: 15,
         fontFamily: 'Inter_600SemiBold',
     },
-    defaultWhiteText: { // good
+    defaultWhiteText: {
         color: '#F2F4F3',
         fontSize: 16,
         fontFamily: 'Inter_400Regular',
     },
-    smallText: { // good
+    smallText: {
         color: '#F2F4F3',
         fontSize: 14,
         fontFamily: 'Inter_400Regular',
         textAlign: 'center',
         paddingVertical: 5
     },
-    button: { // profile shlist custBut good?
+    button: { // Some overlap between profile, shlist, custBut but it seems okay?
         backgroundColor: '#F2F4F3',
         padding: 10,
         alignItems: 'center',
@@ -41,12 +41,12 @@ const styles = StyleSheet.create({
         activeOpacity: 0.7, 
         minHeight: 30, 
     },
-    buttonText: { // good
+    buttonText: {
         color: '#0E1116',
         fontSize: 16,
         fontFamily: 'Inter_500Medium',
     },
-    inputFieldStyle: { // good
+    inputFieldStyle: {
         color: '#F2F4F3',
         backgroundColor: 'rgba(97, 98, 131, 0.2)',
         borderRadius: 8,
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         // selectionColor: '#CB9CF2',
         // placeholderTextColor:'rgba(242,244,243, 0.5)',
     },
-    optionsText: { // good
+    optionsText: {
         color: '#F2F4F3',
         fontSize: 15,
         fontFamily: 'Inter_300Light',
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         paddingVertical: 3
     },
     // Header styles
-    headerText: { // good
+    headerText: {
         color: '#CB9CF2',
         fontSize: 18, 
         paddingVertical: 10, 
