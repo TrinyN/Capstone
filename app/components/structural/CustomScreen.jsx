@@ -32,10 +32,10 @@ const CustomScreen = ({
                     {/* Screen Header */}
                     <View style={localStyle.headerContainer}>
                         {/* NOTE: Flex looks strange on very large (incompatible) screens like iPad, web */}
-                        <Text style={[localStyle.titleText, { flex: 1, flexDirection: 'row' }]}>
+                        <Text style={localStyle.titleText}>
                             {title} {" "}
                             {/* TODO: Make this text get the current week */}
-                            <Text style={[localStyle.titleTextWhite]}>
+                            <Text style={localStyle.titleTextWhite}>
                                 {title2}
                             </Text>
                         </Text>
@@ -51,7 +51,7 @@ const CustomScreen = ({
                         </TouchableOpacity>
                     }
                     </View>
-                    <Text style={[styles.defaultWhiteText, { fontFamily: 'Inter_200ExtraLight', fontSize: 20, paddingBottom: 30 }]}>
+                    <Text style={localStyle.infoText}>
                         {info}
                     </Text>
                     {screenContent}
@@ -67,6 +67,8 @@ const localStyle = StyleSheet.create({
         color: '#CB9CF2',
         fontSize: 28,
         fontFamily: 'Inter_600SemiBold',
+        flex: 1, 
+        flexDirection: 'row'
     },
     titleTextWhite: {
         color: '#F2F4F3',
@@ -85,6 +87,12 @@ const localStyle = StyleSheet.create({
         alignItems: 'center'
     },
     text: {
+        fontFamily: 'Inter_200ExtraLight', 
+        fontSize: 20, 
+        paddingBottom: 30
+    },
+    infoText:{
+        color: '#F2F4F3',
         fontFamily: 'Inter_200ExtraLight', 
         fontSize: 20, 
         paddingBottom: 30

@@ -12,7 +12,6 @@ const OptionItem = ({
     isShoppingList,
     onPress
 }) => {
-
     // if shopping list, button performs function, else zoom in/out
     const handlePress = () => {
         if (isShoppingList) {
@@ -36,7 +35,3 @@ const OptionItem = ({
     )
 }
 export default OptionItem
-
-const localStyle = StyleSheet.create({
-    
-})

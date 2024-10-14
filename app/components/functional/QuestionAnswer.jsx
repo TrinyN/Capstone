@@ -28,7 +28,7 @@ const QuestionAnswer = (
                 </View>
             </View>
         )
-    } else if (type === 'date') { // NOT IMPLEMENTED YET
+    } else if (type === 'date') {
         return (
             <View style={localStyle.container}>
                 {/* Question and answer both handled in other component */}
@@ -55,7 +55,7 @@ const QuestionAnswer = (
                         selectionColor='#CB9CF2'
                         placeholderTextColor='rgba(242,244,243, 0.2)'>
                     </TextInput>
-                    <TouchableOpacity style={{ width: 25, position: 'absolute', right: 10 }} onPress={() => setShowPassword(!showPassword)}>
+                    <TouchableOpacity style={localStyle.passwordButton} onPress={() => setShowPassword(!showPassword)}>
                         <Feather name={!showPassword ? "eye" : "eye-off"} size={25} color='rgba(242,244,243,0.5)' />
                     </TouchableOpacity>
                 </View>
@@ -108,4 +108,9 @@ const localStyle = StyleSheet.create({
         paddingLeft: 15,
         paddingVertical: 10,
     },
+    passwordButton:{
+        width: 25, 
+        position: 'absolute', 
+        right: 10
+    }
 })

@@ -24,7 +24,7 @@ const ProgressBar = ({
     return (
         <View style={{ flexDirection: 'row' }} >
             <View style = {{flex: 1}}>
-                <Text style={[localStyle.homeProgressLabelText, { color}]} numberOfLines={1}>
+                <Text style={[localStyle.progressLabelText, { color}]} numberOfLines={1}>
                     {title}
                 </Text>
             </View>
@@ -35,11 +35,12 @@ const ProgressBar = ({
                 height={20}
                 width={200}
                 borderRadius={15}
-                style={{ marginBottom: 10, justifyContent: 'center'}}>
-                <Text style={[localStyle.homeProgressBarText, {textAlign: 'left'}]}>
+                style={{ marginBottom: 10, justifyContent: 'center'}}
+            >
+                <Text style={[localStyle.progressText, {textAlign: 'left'}]}>
                     {progress}
                 </Text>
-                <Text style={[localStyle.homeProgressBarText, {textAlign: 'right', color:'#F2F4F3'}]}>
+                <Text style={[localStyle.progressText, {textAlign: 'right', color:'#F2F4F3'}]}>
                     {total}
                 </Text>
             </Progress.Bar>
@@ -49,12 +50,12 @@ const ProgressBar = ({
 export default ProgressBar
 
 const localStyle = StyleSheet.create({
-    homeProgressLabelText: {
+    progressLabelText: {
         color: '#0E1116',
         fontFamily: 'Inter_600SemiBold',
         marginVertical: 3
     }, 
-    homeProgressBarText: {
+    progressText: {
         color: '#0E1116',
         fontSize: 14,
         fontFamily: 'Inter_400Regular',

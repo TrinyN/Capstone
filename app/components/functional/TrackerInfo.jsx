@@ -56,7 +56,7 @@ const TrackerInfo = ({
     return (
         <View>
             {/* Display Caloric Goal and Weight of User */}
-            <View style={{ justifyContent: 'space-between', flexDirection: 'row', paddingVertical: 12, alignItems: 'center' }}>
+            <View style={localStyle.goalView}>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={[localStyle.mainText, { fontSize: 16 }]}>
                         Caloric Goal:
@@ -117,6 +117,12 @@ const localStyle = StyleSheet.create({
         color: '#F2F4F3',
         paddingHorizontal: 5,
         fontSize: 16
+    },
+    goalView:{
+        justifyContent: 'space-between', 
+        flexDirection: 'row', 
+        paddingVertical: 12, 
+        alignItems: 'center'
     },
     formulaContainer: {
         flexDirection: 'row',

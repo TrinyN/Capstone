@@ -32,9 +32,4 @@ const CustomDropdown = ({ placeholder, setCustomValue, items, setItems }) => {
         />
     )
 }
-
 export default CustomDropdown
-
-const localStyle = StyleSheet.create({
-    
-})

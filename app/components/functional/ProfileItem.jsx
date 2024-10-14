@@ -133,11 +133,11 @@ const ProfileItem = ({ title, value, index, type, options }) => {
                 )
         }
     };
-    // Returning the display for the items used, dependent on the type passed through to choose a the proper style
+    // Return display according to type/case
     return (
         <View style={[localStyle.dataContainer, { justifyContent: 'center', backgroundColor, height: 50 }]}>
             <View style={{ width: '40%' }}>
-                <Text style={[styles.smallText, { fontFamily: 'Inter_600SemiBold', color: '#CB9CF2', textAlign: 'left', paddingHorizontal: 10 }]}>{title}</Text>
+                <Text style={localStyle.itemLabel}>{title}</Text>
             </View>
             {renderAppropriateField()}
         </View>
@@ -169,4 +169,12 @@ const localStyle = StyleSheet.create({
         borderWidth: 0, 
         paddingHorizontal: 10
     },
+    itemLabel:{
+        fontFamily: 'Inter_600SemiBold', 
+        color: '#CB9CF2', 
+        textAlign: 'left', 
+        paddingHorizontal: 10,
+        fontSize: 14,
+        paddingVertical: 5
+    }
 })
