@@ -5,10 +5,6 @@ import QuestionAnswer from '../components/functional/QuestionAnswer';
 import CustomButton2 from '../components/functional/CustomButton2';
 import { useSexOptions } from '../constants/dropdownOptions';
 
-// REFACTORING FLAGGING - Needs a Component
-// 1. Screen component - sign up 2 and 3 and report all same
-// 2. Screen header component
-
 // Function to handle the design and display of the Sign In 2 screen
 const SignUp2 = () => {
     // Handle dropdown menu options for sex question

@@ -126,7 +126,7 @@ const Profile = () => {
                                     <Text style={[styles.buttonText, { color: '#F2F4F3' }]}>Cancel</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() => { router.push('') }} style={[styles.button, { backgroundColor: '#CB9CF2', width: '40%' }]}>
-                                    <Text style={[styles.buttonText, { color: '0E1116' }]}>Log Out</Text>
+                                    <Text style={[styles.buttonText, { color: '#0E1116' }]}>Log Out</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
