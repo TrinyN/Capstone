@@ -53,7 +53,6 @@ const TrackerInfo = ({
             </View>
         )
     }
-
     return (
         <View>
             {/* Display Caloric Goal and Weight of User */}
@@ -73,7 +72,6 @@ const TrackerInfo = ({
                         Weight:
                     </Text>
                     <TextInput style={[localStyle.input, { width: 75, paddingHorizontal: 5, textAlign: 'left' }]}
-
                         placeholder={weight + ' lbs'}
                         placeholderTextColor={'#F2F4F3'}
                     />
@@ -84,16 +82,13 @@ const TrackerInfo = ({
             <View style={{ backgroundColor: '#1F2938', borderRadius: 5 }}>
                 {/* Abstract formula to make numbers make sense*/}
                 {renderFormula({ type: 'formula' })}
-
                 {/* TODO: Implement retrieval and calculation of calories burned and eaten, placeholder numbers for now */}
                 {/* Actual numbers of forumla */}
                 {renderFormula({})}
-
             </View>
         </View>
     )
 }
-
 export default TrackerInfo
 
 const localStyle = StyleSheet.create({

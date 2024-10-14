@@ -6,19 +6,14 @@ import QuestionAnswer from '../components/functional/QuestionAnswer';
 // TODO: change so placeholders match users info
 // Function to handle the design of the Reports screen of CaloNavo
 
-// REFACTORING FLAGGING - Needs a Component
-// 1. Screen component - sign up 2 and 3 and report all same
-// 2. Screen header component
 const Report = () => {
-
     return (
         <CustomScreen
             title="Report"
             info = "Help us double check everything to set up your PDF report!"
             screenContent={
-                // {/* View that holds all of the questions and fields */ }
+                // View that holds all of the questions and fields
                 <View style={{ flex: 5 }}>
-
                     {/* Questions */}
                     {/* Diet plan question and field */}
                     <QuestionAnswer

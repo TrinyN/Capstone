@@ -17,7 +17,6 @@ import GlanceText from '../components/structural/GlanceText';
 
 // Function to design and display the tracker
 const TrackerMonth = () => {
-
     // saves visibility of options pop up
     const [visibleOptions, setVisibleOptions] = useState(false);
 
@@ -78,8 +77,6 @@ const TrackerMonth = () => {
                                     sections={weekList}
                                     keyExtractor={(item) => item}
                                     scrollEnabled={false}
-
-                                    // Rendering items based on data set and their respective sections
                                     renderItem={({ section }) => (
                                         <View>
                                             {/* Making sections collapsible */}

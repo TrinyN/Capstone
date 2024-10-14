@@ -16,10 +16,7 @@ import CustomButton2 from '../components/functional/CustomButton2';
 // should save button disappear if no changes?
 
 // REFACTORING FLAGGING - Needs a Component
-// 1. Screen component DONE
-// 2. Screen header component DONE
 // 3. Render list component(s) - list item
-// 6. Spacing component
 // 5. Pie chart container? - Not too necessary though
 // 6. Small button component? ~ CustomButton implementation?
 
@@ -65,7 +62,6 @@ const Profile = () => {
             </View>
         )
     }
-
     return (
         <CustomScreen
             title='Your Profile'
@@ -90,9 +86,7 @@ const Profile = () => {
                             keyExtractor={item => item.title}
                             scrollEnabled={false}
                         />
-
                     </View>
-
                     {/* Macro Pi Chart Container*/}
                     <View style={{ paddingTop: 30, paddingBottom: 10 }}>
                         <View style={[localStyle.container, { flexDirection: 'row', justifyContent: 'space-between' }]}>
@@ -101,7 +95,6 @@ const Profile = () => {
                                 <PieChartLegend macro={"Protein"} index={1} color='#7EE8FA' />
                                 <PieChartLegend macro={"Fat"} index={2} color='#FFF07C' />
                             </View>
-
                             {/* Macro Pi Chart*/}
                             <View style={{ paddingVertical: 20, paddingRight: 20 }}>
                                 <PieChart widthAndHeight={widthAndHeight} series={series} sliceColor={sliceColor}
@@ -110,7 +103,6 @@ const Profile = () => {
                             </View>
                         </View>
                     </View>
-
                     <View>
                         <View style={{ flexDirection: 'row-reverse' }}>
                             {/* <TouchableOpacity
@@ -120,11 +112,9 @@ const Profile = () => {
                                     Save
                                 </Text>
                             </TouchableOpacity> */}
-
                             <CustomButton2 type='small' text='Save' />
                         </View>
                     </View>
-
                     {/* Popup for log out */}
                     <Overlay isVisible={visibleLogOut} onBackdropPress={toggleLogOut} overlayStyle={localStyle.overlayStyle}>
                         <View style={localStyle.overlayHeader}>

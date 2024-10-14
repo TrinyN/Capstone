@@ -16,12 +16,7 @@ import { CollapseSection } from '../constants/CollapseSection';
 // TODO: the use of add pop up components arent the most efficient
 
 // REFACTORING FLAGGING - Needs a Component
-// 1. Screen component DONE
-// 2. Screen header component 
-// 3. At a glance = calculation header view component
 // 4. Render list component(s) - split into header, list, and footer?
-// 5. Options overlay component DONE
-// 6. Add button component DONE
 
 // Function to design and display the tracker
 const Tracker = () => {
@@ -99,7 +94,6 @@ const Tracker = () => {
                 {/* Section Header (Breakfast, Lunch, Dinner) */}
                 <TouchableOpacity onPress={() => toggleCollapse(item.key)}>
                     <View style={[localStyle.sectionHeader, { flexDirection: 'row' }]}>
-
                         {/* make style for maybe */}
                         <Text style={localStyle.foodSectionStyle}>{item.title}</Text>
 
@@ -108,7 +102,6 @@ const Tracker = () => {
                                 paddingRight: 15
                             }} />
                     </View>
-
                 </TouchableOpacity>
 
                 {/* Render food items only if the section is expanded */}
@@ -121,14 +114,11 @@ const Tracker = () => {
                                 <Text style={[styles.defaultWhiteText, { width: '40%', textAlign: 'right', paddingRight: 10 }]}>{item.kCal}</Text>
                             </View>
                         ))}
-
                     </View>
-
                 )}
             </View>
         );
     };
-
     // Render each item in the exercise table
     const renderExercise = ({ item }) => {
         return (
@@ -144,10 +134,8 @@ const Tracker = () => {
             </View>
         );
     };
-
     //  Returning the screen to display
     return (
-
         <GestureHandlerRootView>
             <GestureDetector gesture={pinch}>
                 <CustomScreen
@@ -165,13 +153,11 @@ const Tracker = () => {
                                 burned={200}
                                 bmr={1200}
                             />
-
                             {/* Add Food Button */}
                             <CustomButton2
                                 type='add'
                                 onPress={toggleOverlay}
                             />
-
                             {/* View for FlatList to store all items of tracker */}
                             <View>
                                 <FlatList
@@ -183,7 +169,6 @@ const Tracker = () => {
                                     }
                                     scrollEnabled={false}
                                 />
-
                                 {/* Space Between Food and Water lists */}
                                 <View style={{ margin: 20 }}></View>
 
@@ -218,13 +203,10 @@ const Tracker = () => {
                                     ListHeaderComponent={
                                         <CustomHeader title1={"Exercise"} title2={"Duration/Reps"} title3={"kCal"} />
                                     }
-
                                     // Rendering Exercise items based on data set of user
                                     renderItem={renderExercise}
-
                                 />
                             </View>
-
                             {/* Space between Exercise List and screen bottom */}
                             <View style={{ padding: 40 }}></View>
 
@@ -251,7 +233,6 @@ const Tracker = () => {
                                 exerciseUnitTypes={exerciseUnitTypes}
                                 setExerciseUnitTypes={setExerciseUnitTypes}
                             />
-
                             {/* pop up for options */}
                             <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Day' />
                         </View>
@@ -263,8 +244,6 @@ const Tracker = () => {
 }
 export default Tracker;
 
-
-
 const localStyle = StyleSheet.create({
     foodSectionStyle: {
         color: '#CB9CF2',
@@ -275,14 +254,13 @@ const localStyle = StyleSheet.create({
         paddingLeft: 10,
         alignSelf: 'center'
     },
-    sectionHeader: { // tr 
+    sectionHeader: {
         paddingVertical: 10,
         borderBottomWidth: 2,
         borderBottomColor: '#828282',
         backgroundColor: 'rgba(27,33,43,0.5)'
     },
-    // List item styles (Eggs, Bacon, Toast, etc.)
-    item: { // tr 
+    item: {                                                 // List item styles (Eggs, Bacon, Toast, etc.)
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingVertical: 10,

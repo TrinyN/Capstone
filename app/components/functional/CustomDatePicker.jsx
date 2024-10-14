@@ -26,7 +26,6 @@ const CustomDatePicker = ({ placeholder, hasTitle }) => {
         month = month < 10 ? `0${month}` : month
         day = day < 10 ? `0${day}` : day
 
-
         return `${month}/${day}/${year}`
     }
     const onChange = ({ type }, selectedDate) => {
@@ -42,7 +41,6 @@ const CustomDatePicker = ({ placeholder, hasTitle }) => {
             toggleDatepicker()
         }
     }
-
     return (
         <View>
             {hasTitle ? (
@@ -75,7 +73,6 @@ const CustomDatePicker = ({ placeholder, hasTitle }) => {
                         >
                         </TextInput>
                     </View>
-
                 </Pressable>
             )}
             {/* Android date picker */}
@@ -89,7 +86,6 @@ const CustomDatePicker = ({ placeholder, hasTitle }) => {
                     textColor='#F2F4F3'
                     style={{ backgroundColor: '#0E1116' }}
                     maximumDate={new Date()}
-
                 />
             )}
             {/* IOS date picker */}
@@ -126,7 +122,6 @@ const CustomDatePicker = ({ placeholder, hasTitle }) => {
         </View>
     )
 }
-
 export default CustomDatePicker
 
 const localStyle = StyleSheet.create({

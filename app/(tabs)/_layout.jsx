@@ -23,7 +23,6 @@ const tabBarColorStyle = {
 // Function to handled the routing of the various (tabs) screens of CaloNavo
 // *** Ensure all new (tabs) screens have their own places in the stack***
 const TabsLayout = () => {
-    
     return (
         <>
             {/* Tabs for each of CaloNavo's tabs */}
@@ -127,7 +126,6 @@ const TabsLayout = () => {
                     }}
                 />
             </Tabs>
-
             {/* Handling the Status Bar of the app */}
             <StatusBar backgroundColor='#0E1116'
                 style='light'
@@ -135,5 +133,4 @@ const TabsLayout = () => {
         </>
     )
 }
-
 export default TabsLayout

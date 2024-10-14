@@ -10,15 +10,11 @@ import { useDietPlanBooleanOptions,
     useWeightGoalOptions
  } from '../constants/dropdownOptions';
 
-// REFACTORING FLAGGING - Needs a Component
-// 1. Screen component - sign up 2 and 3 and report all same
-// 2. Screen header component
-
 // Function to handle the design and display of the Sign In 2 screen
 const SignUp3 = () => {
     // Handling user choice of diet plan or not
     const { userDietPlanBoolean, setUserDietPlanBoolean, 
-dietPlanBoolean, setDietPlanBoolean } = useDietPlanBooleanOptions();
+        dietPlanBoolean, setDietPlanBoolean } = useDietPlanBooleanOptions();
 
     // Handling user choice of diet plan
     const {userDietPlan, setUserDietPlan, 
@@ -34,11 +30,9 @@ dietPlanBoolean, setDietPlanBoolean } = useDietPlanBooleanOptions();
             info='Please fill in the following fields to set up your diet and goals.'
             hasBackButton={true}
             screenContent={
-
-                // {/* View to hold all of the questions and fields */}
+                // View to hold all of the questions and fields
                 <View style={{ flex: 5, paddingBottom: 100 }}>
                     {/* Questions */}
-
                     {/* MARKED FOR REMOVAL AFTER CONFLICT FIGURED OUT */}
                     {/* Diet Plan question and field */}
                     <Text style={styles.defaultText}>

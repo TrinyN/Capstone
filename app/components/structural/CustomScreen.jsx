@@ -27,14 +27,11 @@ const CustomScreen = ({
                         </TouchableOpacity>
                     </View>
                 }
-
                 {/* The "body" of the screen, including its major elements */}
                 <View style={[styles.viewContainer, { flex: 1 }]}>
-
                     {/* Screen Header */}
                     <View style={localStyle.headerContainer}>
                         {/* NOTE: Flex looks strange on very large (incompatible) screens like iPad, web */}
-
                         <Text style={[localStyle.titleText, { flex: 1, flexDirection: 'row' }]}>
                             {title} {" "}
                             {/* TODO: Make this text get the current week */}
@@ -48,27 +45,21 @@ const CustomScreen = ({
                             <Feather name="more-vertical" size={30} color="#CB9CF2" />
                         </TouchableOpacity>
                     }
-
                     {hasLogOutButton &&
                         <TouchableOpacity onPress={toggleLogOut} style={{ width: 30 }}>
                             <Feather name="log-out" size={30} color="#CB9CF2" />
                         </TouchableOpacity>
                     }
-
+                    </View>
+                    <Text style={[styles.defaultWhiteText, { fontFamily: 'Inter_200ExtraLight', fontSize: 20, paddingBottom: 30 }]}>
+                        {info}
+                    </Text>
+                    {screenContent}
                 </View>
-                <Text style={[styles.defaultWhiteText, { fontFamily: 'Inter_200ExtraLight', fontSize: 20, paddingBottom: 30 }]}>
-                    {info}
-                </Text>
-
-                {screenContent}
-
-            </View>
-        </ScrollView>
-        </SafeAreaView >
-
+            </ScrollView>
+        </SafeAreaView>
     )
 }
-
 export default CustomScreen
 
 const localStyle = StyleSheet.create({
@@ -83,12 +74,19 @@ const localStyle = StyleSheet.create({
         fontFamily: 'Inter_600SemiBold',
     },
     backButtonContainer: {
-        marginTop: 40, marginBottom: 10, paddingLeft: 25
+        marginTop: 40, 
+        marginBottom: 10, 
+        paddingLeft: 25
     },
     headerContainer: {
-        marginTop: 70, flexDirection: 'row', paddingBottom: 10, alignItems: 'center'
+        marginTop: 70, 
+        flexDirection: 'row', 
+        paddingBottom: 10, 
+        alignItems: 'center'
     },
     text: {
-        fontFamily: 'Inter_200ExtraLight', fontSize: 20, paddingBottom: 30
+        fontFamily: 'Inter_200ExtraLight', 
+        fontSize: 20, 
+        paddingBottom: 30
     }
 })

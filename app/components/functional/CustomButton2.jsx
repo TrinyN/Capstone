@@ -3,15 +3,6 @@ import React from "react";
 import Feather from "react-native-vector-icons/Feather";
 import styles from "../../styles";
 
-// ONLY ALLOWED IN TYPESCRIPT - RESTRICTS TYPES
-// type buttonType = 'primary' | 'small'| 'google';
-
-// interface buttonProps {
-//     type: ButtonType;
-//     title: String;
-//     onPress: () => void;
-// }
-
 // Function that returns the CustomButton2 given certain fields to determine its behavior
 const CustomButton2 = ({ type, text, onPress }) => {
 
@@ -59,7 +50,6 @@ const CustomButton2 = ({ type, text, onPress }) => {
         )
     }
 }
-
 export default CustomButton2;
 
 const localStyle = StyleSheet.create({
@@ -102,5 +92,4 @@ const localStyle = StyleSheet.create({
         width: '9%',
         height: '100%'
     },
-
 })

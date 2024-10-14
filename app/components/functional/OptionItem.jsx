@@ -3,7 +3,6 @@ import Feather from "react-native-vector-icons/Feather";
 import React from 'react'
 import { router } from 'expo-router';
 
-
 const OptionItem = ({
     title,
     icon,
@@ -29,7 +28,6 @@ const OptionItem = ({
             onPressOut={toggleOptions}
             disabled={opacity == 0.2}
         >
-
             <Feather name={icon} size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
             <Text style={styles.optionsText}>
                 {title}

@@ -17,7 +17,6 @@ import GlanceText from '../components/structural/GlanceText';
 
 // Function to design and display the tracker and its related data
 const TrackerWeek = () => {
-
     // saves visibility of options pop up
     const [visibleOptions, setVisibleOptions] = useState(false);
 
@@ -28,15 +27,11 @@ const TrackerWeek = () => {
     const { dayList, setDayList } = useDayListData();
 
     const pinch = Gesture.Pinch()
-
         .onUpdate((event) => {
-            if (event.scale > 1) {
-                // zoom in
+            if (event.scale > 1) {                          // zoom in
                 router.push('/tracker');
-
             } else if (event.scale < 1) {
-                // zoom out
-                router.push('/tracker-month');
+                router.push('/tracker-month');              // zoom out
             }
         })
         .runOnJS(true);
@@ -47,7 +42,7 @@ const TrackerWeek = () => {
             <GestureDetector gesture={pinch}>
                 <CustomScreen
                     title='Week:'
-                    title2='6/9 - 6/15' // test value, need to change
+                    title2='6/9 - 6/15'                     // test value, need to change
                     hasOptions={true}
                     toggleOptions={toggleOptions}
                     screenContent={
@@ -73,13 +68,10 @@ const TrackerWeek = () => {
                                     sections={dayList}
                                     keyExtractor={(item) => item}
                                     scrollEnabled={false}
-
-                                    // Rendering items based on data set and their respective sections (days)
                                     renderItem={({ section }) => (
                                         <View>
                                             {/* Sections of Day List */}
                                             <View style={localStyle.daySection}>
-
                                                 <Text style={[styles.defaultWhiteText, localStyle.dayName]}>
                                                     {section.title}
                                                 </Text>
@@ -100,7 +92,6 @@ const TrackerWeek = () => {
                                     // List header for week list
                                     ListHeaderComponent={
                                         <View style={localStyle.sectionListHeadFoot}>
-
                                             <Text style={[styles.headerText, {fontFamily:'Inter_600SemiBold'}]}>
                                                 Day
                                             </Text>
@@ -110,14 +101,12 @@ const TrackerWeek = () => {
                                             <Text style={[styles.headerText, {textAlign:'right'}]}>
                                                 Goal
                                             </Text>
-
                                             <View style={{ height: 2, backgroundColor: '#828282' }} />
                                         </View>
                                     }
                                     // Footer to calculate averages
                                     ListFooterComponent={
                                         <View style={localStyle.sectionListHeadFoot}>
-
                                             <Text style={styles.headerText}>
                                                 Avg:
                                             </Text>
@@ -129,7 +118,6 @@ const TrackerWeek = () => {
                                             <Text style={[styles.headerText, {textAlign:'right'}]}>
                                                 Balance
                                             </Text>
-
                                             <View style={{ height: 2, backgroundColor: '#828282' }} />
                                         </View>
                                     }

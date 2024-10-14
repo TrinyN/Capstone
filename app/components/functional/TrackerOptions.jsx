@@ -77,7 +77,6 @@ const TrackerOptions = ({
         </Overlay>
     )
 }
-
 export default TrackerOptions
 
 const localStyle = StyleSheet.create({

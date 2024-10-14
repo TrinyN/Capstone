@@ -17,7 +17,6 @@ const AuthLayout = () => {
             headerShown: false
           }}
         />
-        
         {/* Sign Up Screen */}
         <Stack.Screen
           name="sign-up"
@@ -25,7 +24,6 @@ const AuthLayout = () => {
             headerShown: false
           }}
         />
-
         {/* Sign Up 2 Screen : General Profile Questions */}
         <Stack.Screen
           name="sign-up-2"
@@ -33,7 +31,6 @@ const AuthLayout = () => {
             headerShown: false
           }}
         />
-
         {/* Sign Up 3 Screen : Diet-Specific Questions */}
         <Stack.Screen
           name="sign-up-3"
@@ -41,9 +38,7 @@ const AuthLayout = () => {
             headerShown: false
           }}
         />
-
       </Stack>
-
       {/* Handling the Status Bar of the App */}
       <StatusBar backgroundColor='#0E1116'
         style='light'

@@ -18,15 +18,9 @@ import { CollapseSection} from '../constants/CollapseSection';
 // make handle add food not work if same food name
 
 // REFACTORING FLAGGING - Needs a Component
-// 1. Screen component DONE
-// 2. Screen header component DONE?
-// 3. Add button component DONE
 // 4. Render list component(s) - split into header, list item, and footer?
-// 5. Options overlay component DONE
-// 7. Spacing components
 
 const ShoppingList = () => {
-
     const { collapsedSections, setCollapsedSections, toggleCollapse } = CollapseSection();
 
     const { setItems, items, shoppingList, setShoppingList } = shoppingListData();
@@ -87,17 +81,14 @@ const ShoppingList = () => {
                 // return the section as is if it does not match
                 return section;
             });
-
             // update the shopping list
             setShoppingList(updatedShoppingList)
-
             // delete food name after it's added to the list
             setFoodName('')
         }
         // close overlay
         toggleOverlay()
     }
-
     // // saves visibility of options pop up
     const [visibleOptions, setVisibleOptions] = useState(false);
 
@@ -105,21 +96,18 @@ const ShoppingList = () => {
     const toggleOptions = () => {
         setVisibleOptions(!visibleOptions);
     };
-
     return (
         <CustomScreen
             title='Shopping List'
             hasOptions={true}
             toggleOptions={toggleOptions}
             screenContent={
-
                 <View>
                     {/* Add Food Button */}
                     <CustomButton2
                         type='add'
                         onPress={toggleOverlay}
                     />
-
                     {/* View holding numerous lists for the grocery list */}
                     <View>
                         {/* List of groceries */}
@@ -131,7 +119,6 @@ const ShoppingList = () => {
                             sections={shoppingList}
                             keyExtractor={(item) => item}
                             scrollEnabled={false}
-
                             renderItem={({ item, section }) =>
                                 !collapsedSections[section.title] && (
                                     <View>
@@ -155,7 +142,6 @@ const ShoppingList = () => {
                                                 {item}
                                             </Text>
                                         </View>
-
                                         {/* Divider lines between items */}
                                         <View style={localStyle.thinBorderLine} />
                                     </View>
@@ -185,14 +171,12 @@ const ShoppingList = () => {
                                                 style={{ alignSelf: 'flex-end', paddingVertical: 10 }} />
                                         </View>
                                     </TouchableOpacity>
-
                                     {/* Borderline at bottom of the section headers */}
                                     <View style={localStyle.borderLine} />
                                 </View>
                             )}
                         />
                     </View>
-
                     {/* Popup/Overlay for adding food in shopping list */}
                     <CustomPopUp visible={visible} toggleOverlay={toggleOverlay} hasBackButton={false}
                         content={
@@ -229,7 +213,6 @@ const ShoppingList = () => {
                             </View>
                         }
                     />
-
                     {/* Popup for options menu */}
                     <ShoppingListOptions
                         setShoppingList={setShoppingList}
@@ -245,7 +228,6 @@ const ShoppingList = () => {
     )
 }
 export default ShoppingList;
-
 
 const localStyle = StyleSheet.create({
     listContainer: {

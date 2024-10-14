@@ -143,7 +143,6 @@ const ProfileItem = ({ title, value, index, type, options }) => {
         </View>
     );
 };
-
 export default ProfileItem;
 
 const localStyle = StyleSheet.create({

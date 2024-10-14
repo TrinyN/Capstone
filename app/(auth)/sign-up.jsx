@@ -14,7 +14,6 @@ import QuestionAnswer from '../components/functional/QuestionAnswer';
 
 // Function to handle the design and display of the Sign Up screen
 const SignUp = () => {
-
     return (
         <CustomScreen
             title='So you are new?'
@@ -27,11 +26,9 @@ const SignUp = () => {
                     <View style={{ justifyContent: 'flex-start', paddingBottom: 100, flex: 1 }}>
 
                         {/* email */}
-
                         <QuestionAnswer type='text' placeholder='your_email@gmail.com' question='Email:'/>
 
                         {/* password */}
-
                         <QuestionAnswer type='password' question='Password:'/>
 
                         {/* <Text style={styles.defaultText}>

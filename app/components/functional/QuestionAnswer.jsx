@@ -16,7 +16,6 @@ const QuestionAnswer = (
                 <Text style={localStyle.question}>
                     {question}
                 </Text>
-
                 {/* Add in way to accept response */}
                 {/* Answer TextInput */}
                 <View style={localStyle.answerView}>
@@ -46,7 +45,6 @@ const QuestionAnswer = (
                 <Text style={localStyle.question}>
                     {question}
                 </Text>
-
                 {/* Add in way to accept response */}
                 {/* Answer TextInput */}
                 <View style={localStyle.answerView}>
@@ -70,7 +68,6 @@ const QuestionAnswer = (
                 <Text style={localStyle.question}>
                     {question}
                 </Text>
-
                 {/* Answer Dropdown Field */}
                 <View >
                     <CustomDropdown
@@ -84,7 +81,6 @@ const QuestionAnswer = (
         )
     }
 }
-
 export default QuestionAnswer;
 
 const localStyle = StyleSheet.create({

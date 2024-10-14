@@ -26,5 +26,4 @@ const AddPopUp = ({ visible, toggleOverlay, toggleWaterOverlay, toggleExerciseOv
         />
     );
 };
-
 export default AddPopUp;

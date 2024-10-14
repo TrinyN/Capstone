@@ -2,7 +2,7 @@ import Feather from "react-native-vector-icons/Feather";
 import { Text, TouchableOpacity, View, Image, StyleSheet } from 'react-native'
 import React from 'react'
 import { router } from 'expo-router';
-
+// import { LiquidGauge } from "react-native-liquid-gauge";
 
 // TODO: need to implement handle press later, quick track, open add pop up, notes add notes pop up
 {/* TODO: Add popup for quick tracker */ }
@@ -28,7 +28,6 @@ const HomeFrame = ({
     return (
         // {/* Quick Track Frame */ }
         < View style={[style, { marginBottom }]} >
-
             {/* Touchable Opacity to make entire frame a button */}
             <TouchableOpacity
                 style={[localStyle.frameContent, {flex: 1, flexDirection: 'column'}]}
@@ -36,7 +35,6 @@ const HomeFrame = ({
                 <Text style={localStyle.frameTitle}>
                     {title}
                 </Text>
-
                 {title == 'Staying Hydrated?' ? (
                     // {/* WARNING: May have to change bottle to be exact size to prevent issues with it changing sizes based on screen */}
                     // {/* TODO: Add calculation of water progress */}
@@ -59,7 +57,6 @@ const HomeFrame = ({
                     //         value={90} // Doesnt look good at 100%, 90 looks best for max value
                     //         width={150}
                     //     /> */}
-
                     <Image
                         source={require('../../../assets/images/water-bottle-1.png')}
                         style={[localStyle.frameContent, {resizeMode: 'contain', position: 'relative'}]}
@@ -76,12 +73,10 @@ const HomeFrame = ({
         </View >
     )
 }
-
 export default HomeFrame
 
 const localStyle = StyleSheet.create({
-    // Example: Quick Add Frame, Home
-    viewHomeFrameNormal: {
+    viewHomeFrameNormal: {                      // Example: Quick Add Frame, Home
         height: '100%',
         width: '100%',
         backgroundColor: '#1F2938',
@@ -89,8 +84,7 @@ const localStyle = StyleSheet.create({
         flex: 1,
         borderRadius: 8,
     },
-    // Example: Water Goal Frame, Home
-    viewHomeFrameTall: {
+    viewHomeFrameTall: {                        // Example: Water Goal Frame, Home
         height: '100%',
         width: '100%',
         backgroundColor: '#1F2938',

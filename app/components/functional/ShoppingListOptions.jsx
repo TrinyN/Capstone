@@ -5,7 +5,6 @@ import OptionItem from './OptionItem'
 import { Overlay } from '@rneui/base';
 import { shoppingListData } from '../../constants/shoppingListData';
 
-
 const ShoppingListOptions = ({
     setShoppingList,
     shoppingList,
@@ -18,7 +17,7 @@ const ShoppingListOptions = ({
 
     const resetCheckmarks = () => {
         setCheckedItems({})
-    }
+    };
 
     const deleteAll = () => {
         setShoppingList(emptyShoppingList)
@@ -31,13 +30,13 @@ const ShoppingListOptions = ({
                 data: section.data.filter(item => !checkedItems[item])
             };
         });
-
         setShoppingList(updatedShoppingList);
     };
 
     return (
-        <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={[styles.optionsMenu, { justifyContent: 'center' }]}>
-
+        <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} 
+            overlayStyle={[styles.optionsMenu, { justifyContent: 'center' }]}
+        >
             {/* View to contain all options */}
             <View style={{ paddingHorizontal: 8, justifyContent: 'center' }}>
 
@@ -48,7 +47,6 @@ const ShoppingListOptions = ({
                     onPress={resetCheckmarks}
                     isShoppingList={true}
                 />
-
                 {/* Deleting checked items from list */}
                 <OptionItem
                     title={"Delete Checked"}
@@ -56,7 +54,6 @@ const ShoppingListOptions = ({
                     onPress={deleteCheckedItems}
                     isShoppingList={true}
                 />
-
                 {/* Deleting all items from list */}
                 <OptionItem
                     title={"Delete All"}
@@ -64,7 +61,6 @@ const ShoppingListOptions = ({
                     onPress={deleteAll}
                     isShoppingList={true}
                 />
-
                 {/* Generating list from tracker screen(s) */}
                 <OptionItem
                     title={"Generate List"}
@@ -72,9 +68,7 @@ const ShoppingListOptions = ({
                     // onPress={}
                     isShoppingList={true}
                 />
-
             </View>
-
         </Overlay>
     )
 }

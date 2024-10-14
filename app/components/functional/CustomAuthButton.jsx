@@ -4,9 +4,7 @@ import { router } from 'expo-router';
 import CustomButton2 from './CustomButton2';
 import styles from '../../styles';
 
-const CustomAuthButton = ({
-    authType
-}) => {
+const CustomAuthButton = ({authType}) => {
     let linkTitle;
     let routerPush;
 
@@ -69,10 +67,8 @@ const CustomAuthButton = ({
                 </TouchableOpacity>
             </View>
         </View>
-
     )
 }
-
 export default CustomAuthButton          
 
 const localStyle = StyleSheet.create({

@@ -4,7 +4,6 @@ import Feather from "react-native-vector-icons/Feather";
 import React from 'react';
 
 // renders the frame, close overlay button, and back button if any
-
 const CustomPopUp = ({ visible, toggleOverlay, content, hasBackButton, previousOverlay }) => {
     const iconColor = hasBackButton ? "#F2F4F3" : "transparent"
     return (
@@ -19,24 +18,20 @@ const CustomPopUp = ({ visible, toggleOverlay, content, hasBackButton, previousO
                     <Feather name="x" size={25} color="#F2F4F3" />
                 </TouchableOpacity>
             </View>
-
             {content}
-
         </Overlay>
     );
 };
-
-
 export default CustomPopUp
 
 const localStyle = StyleSheet.create({
     overlayStyle: {
         backgroundColor: '#0E1116', 
         borderRadius: 8,
-                borderColor: '#CB9CF2', 
-                borderWidth: 2, 
-                maxWidth: '90%', 
-                minWidth: '75%'
+        borderColor: '#CB9CF2', 
+        borderWidth: 2, 
+        maxWidth: '90%', 
+        minWidth: '75%'
     },
     headerStyle:{
         paddingVertical: 8, 

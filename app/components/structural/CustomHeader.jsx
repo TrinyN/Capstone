@@ -15,7 +15,6 @@ const CustomHeader = ({
         </View>
     )
 }
-
 export default CustomHeader
 
 const localStyle = StyleSheet.create({

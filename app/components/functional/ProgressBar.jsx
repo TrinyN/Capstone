@@ -24,11 +24,10 @@ const ProgressBar = ({
     return (
         <View style={{ flexDirection: 'row' }} >
             <View style = {{flex: 1}}>
-            <Text style={[localStyle.homeProgressLabelText, { color}]} numberOfLines={1}>
-                {title}
-            </Text>
+                <Text style={[localStyle.homeProgressLabelText, { color}]} numberOfLines={1}>
+                    {title}
+                </Text>
             </View>
-            
             <Progress.Bar
                 progress={progress/total}
                 color={color}
@@ -47,7 +46,6 @@ const ProgressBar = ({
         </View>
     )
 }
-
 export default ProgressBar
 
 const localStyle = StyleSheet.create({

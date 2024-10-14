@@ -11,7 +11,6 @@ import { useSexOptions } from '../constants/dropdownOptions';
 
 // Function to handle the design and display of the Sign In 2 screen
 const SignUp2 = () => {
-
     // Handle dropdown menu options for sex question
     const { userSex, setUserSex, sex, setSex } = useSexOptions();
     
