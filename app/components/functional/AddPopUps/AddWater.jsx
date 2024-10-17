@@ -4,18 +4,12 @@ import CustomPopUp from '../../structural/CustomPopUp';
 import styles from '../../../styles';
 import CustomDropdown from '../CustomDropdown';
 import { CustomButton } from '../CustomButton';
-import { useWaterUnitTypesOptions } from '../../../constants/dropdownOptions';
-const AddWater = ({ addWaterVisible, toggleWaterOverlay, previousOverlay }) => {
-    
-    // Handle dropdown menu options for water unit type
-    const { waterUnit, setWaterUnit,
-        waterUnitTypes, setWaterUnitTypes } = useWaterUnitTypesOptions();
-
+const AddWater = ({ addWaterVisible, toggleWaterOverlay, previousOverlay, setWaterUnit, waterUnitTypes, setWaterUnitTypes }) => {
     return (
-        <CustomPopUp
-            visible={addWaterVisible}
-            toggleOverlay={toggleWaterOverlay}
-            hasBackButton={true}
+        <CustomPopUp 
+            visible={addWaterVisible} 
+            toggleOverlay={toggleWaterOverlay} 
+            hasBackButton={true} 
             previousOverlay={previousOverlay}
             content={
                 <View style={localStyle.fieldContainer}>
@@ -23,10 +17,10 @@ const AddWater = ({ addWaterVisible, toggleWaterOverlay, previousOverlay }) => {
                         How much water did you drink?
                     </Text>
                     <View style={localStyle.fieldRow}>
-                        <TextInput
-                            style={[styles.inputFieldStyle, { flex: 1 }]}
-                            placeholder='10'
-                            selectionColor='#CB9CF2'
+                        <TextInput 
+                            style={[styles.inputFieldStyle, { flex: 1 }]} 
+                            placeholder='10' 
+                            selectionColor='#CB9CF2' 
                             placeholderTextColor='rgba(242,244,243, 0.2)'>
                         </TextInput>
                         <View style={{ flex: 1, paddingLeft: 10 }}>
@@ -47,16 +41,16 @@ const AddWater = ({ addWaterVisible, toggleWaterOverlay, previousOverlay }) => {
 export default AddWater;
 
 const localStyle = StyleSheet.create({
-    fieldContainer: {
-        paddingHorizontal: 30,
-        paddingBottom: 20,
+    fieldContainer:{
+        paddingHorizontal: 30, 
+        paddingBottom: 20, 
         justifyContent: 'center'
     },
-    fieldRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingTop: 20,
+    fieldRow:{
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        paddingTop: 20, 
         paddingBottom: 10
     }
 })
