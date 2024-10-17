@@ -9,9 +9,8 @@ import CustomScreen from '../components/structural/CustomScreen';
 import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { router } from 'expo-router';
 import CustomButton2 from '../components/functional/CustomButton2';
-import { useWaterUnitTypesOptions, useExerciseUnitOptions } from '../constants/dropdownOptions';
 import { useExerciseData, useFoodData, useWaterData } from '../constants/trackerData';
-import { AddWater, AddExercise, AddPopUp } from '../components/functional/AddPopUps';
+import { AddWater, AddExercise, AddPopUp, AddFood } from '../components/functional/AddPopUps';
 import { CollapseSection } from '../constants/CollapseSection';
 // TODO: the use of add pop up components arent the most efficient
 
@@ -42,6 +41,7 @@ const Tracker = () => {
         setVisible(!visible);
         setAddWaterVisible(false)
         setAddExerciseVisible(false)
+        setAddFoodVisible(false)
     };
 
     // Saves visibility of add water pop up
@@ -50,6 +50,15 @@ const Tracker = () => {
     // Change visibility of add water overlay
     const toggleWaterOverlay = () => {
         setAddWaterVisible(!addWaterVisible);
+        setVisible(false)
+    };
+
+    // Saves visibility of add water pop up
+    const [addFoodVisible, setAddFoodVisible] = useState(false);
+
+    // Change visibility of add water overlay
+    const toggleFoodOverlay = () => {
+        setAddFoodVisible(!addFoodVisible);
         setVisible(false)
     };
 
@@ -69,14 +78,6 @@ const Tracker = () => {
     const toggleOptions = () => {
         setVisibleOptions(!visibleOptions);
     };
-
-    // Handle dropdown menu options for water unit type
-    const { waterUnit, setWaterUnit,
-        waterUnitTypes, setWaterUnitTypes } = useWaterUnitTypesOptions();
-
-    // Handle dropdown menu options for exervise unit type
-    const { exerciseUnit, setExerciseUnit,
-        exerciseUnitTypes, setExerciseUnitTypes } = useExerciseUnitOptions();
 
     // Sample data for Breakfast, Lunch, Dinner, and Snacks
     const { foodSections, setFoodSections } = useFoodData();
@@ -216,22 +217,22 @@ const Tracker = () => {
                                 toggleOverlay={toggleOverlay}
                                 toggleWaterOverlay={toggleWaterOverlay}
                                 toggleExerciseOverlay={toggleExerciseOverlay}
+                                toggleFoodOverlay={toggleFoodOverlay}
                             />
                             <AddWater
                                 addWaterVisible={addWaterVisible}
                                 toggleWaterOverlay={toggleWaterOverlay}
                                 previousOverlay={toggleOverlay}
-                                setWaterUnit={setWaterUnit}
-                                waterUnitTypes={waterUnitTypes}
-                                setWaterUnitTypes={setWaterUnitTypes}
                             />
                             <AddExercise
                                 addExerciseVisible={addExerciseVisible}
                                 toggleExerciseOverlay={toggleExerciseOverlay}
                                 previousOverlay={toggleOverlay}
-                                setExerciseUnit={setExerciseUnit}
-                                exerciseUnitTypes={exerciseUnitTypes}
-                                setExerciseUnitTypes={setExerciseUnitTypes}
+                            />
+                            <AddFood
+                                previousOverlay={toggleOverlay}
+                                toggleFoodOverlay={toggleFoodOverlay}
+                                addFoodVisible={addFoodVisible}
                             />
                             {/* pop up for options */}
                             <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Day' />
