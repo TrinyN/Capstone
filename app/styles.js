@@ -70,5 +70,15 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: 'left'
     },
+    header: {
+        flexDirection: 'row',
+        backgroundColor: '#1F2938',
+        justifyContent: 'space-between',
+        borderTopLeftRadius: 8,
+        borderTopRightRadius: 8,
+        alignItems: 'flex-end',
+        borderBottomWidth: 2,
+        borderBottomColor: '#828282',
+    },
 });
 export default styles;
