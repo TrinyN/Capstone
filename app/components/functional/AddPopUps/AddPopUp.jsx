@@ -4,7 +4,7 @@ import CustomPopUp from '../../structural/CustomPopUp'
 import { CustomButton } from '../CustomButton'
 import styles from '../../../styles'
 
-const AddPopUp = ({ visible, toggleOverlay, toggleWaterOverlay, toggleExerciseOverlay }) => {
+const AddPopUp = ({ visible, toggleOverlay, toggleWaterOverlay, toggleExerciseOverlay, toggleFoodOverlay  }) => {
     return (
         <CustomPopUp
             visible={visible}
@@ -17,7 +17,7 @@ const AddPopUp = ({ visible, toggleOverlay, toggleWaterOverlay, toggleExerciseOv
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <CustomButton title={"   Water   "} handlePress={toggleWaterOverlay} />
                         <View style={{ paddingHorizontal: 10 }}>
-                            <CustomButton title={"   Food   "} />
+                            <CustomButton title={"   Food   "} handlePress={toggleFoodOverlay}/>
                         </View>
                         <CustomButton title={"Exercise"} handlePress={toggleExerciseOverlay} />
                     </View>
