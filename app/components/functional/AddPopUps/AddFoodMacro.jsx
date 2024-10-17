@@ -8,7 +8,7 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { useMacroUnitOptions } from '../../../constants/dropdownOptions';
 import CustomPieChart from '../PieChart';
 
-// todo: make % or grams change the calculation of pie chart, local styles, save button
+// todo: make % or grams change the calculation of pie chart, local styles, save button functionality
 
 const AddFoodMacro = ({ addFoodMacroVisible, toggleFoodMacroOverlay }) => {
     const [series, setSeries] = useState([0, 0, 0]); // init series
@@ -16,10 +16,9 @@ const AddFoodMacro = ({ addFoodMacroVisible, toggleFoodMacroOverlay }) => {
     // Handle dropdown menu options for food unit type
     const { macroUnit, setMacroUnit, macroUnitTypes, setMacroUnitTypes } = useMacroUnitOptions();
 
-    // changes series values appropriatly as user types, series value changes pie chart
+    // changes series values appropriatly as user changes text input, series value changes pie chart
     const handleSeriesChange = (macro, value) => {
         const newSeries = [...series];
-
         if (macro === 'Carb') {
             newSeries[0] = Number(value) || 0;
         } else if (macro === 'Protein') {
@@ -27,12 +26,10 @@ const AddFoodMacro = ({ addFoodMacroVisible, toggleFoodMacroOverlay }) => {
         } else if (macro === 'Fat') {
             newSeries[2] = Number(value) || 0;
         }
-
         setSeries(newSeries);
     }
 
     const renderMacro = (macro) => {
-
         return (
             <View style={[{ paddingVertical: 10, justifyContent: 'center', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }]}>
                 <View style={{ paddingLeft: 3, flex: 1 }}>
@@ -40,7 +37,6 @@ const AddFoodMacro = ({ addFoodMacroVisible, toggleFoodMacroOverlay }) => {
                         {macro}{':'}
                     </Text>
                 </View>
-
                 <View style={{ padding: 10, flex: 1 }}>
                     <TextInput
                         style={[styles.inputFieldStyle]}
@@ -51,7 +47,6 @@ const AddFoodMacro = ({ addFoodMacroVisible, toggleFoodMacroOverlay }) => {
                         onChangeText={(value) => handleSeriesChange(macro, value)} // Call handler on text change
                     />
                 </View>
-
                 <View style={{ flex: 1.5 }}>
                     <CustomDropdown
                         placeholder={'Grams'}
@@ -60,10 +55,10 @@ const AddFoodMacro = ({ addFoodMacroVisible, toggleFoodMacroOverlay }) => {
                         setItems={setMacroUnitTypes}
                     />
                 </View>
-
             </View>
         )
     }
+
     return (
         <CustomPopUp
             visible={addFoodMacroVisible}
@@ -89,9 +84,7 @@ const AddFoodMacro = ({ addFoodMacroVisible, toggleFoodMacroOverlay }) => {
                             {renderMacro('Fat')}
                         </View>
                         <View style={{ paddingVertical: 10, zIndex: -3 }}>
-                            <TouchableOpacity>
-                                <CustomPieChart series={series.every(item => item === 0) ? null : series} />
-                            </TouchableOpacity>
+                            <CustomPieChart series={series.every(item => item === 0) ? null : series} />
                         </View>
                         <CustomButton title={"Save"} />
                     </View>

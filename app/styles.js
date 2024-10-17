@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         borderRadius: 8,
         activeOpacity: 0.7, 
-        minHeight: 30, 
+        justifyContent: 'center', 
+        height: 45
     },
     buttonText: {
         color: '#0E1116',

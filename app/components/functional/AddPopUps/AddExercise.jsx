@@ -5,6 +5,7 @@ import styles from '../../../styles';
 import CustomDropdown from '../CustomDropdown';
 import { CustomButton } from '../CustomButton';
 import { useExerciseUnitOptions } from '../../../constants/dropdownOptions';
+import CustomButton2 from '../CustomButton2';
 
 const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverlay }) => {
 
@@ -23,7 +24,8 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                     <View style={localStyle.fieldRow}>
                         <TextInput
                             style={[styles.inputFieldStyle, { flex: 1 }]}
-                            placeholder='Exercise' selectionColor='#CB9CF2'
+                            placeholder='Exercise'
+                            selectionColor='#CB9CF2'
                             placeholderTextColor='rgba(242,244,243, 0.2)'>
                         </TextInput>
                     </View>
@@ -35,7 +37,7 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                                 placeholderTextColor='rgba(242,244,243, 0.2)'>
                             </TextInput>
                         </View>
-                        <View style={{ flex: 1.25 }}>
+                        <View style={{ flex: 1 }}>
                             <CustomDropdown
                                 placeholder={'Minutes'}
                                 setCustomValue={setExerciseUnit}
@@ -46,16 +48,18 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                     </View>
                     <View style={[localStyle.fieldRow, { paddingTop: 5, zIndex: -1 }]}>
                         <View style={{ flex: 1, paddingRight: 10 }}>
-                            <CustomButton title="Calculate" />
+                            <CustomButton2 type={"normal"} text={"Calculate"} />
                         </View>
-                        <TextInput
-                            style={[styles.inputFieldStyle, { flex: 1.1 }]}
-                            placeholder='Cals Burned'
-                            selectionColor='#CB9CF2'
-                            placeholderTextColor='rgba(242,244,243, 0.2)'>
-                        </TextInput>
+                        <View style={{ flex: 1 }}>
+                            <TextInput
+                                style={[styles.inputFieldStyle]}
+                                placeholder='Cals Burned'
+                                selectionColor='#CB9CF2'
+                                placeholderTextColor='rgba(242,244,243, 0.2)'>
+                            </TextInput>
+                        </View>
                     </View>
-                    <CustomButton title={"Submit"} />
+                    <CustomButton title={"Submit"}/>
                 </View>
             }
         />

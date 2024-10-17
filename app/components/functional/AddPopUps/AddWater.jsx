@@ -23,12 +23,14 @@ const AddWater = ({ addWaterVisible, toggleWaterOverlay, previousOverlay }) => {
                         How much water did you drink?
                     </Text>
                     <View style={localStyle.fieldRow}>
+                        <View style={{ flex: 1 }}>
                         <TextInput
-                            style={[styles.inputFieldStyle, { flex: 1 }]}
+                            style={styles.inputFieldStyle}
                             placeholder='10'
                             selectionColor='#CB9CF2'
                             placeholderTextColor='rgba(242,244,243, 0.2)'>
                         </TextInput>
+                        </View>
                         <View style={{ flex: 1, paddingLeft: 10 }}>
                             <CustomDropdown
                                 placeholder={'Cups'}

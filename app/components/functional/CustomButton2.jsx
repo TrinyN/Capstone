@@ -62,7 +62,8 @@ const localStyle = StyleSheet.create({
         marginTop: 15,
         marginBottom: 15,
         borderRadius: 8,
-        activeOpacity: 0.7
+        activeOpacity: 0.7,
+        justifyContent: 'center'
     },
     buttonSm: {
         // height: '50%', // temporary

@@ -4,6 +4,8 @@ import { React, useState } from 'react'
 import styles from '../../styles'
 import Feather from "react-native-vector-icons/Feather";
 
+// todo: pie chart size slightly too big on android S8+
+
 const CustomPieChart = ({
     series,
     hasTitle,
@@ -11,7 +13,7 @@ const CustomPieChart = ({
 }) => {
 
     const { width } = Dimensions.get('window');
-    const widthAndHeight = (width * 0.30)
+    const widthAndHeight = (width * 0.25)
 
     // colors for pie chart
     const sliceColor = ['#80FF72', '#7EE8FA', '#FFF07C']
@@ -57,7 +59,7 @@ const CustomPieChart = ({
                     <PieChartLegend macro={"Fat"} index={2} color='#FFF07C' />
                 </View>
                 {/* Macro Pi Chart*/}
-                <View style={{ paddingVertical: 20, paddingRight: 20 }}>
+                <View style={{ paddingVertical: 20, paddingRight: 20}}>
                     <PieChart widthAndHeight={widthAndHeight} series={series == null ? ['30', '30', '30'] : series} sliceColor={sliceColor}
                         style={{ strokeWidth: '4', stroke: '#141920' }}
                     />
@@ -81,7 +83,8 @@ const localStyle = StyleSheet.create({
     },
     legendContainer: {
         justifyContent: 'center',
-        padding: 20,
+        paddingVertical: 20,
+        paddingHorizontal: 20, 
         justifyContent: 'space-evenly'
     }
 })

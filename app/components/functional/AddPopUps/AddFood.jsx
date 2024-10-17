@@ -11,6 +11,8 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import CustomPieChart from '../PieChart';
 import AddFoodMacro from './AddFoodMacro';
 
+// todo: local styles, add button functionality, quick fill, search database
+
 const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay }) => {
 
     // Handle dropdown menu options for food unit type
