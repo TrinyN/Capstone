@@ -3,11 +3,11 @@ import styles from '../styles';
 import { useState } from 'react';
 import { Overlay } from '@rneui/base';
 import { router } from 'expo-router';
-import PieChart from 'react-native-pie-chart'
 import ProfileItem from '../components/functional/ProfileItem';
 import { userDataItems } from '../constants/profileData';
 import CustomScreen from '../components/structural/CustomScreen';
 import CustomButton2 from '../components/functional/CustomButton2';
+import CustomPieChart from '../components/functional/PieChart';
 
 // problems:
 // looks weird on android (feather icon positions doesnt line up with drop down icon)
@@ -21,14 +21,8 @@ import CustomButton2 from '../components/functional/CustomButton2';
 // 6. Small button component? ~ CustomButton implementation?
 
 const Profile = () => {
-    const { width } = Dimensions.get('window');
-    const widthAndHeight = (width * 0.30)
-
     // test data for macro ratio goal
     const [series, setSeries] = useState([15, 35, 40]);
-
-    // colors for pie chart
-    const sliceColor = ['#80FF72', '#7EE8FA', '#FFF07C']
 
     // saves visibility of log out pop up
     const [visibleLogOut, setVisibleLogOut] = useState(false);
@@ -47,21 +41,6 @@ const Profile = () => {
     // test data, will need to fetch user info from database and allow user to change
     const { userInfo, setUserInfo } = userDataItems();
 
-    // calculates percentage of macros based on given ratio
-    let percentageCalc = (index) => {
-        return Number(Math.round((series[index] / (series[0] + series[1] + series[2]) * 100) + 'e1') + 'e-1');
-    }
-
-    const PieChartLegend = ({ macro, index, color }) => {
-        return (
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <View style={[localStyle.legendStyle, { backgroundColor: color }]} />
-                <Text style={styles.defaultWhiteText}>
-                    {macro} {percentageCalc(index)}{"%"}
-                </Text>
-            </View>
-        )
-    }
     return (
         <CustomScreen
             title='Your Profile'
@@ -88,20 +67,8 @@ const Profile = () => {
                         />
                     </View>
                     {/* Macro Pi Chart Container*/}
-                    <View style={{ paddingTop: 30, paddingBottom: 10 }}>
-                        <View style={[localStyle.container, { flexDirection: 'row', justifyContent: 'space-between' }]}>
-                            <View style={localStyle.legendContainer}>
-                                <PieChartLegend macro={"Carb"} index={0} color='#80FF72' />
-                                <PieChartLegend macro={"Protein"} index={1} color='#7EE8FA' />
-                                <PieChartLegend macro={"Fat"} index={2} color='#FFF07C' />
-                            </View>
-                            {/* Macro Pi Chart*/}
-                            <View style={{ paddingVertical: 20, paddingRight: 20 }}>
-                                <PieChart widthAndHeight={widthAndHeight} series={series} sliceColor={sliceColor}
-                                    style={{ strokeWidth: '4', stroke: '#141920' }}
-                                />
-                            </View>
-                        </View>
+                    <View style={{ paddingTop: 30 }}>
+                        <CustomPieChart series={series} />
                     </View>
                     <View>
                         <View style={{ flexDirection: 'row-reverse' }}>
