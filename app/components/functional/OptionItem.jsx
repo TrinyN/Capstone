@@ -2,6 +2,7 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import Feather from "react-native-vector-icons/Feather";
 import React from 'react'
 import { router } from 'expo-router';
+import styles from '../../styles';
 
 const OptionItem = ({
     title,

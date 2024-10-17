@@ -147,11 +147,11 @@ const Tracker = () => {
                         <View>
                             {/* test values, will need to get users info from database */}
                             <TrackerInfo
-                                caloricGoal={2400}
-                                weight={105}
-                                eaten={2400}
-                                burned={200}
-                                bmr={1200}
+                                // caloricGoal={2400}
+                                // weight={105}
+                                // eaten={2400}
+                                // burned={200}
+                                // bmr={1200}
                             />
                             {/* Add Food Button */}
                             <CustomButton2
