@@ -11,15 +11,19 @@ const AddPopUp = ({ visible, toggleOverlay, toggleWaterOverlay, toggleExerciseOv
             toggleOverlay={toggleOverlay}
             content={
                 <View style={{ paddingHorizontal: 20, paddingBottom: 20, alignItems: 'center' }}>
-                    <Text style={[styles.defaultWhiteText, { textAlign: 'center' }]}>
+                    <Text style={[styles.defaultWhiteText, { textAlign: 'center', paddingBottom: 10 }]}>
                         Which would you like to add?
                     </Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <CustomButton title={"   Food   "} handlePress={toggleFoodOverlay} />
-                        <View style={{ paddingHorizontal: 10 }}>
-                            <CustomButton title={"   Water   "} handlePress={toggleWaterOverlay} />
+                        <View style={{ flex: 1 }}>
+                            <CustomButton title={"Food"} handlePress={toggleFoodOverlay} />
                         </View>
-                        <CustomButton title={"Exercise"} handlePress={toggleExerciseOverlay} />
+                        <View style={{ flex: 1, paddingHorizontal: 10 }}>
+                            <CustomButton title={"Water"} handlePress={toggleWaterOverlay} />
+                        </View>
+                        <View style={{ flex: 1 }}>
+                            <CustomButton title={"Exercise"} handlePress={toggleExerciseOverlay} />
+                        </View>
                     </View>
                 </View>
             }
