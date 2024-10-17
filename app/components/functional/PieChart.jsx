@@ -27,7 +27,7 @@ const CustomPieChart = ({
 
                 {series == null ? (
                     <Text style={styles.defaultWhiteText}>
-                        — %
+                        {macro} — %
                     </Text>
                 ) : (
                     <Text style={styles.defaultWhiteText}>

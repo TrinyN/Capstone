@@ -128,3 +128,19 @@ export const useFoodUnitTypesOptions = () => {
         setFoodUnitTypes
     }
 }
+
+// Tracker Popup: Food Choice: eating time frame dropdown options
+export const useMacroUnitOptions = () => {
+    const [macroUnit, setMacroUnit] = useState('')
+    const [macroUnitTypes, setMacroUnitTypes] = useState([
+        { label: 'Grams', value: 'Grams' },
+        { label: '%', value: '%' },
+    ]);
+
+    return {
+        macroUnit,
+        setMacroUnit,
+        macroUnitTypes,
+        setMacroUnitTypes
+    }
+}
