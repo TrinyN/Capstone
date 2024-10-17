@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text, View, FlatList, Dimensions, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, View, FlatList, StyleSheet } from 'react-native';
 import styles from '../styles';
 import { useState } from 'react';
 import { Overlay } from '@rneui/base';

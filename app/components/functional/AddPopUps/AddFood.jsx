@@ -4,7 +4,7 @@ import CustomPopUp from '../../structural/CustomPopUp';
 import styles from '../../../styles';
 import CustomDropdown from '../CustomDropdown';
 import { CustomButton } from '../CustomButton';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Feather from "react-native-vector-icons/Feather";
 import { useFoodUnitTypesOptions } from '../../../constants/dropdownOptions';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -23,6 +23,7 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay }) => {
             hasBackButton={true}
             previousOverlay={previousOverlay}
             content={
+                <ScrollView>
                 <View style={localStyle.fieldContainer}>
 
                     <View style={{ paddingVertical: 10, flexDirection: 'row' }}>
@@ -68,13 +69,14 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay }) => {
                             setItems={setFoodUnitTypes}
                         />
                     </View>
-                    <View style={{ paddingVertical: 10 }}>
+                    <View style={{ paddingVertical: 10, zIndex: -1 }}>
                         <TouchableOpacity>
                             <CustomPieChart hasTitle={true} editable={true} />
                         </TouchableOpacity>
                     </View>
                     <CustomButton title={"Add"} />
                 </View>
+                </ScrollView>
             }
         />
     );

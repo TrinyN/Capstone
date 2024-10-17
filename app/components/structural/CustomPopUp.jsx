@@ -1,14 +1,15 @@
-import { TouchableOpacity, View, StyleSheet } from 'react-native';
+import { TouchableOpacity, View, StyleSheet, Dimensions } from 'react-native';
 import { Overlay } from '@rneui/base';
 import Feather from "react-native-vector-icons/Feather";
 import React from 'react';
 
 // renders the frame, close overlay button, and back button if any
 const CustomPopUp = ({ visible, toggleOverlay, content, hasBackButton, previousOverlay }) => {
+    const { height } = Dimensions.get('window');
     const iconColor = hasBackButton ? "#F2F4F3" : "transparent"
     return (
         <Overlay isVisible={visible} onBackdropPress={toggleOverlay}
-            overlayStyle={localStyle.overlayStyle}>
+            overlayStyle={[localStyle.overlayStyle, {maxHeight: height*0.8}]}>
             {/* View at top to hold exit button */}
             <View style={localStyle.headerStyle}>
                 <TouchableOpacity onPress={previousOverlay} style={{ width: 30 }} disabled={!hasBackButton}>
