@@ -37,7 +37,7 @@ const AddFoodMacro = ({ addFoodMacroVisible, toggleFoodMacroOverlay }) => {
                         {macro}{':'}
                     </Text>
                 </View>
-                <View style={{ padding: 10, flex: 1 }}>
+                <View style={{ padding: 5, flex: 1 }}>
                     <TextInput
                         style={[styles.inputFieldStyle]}
                         placeholder={'0'} // Set placeholder to the corresponding series value
