@@ -127,4 +127,3 @@ export const useFoodUnitTypesOptions = () => {
         foodUnitTypes,
         setFoodUnitTypes
     }
-}
