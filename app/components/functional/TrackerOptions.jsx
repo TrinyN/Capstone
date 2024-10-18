@@ -34,7 +34,7 @@ const TrackerOptions = ({
     const zoomOutOpac = zoomOut ? 1 : 0.2
 
     return (
-        <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={[localStyle.optionsMenu]}>
+        <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} overlayStyle={[styles.optionsMenu]}>
 
             {/* View containing option choices */}
             <View style={{ paddingHorizontal: 8, justifyContent: 'center' }}>
@@ -78,18 +78,3 @@ const TrackerOptions = ({
     )
 }
 export default TrackerOptions
-
-const localStyle = StyleSheet.create({
-    optionsMenu: {
-        backgroundColor: '#1F2938',
-        borderRadius: 5,
-        // width: 200, 
-        // width: '60%',
-        // height: 130,
-        // height: '20%',
-        position: 'absolute',
-        top: 100,
-        right: 50,
-    },
-    
-})

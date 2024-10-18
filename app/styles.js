@@ -55,6 +55,17 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         height: 45
     },
+    optionsMenu: {
+        backgroundColor: '#1F2938',
+        borderRadius: 5,
+        // width: 200, 
+        // width: '60%',
+        // height: 130,
+        // height: '20%',
+        position: 'absolute',
+        top: 100,
+        right: 50,
+    },
     optionsText: {
         color: '#F2F4F3',
         fontSize: 15,
