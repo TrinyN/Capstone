@@ -247,10 +247,15 @@ const Tracker = () => {
                             />
                             <AddNotes
                                 toggleNotesOverlay={toggleNotesOverlay}
-                                addNotesVisible={addNotesVisible}                     // addNotesVisible NOT WORKING
+                                addNotesVisible={addNotesVisible}
                             />
                             {/* pop up for options */}
-                            <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Day' />
+                            <TrackerOptions 
+                                toggleOptions={toggleOptions} 
+                                visibleOptions={visibleOptions} 
+                                view='Day' 
+                                toggleNotesOverlay={toggleNotesOverlay}
+                            />
                         </View>
                     }
                 />

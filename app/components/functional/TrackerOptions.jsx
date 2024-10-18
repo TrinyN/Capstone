@@ -8,7 +8,8 @@ import OptionItem from './OptionItem';
 const TrackerOptions = ({
     visibleOptions,
     toggleOptions,
-    view
+    view,
+    toggleNotesOverlay
 }) => {
     let zoomIn
     let zoomOut
@@ -46,8 +47,8 @@ const TrackerOptions = ({
                 <OptionItem
                     title={"Take Notes"}
                     icon={"edit-3"}
-                    toggleOptions={toggleOptions}
                     isNotes={true}
+                    toggleNotesOverlay={toggleNotesOverlay}
                 />
                 }
                 {/* Generate Shopping List Option Button. Won't appear on month view */}
