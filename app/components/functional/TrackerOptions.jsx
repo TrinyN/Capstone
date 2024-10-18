@@ -43,18 +43,19 @@ const TrackerOptions = ({
                 {/* TODO: Choose:
         1. WHEN PRESSED make user choose a DATE to apply notes to */}
                 {view == 'Day' &&
-                    <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Feather name="edit-3" size={20} color="#F2F4F3" style={{ paddingRight: 5 }} />
-                        <Text style={styles.optionsText}>
-                            Take Notes
-                        </Text>
-                    </TouchableOpacity>
+                <OptionItem
+                    title={"Take Notes"}
+                    icon={"edit-3"}
+                    toggleOptions={toggleOptions}
+                    isNotes={true}
+                />
                 }
                 {/* Generate Shopping List Option Button. Won't appear on month view */}
                 {(view == 'Day' || view == 'Week') &&
                 <OptionItem
                     title={"Generate Shopping List"}
                     icon={"shopping-cart"}
+                    isShoppingList={true}
                 />
                 }
                 {/* Zoom in Option Button */}

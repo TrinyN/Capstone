@@ -12,6 +12,7 @@ import CustomButton2 from '../components/functional/CustomButton2';
 import { useExerciseData, useFoodData, useWaterData } from '../constants/trackerData';
 import { AddWater, AddExercise, AddPopUp, AddFood } from '../components/functional/AddPopUps';
 import { CollapseSection } from '../constants/CollapseSection';
+import AddNotes from '../components/functional/AddPopUps/AddNotes';
 // TODO: the use of add pop up components arent the most efficient
 
 // REFACTORING FLAGGING - Needs a Component
@@ -70,6 +71,16 @@ const Tracker = () => {
         setAddExerciseVisible(!addExerciseVisible);
         setVisible(false)
     };
+
+    /////////////////////////////////////////////////
+    // Saves visibility of add notes pop up
+    const [addNotesVisible, setAddNotesVisible] = useState(false);
+
+    // Change visibility of add notes pop up
+    const toggleNotesOverlay = () => {
+        setAddNotesVisible(!addNotesVisible);
+        setVisible(false);
+    }
 
     // Saves visibility of options pop up
     const [visibleOptions, setVisibleOptions] = useState(false);
@@ -233,6 +244,10 @@ const Tracker = () => {
                                 previousOverlay={toggleOverlay}
                                 toggleFoodOverlay={toggleFoodOverlay}
                                 addFoodVisible={addFoodVisible}
+                            />
+                            <AddNotes
+                                toggleNotesOverlay={toggleNotesOverlay}
+                                addNotesVisible={addNotesVisible}                     // addNotesVisible NOT WORKING
                             />
                             {/* pop up for options */}
                             <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Day' />
