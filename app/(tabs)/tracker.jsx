@@ -79,6 +79,7 @@ const Tracker = () => {
     // Change visibility of add notes pop up
     const toggleNotesOverlay = () => {
         setAddNotesVisible(!addNotesVisible);
+        setVisibleOptions(false);
         setVisible(false);
     }
 

@@ -34,7 +34,7 @@ const AddNotes = ({ addNotesVisible, toggleNotesOverlay }) => {
                         <View style={{ flex: 1 }}>
                             <TextInput
                                 style={localStyle.note}
-                                placeholder='10'
+                                placeholder='Today I feel like I...'
                                 selectionColor='#CB9CF2'
                                 placeholderTextColor='rgba(242,244,243, 0.2)'
                                 multiline
