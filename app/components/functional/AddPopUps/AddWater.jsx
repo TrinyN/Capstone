@@ -29,7 +29,10 @@ const AddWater = ({ addWaterVisible, toggleWaterOverlay, previousOverlay }) => {
                             style={styles.inputFieldStyle}
                             placeholder='10'
                             selectionColor='#CB9CF2'
-                            placeholderTextColor='rgba(242,244,243, 0.2)'>
+                            placeholderTextColor='rgba(242,244,243, 0.2)'
+                            keyboardType='numeric'
+                            
+                            >
                         </TextInput>
                         </View>
                         <View style={{ flex: 1, paddingLeft: 10 }}>

@@ -35,7 +35,8 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                                 style={[styles.inputFieldStyle]}
                                 placeholder='10' 
                                 selectionColor='#CB9CF2'
-                                placeholderTextColor='rgba(242,244,243, 0.2)'>
+                                placeholderTextColor='rgba(242,244,243, 0.2)'
+                                keyboardType='numeric'>
                             </TextInput>
                         </View>
                         <View style={{ flex: 1 }}>
@@ -56,7 +57,8 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                                 style={[styles.inputFieldStyle]}
                                 placeholder='Cals Burned'
                                 selectionColor='#CB9CF2'
-                                placeholderTextColor='rgba(242,244,243, 0.2)'>
+                                placeholderTextColor='rgba(242,244,243, 0.2)'
+                                keyboardType='numeric'>
                             </TextInput>
                         </View>
                     </View>

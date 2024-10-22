@@ -13,6 +13,8 @@ import { useExerciseData, useFoodData, useWaterData } from '../constants/tracker
 import { AddWater, AddExercise, AddPopUp, AddFood } from '../components/functional/AddPopUps';
 import { CollapseSection } from '../constants/CollapseSection';
 import AddNotes from '../components/functional/AddPopUps/AddNotes';
+import AddFoodConfirmation from '../components/functional/AddPopUps/AddFoodConfirmation';
+
 // TODO: the use of add pop up components arent the most efficient
 
 // REFACTORING FLAGGING - Needs a Component
@@ -31,11 +33,10 @@ const Tracker = () => {
 
     const { collapsedSections, toggleCollapse } = CollapseSection();
 
-    const [foodName, setFoodName] = useState('')
-    const [foodType, setFoodType] = useState('')
-
     // Saves visibility of add pop up
     const [visible, setVisible] = useState(false);
+
+    const [food, setFood] = useState("")
 
     // Change visibility of add overlay
     const toggleOverlay = () => {
@@ -54,10 +55,10 @@ const Tracker = () => {
         setVisible(false)
     };
 
-    // Saves visibility of add water pop up
+    // Saves visibility of add food pop up
     const [addFoodVisible, setAddFoodVisible] = useState(false);
 
-    // Change visibility of add water overlay
+    // Change visibility of add food overlay
     const toggleFoodOverlay = () => {
         setAddFoodVisible(!addFoodVisible);
         setVisible(false)
@@ -70,6 +71,14 @@ const Tracker = () => {
     const toggleExerciseOverlay = () => {
         setAddExerciseVisible(!addExerciseVisible);
         setVisible(false)
+    };
+
+    // Saves visibility of food confirmation pop up
+    const [addFoodConfirmVisible, setAddFoodConfirmVisible] = useState(false);
+
+    // Change visibility of food confirmation overlay
+    const toggleFoodConfirmOverlay = () => {
+        setAddFoodConfirmVisible(!addFoodConfirmVisible);
     };
 
     /////////////////////////////////////////////////
@@ -229,6 +238,7 @@ const Tracker = () => {
                                 toggleWaterOverlay={toggleWaterOverlay}
                                 toggleExerciseOverlay={toggleExerciseOverlay}
                                 toggleFoodOverlay={toggleFoodOverlay}
+                                toggleFoodConfirmOverlay={toggleFoodConfirmOverlay}
                             />
                             <AddWater
                                 addWaterVisible={addWaterVisible}
@@ -244,6 +254,8 @@ const Tracker = () => {
                                 previousOverlay={toggleOverlay}
                                 toggleFoodOverlay={toggleFoodOverlay}
                                 addFoodVisible={addFoodVisible}
+                                toggleFoodConfirmOverlay={toggleFoodConfirmOverlay}
+                                setFood={setFood}
                             />
                             <AddNotes
                                 toggleNotesOverlay={toggleNotesOverlay}
@@ -255,6 +267,13 @@ const Tracker = () => {
                                 visibleOptions={visibleOptions}
                                 view='Day'
                                 toggleNotesOverlay={toggleNotesOverlay}
+                            />
+
+                            <AddFoodConfirmation
+                                toggleFoodConfirmOverlay={toggleFoodConfirmOverlay}
+                                addFoodConfirmVisible={addFoodConfirmVisible}
+                                food={food}
+                                toggleFoodOverlay={toggleFoodOverlay}
                             />
                         </View>
                     }

@@ -18,7 +18,7 @@ const SignUp = () => {
                     <View style={{ justifyContent: 'flex-start', paddingBottom: 100, flex: 1 }}>
 
                         {/* email */}
-                        <QuestionAnswer type='text' placeholder='your_email@gmail.com' question='Email:'/>
+                        <QuestionAnswer type='text' placeholder='your_email@gmail.com' question='Email:' isEmail={true}/>
 
                         {/* password */}
                         <QuestionAnswer type='password' question='Password:'/>

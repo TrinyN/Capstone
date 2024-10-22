@@ -17,7 +17,8 @@ const SignIn = () => {
                             {/* Email prompt and field */}
                             <QuestionAnswer type='text'
                                 question='Email:'
-                                placeholder='your_email@gmail.com' />
+                                placeholder='your_email@gmail.com' 
+                                isEmail={true}/>
 
                             {/* Password prompt and field */}
                             <QuestionAnswer type='password' question='Password:' />

@@ -13,8 +13,9 @@ import AddFoodMacro from './AddFoodMacro';
 
 // todo: local styles, add button functionality, quick fill, search database. Make it so 
 // info gets deleted when overlay is closed/when food is successfully added to tracker
+// also only allow press add if all non empty 
 
-const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay }) => {
+const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoodConfirmOverlay, setFood }) => {
     const [series, setSeries] = useState([0, 0, 0]); // init series
 
     // Handle dropdown menu options for food unit type
@@ -29,13 +30,33 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay }) => {
         setAddFoodMacroVisible(!addFoodMacroVisible);
     };
 
+    const [foodName, setFoodName] = useState('')
+    const [calPerSvg, setCalPerSvg] = useState('')
+    const [svgEaten, setSvgEaten] = useState('')
+
+    const resetData = () => {
+        setFood("")
+        setFoodName("")
+        setCalPerSvg("")
+        setSvgEaten("")
+        setSeries([0,0,0])
+    }
+
     // When add button is pressed
     const handlePress = () => {
-        toggleFoodOverlay()
-
-        // add food in database
-
-        setSeries([0,0,0])
+        setFood(
+            {
+                title: foodName, 
+                calPerSvg: calPerSvg, 
+                svgEaten: svgEaten, 
+                carb: series[0], 
+                protein: series[1],
+                fat: series[2]
+            }
+        )
+        toggleFoodConfirmOverlay()
+        setTimeout(() => toggleFoodOverlay(), 200) // allows enough time for confirmation pop up to appear before close food pop up
+        setTimeout(() => resetData(), 400) // resets food info after adding it to the confirmation pop up
     }
 
     return (
@@ -62,8 +83,12 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay }) => {
                         <View style={localStyle.viewContainer}>
                             <TextInput
                                 style={[styles.inputFieldStyle, { flex: 1 }]}
-                                placeholder='Food Name' selectionColor='#CB9CF2'
-                                placeholderTextColor='rgba(242,244,243, 0.2)'>
+                                placeholder='Food Name' 
+                                selectionColor='#CB9CF2'
+                                placeholderTextColor='rgba(242,244,243, 0.2)'
+                                onChangeText={newText => setFoodName(newText)}
+                                defaultValue={foodName}
+                                >
 
                             </TextInput>
                             <Feather name={"search"} size={20} color='#828282' style={localStyle.searchIcon} />
@@ -73,15 +98,25 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay }) => {
                             <View style={{ flex: 1 }}>
                                 <TextInput
                                     style={styles.inputFieldStyle}
-                                    placeholder='Cal Per Svg' selectionColor='#CB9CF2'
-                                    placeholderTextColor='rgba(242,244,243, 0.2)'>
+                                    placeholder='Cal Per Svg' 
+                                    selectionColor='#CB9CF2'
+                                    placeholderTextColor='rgba(242,244,243, 0.2)'
+                                    onChangeText={newText => setCalPerSvg(newText)}
+                                    defaultValue={calPerSvg}
+                                    keyboardType='numeric'
+                                    >
                                 </TextInput>
                             </View>
                             <View style={{ paddingLeft: 10, flex: 1 }}>
                                 <TextInput
                                     style={styles.inputFieldStyle}
-                                    placeholder='Svgs Eaten' selectionColor='#CB9CF2'
-                                    placeholderTextColor='rgba(242,244,243, 0.2)'>
+                                    placeholder='Svgs Eaten' 
+                                    selectionColor='#CB9CF2'
+                                    placeholderTextColor='rgba(242,244,243, 0.2)'
+                                    onChangeText={newText => setSvgEaten(newText)}
+                                    defaultValue={svgEaten}
+                                    keyboardType='numeric'
+                                    >
                                 </TextInput>
                             </View>
                         </View>
@@ -96,7 +131,7 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay }) => {
                         </View>
                         <View style={{ paddingVertical: 10, zIndex: -1 }}>
                             <TouchableOpacity onPress={toggleFoodMacroOverlay}>
-                                <CustomPieChart hasTitle={true} editable={true} series={series.every(item => item === 0) ? null : series}/>
+                                <CustomPieChart hasTitle={true} editable={true} series={series.every(item => item === 0) ? null : series} />
                             </TouchableOpacity>
                         </View>
 
@@ -115,6 +150,7 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay }) => {
                         addFoodMacroVisible={addFoodMacroVisible}
                         setFoodSeries={setSeries}
                     />
+
                 </ScrollView>
             }
         />
@@ -129,12 +165,12 @@ const localStyle = StyleSheet.create({
         justifyContent: 'center'
     },
     viewContainer: {
-        flexDirection: 'row', 
-        paddingVertical: 10 
-    }, 
+        flexDirection: 'row',
+        paddingVertical: 10
+    },
     searchIcon: {
-        position: 'absolute', 
-        right: 15, 
+        position: 'absolute',
+        right: 15,
         top: 21
     }
 })
