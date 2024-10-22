@@ -4,8 +4,7 @@ import Feather from "react-native-vector-icons/Feather";
 import { router } from 'expo-router';
 import styles from '../../styles';
 
-{/* need to make left and right icons, buttons */ }
-// renders outer screens, title, and if needed additional information, back button, and options button
+// renders outer screens, title, and if needed additional information, back button, and options button, functionality of left and right buttons
 const CustomScreen = ({
     title,
     title2,
@@ -61,8 +60,12 @@ const CustomScreen = ({
 
                 {isTrackerScreen &&
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 15 }}>
-                        <Feather name={'chevron-left'} size={30} color={'#CB9CF2'} />
-                        <Feather name={'chevron-right'} size={30} color={'#CB9CF2'} />
+                        <TouchableOpacity style={{ width: 35 }}>
+                            <Feather name={'chevron-left'} size={30} color={'#CB9CF2'} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ width: 35 }}>
+                            <Feather name={'chevron-right'} size={30} color={'#CB9CF2'} />
+                        </TouchableOpacity>
                     </View>
                 }
             </ScrollView>
