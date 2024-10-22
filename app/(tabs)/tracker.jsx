@@ -155,6 +155,7 @@ const Tracker = () => {
                     title2='Monday 8/6' // test value, need to change
                     hasOptions={true}
                     toggleOptions={toggleOptions}
+                    isTrackerScreen={true}
                     screenContent={
                         <View>
                             {/* test values, will need to get users info from database */}
@@ -219,8 +220,6 @@ const Tracker = () => {
                                     renderItem={renderExercise}
                                 />
                             </View>
-                            {/* Space between Exercise List and screen bottom */}
-                            <View style={{ padding: 40 }}></View>
 
                             {/* Pop ups for adding food, water, or exercise*/}
                             <AddPopUp
@@ -250,10 +249,10 @@ const Tracker = () => {
                                 addNotesVisible={addNotesVisible}
                             />
                             {/* pop up for options */}
-                            <TrackerOptions 
-                                toggleOptions={toggleOptions} 
-                                visibleOptions={visibleOptions} 
-                                view='Day' 
+                            <TrackerOptions
+                                toggleOptions={toggleOptions}
+                                visibleOptions={visibleOptions}
+                                view='Day'
                                 toggleNotesOverlay={toggleNotesOverlay}
                             />
                         </View>
@@ -287,7 +286,7 @@ const localStyle = StyleSheet.create({
         paddingVertical: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#828282',
-        paddingLeft: 30, 
+        paddingLeft: 30,
         alignItems: 'center'
     },
 })

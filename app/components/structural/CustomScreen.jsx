@@ -4,6 +4,7 @@ import Feather from "react-native-vector-icons/Feather";
 import { router } from 'expo-router';
 import styles from '../../styles';
 
+{/* need to make left and right icons, buttons */ }
 // renders outer screens, title, and if needed additional information, back button, and options button
 const CustomScreen = ({
     title,
@@ -14,7 +15,8 @@ const CustomScreen = ({
     info,
     screenContent,
     hasLogOutButton,
-    toggleLogOut
+    toggleLogOut,
+    isTrackerScreen
 }) => {
     return (
         <SafeAreaView style={styles.container}>
@@ -40,22 +42,29 @@ const CustomScreen = ({
                             </Text>
                         </Text>
 
-                    {hasOptions &&
-                        <TouchableOpacity onPress={toggleOptions} style={{ width: 30 }}>
-                            <Feather name="more-vertical" size={30} color="#CB9CF2" />
-                        </TouchableOpacity>
-                    }
-                    {hasLogOutButton &&
-                        <TouchableOpacity onPress={toggleLogOut} style={{ width: 30 }}>
-                            <Feather name="log-out" size={30} color="#CB9CF2" />
-                        </TouchableOpacity>
-                    }
+                        {hasOptions &&
+                            <TouchableOpacity onPress={toggleOptions} style={{ width: 30 }}>
+                                <Feather name="more-vertical" size={30} color="#CB9CF2" />
+                            </TouchableOpacity>
+                        }
+                        {hasLogOutButton &&
+                            <TouchableOpacity onPress={toggleLogOut} style={{ width: 30 }}>
+                                <Feather name="log-out" size={30} color="#CB9CF2" />
+                            </TouchableOpacity>
+                        }
                     </View>
                     <Text style={localStyle.infoText}>
                         {info}
                     </Text>
                     {screenContent}
                 </View>
+
+                {isTrackerScreen &&
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 15 }}>
+                        <Feather name={'chevron-left'} size={30} color={'#CB9CF2'} />
+                        <Feather name={'chevron-right'} size={30} color={'#CB9CF2'} />
+                    </View>
+                }
             </ScrollView>
         </SafeAreaView>
     )
@@ -67,7 +76,7 @@ const localStyle = StyleSheet.create({
         color: '#CB9CF2',
         fontSize: 28,
         fontFamily: 'Inter_600SemiBold',
-        flex: 1, 
+        flex: 1,
         flexDirection: 'row'
     },
     titleTextWhite: {
@@ -76,25 +85,25 @@ const localStyle = StyleSheet.create({
         fontFamily: 'Inter_600SemiBold',
     },
     backButtonContainer: {
-        marginTop: 40, 
-        marginBottom: 10, 
+        marginTop: 40,
+        marginBottom: 10,
         paddingLeft: 25
     },
     headerContainer: {
-        marginTop: 70, 
-        flexDirection: 'row', 
-        paddingBottom: 10, 
+        marginTop: 70,
+        flexDirection: 'row',
+        paddingBottom: 10,
         alignItems: 'center'
     },
     text: {
-        fontFamily: 'Inter_200ExtraLight', 
-        fontSize: 20, 
+        fontFamily: 'Inter_200ExtraLight',
+        fontSize: 20,
         paddingBottom: 30
     },
-    infoText:{
+    infoText: {
         color: '#F2F4F3',
-        fontFamily: 'Inter_200ExtraLight', 
-        fontSize: 20, 
+        fontFamily: 'Inter_200ExtraLight',
+        fontSize: 20,
         paddingBottom: 30
     }
 })

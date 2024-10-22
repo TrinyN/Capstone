@@ -45,6 +45,7 @@ const TrackerWeek = () => {
                     title2='6/9 - 6/15'                     // test value, need to change
                     hasOptions={true}
                     toggleOptions={toggleOptions}
+                    isTrackerScreen={true}
                     screenContent={
                         <View>
                             {/* Top View to calculate user's average weight and water intake that week */}
@@ -122,7 +123,6 @@ const TrackerWeek = () => {
                                         </View>
                                     }
                                 />
-                                <View style={{ padding: 40 }}></View>
                             </View>
                             {/* pop up for options */}
                             <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Week' />

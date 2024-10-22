@@ -48,6 +48,7 @@ const TrackerMonth = () => {
                     title2='June, 2024' // test value, need to change
                     hasOptions={true}
                     toggleOptions={toggleOptions}
+                    isTrackerScreen={true}
                     screenContent={
                         <View>
                             {/* Top View to calculate user's calories eaten and burned with a formula visible to them */}
@@ -132,7 +133,6 @@ const TrackerMonth = () => {
                                         </View>
                                     }
                                 />
-                                <View style={{ padding: 40 }}></View>
                             </View>
                             {/* pop up for options */}
                             <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Month' />
