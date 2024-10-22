@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native'
+import { Text, View, StyleSheet } from 'react-native'
 import React from 'react'
 import CustomPopUp from '../../structural/CustomPopUp'
 import { CustomButton } from '../CustomButton'
@@ -10,7 +10,7 @@ const AddPopUp = ({ visible, toggleOverlay, toggleWaterOverlay, toggleExerciseOv
             visible={visible}
             toggleOverlay={toggleOverlay}
             content={
-                <View style={{ paddingHorizontal: 20, paddingBottom: 20, alignItems: 'center' }}>
+                <View style={localStyle.container}>
                     <Text style={[styles.defaultWhiteText, { textAlign: 'center', paddingBottom: 10 }]}>
                         Which would you like to add?
                     </Text>
@@ -31,3 +31,11 @@ const AddPopUp = ({ visible, toggleOverlay, toggleWaterOverlay, toggleExerciseOv
     );
 };
 export default AddPopUp;
+
+const localStyle = StyleSheet.create({
+    container: {
+        paddingHorizontal: 20, 
+        paddingBottom: 20, 
+        alignItems: 'center'
+    }
+})

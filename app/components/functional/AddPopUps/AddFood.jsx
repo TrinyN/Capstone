@@ -37,7 +37,7 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay }) => {
                 <ScrollView>
                     <View style={localStyle.fieldContainer}>
 
-                        <View style={{ paddingVertical: 10, flexDirection: 'row' }}>
+                        <View style={localStyle.viewContainer}>
                             <Text style={[styles.smallText, { color: '#828282' }]}>
                                 Quick Fill
                             </Text>
@@ -48,27 +48,27 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay }) => {
                                 <Ionicons name="barcode-sharp" size={30} color="#CB9CF2" style={{ bottom: 2 }} />
                             </TouchableOpacity>
                         </View>
-                        <View style={[{ paddingVertical: 10, justifyContent: 'space-between', flexDirection: 'row', position: 'relative' }]}>
+                        <View style={localStyle.viewContainer}>
                             <TextInput
                                 style={[styles.inputFieldStyle, { flex: 1 }]}
                                 placeholder='Food Name' selectionColor='#CB9CF2'
                                 placeholderTextColor='rgba(242,244,243, 0.2)'>
 
                             </TextInput>
-                            <Feather name={"search"} size={20} color='#828282' style={{ position: 'absolute', right: 15, top: 21 }} />
+                            <Feather name={"search"} size={20} color='#828282' style={localStyle.searchIcon} />
 
                         </View>
-                        <View style={{ flexDirection: 'row', paddingVertical: 10 }}>
+                        <View style={localStyle.viewContainer}>
                             <View style={{ flex: 1 }}>
                                 <TextInput
-                                    style={[styles.inputFieldStyle]}
+                                    style={styles.inputFieldStyle}
                                     placeholder='Cal Per Svg' selectionColor='#CB9CF2'
                                     placeholderTextColor='rgba(242,244,243, 0.2)'>
                                 </TextInput>
                             </View>
                             <View style={{ paddingLeft: 10, flex: 1 }}>
                                 <TextInput
-                                    style={[styles.inputFieldStyle, {}]}
+                                    style={styles.inputFieldStyle}
                                     placeholder='Svgs Eaten' selectionColor='#CB9CF2'
                                     placeholderTextColor='rgba(242,244,243, 0.2)'>
                                 </TextInput>
@@ -107,4 +107,13 @@ const localStyle = StyleSheet.create({
         paddingBottom: 20,
         justifyContent: 'center'
     },
+    viewContainer: {
+        flexDirection: 'row', 
+        paddingVertical: 10 
+    }, 
+    searchIcon: {
+        position: 'absolute', 
+        right: 15, 
+        top: 21
+    }
 })

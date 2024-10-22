@@ -2,19 +2,14 @@ import { React, useState } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import CustomPopUp from '../../structural/CustomPopUp';
 import styles from '../../../styles';
-import CustomDropdown from '../CustomDropdown';
 import { CustomButton } from '../CustomButton';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { useMacroUnitOptions } from '../../../constants/dropdownOptions';
+import { ScrollView } from 'react-native-gesture-handler';
 import CustomPieChart from '../PieChart';
 
 // todo: make % or grams change the calculation of pie chart, local styles, save button functionality
 
 const AddFoodMacro = ({ addFoodMacroVisible, toggleFoodMacroOverlay }) => {
     const [series, setSeries] = useState([0, 0, 0]); // init series
-
-    // Handle dropdown menu options for food unit type
-    const { macroUnit, setMacroUnit, macroUnitTypes, setMacroUnitTypes } = useMacroUnitOptions();
 
     // changes series values appropriatly as user changes text input, series value changes pie chart
     const handleSeriesChange = (macro, value) => {
@@ -31,7 +26,7 @@ const AddFoodMacro = ({ addFoodMacroVisible, toggleFoodMacroOverlay }) => {
 
     const renderMacro = (macro) => {
         return (
-            <View style={[{ paddingVertical: 10, justifyContent: 'center', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }]}>
+            <View style={localStyle.macroContainer}>
                 <View style={{ paddingLeft: 3, flex: 1 }}>
                     <Text style={styles.defaultWhiteText}>
                         {macro}{':'}
@@ -47,12 +42,14 @@ const AddFoodMacro = ({ addFoodMacroVisible, toggleFoodMacroOverlay }) => {
                         onChangeText={(value) => handleSeriesChange(macro, value)} // Call handler on text change
                     />
                 </View>
-                <View style={{ flex: 1.5 }}>
-                    <CustomDropdown
-                        placeholder={'Grams'}
-                        setCustomValue={setMacroUnit}
-                        items={macroUnitTypes}
-                        setItems={setMacroUnitTypes}
+                <View style={{ flex: 1 }}>
+                    <TextInput
+                        style={[styles.inputFieldStyle, {textAlign: 'center'}]}
+                        placeholder={'Grams'} // Set placeholder to the corresponding series value
+                        selectionColor='#CB9CF2'
+                        placeholderTextColor='#F2F4F3'
+                        editable={false}
+                        onChangeText={(value) => handleSeriesChange(macro, value)} // Call handler on text change
                     />
                 </View>
             </View>
@@ -101,4 +98,11 @@ const localStyle = StyleSheet.create({
         paddingBottom: 20,
         justifyContent: 'center'
     },
+    macroContainer: {
+        paddingVertical: 10, 
+        justifyContent: 'center', 
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        justifyContent: 'space-between'
+    }
 })

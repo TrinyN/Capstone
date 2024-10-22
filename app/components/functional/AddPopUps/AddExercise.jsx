@@ -33,7 +33,8 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                         <View style={{ flex: 1, paddingRight: 10 }}>
                             <TextInput
                                 style={[styles.inputFieldStyle]}
-                                placeholder='10' selectionColor='#CB9CF2'
+                                placeholder='10' 
+                                selectionColor='#CB9CF2'
                                 placeholderTextColor='rgba(242,244,243, 0.2)'>
                             </TextInput>
                         </View>
@@ -77,6 +78,6 @@ const localStyle = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingTop: 20
+        paddingTop: 20,
     }
 })

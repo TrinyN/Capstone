@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
     },
     button: { // Some overlap between profile, shlist, custBut but it seems okay?
         backgroundColor: '#F2F4F3',
-        padding: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
         alignItems: 'center',
         marginTop: 15,
         marginBottom: 15,
@@ -51,9 +52,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(97, 98, 131, 0.2)',
         borderRadius: 8,
         fontSize: 16,
-        paddingLeft: 15,
+        paddingHorizontal: 15,
         paddingVertical: 10,
-        height: 45
+        height: 45,
     },
     optionsMenu: {
         backgroundColor: '#1F2938',
