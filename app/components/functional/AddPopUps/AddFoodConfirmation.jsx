@@ -17,7 +17,14 @@ const AddFoodConfirmation = ({
 
     const [series, setSeries] = useState([0, 0, 0]);
     
-    const [DATA, setDATA] = useState([{}, ]);
+    const [DATA, setDATA] = useState([{
+        title: null, 
+        calPerSvg: null, 
+        svgEaten: null, 
+        carb: series[0], 
+        protein: series[1],
+        fat: series[2]
+    }, ]);
 
     // when food changes, if food is not empty and title is not already in data, add food to data set
     useEffect(() => {
@@ -36,7 +43,6 @@ const AddFoodConfirmation = ({
             const totalFat = DATA.reduce((acc, item) => acc + item.fat, 0);
 
             setSeries([totalCarb, totalProtein, totalFat])
-        
     }, [DATA]);
 
     const handlePress = () => {
@@ -128,7 +134,6 @@ const AddFoodConfirmation = ({
                             <FlatList
                                 data={DATA}
                                 renderItem={({ item }) => <Item item={item} />}
-                                keyExtractor={item => item.title}
                                 ListHeaderComponent={
                                     <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 10 }}>
 
@@ -148,14 +153,6 @@ const AddFoodConfirmation = ({
                         <View style={{ paddingVertical: 10 }}>
                             <CustomPieChart hasTitle={true} series={series.every(item => item === 0) ? null : series} />
                         </View>
-
-
-
-
-
-
-
-
 
                         {/* functionality of button doesnt work if you use custom button for some reason */}
                         <TouchableOpacity
