@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import CustomPopUp from '../../structural/CustomPopUp';
 import styles from '../../../styles';
 import { CustomButton } from '../CustomButton';
@@ -8,7 +8,7 @@ import CustomPieChart from '../PieChart';
 
 // todo: make % or grams change the calculation of pie chart, local styles, save button functionality
 
-const AddFoodMacro = ({ addFoodMacroVisible, toggleFoodMacroOverlay }) => {
+const AddFoodMacro = ({ addFoodMacroVisible, toggleFoodMacroOverlay, setFoodSeries }) => {
     const [series, setSeries] = useState([0, 0, 0]); // init series
 
     // changes series values appropriatly as user changes text input, series value changes pie chart
@@ -44,7 +44,7 @@ const AddFoodMacro = ({ addFoodMacroVisible, toggleFoodMacroOverlay }) => {
                 </View>
                 <View style={{ flex: 1 }}>
                     <TextInput
-                        style={[styles.inputFieldStyle, {textAlign: 'center'}]}
+                        style={[styles.inputFieldStyle, { textAlign: 'center' }]}
                         placeholder={'Grams'} // Set placeholder to the corresponding series value
                         selectionColor='#CB9CF2'
                         placeholderTextColor='#F2F4F3'
@@ -54,6 +54,12 @@ const AddFoodMacro = ({ addFoodMacroVisible, toggleFoodMacroOverlay }) => {
                 </View>
             </View>
         )
+    }
+
+    // when save button is pressed
+    const handlePress = () => {
+        setFoodSeries(series)
+        toggleFoodMacroOverlay()
     }
 
     return (
@@ -83,7 +89,16 @@ const AddFoodMacro = ({ addFoodMacroVisible, toggleFoodMacroOverlay }) => {
                         <View style={{ paddingVertical: 10, zIndex: -3 }}>
                             <CustomPieChart series={series.every(item => item === 0) ? null : series} />
                         </View>
-                        <CustomButton title={"Save"} />
+
+                        {/* functionality of button doesnt work if you use custom button for some reason */}
+                        <TouchableOpacity
+                            onPress={handlePress}
+                            style={[styles.button, { backgroundColor: '#CB9CF2', zIndex: -1 }]}
+                        >
+                            <Text style={styles.buttonText}>
+                                Save
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                 </ScrollView>
             }
@@ -99,10 +114,10 @@ const localStyle = StyleSheet.create({
         justifyContent: 'center'
     },
     macroContainer: {
-        paddingVertical: 10, 
-        justifyContent: 'center', 
-        flexDirection: 'row', 
-        alignItems: 'center', 
+        paddingVertical: 10,
+        justifyContent: 'center',
+        flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'space-between'
     }
 })

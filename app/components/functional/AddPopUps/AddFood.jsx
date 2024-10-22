@@ -11,9 +11,11 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import CustomPieChart from '../PieChart';
 import AddFoodMacro from './AddFoodMacro';
 
-// todo: local styles, add button functionality, quick fill, search database
+// todo: local styles, add button functionality, quick fill, search database. Make it so 
+// info gets deleted when overlay is closed/when food is successfully added to tracker
 
 const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay }) => {
+    const [series, setSeries] = useState([0, 0, 0]); // init series
 
     // Handle dropdown menu options for food unit type
     const { foodUnit, setFoodUnit,
@@ -26,6 +28,15 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay }) => {
     const toggleFoodMacroOverlay = () => {
         setAddFoodMacroVisible(!addFoodMacroVisible);
     };
+
+    // When add button is pressed
+    const handlePress = () => {
+        toggleFoodOverlay()
+
+        // add food in database
+
+        setSeries([0,0,0])
+    }
 
     return (
         <CustomPopUp
@@ -85,14 +96,24 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay }) => {
                         </View>
                         <View style={{ paddingVertical: 10, zIndex: -1 }}>
                             <TouchableOpacity onPress={toggleFoodMacroOverlay}>
-                                <CustomPieChart hasTitle={true} editable={true} />
+                                <CustomPieChart hasTitle={true} editable={true} series={series.every(item => item === 0) ? null : series}/>
                             </TouchableOpacity>
                         </View>
-                        <CustomButton title={"Add"} />
+
+                        {/* funtionality of button doesnt work if you use custom button for some reason */}
+                        <TouchableOpacity
+                            onPress={handlePress}
+                            style={[styles.button, { backgroundColor: '#CB9CF2', zIndex: -1 }]}
+                        >
+                            <Text style={styles.buttonText}>
+                                Add
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                     <AddFoodMacro
                         toggleFoodMacroOverlay={toggleFoodMacroOverlay}
                         addFoodMacroVisible={addFoodMacroVisible}
+                        setFoodSeries={setSeries}
                     />
                 </ScrollView>
             }

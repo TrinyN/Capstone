@@ -33,14 +33,14 @@ const styles = StyleSheet.create({
     button: { // Some overlap between profile, shlist, custBut but it seems okay?
         backgroundColor: '#F2F4F3',
         paddingVertical: 10,
-        paddingHorizontal: 20,
+        paddingHorizontal: 15,
         alignItems: 'center',
         marginTop: 15,
         marginBottom: 15,
         borderRadius: 8,
         activeOpacity: 0.7, 
         justifyContent: 'center', 
-        height: 45
+        height: 45,
     },
     buttonText: {
         color: '#0E1116',
