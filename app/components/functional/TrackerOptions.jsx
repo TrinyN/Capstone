@@ -1,6 +1,5 @@
-import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import styles from '../../styles';
-import Feather from "react-native-vector-icons/Feather";
 import { Overlay } from '@rneui/base';
 import React from 'react'
 import OptionItem from './OptionItem';
@@ -52,7 +51,7 @@ const TrackerOptions = ({
                 />
                 }
                 {/* Generate Shopping List Option Button. Won't appear on month view */}
-                {(view == 'Day' || view == 'Week') &&
+                {(view != 'Month') &&
                 <OptionItem
                     title={"Generate Shopping List"}
                     icon={"shopping-cart"}
