@@ -7,6 +7,7 @@ import CustomPieChart from '../PieChart';
 import Feather from "react-native-vector-icons/Feather";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import CustomPopUp2 from '../../structural/CustomPopUp2';
 
 const AddFoodConfirmation = ({
     food,
@@ -16,15 +17,15 @@ const AddFoodConfirmation = ({
 }) => {
 
     const [series, setSeries] = useState([0, 0, 0]);
-    
+
     const defaultDATA = [{
-        title: null, 
-        calPerSvg: null, 
-        svgEaten: null, 
-        carb: series[0], 
+        title: null,
+        calPerSvg: null,
+        svgEaten: null,
+        carb: series[0],
         protein: series[1],
         fat: series[2]
-    }, ]
+    },]
 
     const [DATA, setDATA] = useState(defaultDATA);
 
@@ -39,19 +40,19 @@ const AddFoodConfirmation = ({
     // set pie chart percentages
     useEffect(() => {
         // if (DATA.length > 0) {
-            // goes through data and sums up appropriate value with default value of 0
-            const totalCarb = DATA.reduce((acc, item) => acc + item.carb, 0);
-            const totalProtein = DATA.reduce((acc, item) => acc + item.protein, 0);
-            const totalFat = DATA.reduce((acc, item) => acc + item.fat, 0);
+        // goes through data and sums up appropriate value with default value of 0
+        const totalCarb = DATA.reduce((acc, item) => acc + item.carb, 0);
+        const totalProtein = DATA.reduce((acc, item) => acc + item.protein, 0);
+        const totalFat = DATA.reduce((acc, item) => acc + item.fat, 0);
 
-            setSeries([totalCarb, totalProtein, totalFat])
+        setSeries([totalCarb, totalProtein, totalFat])
     }, [DATA]);
 
     const handleAddPress = () => {
         toggleFoodConfirmOverlay()
         toggleFoodOverlay()
     }
-    
+
     const handleConfirmPress = () => {
         // add food to database
 
@@ -66,6 +67,21 @@ const AddFoodConfirmation = ({
         toggleFoodOverlay()
         // todo: open food overlay with appriopriate data and allow user to edit
         toggleFoodConfirmOverlay()
+    }
+
+    // Saves visibility of add water pop up
+    const [deleteConfirmVis, setDeleteConfirmVis] = useState(false);
+
+    // Change visibility of add water overlay
+    const toggleDeleteConfirmVis = () => {
+        setDeleteConfirmVis(!deleteConfirmVis);
+    };
+
+    const handleDeletePress = () => {
+        // open delete confirmation pop up
+        // if confirmed, delete item
+
+        toggleDeleteConfirmVis()
     }
 
     const renderFoodInfo = ({ data, title }) => {
@@ -112,7 +128,7 @@ const AddFoodConfirmation = ({
                     </Text>
 
                     <View style={{ paddingHorizontal: 10 }}>
-                        <TouchableOpacity style={{ width: 20 }}>
+                        <TouchableOpacity style={{ width: 20 }} onPress={toggleDeleteConfirmVis}>
                             <AntDesign name="minuscircle" size={20} color="#CB9CF2" />
                         </TouchableOpacity>
                     </View>
@@ -142,11 +158,7 @@ const AddFoodConfirmation = ({
             toggleOverlay={toggleFoodConfirmOverlay}
             content={
                 <ScrollView>
-                    <View style={{
-                        paddingHorizontal: 30,
-                        paddingBottom: 20,
-                        justifyContent: 'center'
-                    }}>
+                    <View style={{ paddingHorizontal: 30, paddingBottom: 20, justifyContent: 'center' }}>
                         <View style={{ borderRadius: 10, backgroundColor: 'rgba(27,33,43,0.5)', paddingVertical: 10 }}>
                             <FlatList
                                 data={DATA}
@@ -180,6 +192,16 @@ const AddFoodConfirmation = ({
                                 Confirm
                             </Text>
                         </TouchableOpacity>
+
+                        {/* pop up for deleting food item */}
+                        <CustomPopUp2
+                            visible={deleteConfirmVis}
+                            toggleVisible={toggleDeleteConfirmVis}
+                            handleConfirmPress={handleDeletePress}
+                            title={"Are you sure you want to delete?"}
+                            buttonTitle={"Delete"}
+                        />
+                        
                     </View>
                 </ScrollView>
             }

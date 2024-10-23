@@ -8,6 +8,7 @@ import { userDataItems } from '../constants/profileData';
 import CustomScreen from '../components/structural/CustomScreen';
 import CustomButton2 from '../components/functional/CustomButton2';
 import CustomPieChart from '../components/functional/PieChart';
+import CustomPopUp2 from '../components/structural/CustomPopUp2';
 
 // problems:
 // looks weird on android (feather icon positions doesnt line up with drop down icon)
@@ -83,21 +84,13 @@ const Profile = () => {
                         </View>
                     </View>
                     {/* Popup for log out */}
-                    <Overlay isVisible={visibleLogOut} onBackdropPress={toggleLogOut} overlayStyle={localStyle.overlayStyle}>
-                        <View style={localStyle.overlayHeader}>
-                            <Text style={[styles.defaultText, { color: '#F2F4F3', textAlign: 'center' }]}>
-                                Are you sure you want to log out?
-                            </Text>
-                            <View style={localStyle.overlayContainer}>
-                                <TouchableOpacity onPress={toggleLogOut} style={[styles.button, localStyle.button]}>
-                                    <Text style={[styles.buttonText, { color: '#F2F4F3' }]}>Cancel</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => { router.push('') }} style={[styles.button, { backgroundColor: '#CB9CF2', width: '40%' }]}>
-                                    <Text style={[styles.buttonText, { color: '#0E1116' }]}>Log Out</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </Overlay>
+                    <CustomPopUp2
+                        visible={visibleLogOut}
+                        toggleVisible={toggleLogOut}
+                        handleConfirmPress={() => { router.push('') }}
+                        title={"Are you sure you want to log out?"}
+                        buttonTitle={"Log Out"}
+                    />
                 </View>
             }
         >
@@ -108,39 +101,39 @@ export default Profile;
 
 const localStyle = StyleSheet.create({
     container: {
-        borderRadius: 10, 
+        borderRadius: 10,
         backgroundColor: 'rgba(27,33,43,0.5)'
-    }, 
+    },
     button: {
-        backgroundColor: '#0E1116', 
-        borderWidth: 1, 
-        borderColor: '#F2F4F3', 
+        backgroundColor: '#0E1116',
+        borderWidth: 1,
+        borderColor: '#F2F4F3',
         width: '40%'
     },
     overlayStyle: {
-        backgroundColor: '#0E1116', 
-        borderWidth: 2, 
-        borderColor: '#CB9CF2', 
+        backgroundColor: '#0E1116',
+        borderWidth: 2,
+        borderColor: '#CB9CF2',
         width: '90%'
     },
     overlayHeader: {
-        paddingHorizontal: 8, 
+        paddingHorizontal: 8,
         justifyContent: 'center'
     },
     overlayContainer: {
-        flexDirection: 'row', 
-        justifyContent: 'space-between', 
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         paddingHorizontal: 30
     },
     legendStyle: {
-        width: 15, 
-        height: 15, 
-        borderRadius: 7.5, 
+        width: 15,
+        height: 15,
+        borderRadius: 7.5,
         marginRight: 8
-    }, 
+    },
     legendContainer: {
-        justifyContent: 'center', 
-        padding: 20, 
+        justifyContent: 'center',
+        padding: 20,
         justifyContent: 'space-evenly'
     }
 })
