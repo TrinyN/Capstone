@@ -22,9 +22,9 @@ const AddFoodConfirmation = ({
         title: null,
         calPerSvg: null,
         svgEaten: null,
-        carb: series[0],
-        protein: series[1],
-        fat: series[2]
+        carb: 0,
+        protein: 0,
+        fat: 0
     },]
 
     const [DATA, setDATA] = useState(defaultDATA);
@@ -46,7 +46,8 @@ const AddFoodConfirmation = ({
         const totalFat = DATA.reduce((acc, item) => acc + item.fat, 0);
 
         setSeries([totalCarb, totalProtein, totalFat])
-    }, [DATA]);
+        console.log(DATA)
+    }, [DATA,food]);
 
     const handleAddPress = () => {
         toggleFoodConfirmOverlay()
@@ -58,6 +59,9 @@ const AddFoodConfirmation = ({
 
         // reset data
         setDATA(defaultDATA)
+
+        // reset pie chart
+        setSeries([0,0,0])
 
         // close pop up
         toggleFoodConfirmOverlay()
@@ -201,7 +205,7 @@ const AddFoodConfirmation = ({
                             title={"Are you sure you want to delete?"}
                             buttonTitle={"Delete"}
                         />
-                        
+
                     </View>
                 </ScrollView>
             }
