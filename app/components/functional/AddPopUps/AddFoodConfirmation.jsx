@@ -17,14 +17,16 @@ const AddFoodConfirmation = ({
 
     const [series, setSeries] = useState([0, 0, 0]);
     
-    const [DATA, setDATA] = useState([{
+    const defaultDATA = [{
         title: null, 
         calPerSvg: null, 
         svgEaten: null, 
         carb: series[0], 
         protein: series[1],
         fat: series[2]
-    }, ]);
+    }, ]
+
+    const [DATA, setDATA] = useState(defaultDATA);
 
     // when food changes, if food is not empty and title is not already in data, add food to data set
     useEffect(() => {
@@ -45,9 +47,25 @@ const AddFoodConfirmation = ({
             setSeries([totalCarb, totalProtein, totalFat])
     }, [DATA]);
 
-    const handlePress = () => {
+    const handleAddPress = () => {
         toggleFoodConfirmOverlay()
         toggleFoodOverlay()
+    }
+    
+    const handleConfirmPress = () => {
+        // add food to database
+
+        // reset data
+        setDATA(defaultDATA)
+
+        // close pop up
+        toggleFoodConfirmOverlay()
+    }
+
+    const handleEditPress = () => {
+        toggleFoodOverlay()
+        // todo: open food overlay with appriopriate data and allow user to edit
+        toggleFoodConfirmOverlay()
     }
 
     const renderFoodInfo = ({ data, title }) => {
@@ -101,7 +119,6 @@ const AddFoodConfirmation = ({
 
                     <TouchableOpacity>
                         <MaterialIcons name="mode-edit-outline" size={24} color="#CB9CF2" />
-
                     </TouchableOpacity>
                 </View>
                 <View>
@@ -140,7 +157,7 @@ const AddFoodConfirmation = ({
                                         <Text style={[styles.defaultWhiteText, { textDecorationLine: 'underline', fontSize: 21, paddingHorizontal: 10 }]}>
                                             Food
                                         </Text>
-                                        <TouchableOpacity style={{ width: 25 }} onPress={handlePress}>
+                                        <TouchableOpacity style={{ width: 25 }} onPress={handleAddPress}>
                                             {/* <Feather name={'plus-square'} size={25} color='#CB9CF2' /> */}
                                             <AntDesign name="plussquare" size={25} color="#CB9CF2" />
                                         </TouchableOpacity>
@@ -156,7 +173,7 @@ const AddFoodConfirmation = ({
 
                         {/* functionality of button doesnt work if you use custom button for some reason */}
                         <TouchableOpacity
-                            // onPress={handlePress}
+                            onPress={handleConfirmPress}
                             style={[styles.button, { backgroundColor: '#CB9CF2', zIndex: -1 }]}
                         >
                             <Text style={styles.buttonText}>
