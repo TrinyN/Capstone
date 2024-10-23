@@ -41,7 +41,7 @@ const localStyle = StyleSheet.create({
         backgroundColor: '#0E1116', 
         borderWidth: 2, 
         borderColor: '#CB9CF2', 
-        width: '90%'
+        width: '80%'
     },
     overlayHeader: {
         paddingHorizontal: 8, 
