@@ -58,7 +58,7 @@ const HomeFrame = ({
                     //         width={150}
                     //     /> */}
                     <Image
-                        source={require('../../../assets/images/water-bottle-1.png')}
+                        source={require('../../../assets/images/water-bottle-new.png')}
                         style={[localStyle.frameContent, {resizeMode: 'contain', position: 'relative'}]}
                     />
                 ) : (
