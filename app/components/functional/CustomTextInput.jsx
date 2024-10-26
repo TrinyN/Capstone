@@ -20,6 +20,6 @@ const CustomTextInput = ({
         />
     )
 }
-export default CustomTextInput
+export default CustomTextInput;
 
 // not yet used in any of the code, don't know if we'll need this but its reused in a lot of places (not the profile page tho)

@@ -2,7 +2,7 @@ import Feather from "react-native-vector-icons/Feather";
 import { Text, TouchableOpacity, View, Image, StyleSheet } from 'react-native'
 import React from 'react'
 import { router } from 'expo-router';
-import { LiquidGauge } from "react-native-liquid-gauge";
+import WaterGauge from "../functional/WaterGauge";
 
 // TODO: need to implement handle press later, quick track, open add pop up, notes add notes pop up
 {/* TODO: Add popup for quick tracker */ }
@@ -30,7 +30,7 @@ const HomeFrame = ({
         <View style={[style, { marginBottom }]}>
             {/* Touchable Opacity to make entire frame a button */}
             <TouchableOpacity
-                style={[localStyle.frameContent, {flex: 1, flexDirection: 'column'}]}
+                style={localStyle.frameContent}
                 onPress={() => router.push('/tracker')}>
                 <Text style={localStyle.frameTitle}>
                     {title}
@@ -38,32 +38,8 @@ const HomeFrame = ({
                 {title == 'Staying Hydrated?' ? (
                     // {/* WARNING: May have to change bottle to be exact size to prevent issues with it changing sizes based on screen */}
                     // {/* TODO: Add calculation of water progress */}
-                    // {/* View Containing Water Bottle and Water Progress */}
-
-                    // {/* <View style={{flex: 1, flexDirection: 'column'}}> */}
-                    <View>
-                        <LiquidGauge
-                            config={{
-                            circleColor: '#0E1116',
-                            textSize: 0.5,
-                            textColor: 'transparent',
-                            waveTextColor: 'transparent',
-                            waveColor: '#4D79FF',
-                            circleThickness: 0,
-                            textVertPosition: 0.5,
-                            waveAnimateTime: 1000,
-                            }}
-                            // TODO: Reminder: 90 will be max value; adjust calculations accordingly.
-                            maxValue={90}
-                            value={90} // Doesnt look good at 100%, 90 looks best for max value
-                            width={150}
-                        />
-
-                        <Image
-                            source={require('../../../assets/images/water-bottle-new.png')}
-                            style={[localStyle.frameContent, {resizeMode: 'contain', position: 'relative'}]}
-                        />
-                    </View>
+                    // progress to control how full
+                    <WaterGauge progress={90}/>
                 ) : (
                     // {/* How to fill pruple with dark plus (~Figma)??? */}
                     // {/* Issue: SVG (including stroke and fill) no long supported for feather */}
@@ -83,7 +59,7 @@ const localStyle = StyleSheet.create({
         height: '100%',
         width: '100%',
         backgroundColor: '#1F2938',
-        paddingVertical: 20,
+        paddingVertical: 15,
         flex: 1,
         borderRadius: 8,
     },
@@ -91,7 +67,7 @@ const localStyle = StyleSheet.create({
         height: '100%',
         width: '100%',
         backgroundColor: '#1F2938',
-        paddingVertical: 10,
+        paddingVertical: 15,
         paddingHorizontal: 15,
         flex: 1,
         borderRadius: 8,
@@ -109,5 +85,7 @@ const localStyle = StyleSheet.create({
         alignItems: 'center',
         height: '100%',
         width: '100%',
+        flex: 1, 
+        flexDirection: 'column'
     }
 })
