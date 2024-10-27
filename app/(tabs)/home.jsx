@@ -1,12 +1,21 @@
 import { Text, View, StyleSheet } from 'react-native';
 import styles from '../styles';
+import { useState } from 'react';
 import CustomScreen from '../components/structural/CustomScreen';
 import ProgressBar from '../components/functional/ProgressBar';
 import HomeFrame from '../components/structural/HomeFrame';
-// import { LiquidGauge } from 'react-native-liquid-gauge'
+import AddNotes from '../components/functional/AddPopUps/AddNotes';
 
 // Function that handles the design and display of the Home screen
 const Home = () => {
+
+    const [addNotesVisible, setAddNotesVisible] = useState(false);
+
+    // Change visibility of add notes pop up
+    const toggleNotesOverlay = () => {
+        setAddNotesVisible(!addNotesVisible);
+    }
+
     return (
         <CustomScreen
             title='Welcome back,'
@@ -46,9 +55,15 @@ const Home = () => {
                             {/* Quick Track Frame */}
                             <HomeFrame title='Quick Track' />
                             {/* Take Notes Frame */}
-                            <HomeFrame title='Notes' />
+                            <HomeFrame title='Notes' 
+                                toggleNotesOverlay={toggleNotesOverlay}
+                            />
                         </View>
                     </View>
+                    <AddNotes
+                        toggleNotesOverlay={toggleNotesOverlay}
+                        addNotesVisible={addNotesVisible}
+                    />
                 </View>
             }
         />

@@ -8,7 +8,8 @@ import WaterGauge from "../functional/WaterGauge";
 {/* TODO: Add popup for quick tracker */ }
 const HomeFrame = ({
     title,
-    handlePress
+    toggleNotesOverlay,
+    // handlePress
 }) => {
     let marginBottom
     let icon
@@ -25,13 +26,24 @@ const HomeFrame = ({
         style = localStyle.viewHomeFrameTall
     }
 
+    const handlePress = () => {
+        if(title == "Quick Track") {
+            router.push('/tracker', {toggleOverlay:true}); // second half does not work properly
+        } else if(title == "Notes") {
+            // router.push('/tracker');
+            toggleNotesOverlay();
+        } else {
+            router.push('/tracker');
+        }
+    };
+
     return (
         // {/* Quick Track Frame */ }
         <View style={[style, { marginBottom }]}>
             {/* Touchable Opacity to make entire frame a button */}
             <TouchableOpacity
                 style={localStyle.frameContent}
-                onPress={() => router.push('/tracker')}>
+                onPress={handlePress}>
                 <Text style={localStyle.frameTitle}>
                     {title}
                 </Text>
