@@ -9,6 +9,7 @@ import WaterGauge from "../functional/WaterGauge";
 const HomeFrame = ({
     title,
     toggleNotesOverlay,
+    toggleOverlay,
     // handlePress
 }) => {
     let marginBottom
@@ -28,7 +29,9 @@ const HomeFrame = ({
 
     const handlePress = () => {
         if(title == "Quick Track") {
-            router.push('/tracker', {toggleOverlay:true}); // second half does not work properly
+            // console.log('Navigating to Tracker with overlay');
+            router.push('/tracker', { toggleOverlay: true });      // this, settimeout, component arent working?
+             
         } else if(title == "Notes") {
             // router.push('/tracker');
             toggleNotesOverlay();

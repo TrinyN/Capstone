@@ -1,7 +1,7 @@
 import { TouchableOpacity, Text, View, FlatList, StyleSheet } from 'react-native';
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CustomHeader from '../components/structural/CustomHeader';
 import TrackerOptions from '../components/functional/TrackerOptions';
 import TrackerInfo from '../components/functional/TrackerInfo';
