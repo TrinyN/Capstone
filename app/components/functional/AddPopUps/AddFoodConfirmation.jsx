@@ -46,7 +46,6 @@ const AddFoodConfirmation = ({
         const totalFat = DATA.reduce((acc, item) => acc + item.fat, 0);
 
         setSeries([totalCarb, totalProtein, totalFat])
-        console.log(DATA)
     }, [DATA,food]);
 
     const handleAddPress = () => {

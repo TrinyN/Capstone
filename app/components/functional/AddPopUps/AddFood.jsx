@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Pressable } from 'react-native';
 import CustomPopUp from '../../structural/CustomPopUp';
 import styles from '../../../styles';
 import CustomDropdown from '../CustomDropdown';
@@ -130,9 +130,9 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
                             />
                         </View>
                         <View style={{ paddingVertical: 10, zIndex: -1 }}>
-                            <TouchableOpacity onPress={toggleFoodMacroOverlay}>
+                            <Pressable onPress={toggleFoodMacroOverlay}>
                                 <CustomPieChart hasTitle={true} editable={true} series={series.every(item => item === 0) ? null : series} />
-                            </TouchableOpacity>
+                            </Pressable>
                         </View>
 
                         {/* funtionality of button doesnt work if you use custom button for some reason */}

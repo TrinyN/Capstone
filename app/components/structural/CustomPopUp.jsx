@@ -31,7 +31,7 @@ const localStyle = StyleSheet.create({
         borderRadius: 8,
         borderColor: '#CB9CF2', 
         borderWidth: 2, 
-        maxWidth: '90%', 
+        maxWidth: '85%', 
         minWidth: '75%'
     },
     headerStyle:{
