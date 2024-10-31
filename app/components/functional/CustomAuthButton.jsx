@@ -4,7 +4,7 @@ import { router } from 'expo-router';
 import CustomButton2 from './CustomButton2';
 import styles from '../../styles';
 
-const CustomAuthButton = ({authType}) => {
+const CustomAuthButton = ({authType, handlePress}) => {
     let linkTitle;
     let routerPush;
 
@@ -23,7 +23,12 @@ const CustomAuthButton = ({authType}) => {
         <View style={localStyle.container}>
             <CustomButton2 type='normal'
                 text={authType}
-                onPress={() => { router.push(routerPush) }}>
+                // onPress={() => { router.push(routerPush) }}
+                onPress={() => {handlePress}}
+
+                
+                
+                >
             </CustomButton2>
 
             <View style={localStyle.subContainer}>
