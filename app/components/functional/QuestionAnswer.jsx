@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 // Function that returns the QuestionAnswer given certain fields to determine its behavior
 const QuestionAnswer = (
-    { type, question, placeholder, setCustomValue, items, setItems, hasTitle, isEmail }) => {
+    { type, question, placeholder, setCustomValue, items, setItems, hasTitle, isEmail, value, setValue }) => {
 
     // If the answer will be a text input
     if (type === 'text') {
@@ -24,7 +24,10 @@ const QuestionAnswer = (
                         placeholder={placeholder}
                         selectionColor='#CB9CF2'
                         placeholderTextColor='rgba(242,244,243, 0.2)'
-                        keyboardType={isEmail ? 'email': 'default'}>
+                        keyboardType={isEmail ? 'email': 'default'}
+                        value={value}
+                        onChangeText={setValue}
+                        >
                     </TextInput>
                 </View>
             </View>
@@ -54,7 +57,10 @@ const QuestionAnswer = (
                         placeholder={type}
                         secureTextEntry={!showPassword}
                         selectionColor='#CB9CF2'
-                        placeholderTextColor='rgba(242,244,243, 0.2)'>
+                        placeholderTextColor='rgba(242,244,243, 0.2)'
+                        value={value}
+                        onChangeText={setValue}
+                        >
                     </TextInput>
                     <TouchableOpacity style={localStyle.passwordButton} onPress={() => setShowPassword(!showPassword)}>
                         <Feather name={!showPassword ? "eye" : "eye-off"} size={25} color='rgba(242,244,243,0.5)' />
