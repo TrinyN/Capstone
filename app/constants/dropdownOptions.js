@@ -46,6 +46,8 @@ export const useDietPlanOptions = () => {
         { label: 'Keto', value: 'Keto' },
         { label: 'Vegan', value: 'Vegan' },
         { label: 'Vegetarian', value: 'Vegetarian' },
+        { label: 'Pescatarian', value: 'Pescatarian' },
+        { label: 'Intermittent Fasting', value: 'Intermittent Fasting' },
     ]);
 
     return {
