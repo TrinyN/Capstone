@@ -1,6 +1,7 @@
 import Feather from "react-native-vector-icons/Feather";
 import { Text, TouchableOpacity, View, Image, StyleSheet } from 'react-native'
 import React from 'react'
+import { useState } from "react";
 import { router } from 'expo-router';
 import WaterGauge from "../functional/WaterGauge";
 
@@ -16,6 +17,9 @@ const HomeFrame = ({
     let icon
     let style = localStyle.viewHomeFrameNormal // default style
 
+    // Used to manage the previos value of opening add popup from home to tracker screens
+    const [triggerOverlay, setTriggerOverlay] = useState(false);
+
     if (title == "Quick Track") {
         marginBottom = 20
         icon = 'plus-circle'
@@ -29,8 +33,11 @@ const HomeFrame = ({
 
     const handlePress = () => {
         if(title == "Quick Track") {
-            // console.log('Navigating to Tracker with overlay');
-            router.push('/tracker', { toggleOverlay: true });      // this, settimeout, component arent working?
+            router.push({ pathname:'/tracker', params: { openOverlay: 'true' } });
+            // Handle timeout so that opOverlay can be used again (pops add popup back up)
+            setTimeout(() => {
+                router.replace({ pathname:'/tracker', params: { openOverlay: 'false' }});
+            }, 100);
              
         } else if(title == "Notes") {
             // router.push('/tracker');

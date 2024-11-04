@@ -7,7 +7,7 @@ import TrackerOptions from '../components/functional/TrackerOptions';
 import TrackerInfo from '../components/functional/TrackerInfo';
 import CustomScreen from '../components/structural/CustomScreen';
 import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
-import { router } from 'expo-router';
+import { router, useRouter, useLocalSearchParams } from 'expo-router';
 import CustomButton2 from '../components/functional/CustomButton2';
 import { useExerciseData, useFoodData, useWaterData } from '../constants/trackerData';
 import { AddWater, AddExercise, AddPopUp, AddFood } from '../components/functional/AddPopUps';
@@ -22,6 +22,8 @@ import AddFoodConfirmation from '../components/functional/AddPopUps/AddFoodConfi
 
 // Function to design and display the tracker
 const Tracker = () => {
+
+    const { openOverlay } = useLocalSearchParams();         // Used for Quick Track frame
 
     const pinch = Gesture.Pinch()
         .onUpdate((event) => {
@@ -45,6 +47,13 @@ const Tracker = () => {
         setAddExerciseVisible(false)
         setAddFoodVisible(false)
     };
+
+    useEffect(() => {
+        // const openOverlay = routerPrev.query?openOverlay ?? false;
+        if (openOverlay === 'true') {
+            toggleOverlay();
+        }
+    }, [openOverlay]);
 
     // Saves visibility of add water pop up
     const [addWaterVisible, setAddWaterVisible] = useState(false);
