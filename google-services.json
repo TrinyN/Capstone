@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "888939824219-d5ihc9i2fti2pse3jtar9c83fu6v05l3.apps.googleusercontent.com",
+          "client_id": "888939824219-l9ba0lracor9aqgsr3s2qcipvsfbq4ju.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.galaxies.calonavo",
-            "certificate_hash": "94a4e14f463c20195e211a7a5ade047576789442"
+            "certificate_hash": "b15b77a96dfd8721c8573048c091efd6f92f6552"
           }
         },
         {

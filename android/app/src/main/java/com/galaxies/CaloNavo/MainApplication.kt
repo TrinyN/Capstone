@@ -1,4 +1,4 @@
-package com.galaxies.CaloNavo
+package com.galaxies.calonavo
 
 import android.app.Application
 import android.content.res.Configuration

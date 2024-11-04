@@ -2,7 +2,7 @@
   "expo": {
     "name": "CaloNavo",
     "scheme": "calonavo",
-    "slug": "CaloNavo",
+    "slug": "calonavo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,31 +13,40 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true, 
-      "bundleIdentifier": "com.galaxies.CaloNavo", 
+      "supportsTablet": true,
+      "bundleIdentifier": "com.galaxies.calonavo",
       "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }, 
-      "package": "com.galaxies.CaloNavo", 
+      },
+      "package": "com.galaxies.calonavo",
       "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
+      "expo-font",
       "expo-router",
-      "expo-font", 
-      ["expo-build-properties", {
-        "ios": {
-          "useFrameworks": "static"
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
         }
-      }],
-      "@react-native-firebase/app", 
+      ],
+      "@react-native-firebase/app",
       "@react-native-firebase/auth"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "513a7081-b769-4242-92b9-b9cf79b6895c"
+      }
+    },
+    "owner": "capstonefmu"
   }
 }

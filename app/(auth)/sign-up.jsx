@@ -1,11 +1,29 @@
 import { View } from 'react-native';
-import React from 'react'
+import { React, useState } from 'react';
 import CustomScreen from '../components/structural/CustomScreen';
 import CustomAuthButton from '../components/functional/CustomAuthButton';
 import QuestionAnswer from '../components/functional/QuestionAnswer';
+import auth from '@react-native-firebase/auth';
+import firebase from '@react-native-firebase/app';
+
 
 // Function to handle the design and display of the Sign Up screen
 const SignUp = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const handleSignUp = async () => {
+        setLoading(true)
+        // try {
+        //     await auth().createUserWithEmailAndPassword(email, password);
+        //     alert('Registration successful'); 
+        // } catch (e) {
+        //     alert('Registration failed: ' + e.message);
+        // } finally {
+        //     setLoading(false)
+        // }
+    }
     return (
         <CustomScreen
             title='So you are new?'
@@ -18,10 +36,22 @@ const SignUp = () => {
                     <View style={{ justifyContent: 'flex-start', paddingBottom: 100, flex: 1 }}>
 
                         {/* email */}
-                        <QuestionAnswer type='text' placeholder='your_email@gmail.com' question='Email:' isEmail={true}/>
+                        <QuestionAnswer
+                            type='text'
+                            placeholder='your_email@gmail.com'
+                            question='Email:'
+                            isEmail={true}
+                            value={email}
+                            setValue={setEmail}
+                        />
 
                         {/* password */}
-                        <QuestionAnswer type='password' question='Password:'/>
+                        <QuestionAnswer
+                            type='password'
+                            question='Password:'
+                            value={password}
+                            setValue={setPassword}
+                        />
 
                         {/* <Text style={styles.defaultText}>
                                 Confirm Password:
@@ -32,7 +62,7 @@ const SignUp = () => {
                                 secureTextEntry={true}> 
                             </TextInput> */}
                     </View>
-                    <CustomAuthButton authType={"Sign Up"} />
+                    <CustomAuthButton authType={"Sign Up"} handlePress={handleSignUp}/>
                 </View>
             } />
     )
