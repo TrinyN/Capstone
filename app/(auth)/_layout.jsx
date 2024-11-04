@@ -1,6 +1,7 @@
 import React from 'react'
 import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
+import 'expo-dev-client';
 
 
 // Function to handled the routing of the various (auth) screens of CaloNavo, including the Welcome screen
