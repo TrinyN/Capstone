@@ -136,14 +136,14 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
                         </View>
 
                         {/* funtionality of button doesnt work if you use custom button for some reason */}
-                        <TouchableOpacity
+                        <Pressable
                             onPress={handlePress}
                             style={[styles.button, { backgroundColor: '#CB9CF2', zIndex: -1 }]}
                         >
                             <Text style={styles.buttonText}>
                                 Add
                             </Text>
-                        </TouchableOpacity>
+                        </Pressable>
                     </View>
                     <AddFoodMacro
                         toggleFoodMacroOverlay={toggleFoodMacroOverlay}

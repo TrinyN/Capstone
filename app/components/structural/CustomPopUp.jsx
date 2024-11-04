@@ -9,7 +9,7 @@ const CustomPopUp = ({ visible, toggleOverlay, content, hasBackButton, previousO
     const iconColor = hasBackButton ? "#F2F4F3" : "transparent"
     return (
         <Overlay isVisible={visible} onBackdropPress={toggleOverlay}
-            overlayStyle={[localStyle.overlayStyle, {maxHeight: height*0.8}]}>
+            overlayStyle={[localStyle.overlayStyle, {maxHeight: height*0.7}]}>
             {/* View at top to hold exit button */}
             <View style={localStyle.headerStyle}>
                 <TouchableOpacity onPress={previousOverlay} style={{ width: 30 }} disabled={!hasBackButton}>
@@ -31,8 +31,9 @@ const localStyle = StyleSheet.create({
         borderRadius: 8,
         borderColor: '#CB9CF2', 
         borderWidth: 2, 
-        maxWidth: '85%', 
-        minWidth: '75%'
+        // maxWidth: '80%', 
+        // minWidth: '75%', 
+        width: '80%'
     },
     headerStyle:{
         paddingVertical: 8, 
