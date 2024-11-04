@@ -96,6 +96,7 @@ const TrackerWeek = () => {
                                             <Text style={[styles.headerText, {fontFamily:'Inter_600SemiBold'}]}>
                                                 Day
                                             </Text>
+                                            {/* Calories eaten and burned */}
                                             <Text style={[styles.headerText, {textAlign:'center'}]}>
                                                 Calories
                                             </Text>

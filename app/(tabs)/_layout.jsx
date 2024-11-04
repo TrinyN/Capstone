@@ -111,6 +111,15 @@ const TabsLayout = () => {
                         tabBarIconStyle
                     }}
                 />
+                {/* Shopping List Generation Page identical to Tracker page, but different functionality */}
+                <Tabs.Screen
+                    name="shoppingGenDay"
+                    options={{
+                        title: "Shopping Generation - Day",
+                        headerShown: false,
+                        href: null,                 // Include as tab, but do not show in tab bar
+                    }}
+                />
                 {/* Profile tab of the main screens*/}
                 <Tabs.Screen
                     name="profile"
