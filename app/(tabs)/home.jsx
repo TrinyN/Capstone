@@ -1,5 +1,4 @@
 import { Text, View, StyleSheet } from 'react-native';
-import styles from '../styles';
 import { useState, useEffect } from 'react';
 import CustomScreen from '../components/structural/CustomScreen';
 import ProgressBar from '../components/functional/ProgressBar';

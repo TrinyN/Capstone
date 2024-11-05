@@ -1,7 +1,5 @@
-import { TouchableOpacity, Text, View, FlatList, StyleSheet } from 'react-native';
-import styles from '../styles';
+import { View, FlatList, StyleSheet } from 'react-native';
 import { useState, useEffect } from 'react';
-import { Overlay } from '@rneui/base';
 import { useRouter } from 'expo-router';
 import ProfileItem from '../components/functional/ProfileItem';
 import { userDataItems } from '../constants/profileData';
@@ -10,7 +8,6 @@ import CustomButton2 from '../components/functional/CustomButton2';
 import CustomPieChart from '../components/functional/PieChart';
 import CustomPopUp2 from '../components/structural/CustomPopUp2';
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
 
 // problems:
 // looks weird on android (feather icon positions doesnt line up with drop down icon)

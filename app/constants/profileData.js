@@ -7,7 +7,7 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { useEffect } from 'react';
 
-// useState that contains default values
+// useState that contains non changing values
 export const userDataItems = () => {
     const [userInfo, setUserInfo] = useState([
     { title: 'Email', value: '', type: '', options: [] },

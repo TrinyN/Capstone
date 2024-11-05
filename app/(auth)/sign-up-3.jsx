@@ -27,7 +27,6 @@ const SignUp3 = () => {
     const weight = params.weight
     // TODO still need birthdate and gender
 
-
     // TODO need to add dietplan, weight goal
     const [calGoal, setCalGoal] = useState(0);
     const [macroGoal, setMacroGoal] = useState(""); // change default value? ex: 20:30:30
@@ -63,9 +62,6 @@ const SignUp3 = () => {
                 dietPlanName: dietPlanName
               });
 
-            // const users = await firestore().collection('Users').get();
-
-            // console.log(users)
         } catch (e) {
             alert('Registration failed: ' + e.message);
         }

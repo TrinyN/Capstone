@@ -2,9 +2,9 @@ import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import 'expo-dev-client';
 import 'expo-dev-client';
-import { useRouter, useSegments } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 import { View, ActivityIndicator } from 'react-native';
 
 // Function to handled the routing of the various (auth) screens of CaloNavo, including the Welcome screen
