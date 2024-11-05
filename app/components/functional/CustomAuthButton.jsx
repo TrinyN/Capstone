@@ -4,26 +4,34 @@ import { router } from 'expo-router';
 import CustomButton2 from './CustomButton2';
 import styles from '../../styles';
 
-const CustomAuthButton = ({authType}) => {
+const CustomAuthButton = ({authType, handleAuth, email, password}) => {
     let linkTitle;
     let routerPush;
 
     if (authType == 'Log In') {
         linkTitle = "Sign Up"
         switchAuthType = '/sign-up'
+        handlePress= () => {handleAuth}
+
         routerPush = '/home' // need to authorize first, google button needs to be changed too
     }
     else {
         linkTitle = "Log In"
         switchAuthType = '/sign-in'
-        routerPush = '/sign-up-2'
+        handlePress= () => {
+            router.push({
+                pathname: '/sign-up-2',
+                params: {email:email, password:password},
+            });
+        }
     }
     return (
         // {/* View to hold the buttons at the bottom */}
         <View style={localStyle.container}>
             <CustomButton2 type='normal'
                 text={authType}
-                onPress={() => { router.push(routerPush) }}>
+                onPress={handlePress}
+                >
             </CustomButton2>
 
             <View style={localStyle.subContainer}>

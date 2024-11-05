@@ -2,13 +2,14 @@ import { TouchableOpacity, Text, View, FlatList, StyleSheet } from 'react-native
 import styles from '../styles';
 import { useState } from 'react';
 import { Overlay } from '@rneui/base';
-import { router } from 'expo-router';
+import { useRouter } from 'expo-router';
 import ProfileItem from '../components/functional/ProfileItem';
 import { userDataItems } from '../constants/profileData';
 import CustomScreen from '../components/structural/CustomScreen';
 import CustomButton2 from '../components/functional/CustomButton2';
 import CustomPieChart from '../components/functional/PieChart';
 import CustomPopUp2 from '../components/structural/CustomPopUp2';
+import auth from '@react-native-firebase/auth';
 
 // problems:
 // looks weird on android (feather icon positions doesnt line up with drop down icon)
@@ -22,6 +23,8 @@ import CustomPopUp2 from '../components/structural/CustomPopUp2';
 // 6. Small button component? ~ CustomButton implementation?
 
 const Profile = () => {
+    const router = useRouter();
+
     // test data for macro ratio goal
     const [series, setSeries] = useState([15, 35, 40]);
 
@@ -42,6 +45,15 @@ const Profile = () => {
     // test data, will need to fetch user info from database and allow user to change
     const { userInfo, setUserInfo } = userDataItems();
 
+    handleLogOut = async () => {
+        try {
+            await auth().signOut();
+            router.push('/');
+        }
+        catch (error) {
+            alert('Log out failed: ' + error.message);
+        }
+    }
     return (
         <CustomScreen
             title='Your Profile'
@@ -87,7 +99,7 @@ const Profile = () => {
                     <CustomPopUp2
                         visible={visibleLogOut}
                         toggleVisible={toggleLogOut}
-                        handleConfirmPress={() => { router.push('') }}
+                        handleConfirmPress={() => handleLogOut()}
                         title={"Are you sure you want to log out?"}
                         buttonTitle={"Log Out"}
                     />

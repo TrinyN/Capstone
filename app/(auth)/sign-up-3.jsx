@@ -1,29 +1,45 @@
 import { Text, View } from 'react-native';
 import styles from '../styles';
-import { router } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import CustomDropdown from '../components/functional/CustomDropdown';
 import CustomScreen from '../components/structural/CustomScreen';
 import QuestionAnswer from '../components/functional/QuestionAnswer';
 import CustomButton2 from '../components/functional/CustomButton2';
-import { useDietPlanBooleanOptions,
+import {
+    useDietPlanBooleanOptions,
     useDietPlanOptions,
     useWeightGoalOptions
- } from '../constants/dropdownOptions';
+} from '../constants/dropdownOptions';
+import auth from '@react-native-firebase/auth';
 
 // Function to handle the design and display of the Sign In 2 screen
 const SignUp3 = () => {
+    const params = useLocalSearchParams(); // Retrieve email and password from parameters
+    const email = params.email
+    const password = params.password
+    const userSex = params.userSex
+    // add other fields getting passed
+
     // Handling user choice of diet plan or not
-    const { userDietPlanBoolean, setUserDietPlanBoolean, 
+    const { userDietPlanBoolean, setUserDietPlanBoolean,
         dietPlanBoolean, setDietPlanBoolean } = useDietPlanBooleanOptions();
 
     // Handling user choice of diet plan
-    const {userDietPlan, setUserDietPlan, 
-        dietPlan, setDietPlan} = useDietPlanOptions();
+    const { userDietPlan, setUserDietPlan,
+        dietPlan, setDietPlan } = useDietPlanOptions();
 
     // Handling user's weight goal answer
-    const {userWeightGoal, setUserWeightGoal, 
-        weightGoal, setWeightGoal} = useWeightGoalOptions();
+    const { userWeightGoal, setUserWeightGoal,
+        weightGoal, setWeightGoal } = useWeightGoalOptions();
 
+    const handleSignUp = async () => {
+        try {
+            await auth().createUserWithEmailAndPassword(email, password); // add more fields to create user with
+            alert('Registration Successful');
+        } catch (e) {
+            alert('Registration failed: ' + e.message);
+        }
+    };
     return (
         <CustomScreen
             title='Your diet goals ...'
@@ -75,7 +91,7 @@ const SignUp3 = () => {
                                 type='text'
                                 question='Custom diet name? (optional)'
                                 placeholder={'My Diet Plan'}
-                                >
+                            >
                             </QuestionAnswer>
                         </>
                     )}
@@ -117,7 +133,9 @@ const SignUp3 = () => {
                     <CustomButton2
                         type={'normal'}
                         text={'Done'}
-                        onPress={() => router.push('home')}>
+                        // onPress={() => router.push('home')}
+                        onPress={() => handleSignUp()}
+                    >
                     </CustomButton2>
                 </View>
             } />

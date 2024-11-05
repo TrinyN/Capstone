@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams  } from 'expo-router';
 import CustomScreen from '../components/structural/CustomScreen';
 import QuestionAnswer from '../components/functional/QuestionAnswer';
 import CustomButton2 from '../components/functional/CustomButton2';
@@ -9,7 +9,15 @@ import { useSexOptions } from '../constants/dropdownOptions';
 const SignUp2 = () => {
     // Handle dropdown menu options for sex question
     const { userSex, setUserSex, sex, setSex } = useSexOptions();
-    
+    const params = useLocalSearchParams(); // Retrieve parameters
+    const { email, password } = params; // Destructure email and password from params
+
+    handleNext = () => {
+        router.push({
+            pathname: '/sign-up-3',
+            params: {email:email, password:password} // add rest of fields to pass
+        });
+    }
     return (
         <CustomScreen
             title='First things first ...'
@@ -65,7 +73,7 @@ const SignUp2 = () => {
                     <CustomButton2 
                         type='normal' 
                         text='Continue'
-                        onPress={() => router.push('sign-up-3')}>
+                        onPress={handleNext}>
                     </CustomButton2>
                 </View>
             }

@@ -1,35 +1,20 @@
 import { View } from 'react-native';
-import { React, useState } from 'react';
+import { useState } from 'react';
 import CustomScreen from '../components/structural/CustomScreen';
 import CustomAuthButton from '../components/functional/CustomAuthButton';
 import QuestionAnswer from '../components/functional/QuestionAnswer';
-import auth from '@react-native-firebase/auth';
-import firebase from '@react-native-firebase/app';
-
 
 // Function to handle the design and display of the Sign Up screen
 const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false);
 
-    const handleSignUp = async () => {
-        setLoading(true)
-        // try {
-        //     await auth().createUserWithEmailAndPassword(email, password);
-        //     alert('Registration successful'); 
-        // } catch (e) {
-        //     alert('Registration failed: ' + e.message);
-        // } finally {
-        //     setLoading(false)
-        // }
-    }
     return (
         <CustomScreen
             title='So you are new?'
             info='Please choose a good email and safe password to get started!'
             screenContent={
-                // {/* Cotent of screen */}
+                // {/* Content of screen */}
                 <View style={{ flex: 5, paddingBottom: 100 }}>
 
                     {/* Q/A's for email and password */}
@@ -62,7 +47,7 @@ const SignUp = () => {
                                 secureTextEntry={true}> 
                             </TextInput> */}
                     </View>
-                    <CustomAuthButton authType={"Sign Up"} handlePress={handleSignUp}/>
+                    <CustomAuthButton authType={"Sign Up"} email={email} password={password}/>
                 </View>
             } />
     )

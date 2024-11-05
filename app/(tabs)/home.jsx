@@ -5,10 +5,11 @@ import CustomScreen from '../components/structural/CustomScreen';
 import ProgressBar from '../components/functional/ProgressBar';
 import HomeFrame from '../components/structural/HomeFrame';
 import AddNotes from '../components/functional/AddPopUps/AddNotes';
+import auth from '@react-native-firebase/auth';
 
 // Function that handles the design and display of the Home screen
 const Home = () => {
-
+    const user = auth().currentUser;
     const [addNotesVisible, setAddNotesVisible] = useState(false);
 
     // Change visibility of add notes pop up
@@ -19,7 +20,7 @@ const Home = () => {
     return (
         <CustomScreen
             title='Welcome back,'
-            title2='Bob' // test value, need to change
+            title2={user?.email} // change to username later
             screenContent={
                 // View to contain all other major elements, like the frames for each quick tool
                 <View style={{ flex: 5 }}>
