@@ -1,6 +1,6 @@
 import { TouchableOpacity, Text, View, FlatList, StyleSheet } from 'react-native';
 import styles from '../styles';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Overlay } from '@rneui/base';
 import { useRouter } from 'expo-router';
 import ProfileItem from '../components/functional/ProfileItem';
@@ -10,6 +10,7 @@ import CustomButton2 from '../components/functional/CustomButton2';
 import CustomPieChart from '../components/functional/PieChart';
 import CustomPopUp2 from '../components/structural/CustomPopUp2';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 // problems:
 // looks weird on android (feather icon positions doesnt line up with drop down icon)
@@ -42,7 +43,6 @@ const Profile = () => {
     // const opacity = saveVisibility ? 1: 0
     const opacity = 1
 
-    // test data, will need to fetch user info from database and allow user to change
     const { userInfo, setUserInfo } = userDataItems();
 
     handleLogOut = async () => {

@@ -13,7 +13,6 @@ const AuthLayout = () => {
   const [initializing, setInitializing] = useState(true);
 	const [user, setUser] = useState(null);
 	const router = useRouter();
-	const segments = useSegments();
 
 	const onAuthStateChanged = (user) => {
 		setUser(user);

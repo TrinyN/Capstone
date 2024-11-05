@@ -1,26 +1,45 @@
 import { Text, View, StyleSheet } from 'react-native';
 import styles from '../styles';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CustomScreen from '../components/structural/CustomScreen';
 import ProgressBar from '../components/functional/ProgressBar';
 import HomeFrame from '../components/structural/HomeFrame';
 import AddNotes from '../components/functional/AddPopUps/AddNotes';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 // Function that handles the design and display of the Home screen
 const Home = () => {
-    const user = auth().currentUser;
+    
     const [addNotesVisible, setAddNotesVisible] = useState(false);
+    const [userName, setUserName] = useState("");
 
     // Change visibility of add notes pop up
     const toggleNotesOverlay = () => {
         setAddNotesVisible(!addNotesVisible);
     }
 
+    // Searches database for user's username
+    const getUsername = async () => {
+        try{
+            const userID = auth().currentUser.uid;
+            const userDoc = await firestore().collection('Users').doc(userID).get();
+            setUserName(userDoc.data().username)
+            return
+        } catch (e){
+            alert(e.message)
+        }
+
+    }
+
+    useEffect(() => {
+        getUsername();
+    }, []);
+
     return (
         <CustomScreen
             title='Welcome back,'
-            title2={user?.email} // change to username later
+            title2={userName}
             screenContent={
                 // View to contain all other major elements, like the frames for each quick tool
                 <View style={{ flex: 5 }}>

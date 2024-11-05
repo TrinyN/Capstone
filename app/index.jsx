@@ -17,6 +17,10 @@ import {
     Inter_800ExtraBold,
     Inter_900Black,
 } from '@expo-google-fonts/inter';
+import firestore from '@react-native-firebase/firestore';
+
+// This initializes Firestore (if needed) when your app starts
+const firestoreInstance = firestore();
 
 export default function App() {
 

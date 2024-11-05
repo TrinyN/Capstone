@@ -34,7 +34,7 @@ const CustomScreen = ({
                     <View style={localStyle.headerContainer}>
                         {/* NOTE: Flex looks strange on very large (incompatible) screens like iPad, web */}
                         <Text style={localStyle.titleText}>
-                            {title} {" "}
+                            {title} {""}
                             {/* TODO: Make this text get the current week */}
                             <Text style={localStyle.titleTextWhite}>
                                 {title2}

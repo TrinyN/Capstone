@@ -10,15 +10,29 @@ import {
     useDietPlanOptions,
     useWeightGoalOptions
 } from '../constants/dropdownOptions';
+import firebase from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import { useState } from 'react';
+
 
 // Function to handle the design and display of the Sign In 2 screen
 const SignUp3 = () => {
-    const params = useLocalSearchParams(); // Retrieve email and password from parameters
+    // gets info from sign up 2 page
+    const params = useLocalSearchParams();
     const email = params.email
     const password = params.password
-    const userSex = params.userSex
-    // add other fields getting passed
+    const username = params.username
+    const height = params.height
+    const weight = params.weight
+    // TODO still need birthdate and gender
+
+
+    // TODO need to add dietplan, weight goal
+    const [calGoal, setCalGoal] = useState(0);
+    const [macroGoal, setMacroGoal] = useState(""); // change default value? ex: 20:30:30
+    const [waterGoal, setWaterGoal] = useState(0); 
+    const [dietPlanName, setDietPlanName] = useState(""); 
 
     // Handling user choice of diet plan or not
     const { userDietPlanBoolean, setUserDietPlanBoolean,
@@ -34,8 +48,24 @@ const SignUp3 = () => {
 
     const handleSignUp = async () => {
         try {
-            await auth().createUserWithEmailAndPassword(email, password); // add more fields to create user with
+            const user = await auth().createUserWithEmailAndPassword(email, password); // add more fields to create user with
             alert('Registration Successful');
+            const userID = user.user.uid
+
+            await firestore().collection('Users').doc(userID).set({
+                email: email, 
+                username: username,
+                height: height, 
+                weight: weight, 
+                calGoal: calGoal, 
+                macroGoal: macroGoal, 
+                waterGoal: waterGoal, 
+                dietPlanName: dietPlanName
+              });
+
+            // const users = await firestore().collection('Users').get();
+
+            // console.log(users)
         } catch (e) {
             alert('Registration failed: ' + e.message);
         }
@@ -91,6 +121,8 @@ const SignUp3 = () => {
                                 type='text'
                                 question='Custom diet name? (optional)'
                                 placeholder={'My Diet Plan'}
+                                value={dietPlanName}
+                                setValue={setDietPlanName}
                             >
                             </QuestionAnswer>
                         </>
@@ -99,14 +131,20 @@ const SignUp3 = () => {
                     <QuestionAnswer
                         type={'text'}
                         question={'How many calories per day?'}
-                        placeholder={'2500'}>
+                        placeholder={'2500'}
+                        value={calGoal}
+                        setValue={setCalGoal}
+                        >
                     </QuestionAnswer>
 
                     {/* Macro Ratio */}
                     <QuestionAnswer
                         type={'text'}
                         question={'What macro ratio do you want?'}
-                        placeholder={'35% Carb / 35% Protein / 30 % Fat'}>
+                        placeholder={'35% Carb / 35% Protein / 30 % Fat'}
+                        value={macroGoal}
+                        setValue={setMacroGoal}
+                        >
                     </QuestionAnswer>
 
                     {/* Weight Goal */}
@@ -123,7 +161,10 @@ const SignUp3 = () => {
                     <QuestionAnswer
                         type={'text'}
                         question={'What is your water goal?'}
-                        placeholder={'9 cups'}>
+                        placeholder={'9 cups'}
+                        value={waterGoal}
+                        setValue={setWaterGoal}
+                        >
                     </QuestionAnswer>
 
                     {/* Space between Questions and Submit */}
