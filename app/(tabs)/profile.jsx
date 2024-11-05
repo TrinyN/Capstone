@@ -51,7 +51,7 @@ const Profile = () => {
         const macroRatioArray = macroRatioGoal.split(':').map(Number);
         
         // change pie chart values if all number's not 0
-        if (!macroRatioArray.every(num => num === 0)) {
+        if (!macroRatioArray.some(num => num === 0)) {
             setSeries(macroRatioArray);
         }
     }, [macroRatioGoal]);
