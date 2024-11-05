@@ -20,9 +20,8 @@ const CustomButton2 = ({ type, text, onPress }) => {
         )
     } else if (type === 'normal') {
         return (
-            // Else is normal button
             <TouchableOpacity onPress={onPress}>
-                <View style={localStyle.button}>
+                <View style={[localStyle.button]}>
                     <Text style={styles.buttonText}>
                         {text}
                     </Text>

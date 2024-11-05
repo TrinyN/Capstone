@@ -7,7 +7,7 @@ import TrackerOptions from '../components/functional/TrackerOptions';
 import TrackerInfo from '../components/functional/TrackerInfo';
 import CustomScreen from '../components/structural/CustomScreen';
 import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
-import { router, useRouter, useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import CustomButton2 from '../components/functional/CustomButton2';
 import { useExerciseData, useFoodData, useWaterData } from '../constants/trackerData';
 import { AddWater, AddExercise, AddPopUp, AddFood } from '../components/functional/AddPopUps';

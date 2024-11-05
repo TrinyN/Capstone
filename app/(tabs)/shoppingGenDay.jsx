@@ -7,6 +7,7 @@ import CustomScreen from '../components/structural/CustomScreen';
 import CustomButton2 from '../components/functional/CustomButton2';
 import { useExerciseData, useFoodData, useWaterData } from '../constants/trackerData';
 import { CollapseSection } from '../constants/CollapseSection';
+import { router } from 'expo-router';
 
 // Should this even be its own screen?
 
@@ -15,19 +16,8 @@ const ShoppingGenDay = () => {
 
     const { collapsedSections, toggleCollapse } = CollapseSection();
 
-    // Saves visibility of options pop up
-    const [visibleOptions, setVisibleOptions] = useState(false);
-
-    // Change visibility of options
-    const toggleOptions = () => {
-        setVisibleOptions(!visibleOptions);
-    };
-
     // Sample data for Breakfast, Lunch, Dinner, and Snacks
     const { foodSections, setFoodSections } = useFoodData();
-
-    // Sample exercise data
-    const { exerciseList, setExerciseList } = useExerciseData();
 
     // Test data, will need to start off empty and be saved for each user, will only be one number that keeps increasing as user adds more
     const { water, setWater } = useWaterData()
@@ -86,7 +76,6 @@ const ShoppingGenDay = () => {
             title2='Monday 8/6' // test value, need to change
             info = "Double check that these are the items you would like to use"
             hasOptions={false}
-            toggleOptions={toggleOptions}
             isTrackerScreen={true}
             screenContent={
                 <View>
@@ -94,7 +83,7 @@ const ShoppingGenDay = () => {
                     <CustomButton2
                         type='normal'
                         text='Generate Shopping List'
-                        // onPress={router.push('/shoppingList')}
+                        // onPress={router.push('/shoppingList')}   // careful with this: may automatically do its function rather than wait to be pressed
                     />
                     {/* View for FlatList to store all items of tracker */}
                     <View>
@@ -125,24 +114,6 @@ const ShoppingGenDay = () => {
                                     <Text style={[styles.defaultWhiteText, { paddingVertical: 15, paddingRight: 10 }]}>{water} cups</Text>
                                 </View>
                             }
-                        />
-                        {/* Space between Water and Exercise Lists */}
-                        <View style={{ margin: 20 }}></View>
-
-                        {/* Exercise List */}
-                        <FlatList
-                            style={{
-                                borderRadius: 8,
-                            }}
-                            data={exerciseList}
-                            scrollEnabled={false}
-                            keyExtractor={(item) => item.exercise}
-                            // List header for exercise
-                            ListHeaderComponent={
-                                <CustomHeader title1={"Exercise"} title2={"Duration/Reps"} title3={"kCal"} />
-                            }
-                            // Rendering Exercise items based on data set of user
-                            renderItem={renderExercise}
                         />
                     </View>
                 </View>
