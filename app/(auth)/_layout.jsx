@@ -16,6 +16,7 @@ const AuthLayout = () => {
 	const segments = useSegments();
 
 	const onAuthStateChanged = (user) => {
+		console.log('onAuthStateChanged', user);
 		setUser(user);
 		if (initializing) setInitializing(false);
 	};
@@ -30,7 +31,7 @@ const AuthLayout = () => {
 
 		if (user) {
 			router.replace('/(tabs)/home');
-		}
+		} 
 	}, [user, initializing]);
 
 	if (initializing)

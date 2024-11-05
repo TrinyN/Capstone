@@ -44,7 +44,7 @@ const SignIn = () => {
                         />
                     </View>
                     {/* Component for log in buttons, discretion statement and link to sign up page */}
-                    <CustomAuthButton authType={"Log In"} handleAuth={handleSignIn()} />
+                    <CustomAuthButton authType={"Log In"} handleAuth={handleSignIn} />
                 </View>
             }
         >
