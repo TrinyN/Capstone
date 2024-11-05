@@ -16,7 +16,6 @@ const AuthLayout = () => {
 	const segments = useSegments();
 
 	const onAuthStateChanged = (user) => {
-		console.log('onAuthStateChanged', user);
 		setUser(user);
 		if (initializing) setInitializing(false);
 	};

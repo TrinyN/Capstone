@@ -11,7 +11,7 @@ const CustomAuthButton = ({authType, handleAuth, email, password}) => {
     if (authType == 'Log In') {
         linkTitle = "Sign Up"
         switchAuthType = '/sign-up'
-        handlePress= () => {handleAuth}
+        handlePress= () => { handleAuth() }
 
         routerPush = '/home' // need to authorize first, google button needs to be changed too
     }
