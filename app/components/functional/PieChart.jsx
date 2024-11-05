@@ -13,7 +13,7 @@ const CustomPieChart = ({
 }) => {
 
     const { width } = Dimensions.get('window');
-    const widthAndHeight = (width * 0.25)
+    const widthAndHeight = (width * 0.23)
 
     // colors for pie chart
     const sliceColor = ['#80FF72', '#7EE8FA', '#FFF07C']

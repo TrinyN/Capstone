@@ -2,6 +2,7 @@ import React from 'react'
 import { Tabs } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import Feather from "react-native-vector-icons/Feather";
+import 'expo-dev-client';
 
 // Function to handle the styling of the tab bar's labels
 const tabBarLabelStyle = {

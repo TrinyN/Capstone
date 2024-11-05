@@ -1,14 +1,13 @@
-import { TouchableOpacity, Text, View, FlatList, StyleSheet } from 'react-native';
-import styles from '../styles';
-import { useState } from 'react';
-import { Overlay } from '@rneui/base';
-import { router } from 'expo-router';
+import { View, FlatList, StyleSheet } from 'react-native';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'expo-router';
 import ProfileItem from '../components/functional/ProfileItem';
 import { userDataItems } from '../constants/profileData';
 import CustomScreen from '../components/structural/CustomScreen';
 import CustomButton2 from '../components/functional/CustomButton2';
 import CustomPieChart from '../components/functional/PieChart';
 import CustomPopUp2 from '../components/structural/CustomPopUp2';
+import auth from '@react-native-firebase/auth';
 
 // problems:
 // looks weird on android (feather icon positions doesnt line up with drop down icon)
@@ -22,9 +21,9 @@ import CustomPopUp2 from '../components/structural/CustomPopUp2';
 // 6. Small button component? ~ CustomButton implementation?
 
 const Profile = () => {
+    const router = useRouter();
     // test data for macro ratio goal
-    const [series, setSeries] = useState([15, 35, 40]);
-
+    const [series, setSeries] = useState([1, 1, 1]);
     // saves visibility of log out pop up
     const [visibleLogOut, setVisibleLogOut] = useState(false);
 
@@ -39,9 +38,30 @@ const Profile = () => {
     // const opacity = saveVisibility ? 1: 0
     const opacity = 1
 
-    // test data, will need to fetch user info from database and allow user to change
     const { userInfo, setUserInfo } = userDataItems();
 
+    // gets user's macro ratio goal
+    const macroRatioGoal = userInfo.find(item => item.title === "Macro Ratio Goal")?.value;
+
+    // when user's macro goal is found, format it and set it to series
+    useEffect(() => {
+        const macroRatioArray = macroRatioGoal.split(':').map(Number);
+        
+        // change pie chart values if all number's not 0
+        if (!macroRatioArray.some(num => num === 0)) {
+            setSeries(macroRatioArray);
+        }
+    }, [macroRatioGoal]);
+
+    handleLogOut = async () => {
+        try {
+            await auth().signOut();
+            router.push('/');
+        }
+        catch (error) {
+            alert('Log out failed: ' + error.message);
+        }
+    }
     return (
         <CustomScreen
             title='Your Profile'
@@ -87,7 +107,7 @@ const Profile = () => {
                     <CustomPopUp2
                         visible={visibleLogOut}
                         toggleVisible={toggleLogOut}
-                        handleConfirmPress={() => { router.push('') }}
+                        handleConfirmPress={() => handleLogOut()}
                         title={"Are you sure you want to log out?"}
                         buttonTitle={"Log Out"}
                     />
