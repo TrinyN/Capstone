@@ -14,10 +14,10 @@ export const userDataItems = () => {
     { title: 'Name', value: '', type: 'text', options: [] },
     { title: 'Gender', value: '', type: 'dropdown', options: ['Female', 'Male'] },
     { title: 'Date of Birth', value: '', type: 'date', options: [] },
-    { title: 'Height', value: 'cm', type: 'text', options: [] },
-    { title: 'Weight', value: 'lbs', type: 'text', options: [] },
-    { title: 'Caloric Goal', value: 'per day', type: 'text', options: [] },
-    { title: 'Water Goal', value: 'cups', type: 'text', options: [] },
+    { title: 'Height', value: '', type: 'text', options: [] },
+    { title: 'Weight', value: '', type: 'text', options: [] },
+    { title: 'Caloric Goal', value: '', type: 'text', options: [] },
+    { title: 'Water Goal', value: '', type: 'text', options: [] },
     { title: 'Weight Goal', value: '', type: 'dropdown', options: ['Gain', 'Lose', 'Maintain'] },
     { title: 'Diet Plan', value: '', type: 'dropdown', options: ['Keto', 'Vegetarian'] }, // need to add more options
     { title: 'Macro Ratio Goal', value: '', type: 'text', options: [] },
@@ -40,12 +40,17 @@ export const userDataItems = () => {
                 'Weight Goal': 'weightGoal',
                 'Macro Ratio Goal': 'macroGoal',
             };
-            
-            const updatedUserInfo = userInfo.map(item => ({
-                ...item,
-                value: (userData[userDataMapping[item.title]] || "—") + " " + item.value,
-            }));
-
+            const updatedUserInfo = userInfo.map(item => {
+                const value = userData[userDataMapping[item.title]] || "—"; // Get the value from userData
+                return {
+                    ...item,
+                    value: item.title === 'Height' ? `${value} cm` :
+                           item.title === 'Weight' ? `${value} lbs` :
+                           item.title === 'Water Goal' ? `${value} cups` :
+                           item.title === 'Caloric Goal' ? `${value} per day` :
+                           value
+                };
+            });
 
             setUserInfo(updatedUserInfo);
         } catch (e) {

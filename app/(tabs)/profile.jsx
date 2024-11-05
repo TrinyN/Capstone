@@ -25,10 +25,8 @@ import firestore from '@react-native-firebase/firestore';
 
 const Profile = () => {
     const router = useRouter();
-
     // test data for macro ratio goal
-    const [series, setSeries] = useState([15, 35, 40]);
-
+    const [series, setSeries] = useState([1, 1, 1]);
     // saves visibility of log out pop up
     const [visibleLogOut, setVisibleLogOut] = useState(false);
 
@@ -44,6 +42,19 @@ const Profile = () => {
     const opacity = 1
 
     const { userInfo, setUserInfo } = userDataItems();
+
+    // gets user's macro ratio goal
+    const macroRatioGoal = userInfo.find(item => item.title === "Macro Ratio Goal")?.value;
+
+    // when user's macro goal is found, format it and set it to series
+    useEffect(() => {
+        const macroRatioArray = macroRatioGoal.split(':').map(Number);
+        
+        // change pie chart values if all number's not 0
+        if (!macroRatioArray.every(num => num === 0)) {
+            setSeries(macroRatioArray);
+        }
+    }, [macroRatioGoal]);
 
     handleLogOut = async () => {
         try {
