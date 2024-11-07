@@ -93,9 +93,9 @@ const localStyle = StyleSheet.create({
         paddingLeft: 25
     },
     headerContainer: {
-        marginTop: 70,
+        marginTop: 50,
         flexDirection: 'row',
-        paddingBottom: 10,
+        // paddingBottom: 5,
         alignItems: 'center'
     },
     text: {
@@ -107,6 +107,6 @@ const localStyle = StyleSheet.create({
         color: '#F2F4F3',
         fontFamily: 'Inter_200ExtraLight',
         fontSize: 20,
-        paddingBottom: 30
+        paddingBottom: 15
     }
 })

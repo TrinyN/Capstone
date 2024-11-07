@@ -214,7 +214,7 @@ const Tracker = () => {
 
                                     // List Header for Water List (contains total drunk as well)
                                     ListHeaderComponent={
-                                        <View style={[styles.header, { borderBottomWidth: 0 }]}>
+                                        <View style={[styles.header, { borderBottomWidth: 0, borderRadius: 8 }]}>
                                             <Text style={[styles.defaultText, { paddingLeft: 10, fontSize: 19 }]}>Water</Text>
                                             <Text style={[styles.defaultWhiteText, { paddingVertical: 15, paddingRight: 10 }]}>{water} cups</Text>
                                         </View>
