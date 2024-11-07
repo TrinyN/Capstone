@@ -206,9 +206,6 @@ const Tracker = () => {
 
                                 {/* Water List */}
                                 <FlatList
-                                    style={{
-                                        borderRadius: 8,
-                                    }}
                                     scrollEnabled={false}
                                     keyExtractor={(item) => item}
 
