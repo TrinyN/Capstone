@@ -8,7 +8,8 @@
 // Should there be a file for each tracker zoom level?
 // Or should it all be included here?
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getTrackerDayRef } from "./getTrackerDayRef";
 
 export const useFoodData = () => {
     // Sample data for Breakfast, Lunch, Dinner, and Snacks
@@ -71,11 +72,27 @@ export const useWaterData = () => {
     // Sample water data
     // Test data, will need to start off empty and be saved for each user, 
     //      will only be one number that keeps increasing as user adds more
-    const [water, setWater] = useState([
-        10
-    ]);
-    
-    return {
-        water, setWater
+    const [water, setWater] = useState(0);
+
+    const fetchWaterData = async () => {
+        try{
+            const trackerDayRef = getTrackerDayRef();
+            const docSnapshot = await trackerDayRef.get();
+            const waterValue = docSnapshot.data().water;
+            setWater(waterValue)
+        } catch (e) {
+            alert("Error: ", e.message)
+        }
     }
+
+    // when page is opened, call function to get water data from database
+    useEffect(() => {
+        fetchWaterData()
+    }, []);
+
+    // useEffect(() => {
+    //     fetchWaterData()
+    // }, [water]);
+    
+    return water
 }

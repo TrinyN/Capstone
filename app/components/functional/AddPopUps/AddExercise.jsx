@@ -1,18 +1,54 @@
-import React from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { React, useState } from 'react';
+import { View, TextInput, StyleSheet, Alert } from 'react-native';
 import CustomPopUp from '../../structural/CustomPopUp';
 import styles from '../../../styles';
 import CustomDropdown from '../CustomDropdown';
 import { CustomButton } from '../CustomButton';
 import { useExerciseUnitOptions } from '../../../constants/dropdownOptions';
 import CustomButton2 from '../CustomButton2';
+import { getTrackerDayRef } from '../../../constants/getTrackerDayRef';
+import firestore from '@react-native-firebase/firestore';
+
+// TODO: defualt for exercise unit is last exercise unit but looks like itll be minutes
 
 const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverlay }) => {
 
-    // Handle dropdown menu options for exervise unit type
+    // Handle dropdown menu options for exercise unit type
     const { exerciseUnit, setExerciseUnit,
         exerciseUnitTypes, setExerciseUnitTypes } = useExerciseUnitOptions();
 
+    const [exercise, setExercise] = useState("");
+    const [duration, setDuration] = useState(0);
+    const [calsBurned, setCalsBurned] = useState(0);
+
+    const handleAddExercise = async () => {
+        try {
+            if (exercise == "") {
+                alert("Please enter an exercise")
+            }
+            else {
+                const trackerDayRef = getTrackerDayRef();
+
+                await trackerDayRef.collection("Exercise").add({
+                    exerciseName: exercise,
+                    duration: duration,
+                    durationUnit: exerciseUnit,
+                    calsBurned: calsBurned
+                })
+
+                toggleExerciseOverlay()
+                Alert.alert('', "Exercise Successfully Added")
+                setExercise("")
+                setDuration(0)
+                setCalsBurned(0)
+                setExerciseUnit("Minutes")
+            }
+
+        } catch (e) {
+            alert("Error: ", e.message)
+        }
+
+    }
     return (
         <CustomPopUp
             visible={addExerciseVisible}
@@ -26,17 +62,23 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                             style={[styles.inputFieldStyle, { flex: 1 }]}
                             placeholder='Exercise'
                             selectionColor='#CB9CF2'
-                            placeholderTextColor='rgba(242,244,243, 0.2)'>
+                            placeholderTextColor='rgba(242,244,243, 0.2)'
+                            onChangeText={newVal => setExercise(newVal)}
+                            defaultValue={exercise}
+                        >
                         </TextInput>
                     </View>
                     <View style={localStyle.fieldRow}>
                         <View style={{ flex: 1, paddingRight: 10 }}>
                             <TextInput
                                 style={[styles.inputFieldStyle]}
-                                placeholder='10' 
+                                placeholder='10'
                                 selectionColor='#CB9CF2'
                                 placeholderTextColor='rgba(242,244,243, 0.2)'
-                                keyboardType='numeric'>
+                                keyboardType='numeric'
+                                onChangeText={newVal => setDuration(newVal)}
+                                defaultValue={duration}
+                                >
                             </TextInput>
                         </View>
                         <View style={{ flex: 1 }}>
@@ -58,11 +100,14 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                                 placeholder='Cals Burned'
                                 selectionColor='#CB9CF2'
                                 placeholderTextColor='rgba(242,244,243, 0.2)'
-                                keyboardType='numeric'>
+                                keyboardType='numeric'
+                                onChangeText={newVal => setCalsBurned(newVal)}
+                                defaultValue={calsBurned}
+                                >
                             </TextInput>
                         </View>
                     </View>
-                    <CustomButton title={"Submit"}/>
+                    <CustomButton title={"Submit"} handlePress={handleAddExercise} />
                 </View>
             }
         />

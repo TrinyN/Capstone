@@ -14,8 +14,8 @@ import { AddWater, AddExercise, AddPopUp, AddFood } from '../components/function
 import { CollapseSection } from '../constants/CollapseSection';
 import AddNotes from '../components/functional/AddPopUps/AddNotes';
 import AddFoodConfirmation from '../components/functional/AddPopUps/AddFoodConfirmation';
-
 // TODO: the use of add pop up components arent the most efficient
+// PROBLEM: after adding water, doesn't update value of list but does in database, need to rerender
 
 // REFACTORING FLAGGING - Needs a Component
 // 4. Render list component(s) - split into header, list, and footer?
@@ -115,8 +115,7 @@ const Tracker = () => {
     // Sample exercise data
     const { exerciseList, setExerciseList } = useExerciseData();
 
-    // Test data, will need to start off empty and be saved for each user, will only be one number that keeps increasing as user adds more
-    const { water, setWater } = useWaterData()
+    const water = useWaterData();
 
     // Render each section with collapsibility
     const renderSection = ({ item }) => {
@@ -203,7 +202,6 @@ const Tracker = () => {
                                 />
                                 {/* Space Between Food and Water lists */}
                                 <View style={{ margin: 20 }}></View>
-
                                 {/* Water List */}
                                 <FlatList
                                     scrollEnabled={false}

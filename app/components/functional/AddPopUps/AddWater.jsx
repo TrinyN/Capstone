@@ -7,6 +7,7 @@ import { useWaterUnitTypesOptions } from '../../../constants/dropdownOptions';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { React, useState } from 'react';
+import { getTrackerDayRef } from '../../../constants/getTrackerDayRef';
 
 const AddWater = ({ addWaterVisible, toggleWaterOverlay, previousOverlay }) => {
 
@@ -22,11 +23,9 @@ const AddWater = ({ addWaterVisible, toggleWaterOverlay, previousOverlay }) => {
                 Alert.alert("Error", "Please enter a valid amount")
             }
             else {
-                const userID = auth().currentUser.uid;
-                const currDate = new Date()
-                const formattedDate = `${(currDate.getMonth() + 1).toString().padStart(2, '0')}-${currDate.getDate().toString().padStart(2, '0')}-${currDate.getFullYear()}`;
-                const trackerDayRef = firestore().collection('Users').doc(userID).collection('Tracker').doc(formattedDate)
-                
+                // call on function to get reference for current day's tracker
+                const trackerDayRef = getTrackerDayRef();
+
                 const docSnapshot = await trackerDayRef.get();
                 const oldWaterTotal = docSnapshot.data().water;
 
@@ -35,7 +34,7 @@ const AddWater = ({ addWaterVisible, toggleWaterOverlay, previousOverlay }) => {
                 })
 
                 toggleWaterOverlay()
-                Alert.alert('', "Water Successfully Added", [{ text: 'OK' }])
+                Alert.alert('', "Water Successfully Added")
                 setWaterAmount(0)
             }
 
