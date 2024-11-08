@@ -10,7 +10,6 @@ import {
     useDietPlanOptions,
     useWeightGoalOptions
 } from '../constants/dropdownOptions';
-import firebase from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { useState } from 'react';
@@ -30,8 +29,8 @@ const SignUp3 = () => {
     // TODO need to add dietplan, weight goal
     const [calGoal, setCalGoal] = useState(0);
     const [macroGoal, setMacroGoal] = useState(""); // change default value? ex: 20:30:30
-    const [waterGoal, setWaterGoal] = useState(0); 
-    const [dietPlanName, setDietPlanName] = useState(""); 
+    const [waterGoal, setWaterGoal] = useState(0);
+    const [dietPlanName, setDietPlanName] = useState("");
 
     // Handling user choice of diet plan or not
     const { userDietPlanBoolean, setUserDietPlanBoolean,
@@ -52,16 +51,34 @@ const SignUp3 = () => {
             const userID = user.user.uid
 
             await firestore().collection('Users').doc(userID).set({
-                email: email, 
+                email: email,
                 username: username,
-                height: height, 
-                weight: weight, 
-                calGoal: calGoal, 
-                macroGoal: macroGoal, 
-                waterGoal: waterGoal, 
+                height: height,
+                weight: weight,
+                calGoal: calGoal,
+                macroGoal: macroGoal,
+                waterGoal: waterGoal,
                 dietPlanName: dietPlanName
-              });
+            });
 
+            // creates Tracker collection with documents for all days of 3 months, each with notes and water field
+            const trackerRef = firestore().collection('Users').doc(userID).collection('Tracker');
+            const currDate = new Date()
+
+            for (let i = 0; i < 3; i++) {
+                const month = (currDate.getMonth() + i) % 12 // month cycles between 0 and 11
+                const year = currDate.getFullYear() + Math.floor((currDate.getMonth() + i) / 12) // adjust year if month exceeds 12
+                const daysInMonth = new Date(year, month + 1, 0).getDate() // get last day in month
+                for (let day = 1; day <= daysInMonth; day++) { // create document for all days of the month
+                    const date = new Date(year, month, day)
+                    // format date like: 01-23-2024
+                    const formattedDate = `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}-${date.getFullYear()}`;
+                    await trackerRef.doc(formattedDate).set({
+                        notes: "",
+                        water: 0
+                    });
+                }
+            }
         } catch (e) {
             alert('Registration failed: ' + e.message);
         }
@@ -130,7 +147,7 @@ const SignUp3 = () => {
                         placeholder={'2500'}
                         value={calGoal}
                         setValue={setCalGoal}
-                        >
+                    >
                     </QuestionAnswer>
 
                     {/* Macro Ratio */}
@@ -140,7 +157,7 @@ const SignUp3 = () => {
                         placeholder={'35% Carb / 35% Protein / 30 % Fat'}
                         value={macroGoal}
                         setValue={setMacroGoal}
-                        >
+                    >
                     </QuestionAnswer>
 
                     {/* Weight Goal */}
@@ -160,7 +177,7 @@ const SignUp3 = () => {
                         placeholder={'9 cups'}
                         value={waterGoal}
                         setValue={setWaterGoal}
-                        >
+                    >
                     </QuestionAnswer>
 
                     {/* Space between Questions and Submit */}

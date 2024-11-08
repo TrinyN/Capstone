@@ -9,7 +9,7 @@ import firestore from '@react-native-firebase/firestore';
 
 // Function that handles the design and display of the Home screen
 const Home = () => {
-    
+
     const [addNotesVisible, setAddNotesVisible] = useState(false);
     const [userName, setUserName] = useState("");
 
