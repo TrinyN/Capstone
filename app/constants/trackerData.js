@@ -64,6 +64,7 @@ export const useExerciseData = () => {
         { exercise: '', reps: '', kCal: 0 },
         { exercise: '', reps: '', kCal: 0 },
     ]);
+
     const getUserData = async () => {
         try {
             const trackerDayRef = getTrackerDayRef();
@@ -72,12 +73,11 @@ export const useExerciseData = () => {
             querySnapshot.forEach(doc => {
                 const data = doc.data();
                 exercises.push({
-                    exercise: data.exerciseName || '',
-                    reps: data.duration + " " + data.durationUnit || '',
+                    exercise: data.exerciseName || '—',
+                    reps: data.duration + " " + data.durationUnit || '—',
                     kCal: "-" + data.calsBurned || 0
                 });
             });
-
             setExerciseList(exercises);
         } catch (e) {
             alert("Error Getting Water Data: ", e.message)

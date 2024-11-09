@@ -116,7 +116,7 @@ const Tracker = () => {
 
     // Sample exercise data
     const { exerciseList, setExerciseList } = useExerciseData();
-    
+
     const [water, setWater] = useState(0)
     useEffect(() => {
         if(!addWaterVisible){
