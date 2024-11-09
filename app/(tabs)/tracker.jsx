@@ -9,11 +9,13 @@ import CustomScreen from '../components/structural/CustomScreen';
 import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { router, useLocalSearchParams } from 'expo-router';
 import CustomButton2 from '../components/functional/CustomButton2';
-import { useExerciseData, useFoodData, useWaterData } from '../constants/trackerData';
+import { useExerciseData, useFoodData, useWaterData, getDate } from '../constants/trackerData';
 import { AddWater, AddExercise, AddPopUp, AddFood } from '../components/functional/AddPopUps';
 import { CollapseSection } from '../constants/CollapseSection';
 import AddNotes from '../components/functional/AddPopUps/AddNotes';
 import AddFoodConfirmation from '../components/functional/AddPopUps/AddFoodConfirmation';
+import { getTrackerDayRef } from '../constants/getTrackerDayRef';
+
 // TODO: the use of add pop up components arent the most efficient
 // PROBLEM: after adding water, doesn't update value of list but does in database, need to rerender
 
@@ -114,8 +116,20 @@ const Tracker = () => {
 
     // Sample exercise data
     const { exerciseList, setExerciseList } = useExerciseData();
+    
+    const [water, setWater] = useState(0)
+    useEffect(() => {
+        if(!addWaterVisible){
+            setWater(useWaterData());
+        }
+    }, [addWaterVisible]);
 
-    const water = useWaterData();
+    useEffect(() => {
+            setWater(useWaterData());
+    }, []);
+
+    // gets current date (ex: Saturday 11/9)
+    const formattedDate = getDate();
 
     // Render each section with collapsibility
     const renderSection = ({ item }) => {
@@ -170,7 +184,7 @@ const Tracker = () => {
             <GestureDetector gesture={pinch}>
                 <CustomScreen
                     title='Day:'
-                    title2='Monday 8/6' // test value, need to change
+                    title2={formattedDate} // test value, need to change
                     hasOptions={true}
                     toggleOptions={toggleOptions}
                     isTrackerScreen={true}
@@ -225,7 +239,7 @@ const Tracker = () => {
                                     }}
                                     data={exerciseList}
                                     scrollEnabled={false}
-                                    keyExtractor={(item) => item.exercise}
+                                    // keyExtractor={(item) => item.exercise}
                                     // List header for exercise
                                     ListHeaderComponent={
                                         <CustomHeader title1={"Exercise"} title2={"Duration/Reps"} title3={"kCal"} />
