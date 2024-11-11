@@ -19,15 +19,50 @@ const userID = auth().currentUser ? auth().currentUser.uid : null;
 export const useFoodData = () => {
 
     const [foodSections, setFoodSections] = useState([
-        { food:'', servings:0, kCal:0, carbs:0, fats:0, protein:0, time:''},
-        { food:'', servings:0, kCal:0, carbs:0, fats:0, protein:0, time:''},
-        { food:'', servings:0, kCal:0, carbs:0, fats:0, protein:0, time:''}
+        // { food:'', servings:0, kCal:0, carbs:0, fats:0, protein:0, time:''},
+        // { food:'', servings:0, kCal:0, carbs:0, fats:0, protein:0, time:''},
+        // { food:'', servings:0, kCal:0, carbs:0, fats:0, protein:0, time:''}
 
-        // Different setting mechanism
+        // Different setting mechanism?
         // breakfast = [],
         // lunch = [],
         // dinner = [],
         // snacks = [],
+
+        // Original data format
+        // {
+        //     title: 'Breakfast',
+        //     data: [
+        //         { title: 'Eggs', count: '2', kCal: '193' },
+        //         { title: 'Bacon', count: '2', kCal: '100' },
+        //         { title: 'Toast', count: '1', kCal: '80' }
+        //     ],
+        //     key: 'breakfast'
+        // },
+        // {
+        //     title: 'Lunch',
+        //     data: [
+        //         { title: 'Chicken Salad', count: '1', kCal: '350' },
+        //         { title: 'Rice', count: '1', kCal: '200' }
+        //     ],
+        //     key: 'lunch'
+        // },
+        // {
+        //     title: 'Dinner',
+        //     data: [
+        //         { title: 'Steak', count: '1', kCal: '500' },
+        //         { title: 'Mashed Potatoes', count: '2', kCal: '150' }
+        //     ],
+        //     key: 'dinner'
+        // },
+        // {
+        //     title: 'Snacks',
+        //     data: [
+        //         { title: 'Cheetos', count: '3', kCal: '300' },
+        //         { title: 'Doritos', count: '4', kCal: '290' }
+        //     ],
+        //     key: 'snacks'
+        // }
     ]);
 
     useEffect(() => {
