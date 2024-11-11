@@ -3,17 +3,17 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { useState } from 'react';
 import styles from '../../styles';
 
-const CustomDatePicker = ({ placeholder, hasTitle, dateOfBirth, setDateOfBirth }) => {
+const CustomDatePicker = ({ placeholder, hasTitle, onDateChange }) => {
     const [date, setDate] = useState(new Date())
     const [showPicker, setShowPicker] = useState(showPicker)
-    // const [dateOfBirth, setDateOfBirth] = useState(false)
-
+    const [dateOfBirth, setDateOfBirth] = useState(false)
     const toggleDatepicker = () => {
         setShowPicker(!showPicker)
     }
 
     const confirmIOSDate = () => {
         setDateOfBirth(formatDate(date))
+        onDateChange(formatDate(date))
         toggleDatepicker()
     }
 
@@ -36,6 +36,7 @@ const CustomDatePicker = ({ placeholder, hasTitle, dateOfBirth, setDateOfBirth }
             if (Platform.OS === "android") {
                 toggleDatepicker()
                 setDateOfBirth(formatDate(currentDate))
+                onDateChange(formatDate(currentDate))
             }
         } else {
             toggleDatepicker()
@@ -54,7 +55,10 @@ const CustomDatePicker = ({ placeholder, hasTitle, dateOfBirth, setDateOfBirth }
                         placeholderTextColor='rgba(242,244,243, 0.2)'
                         placeholder='06/01/3024'
                         value={dateOfBirth}
-                        onChangeText={newDate => setDateOfBirth(newDate)}
+                        onChangeText={newDate => {
+                            setDateOfBirth(newDate);
+                            onDateChange(newDate);
+                        }}
                         editable={false}
                         onPressIn={toggleDatepicker}>
                     </TextInput>
@@ -69,7 +73,10 @@ const CustomDatePicker = ({ placeholder, hasTitle, dateOfBirth, setDateOfBirth }
                             editable={false}
                             onPressIn={toggleDatepicker}
                             value={dateOfBirth}
-                            onChangeText={newDate => setDateOfBirth(newDate)}
+                            onChangeText={newDate => {
+                                setDateOfBirth(newDate);
+                                onDateChange(newDate);
+                            }}
                         >
                         </TextInput>
                     </View>
@@ -104,14 +111,14 @@ const CustomDatePicker = ({ placeholder, hasTitle, dateOfBirth, setDateOfBirth }
                         />
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                             {/* Toggle date button */}
-                            <TouchableOpacity onPress={toggleDatepicker} 
-                                style={[localStyle.button, {backgroundColor: 'transparent', borderWidth: 1, borderColor: '#F2F4F3'}]}
+                            <TouchableOpacity onPress={toggleDatepicker}
+                                style={[localStyle.button, { backgroundColor: 'transparent', borderWidth: 1, borderColor: '#F2F4F3' }]}
                             >
-                                <Text style={[styles.buttonText, {color: '#F2F4F3'}]}>Cancel</Text>
+                                <Text style={[styles.buttonText, { color: '#F2F4F3' }]}>Cancel</Text>
                             </TouchableOpacity>
                             {/* Confirm date button */}
-                            <TouchableOpacity onPress={confirmIOSDate} 
-                                style={[localStyle.button, {backgroundColor: '#CB9CF2'}]}
+                            <TouchableOpacity onPress={confirmIOSDate}
+                                style={[localStyle.button, { backgroundColor: '#CB9CF2' }]}
                             >
                                 <Text style={styles.buttonText}>Confirm</Text>
                             </TouchableOpacity>
@@ -122,7 +129,9 @@ const CustomDatePicker = ({ placeholder, hasTitle, dateOfBirth, setDateOfBirth }
         </View>
     )
 }
-export default CustomDatePicker
+
+export default CustomDatePicker;
+
 
 const localStyle = StyleSheet.create({
     inputText: {
@@ -133,10 +142,10 @@ const localStyle = StyleSheet.create({
         paddingVertical: 5,
         paddingLeft: 10
     },
-    iosDateView:{
-        backgroundColor: '#0E1116', 
-        bottom: 0, 
-        position: 'absolute', 
+    iosDateView: {
+        backgroundColor: '#0E1116',
+        bottom: 0,
+        position: 'absolute',
         alignSelf: 'center',
         width: '100%'
     },
@@ -147,7 +156,7 @@ const localStyle = StyleSheet.create({
         marginTop: 15,
         marginBottom: 15,
         borderRadius: 8,
-        activeOpacity: 0.7, 
-        minHeight: 30, 
+        activeOpacity: 0.7,
+        minHeight: 30,
     },
 })

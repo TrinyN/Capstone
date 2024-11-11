@@ -32,7 +32,7 @@ const Home = () => {
     }
 
     useEffect(() => {
-        getUsername();
+        setTimeout(() => getUsername(), 100)
     }, []);
 
     return (

@@ -12,6 +12,8 @@ import { useState, useEffect } from "react";
 import { getTrackerDayRef } from "./getTrackerDayRef";
 import { collection, getDocs } from '@react-native-firebase/firestore';
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
+const userID = auth().currentUser ? auth().currentUser.uid : null;
 
 
 export const useFoodData = () => {
@@ -59,52 +61,67 @@ export const useFoodData = () => {
 }
 
 export const useExerciseData = () => {
-    // Sample exercise data
     const [exerciseList, setExerciseList] = useState([
         { exercise: '', reps: '', kCal: 0 },
         { exercise: '', reps: '', kCal: 0 },
     ]);
 
-    const getUserData = async () => {
-        try {
-            const trackerDayRef = getTrackerDayRef();
-            const querySnapshot = await trackerDayRef.collection("Exercise").orderBy('exerciseName', 'desc').get()
-            const exercises = [];
-            querySnapshot.forEach(doc => {
-                const data = doc.data();
-                exercises.push({
-                    exercise: data.exerciseName || '—',
-                    reps: data.duration + " " + data.durationUnit || '—',
-                    kCal: "-" + data.calsBurned || 0
-                });
-            });
-            setExerciseList(exercises);
-        } catch (e) {
-            alert("Error Getting Water Data: ", e.message)
-        }
-    }
-
     useEffect(() => {
-        getUserData();
-    }, []);
+        const trackerDayRef = getTrackerDayRef();
 
-    return {
-        exerciseList,
-        setExerciseList
-    }
-}
+        // Set up the Firestore listener
+        const subscriber = trackerDayRef
+            .collection("Exercise")
+            .orderBy('exerciseName', 'desc')
+            .onSnapshot(
+                (querySnapshot) => {
+                    const exercises = [];
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        exercises.push({
+                            exercise: data.exerciseName || '—',
+                            reps: data.duration + " " + data.durationUnit || '—',
+                            kCal: "-" + data.calsBurned || 0
+                        });
+                    });
+                    setExerciseList(exercises);
+                },
+                (error) => {
+                    alert("Error Fetching Exercise Data: " + error.message);
+                }
+            );
+
+        // Cleanup function to unsubscribe from the listener when the component unmounts
+        return () => subscriber();
+    }, [userID]);
+
+    return exerciseList
+};
 
 // only gets water data from current day, will have to change later
-export const useWaterData = async () => {
-    try {
+export const useWaterData = () => {
+    const [water, setWater] = useState(0);
+
+    useEffect(() => {
         const trackerDayRef = getTrackerDayRef();
-        const docSnapshot = await trackerDayRef.get();
-        const waterValue = docSnapshot.data().water;
-        return waterValue
-    } catch (e) {
-        alert("Error Getting Water Data: ", e.message)
-    }
-}
+
+        // Set up the Firestore listener
+        const subscriber = trackerDayRef.onSnapshot(
+            (docSnapshot) => {
+                const data = docSnapshot.data();
+                setWater(data.water || 0);
+            },
+            (error) => {
+                alert("Error Getting Water Data: " + error.message);
+            }
+        );
+
+        // Cleanup function to unsubscribe from the listener when the component unmounts
+        return () => subscriber();
+    }, [userID]);
+
+    return water
+};
 
 // only gets current date will have to change later
 export const getDate = () => {

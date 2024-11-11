@@ -65,6 +65,8 @@ const SignUp3 = () => {
                 userDietPlan: userDietPlan, 
             });
 
+            alert('Registration Successful');
+
             // creates Tracker collection with documents for all days of 3 months, each with notes and water field
             const trackerRef = firestore().collection('Users').doc(userID).collection('Tracker');
             const currDate = new Date() // current day
@@ -84,7 +86,6 @@ const SignUp3 = () => {
                     });
                 }
             }
-            alert('Registration Successful');
         } catch (e) {
             alert('Registration failed: ' + e.message);
         }

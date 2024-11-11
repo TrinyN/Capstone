@@ -10,7 +10,6 @@ import { useState } from 'react';
 const SignUp2 = () => {
     // Handle dropdown menu options for sex question
     const { userSex, setUserSex, sex, setSex } = useSexOptions();
-
     // gets email and password from sign up page
     const params = useLocalSearchParams(); 
     const { email, password } = params; 
@@ -52,7 +51,6 @@ const SignUp2 = () => {
                         placeholder={'When were you born?'}
                         hasTitle={true}
                         setValue={setDateOfBirth}
-                        value={dateOfBirth}
                         >
                     </QuestionAnswer>
 

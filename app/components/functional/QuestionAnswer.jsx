@@ -39,8 +39,7 @@ const QuestionAnswer = (
                 <CustomDatePicker
                     placeholder={placeholder}
                     hasTitle={hasTitle} 
-                    setDateOfBirth={setValue}
-                    dateOfBirth={value}
+                    onDateChange={setValue}
                     />
             </View>
         )
