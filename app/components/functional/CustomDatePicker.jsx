@@ -3,10 +3,10 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { useState } from 'react';
 import styles from '../../styles';
 
-const CustomDatePicker = ({ placeholder, hasTitle }) => {
+const CustomDatePicker = ({ placeholder, hasTitle, dateOfBirth, setDateOfBirth }) => {
     const [date, setDate] = useState(new Date())
     const [showPicker, setShowPicker] = useState(showPicker)
-    const [dateOfBirth, setDateOfBirth] = useState(false)
+    // const [dateOfBirth, setDateOfBirth] = useState(false)
 
     const toggleDatepicker = () => {
         setShowPicker(!showPicker)
@@ -54,7 +54,7 @@ const CustomDatePicker = ({ placeholder, hasTitle }) => {
                         placeholderTextColor='rgba(242,244,243, 0.2)'
                         placeholder='06/01/3024'
                         value={dateOfBirth}
-                        onChangeText={setDateOfBirth}
+                        onChangeText={newDate => setDateOfBirth(newDate)}
                         editable={false}
                         onPressIn={toggleDatepicker}>
                     </TextInput>
@@ -69,7 +69,7 @@ const CustomDatePicker = ({ placeholder, hasTitle }) => {
                             editable={false}
                             onPressIn={toggleDatepicker}
                             value={dateOfBirth}
-                            onChangeText={setDateOfBirth}
+                            onChangeText={newDate => setDateOfBirth(newDate)}
                         >
                         </TextInput>
                     </View>

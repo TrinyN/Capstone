@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
         height: '100%',
         backgroundColor: '#0E1116',
         paddingHorizontal: 35,
-        flex: 1
+        flex: 1, 
     },
     defaultText: {
         color: '#CB9CF2',

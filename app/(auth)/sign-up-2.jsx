@@ -16,15 +16,14 @@ const SignUp2 = () => {
     const { email, password } = params; 
 
     const [username, setUsername] = useState("");
-    // const [birthdate, setBirthdate] = useState(new Date()); // turn to date
     const [height, setHeight] = useState(0); // change default value?
     const [weight, setWeight] = useState(0); // change default value?
-    // add gender
+    const [dateOfBirth, setDateOfBirth] = useState(false)
 
     handleNext = () => {
         router.push({
             pathname: '/sign-up-3',
-            params: {email:email, password:password, username: username, height: height, weight: weight} // add rest of fields to pass
+            params: {email:email, password:password, username: username, height: height, weight: weight, userSex: userSex, dateOfBirth: dateOfBirth} // add birthdate
         });
     }
     return (
@@ -51,7 +50,10 @@ const SignUp2 = () => {
                     <QuestionAnswer
                         type={'date'}
                         placeholder={'When were you born?'}
-                        hasTitle={true}>
+                        hasTitle={true}
+                        setValue={setDateOfBirth}
+                        value={dateOfBirth}
+                        >
                     </QuestionAnswer>
 
                     {/* Height */}
@@ -79,7 +81,8 @@ const SignUp2 = () => {
                         placeholder={''}
                         setCustomValue={setUserSex}
                         items={sex}
-                        setItems={setSex}>
+                        setItems={setSex}
+                        >
                     </QuestionAnswer>
 
                     {/* Space between Questions and Submit */}
