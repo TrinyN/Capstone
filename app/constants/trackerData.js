@@ -17,48 +17,77 @@ const userID = auth().currentUser ? auth().currentUser.uid : null;
 
 
 export const useFoodData = () => {
-    // Sample data for Breakfast, Lunch, Dinner, and Snacks
+
     const [foodSections, setFoodSections] = useState([
-        {
-            title: 'Breakfast',
-            data: [
-                { title: 'Eggs', count: '2', kCal: '193' },
-                { title: 'Bacon', count: '2', kCal: '100' },
-                { title: 'Toast', count: '1', kCal: '80' }
-            ],
-            key: 'breakfast'
-        },
-        {
-            title: 'Lunch',
-            data: [
-                { title: 'Chicken Salad', count: '1', kCal: '350' },
-                { title: 'Rice', count: '1', kCal: '200' }
-            ],
-            key: 'lunch'
-        },
-        {
-            title: 'Dinner',
-            data: [
-                { title: 'Steak', count: '1', kCal: '500' },
-                { title: 'Mashed Potatoes', count: '2', kCal: '150' }
-            ],
-            key: 'dinner'
-        },
-        {
-            title: 'Snacks',
-            data: [
-                { title: 'Cheetos', count: '3', kCal: '300' },
-                { title: 'Doritos', count: '4', kCal: '290' }
-            ],
-            key: 'snacks'
-        }
+        { food:'', servings:0, kCal:0, carbs:0, fats:0, protein:0, time:''},
+        { food:'', servings:0, kCal:0, carbs:0, fats:0, protein:0, time:''},
+        { food:'', servings:0, kCal:0, carbs:0, fats:0, protein:0, time:''}
+
+        // Different setting mechanism
+        // breakfast = [],
+        // lunch = [],
+        // dinner = [],
+        // snacks = [],
     ]);
 
-    return {
-        foodSections,
-        setFoodSections
-    }
-}
+    useEffect(() => {
+        // look into await?
+        const trackerDayRef = getTrackerDayRef();
+
+        // Set up the Firestore listener
+        const subscriber = trackerDayRef
+            .collection("Food")
+            .orderBy('foodName', 'desc')
+            .onSnapshot(
+                (querySnapshot) => {
+                    const foods = [];
+                    // const times = {
+                    //     breakfast: [],
+                    //     lunch: [],
+                    //     dinner: [],
+                    //     snacks: [],
+                    // }
+
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        // const timeFrame = data.timeFrame?.toLowerCase();       // Needed to compare and place in proper time list
+
+                        foods.push({
+                            food: data.foodName || '-',
+                            servings: data.servings || 0,
+                            kCal: data.cals || 0,
+                            carbs: data.carbs || 0,
+                            fats: data.fats || 0,
+                            protein: data.protein || 0,
+                            time: data.timeFrame || '-'
+                        });
+
+                        // If statement to push based on the time of day
+                        // if (times[timeFrame]) {
+                        //     times[timeFrame].push({
+                        //         exercise: data.foodName || '-',
+                        //         servings: data.servings || 0,
+                        //         kCal: data.cals || 0,
+                        //         carbs: data.carbs || 0,
+                        //         fats: data.fats || 0,
+                        //         protein: data.protein || 0,
+                        //         time: data.timeFrame || '-'
+                        //     });
+                        // }
+                    });
+                    setFoodSections(foods); 
+                    // setFoodSections(times);                                     // Used to return foods divided by meal time
+                },
+                (error) => {
+                    alert('Error fetching Food data: ' + error.message);
+                }
+            );
+        // Cleanup function to unsubscribe from the listener when the component unmounts
+        return () => subscriber();
+    }, [userID]);
+
+    return foodSections
+};
 
 export const useExerciseData = () => {
     const [exerciseList, setExerciseList] = useState([

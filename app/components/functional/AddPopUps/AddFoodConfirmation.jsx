@@ -8,6 +8,7 @@ import Feather from "react-native-vector-icons/Feather";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import CustomPopUp2 from '../../structural/CustomPopUp2';
+import { getTrackerDayRef } from '../../../constants/getTrackerDayRef';
 
 const AddFoodConfirmation = ({
     food,
@@ -53,8 +54,17 @@ const AddFoodConfirmation = ({
         toggleFoodOverlay()
     }
 
-    const handleConfirmPress = () => {
+    const handleConfirmPress = async () => {
         // add food to database
+        try {
+            const trackerDayRef = getTrackerDayRef();
+
+            await trackerDayRef.collection("Food").add({
+                data: DATA
+            })
+        } catch (e) {
+            alert("Error:, ", e.message)
+        }
 
         // reset data
         setDATA(defaultDATA)
