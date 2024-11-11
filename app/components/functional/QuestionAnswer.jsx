@@ -38,7 +38,9 @@ const QuestionAnswer = (
                 {/* Question and answer both handled in other component */}
                 <CustomDatePicker
                     placeholder={placeholder}
-                    hasTitle={hasTitle} />
+                    hasTitle={hasTitle} 
+                    onDateChange={setValue}
+                    />
             </View>
         )
     } else if (type === 'password') {

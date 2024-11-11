@@ -24,8 +24,9 @@ const SignUp3 = () => {
     const username = params.username
     const height = params.height
     const weight = params.weight
-    // TODO still need birthdate and gender
-
+    const sex = params.userSex
+    const dateOfBirth = params.dateOfBirth
+    
     // TODO need to add dietplan, weight goal
     const [calGoal, setCalGoal] = useState(0);
     const [macroGoal, setMacroGoal] = useState(""); // change default value? ex: 20:30:30
@@ -46,26 +47,31 @@ const SignUp3 = () => {
 
     const handleSignUp = async () => {
         try {
-            const user = await auth().createUserWithEmailAndPassword(email, password); // add more fields to create user with
-            alert('Registration Successful');
+            const user = await auth().createUserWithEmailAndPassword(email, password);
             const userID = user.user.uid
 
             await firestore().collection('Users').doc(userID).set({
                 email: email,
                 username: username,
+                sex: sex, 
+                dateOfBirth: dateOfBirth, 
                 height: height,
                 weight: weight,
                 calGoal: calGoal,
                 macroGoal: macroGoal,
                 waterGoal: waterGoal,
-                dietPlanName: dietPlanName
+                userWeightGoal: userWeightGoal, 
+                dietPlanName: dietPlanName, 
+                userDietPlan: userDietPlan, 
             });
+
+            alert('Registration Successful');
 
             // creates Tracker collection with documents for all days of 3 months, each with notes and water field
             const trackerRef = firestore().collection('Users').doc(userID).collection('Tracker');
-            const currDate = new Date()
+            const currDate = new Date() // current day
 
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < 3; i++) { // loops for 3 months
                 const month = (currDate.getMonth() + i) % 12 // month cycles between 0 and 11
                 const year = currDate.getFullYear() + Math.floor((currDate.getMonth() + i) / 12) // adjust year if month exceeds 12
                 const daysInMonth = new Date(year, month + 1, 0).getDate() // get last day in month
@@ -73,6 +79,7 @@ const SignUp3 = () => {
                     const date = new Date(year, month, day)
                     // format date like: 01-23-2024
                     const formattedDate = `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}-${date.getFullYear()}`;
+                    // create document with ID as formatted date and create notes and water field
                     await trackerRef.doc(formattedDate).set({
                         notes: "",
                         water: 0

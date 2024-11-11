@@ -104,7 +104,7 @@ const TrackerMonth = () => {
                                     ListHeaderComponent={
                                         <View style={localStyle.sectionListHeadFoot}>
                                             <Text style={[styles.headerText, {fontFamily: 'Inter_600SemiBold'}]}>
-                                                Month
+                                                Week
                                             </Text>
                                             <Text style={[styles.headerText, {textAlign: 'center'}]}>
                                                 Calories

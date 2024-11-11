@@ -149,6 +149,7 @@ const localStyle = StyleSheet.create({
     dataContainer:{
         flexDirection: 'row', 
         alignItems: 'center', 
+        textAlign: 'center',
         flex: 1
     },
     editIconContainer: {

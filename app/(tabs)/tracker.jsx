@@ -115,18 +115,8 @@ const Tracker = () => {
     const { foodSections, setFoodSections } = useFoodData();
 
     // Sample exercise data
-    const { exerciseList, setExerciseList } = useExerciseData();
-
-    const [water, setWater] = useState(0)
-    useEffect(() => {
-        if(!addWaterVisible){
-            setWater(useWaterData());
-        }
-    }, [addWaterVisible]);
-
-    useEffect(() => {
-            setWater(useWaterData());
-    }, []);
+    const exerciseList = useExerciseData();
+    const water = useWaterData();
 
     // gets current date (ex: Saturday 11/9)
     const formattedDate = getDate();

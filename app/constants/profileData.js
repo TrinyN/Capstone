@@ -33,11 +33,14 @@ export const userDataItems = () => {
             const userDataMapping = {
                 'Email': 'email',
                 'Name': 'username',
+                'Gender': 'sex',
+                'Date of Birth': 'dateOfBirth',
                 'Height': 'height',
                 'Weight': 'weight',
                 'Caloric Goal': 'calGoal',
                 'Water Goal': 'waterGoal',
-                'Weight Goal': 'weightGoal',
+                'Weight Goal': 'userWeightGoal',
+                'Diet Plan': 'userDietPlan',
                 'Macro Ratio Goal': 'macroGoal',
             };
             const updatedUserInfo = userInfo.map(item => {

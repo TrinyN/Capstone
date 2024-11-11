@@ -5,7 +5,7 @@
 import { useState } from 'react';
 
 // Export the options of sex
-// Used in signup-2 and profile(?)
+// Used in signup-2 and profile
 export const useSexOptions = () => {
     const [userSex, setUserSex] = useState('')
     const [sex, setSex] = useState([
@@ -61,7 +61,7 @@ export const useDietPlanOptions = () => {
 // Export the weight goal options
 // Used in signup-3 and profile(?)
 export const useWeightGoalOptions = () => {
-    const [userWeightGoal, setUserWeightGoal] = useState('')
+    const [userWeightGoal, setUserWeightGoal] = useState('Maintain') // default value is maintain (maybe change idk)
     const [weightGoal, setWeightGoal] = useState([
         { label: 'Cut / Lose Weight', value: 'Cut / Lose Weight' },
         { label: 'Bulk / Gain Weight', value: 'Bulk / Gain Weight' },
@@ -78,7 +78,7 @@ export const useWeightGoalOptions = () => {
 
 // Tracker Popup: Water Choice: liquid unit dropdown options
 export const useWaterUnitTypesOptions = () => {
-    const [waterUnit, setWaterUnit] = useState('')
+    const [waterUnit, setWaterUnit] = useState('Cups') // default value is cups
     const [waterUnitTypes, setWaterUnitTypes] = useState([
         { label: 'Cups', value: 'Cups' },
         { label: 'Fl Oz', value: 'Fl Oz' },
@@ -96,7 +96,7 @@ export const useWaterUnitTypesOptions = () => {
 
 // Tracker Popup: Exercise Choice: exercise unit dropdown options
 export const useExerciseUnitOptions = () => {
-    const [exerciseUnit, setExerciseUnit] = useState('')
+    const [exerciseUnit, setExerciseUnit] = useState('Minutes') // default value is minutes
     const [exerciseUnitTypes, setExerciseUnitTypes] = useState([
         { label: 'Minutes', value: 'Minutes' },
         { label: 'Hours', value: 'Hours' },
@@ -114,7 +114,7 @@ export const useExerciseUnitOptions = () => {
 
 // Tracker Popup: Food Choice: eating time frame dropdown options
 export const useFoodUnitTypesOptions = () => {
-    const [foodUnit, setFoodUnit] = useState('')
+    const [foodUnit, setFoodUnit] = useState('Breakfast') // default value is breakfast
     const [foodUnitTypes, setFoodUnitTypes] = useState([
         { label: 'Breakfast', value: 'Breakfast' },
         { label: 'Lunch', value: 'Lunch' },
@@ -131,18 +131,18 @@ export const useFoodUnitTypesOptions = () => {
     }
 }
 
-// Tracker Popup: Food Choice: eating time frame dropdown options
-export const useMacroUnitOptions = () => {
-    const [macroUnit, setMacroUnit] = useState('')
-    const [macroUnitTypes, setMacroUnitTypes] = useState([
-        { label: 'Grams', value: 'Grams' },
-        { label: '%', value: '%' },
-    ]);
+// // Tracker Popup: Food Choice: eating time frame dropdown options
+// export const useMacroUnitOptions = () => {
+//     const [macroUnit, setMacroUnit] = useState('Grams')
+//     const [macroUnitTypes, setMacroUnitTypes] = useState([
+//         { label: 'Grams', value: 'Grams' },
+//         { label: '%', value: '%' },
+//     ]);
 
-    return {
-        macroUnit,
-        setMacroUnit,
-        macroUnitTypes,
-        setMacroUnitTypes
-    }
-}
+//     return {
+//         macroUnit,
+//         setMacroUnit,
+//         macroUnitTypes,
+//         setMacroUnitTypes
+//     }
+// }

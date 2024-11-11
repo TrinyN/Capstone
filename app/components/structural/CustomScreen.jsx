@@ -80,7 +80,7 @@ const localStyle = StyleSheet.create({
         fontSize: 28,
         fontFamily: 'Inter_600SemiBold',
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     titleTextWhite: {
         color: '#F2F4F3',
