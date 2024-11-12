@@ -21,6 +21,7 @@ const ShoppingListOptions = ({
 
     const deleteAll = () => {
         setShoppingList(emptyShoppingList)
+        // TODO delete from database
     };
 
     const deleteCheckedItems = () => {

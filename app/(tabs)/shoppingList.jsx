@@ -9,7 +9,11 @@ import CustomScreen from '../components/structural/CustomScreen';
 import CustomButton2 from '../components/functional/CustomButton2';
 import { shoppingListData } from '../constants/shoppingListData';
 import ShoppingListOptions from '../components/functional/ShoppingListOptions';
-import { CollapseSection} from '../constants/CollapseSection';
+import { CollapseSection } from '../constants/CollapseSection';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
+
+
 // todo:
 // save list for user
 // generate shopping list functionality
@@ -23,12 +27,13 @@ import { CollapseSection} from '../constants/CollapseSection';
 const ShoppingList = () => {
     const { collapsedSections, setCollapsedSections, toggleCollapse } = CollapseSection();
 
-    const { setItems, items, shoppingList, setShoppingList } = shoppingListData();
+    const { setItems, items, shoppingList } = shoppingListData();
 
     const [foodName, setFoodName] = useState('')
     const [foodType, setFoodType] = useState('')
 
     const [checkedItems, setCheckedItems] = useState({});
+    console.log(checkedItems)
 
     // changes whether a food item is checked or not
     const toggleChecked = (item) => {
@@ -67,22 +72,37 @@ const ShoppingList = () => {
     };
 
     // called when user clicks add button, allows user to add food in shopping list
-    const handleAddFood = () => {
+    const handleAddFood = async () => {
         if (foodName != '') {
-            // find the section that matches foodType entered by user
-            const updatedShoppingList = shoppingList.map(section => {
-                if (section.title == foodType.toString()) {
-                    // update the data array for the matched food type
-                    return {
-                        ...section,
-                        data: [...section.data, foodName.charAt(0).toUpperCase() + foodName.slice(1).toLowerCase()] // Add the new food item
-                    };
-                }
-                // return the section as is if it does not match
-                return section;
-            });
+            // // find the section that matches foodType entered by user
+            // const updatedShoppingList = shoppingList.map(section => {
+            //     if (section.title == foodType.toString()) {
+            //         // update the data array for the matched food type
+            //         return {
+            //             ...section,
+            //             data: [...section.data, foodName.charAt(0).toUpperCase() + foodName.slice(1).toLowerCase()] // Add the new food item
+            //         };
+            //     }
+            //     // return the section as is if it does not match
+            //     return section;
+            // });
+
+            try {
+                const userID = auth().currentUser.uid;  // Get current user's ID
+
+                // add document in shopping list collection with fields foodName and foodType
+                firestore().collection('Users').doc(userID).collection('ShoppingList').add({
+                    foodName: foodName,
+                    foodType: foodType
+                })
+
+            } catch (e) {
+                alert("Error: ", e.message)
+            }
+
             // update the shopping list
-            setShoppingList(updatedShoppingList)
+            // setShoppingList(updatedShoppingList)
+            
             // delete food name after it's added to the list
             setFoodName('')
         }
@@ -215,7 +235,7 @@ const ShoppingList = () => {
                     />
                     {/* Popup for options menu */}
                     <ShoppingListOptions
-                        setShoppingList={setShoppingList}
+                        // setShoppingList={setShoppingList}
                         setCheckedItems={setCheckedItems}
                         toggleOptions={toggleOptions}
                         visibleOptions={visibleOptions}
