@@ -30,39 +30,39 @@ export const useFoodData = () => {
         // snacks = [],
 
         // Original data format
-        // {
-        //     title: 'Breakfast',
-        //     data: [
-        //         { title: 'Eggs', count: '2', kCal: '193' },
-        //         { title: 'Bacon', count: '2', kCal: '100' },
-        //         { title: 'Toast', count: '1', kCal: '80' }
-        //     ],
-        //     key: 'breakfast'
-        // },
-        // {
-        //     title: 'Lunch',
-        //     data: [
-        //         { title: 'Chicken Salad', count: '1', kCal: '350' },
-        //         { title: 'Rice', count: '1', kCal: '200' }
-        //     ],
-        //     key: 'lunch'
-        // },
-        // {
-        //     title: 'Dinner',
-        //     data: [
-        //         { title: 'Steak', count: '1', kCal: '500' },
-        //         { title: 'Mashed Potatoes', count: '2', kCal: '150' }
-        //     ],
-        //     key: 'dinner'
-        // },
-        // {
-        //     title: 'Snacks',
-        //     data: [
-        //         { title: 'Cheetos', count: '3', kCal: '300' },
-        //         { title: 'Doritos', count: '4', kCal: '290' }
-        //     ],
-        //     key: 'snacks'
-        // }
+        {
+            title: 'Breakfast',
+            data: [
+                // { title: 'Eggs', count: '2', kCal: '193' },
+                // { title: 'Bacon', count: '2', kCal: '100' },
+                // { title: 'Toast', count: '1', kCal: '80' }
+            ],
+            key: 'breakfast'
+        },
+        {
+            title: 'Lunch',
+            data: [
+                // { title: 'Chicken Salad', count: '1', kCal: '350' },
+                // { title: 'Rice', count: '1', kCal: '200' }
+            ],
+            key: 'lunch'
+        },
+        {
+            title: 'Dinner',
+            data: [
+                // { title: 'Steak', count: '1', kCal: '500' },
+                // { title: 'Mashed Potatoes', count: '2', kCal: '150' }
+            ],
+            key: 'dinner'
+        },
+        {
+            title: 'Snacks',
+            data: [
+                // { title: 'Cheetos', count: '3', kCal: '300' },
+                // { title: 'Doritos', count: '4', kCal: '290' }
+            ],
+            key: 'snacks'
+        }
     ]);
 
     useEffect(() => {
@@ -75,7 +75,8 @@ export const useFoodData = () => {
             .orderBy('foodName', 'desc')
             .onSnapshot(
                 (querySnapshot) => {
-                    const foods = [];
+                    const breakfastData = [];
+                    const lunchData = [];
                     // const times = {
                     //     breakfast: [],
                     //     lunch: [],
@@ -86,16 +87,28 @@ export const useFoodData = () => {
                     querySnapshot.forEach((doc) => {
                         const data = doc.data();
                         // const timeFrame = data.timeFrame?.toLowerCase();       // Needed to compare and place in proper time list
-
-                        foods.push({
-                            food: data.foodName || '-',
-                            servings: data.servings || 0,
-                            kCal: data.cals || 0,
-                            carbs: data.carbs || 0,
-                            fats: data.fats || 0,
-                            protein: data.protein || 0,
-                            time: data.timeFrame || '-'
-                        });
+                        if (data.timeFrame == "Breakfast") {
+                            breakfastData.push({
+                                food: data.foodName || '-',
+                                servings: data.servings || 0,
+                                kCal: data.cals || 0,
+                                carbs: data.carbs || 0,
+                                fats: data.fats || 0,
+                                protein: data.protein || 0,
+                                time: data.timeFrame || '-'
+                            });
+                        }
+                        else if (data.timeFrame == "Lunch"){
+                            lunchData.push({
+                                food: data.foodName || '-',
+                                servings: data.servings || 0,
+                                kCal: data.cals || 0,
+                                carbs: data.carbs || 0,
+                                fats: data.fats || 0,
+                                protein: data.protein || 0,
+                                time: data.timeFrame || '-'
+                            });
+                        }
 
                         // If statement to push based on the time of day
                         // if (times[timeFrame]) {
@@ -110,7 +123,11 @@ export const useFoodData = () => {
                         //     });
                         // }
                     });
-                    setFoodSections(foods); 
+                    // set breakfast data = breakfastData
+
+                    // in foodSections, find where title == breakfast, then make data = to breakfast Data
+                    setFoodSections(foods);
+                    console.log(foods)
                     // setFoodSections(times);                                     // Used to return foods divided by meal time
                 },
                 (error) => {
