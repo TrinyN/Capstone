@@ -5,12 +5,31 @@ import CustomPopUp from '../../structural/CustomPopUp';
 import styles from '../../../styles';
 import StarRating from 'react-native-star-rating-widget';
 import { CustomButton } from '../CustomButton';
+import { getTrackerDayRef } from '../../../constants/getTrackerDayRef';
+
+// TODO: display notes based on which day of the tracker you're on
 
 const AddNotes = ({ addNotesVisible, toggleNotesOverlay }) => {
 
-    //...
     const [rating, setRating] = useState(0);
+    const [notes, setNotes] = useState("");
 
+    const handlePress = async () => {
+        try {
+            const trackerDayRef = new getTrackerDayRef();
+
+            trackerDayRef.update({
+                notes: notes,
+                rating: rating
+            })
+
+            toggleNotesOverlay()
+
+        } catch (e) {
+            alert("Error: ", e.message)
+        }
+
+    }
 
     return (
         <CustomPopUp
@@ -19,7 +38,7 @@ const AddNotes = ({ addNotesVisible, toggleNotesOverlay }) => {
             hasBackButton={false}
             content={
                 <View style={localStyle.fieldContainer}>
-                    <Text style={[styles.defaultWhiteText, { textAlign: 'center', fontSize:18 }]}>
+                    <Text style={[styles.defaultWhiteText, { textAlign: 'center', fontSize: 18 }]}>
                         How are you feeling?
                     </Text>
                     <View style={localStyle.starContainer}>
@@ -38,11 +57,14 @@ const AddNotes = ({ addNotesVisible, toggleNotesOverlay }) => {
                                 selectionColor='#CB9CF2'
                                 placeholderTextColor='rgba(242,244,243, 0.2)'
                                 multiline
-                                maxLength={150}>
+                                maxLength={210}
+                                onChangeText={(newText) => setNotes(newText)}
+                                defaultValue={notes}
+                            >
                             </TextInput>
                         </View>
                     </View>
-                    <CustomButton title={"Save"} />
+                    <CustomButton title={"Save"} handlePress={handlePress} />
                 </View>
             }
         />
@@ -63,7 +85,7 @@ const localStyle = StyleSheet.create({
         paddingTop: 20,
         paddingBottom: 10
     },
-    starContainer:{
+    starContainer: {
         justifyContent: 'center',
         alignItems: 'center',
         height: 45,
@@ -77,13 +99,13 @@ const localStyle = StyleSheet.create({
         backgroundColor: 'rgba(97, 98, 131, 0.2)',
         borderRadius: 8,
         borderWidth: 1,
-        borderColor:'#CB9CF2',
+        borderColor: '#CB9CF2',
         fontSize: 16,
         paddingHorizontal: 15,
         paddingVertical: 10,
         height: 150,
         width: '100%',
-        textAlignVertical:'top',
+        textAlignVertical: 'top',
         borderColor: '#CB9CF2'
     },
 })
