@@ -32,7 +32,7 @@ const AddFoodConfirmation = ({
 
     // when food changes, if food is not empty and title is not already in data, add food to data set
     useEffect(() => {
-        if (food !== "" && DATA.length > 0 && !DATA.some(item => item.title === food.title)) {
+        if (food.title && DATA.length > 0 && !DATA.some(item => item.title === food.title)) {
             setDATA(prevData => [...prevData, food]);
         }
     }, [food, DATA]);
@@ -47,7 +47,7 @@ const AddFoodConfirmation = ({
         const totalFat = DATA.reduce((acc, item) => acc + item.fat, 0);
 
         setSeries([totalCarb, totalProtein, totalFat])
-    }, [DATA,food]);
+    }, [DATA, food]);
 
     const handleAddPress = () => {
         toggleFoodConfirmOverlay()
@@ -55,13 +55,22 @@ const AddFoodConfirmation = ({
     }
 
     const handleConfirmPress = async () => {
+        console.log(DATA) // will have one entry that is empty stuff, kinda needed bc pie chart calc
         // add food to database
         try {
             const trackerDayRef = getTrackerDayRef();
 
-            await trackerDayRef.collection("Food").add({
-                data: DATA
-            })
+            // if no food name, don't add to database
+            for (const item of DATA) {
+                if (item.title !== null && item.title !== "") {
+                    await trackerDayRef.collection("Food").add({
+                        foodName : item.title,
+                        fat: item.fat
+                        // add rest of fields
+                    })
+                }
+
+            }
         } catch (e) {
             alert("Error:, ", e.message)
         }
@@ -70,7 +79,7 @@ const AddFoodConfirmation = ({
         setDATA(defaultDATA)
 
         // reset pie chart
-        setSeries([0,0,0])
+        setSeries([0, 0, 0])
 
         // close pop up
         toggleFoodConfirmOverlay()
