@@ -3,39 +3,64 @@ import React from 'react'
 import styles from '../../styles'
 import OptionItem from './OptionItem'
 import { Overlay } from '@rneui/base';
-import { shoppingListData } from '../../constants/shoppingListData';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
+import { router } from 'expo-router';
 
 const ShoppingListOptions = ({
-    setShoppingList,
-    shoppingList,
     setCheckedItems,
-    toggleOptions, 
-    visibleOptions, 
+    toggleOptions,
+    visibleOptions,
     checkedItems
 }) => {
-    const { emptyShoppingList } = shoppingListData();
+    const userID = auth().currentUser?.uid || null;
 
-    const resetCheckmarks = () => {
-        setCheckedItems({})
+    const resetCheckmarks = async () => {
+        setCheckedItems({ "placeholder": false }) // didn't use {} because checkmarks only saved in database if non empty 
     };
 
-    const deleteAll = () => {
-        setShoppingList(emptyShoppingList)
-        // TODO delete from database
+    const deleteAll = async () => {
+        setCheckedItems({ "placeholder": false }) // reset checked state in database in case of repeat foods
+
+        // delete all food documents in shopping list collection
+        try {
+            const batch = firestore().batch();
+            const snap = await firestore().collection("Users").doc(userID).collection("ShoppingList").get();
+            snap.forEach((doc) => {
+                batch.delete(doc.ref)
+            })
+            return batch.commit();
+        } catch (e) {
+            alert("Error: ", e.message)
+        }
     };
 
-    const deleteCheckedItems = () => {
-        const updatedShoppingList = shoppingList.map(section => {
-            return {
-                ...section,
-                data: section.data.filter(item => !checkedItems[item])
-            };
-        });
-        setShoppingList(updatedShoppingList);
+    const deleteCheckedItems = async () => {
+        setCheckedItems({ "placeholder": false }) // reset checked state in database in case of repeat foods
+
+        // for every food in shoppinglist, if food name is checked, delete
+        try {
+            // store all checked food items in array
+            const checkedFoods = Object.keys(checkedItems).filter(food => checkedItems[food]);
+            
+            const batch = firestore().batch();
+            const snap = await firestore().collection("Users").doc(userID).collection("ShoppingList").get();
+            snap.forEach((doc) => {
+                if (checkedFoods.includes(doc.data().foodName)) {
+                    batch.delete(doc.ref);
+                }})
+            return batch.commit();
+        } catch (e) {
+            alert("Error: ", e.message)
+        }
     };
+
+    const generateList = () => {
+        router.push('/shoppingGenDay')
+    }
 
     return (
-        <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions} 
+        <Overlay isVisible={visibleOptions} onBackdropPress={toggleOptions}
             overlayStyle={[styles.optionsMenu, { justifyContent: 'center' }]}
         >
             {/* View to contain all options */}
@@ -66,7 +91,7 @@ const ShoppingListOptions = ({
                 <OptionItem
                     title={"Generate List"}
                     icon={"shopping-cart"}
-                    // onPress={}
+                    onPress={generateList}
                     isShoppingList={true}
                 />
             </View>

@@ -33,7 +33,19 @@ const ShoppingList = () => {
     const [foodType, setFoodType] = useState('')
 
     const [checkedItems, setCheckedItems] = useState({});
-    console.log(checkedItems)
+
+    const userID = auth().currentUser?.uid || null;
+
+    // read database for checkmark state of foods and set checkmarks on UI appropriately, if no field found set to {}
+    const getCheckedItems = async () => {
+        try {
+            const ref = await firestore().collection('Users').doc(userID).get();
+            const checkedData = ref.data().checkedItems || {}
+            setCheckedItems(checkedData)
+        } catch (e) {
+            alert("Error: ", e.message)
+        }
+    }
 
     // changes whether a food item is checked or not
     const toggleChecked = (item) => {
@@ -46,22 +58,47 @@ const ShoppingList = () => {
         }));
     };
 
+    // change checkmark states in database (only usefull for when app is reopened)
+    const saveCheckedState = async () => {
+        try {
+            await firestore().collection('Users').doc(userID).update({
+                checkedItems: checkedItems
+            });
+        } catch (e) {
+            alert("Error:", e.message)
+        }
+    }
+
     // boolean value, true if all food items are checked
     const areAllItemsChecked = (items) => {
         return items.every(item => checkedItems[item]);
     };
 
+    // idk if we should keep auto collapse, some ppl might find it annoying or confusing, others will find it helpful
     // collapses section if all items within are checked off
+    
+    // everytime item is checked, save it to database
     useEffect(() => {
-        shoppingList.forEach(section => {
-            if (areAllItemsChecked(section.data)) {
-                setCollapsedSections(prevState => ({
-                    ...prevState,
-                    [section.title]: true
-                }));
-            }
-        });
+        // shoppingList.forEach(section => {
+        //     if (areAllItemsChecked(section.data)) {
+        //         setCollapsedSections(prevState => ({
+        //             ...prevState,
+        //             [section.title]: true
+        //         }));
+        //     }
+        // });
+        
+        // if checkedItems is not empty, update database
+        // if statement needed since checkedItems set to {} at very start, might save {} to database and overwrite data
+        if (Object.keys(checkedItems).length !== 0) {
+            saveCheckedState()
+        }
     }, [checkedItems]);
+
+    // when shopping list is opened, call on function
+    useEffect(() => {
+        getCheckedItems()
+    }, []);
 
     // visibility of the add food overlay
     const [visible, setVisible] = useState(false);
@@ -74,19 +111,6 @@ const ShoppingList = () => {
     // called when user clicks add button, allows user to add food in shopping list
     const handleAddFood = async () => {
         if (foodName != '') {
-            // // find the section that matches foodType entered by user
-            // const updatedShoppingList = shoppingList.map(section => {
-            //     if (section.title == foodType.toString()) {
-            //         // update the data array for the matched food type
-            //         return {
-            //             ...section,
-            //             data: [...section.data, foodName.charAt(0).toUpperCase() + foodName.slice(1).toLowerCase()] // Add the new food item
-            //         };
-            //     }
-            //     // return the section as is if it does not match
-            //     return section;
-            // });
-
             try {
                 const userID = auth().currentUser.uid;  // Get current user's ID
 
@@ -100,9 +124,6 @@ const ShoppingList = () => {
                 alert("Error: ", e.message)
             }
 
-            // update the shopping list
-            // setShoppingList(updatedShoppingList)
-            
             // delete food name after it's added to the list
             setFoodName('')
         }
@@ -235,12 +256,10 @@ const ShoppingList = () => {
                     />
                     {/* Popup for options menu */}
                     <ShoppingListOptions
-                        // setShoppingList={setShoppingList}
                         setCheckedItems={setCheckedItems}
                         toggleOptions={toggleOptions}
                         visibleOptions={visibleOptions}
                         checkedItems={checkedItems}
-                        shoppingList={shoppingList}
                     />
                 </View>
             }

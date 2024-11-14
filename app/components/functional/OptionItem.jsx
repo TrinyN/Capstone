@@ -18,8 +18,7 @@ const OptionItem = ({
     // if shopping list, button performs function, else zoom in/out
     const handlePress = () => {
         if (isShoppingList) {
-            // onPress();              // Error here - onPress is not defined?
-            router.push('/shoppingGenDay');
+            onPress()
         } else if (isNotes) {
             toggleNotesOverlay();
         }else {
