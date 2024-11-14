@@ -61,7 +61,7 @@ const HomeFrame = ({
                     // {/* WARNING: May have to change bottle to be exact size to prevent issues with it changing sizes based on screen */}
                     // {/* TODO: Add calculation of water progress */}
                     // progress to control how full
-                    <WaterGauge progress={90}/>
+                    <WaterGauge/>
                 ) : (
                     // {/* How to fill pruple with dark plus (~Figma)??? */}
                     // {/* Issue: SVG (including stroke and fill) no long supported for feather */}
