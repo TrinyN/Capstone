@@ -1,14 +1,29 @@
 import { View, StyleSheet, Dimensions, Image } from 'react-native';
 import { React, useState } from 'react';
 import { LiquidGauge } from 'react-native-liquid-gauge';
+import { useWaterData } from '../../constants/trackerData';
+import { userDataItems } from '../../constants/profileData';
+import { createIconSetFromFontello } from 'react-native-vector-icons';
 
-const WaterGauge = ({
-    progress
-}) => {
+// Known issues:
+// 1. Water gauge max size looks best at 90%, but text within will also show 90% (want 100%)
+// 2. The size of the water gauage is not suited for all screens, being slighly off for larger and smaller ones
 
+const WaterGauge = () => {
+
+    // Values found and used for WaterGuage size
     const { width } = Dimensions.get('window');
     const wth = (width * 0.35)
     const ht = (wth * 1.5)
+
+    // Handling user's data to get their water drank and water goal, then set progress value
+    const water = useWaterData();
+    const { userInfo, setUserInfo } = userDataItems();
+    const goal = parseInt(userInfo.find(item => item.title === "Water Goal")?.value);
+
+    let progress = Math.round(100*(water/goal));
+    if (progress > 90){ progress = 90}                  // Ensure the maximum of 90% of animation (looks best)
+    else if (goal = 0) { progess = 70}                  // If they do not have a water goal, just show mid amount
 
     return (
         <View style={localStyle.container}>
@@ -18,16 +33,18 @@ const WaterGauge = ({
                 <LiquidGauge
                     config={{
                     circleColor: 'transparent',
-                    textColor: 'transparent',
-                    waveTextColor: 'transparent',
                     waveColor: '#4D79FF',
                     circleThickness: 0,
-                    textVertPosition: 0.5,
                     waveAnimateTime: 1000,
+                    textVertPosition: 0.5,
+                    textColor: 'transparent',
+                    waveTextColor: 'transparent',
+                    // textColor: '#F2F4F3',
+                    // waveTextColor: '#F2F4F3',
+                    textSize: 0.5,
+                    // textSuffix:" c"                  // Only allowed to show percentage...
                     }}
-                    // TODO: Reminder: 90 will be max value; adjust calculations accordingly.
-                    maxValue={90}
-                    value={progress} // Doesnt look good at 100%, 90 looks best for max value
+                    value={progress}
                     width={wth*1.15}
                     height={wth*1.15}
                 />
