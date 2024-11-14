@@ -154,6 +154,7 @@ const SignUp3 = () => {
                         placeholder={'2500'}
                         value={calGoal}
                         setValue={setCalGoal}
+                        isNum={true}
                     >
                     </QuestionAnswer>
 
@@ -164,6 +165,7 @@ const SignUp3 = () => {
                         placeholder={'35% Carb / 35% Protein / 30 % Fat'}
                         value={macroGoal}
                         setValue={setMacroGoal}
+                        isNum={true}
                     >
                     </QuestionAnswer>
 
@@ -184,6 +186,7 @@ const SignUp3 = () => {
                         placeholder={'9 cups'}
                         value={waterGoal}
                         setValue={setWaterGoal}
+                        isNum={true}
                     >
                     </QuestionAnswer>
 

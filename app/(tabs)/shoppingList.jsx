@@ -80,6 +80,7 @@ const ShoppingList = () => {
     // everytime item is checked, save it to database
     useEffect(() => {
         // shoppingList.forEach(section => {
+        //     console.log(section, areAllItemsChecked(section.data))
         //     if (areAllItemsChecked(section.data)) {
         //         setCollapsedSections(prevState => ({
         //             ...prevState,

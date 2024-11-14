@@ -60,7 +60,8 @@ const SignUp2 = () => {
                         question={'How tall are you?'}
                         placeholder={'5 ft 12 in'}
                         value={height}
-                        setValue={setHeight}>
+                        setValue={setHeight}
+                        isNum={true}>
                     </QuestionAnswer>
 
                     {/* Weight */}
@@ -69,7 +70,8 @@ const SignUp2 = () => {
                         question={'How much do you weigh?'}
                         placeholder={'125 lbs'}
                         value={weight}
-                        setValue={setWeight}>
+                        setValue={setWeight}
+                        isNum={true}>
                     </QuestionAnswer>
 
                     {/* Sex */}

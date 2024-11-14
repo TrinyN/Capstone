@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 // Function that returns the QuestionAnswer given certain fields to determine its behavior
 const QuestionAnswer = (
-    { type, question, placeholder, setCustomValue, items, setItems, hasTitle, isEmail, value, setValue }) => {
+    { type, question, placeholder, setCustomValue, items, setItems, hasTitle, isEmail, value, setValue, isNum }) => {
 
     // If the answer will be a text input
     if (type === 'text') {
@@ -24,7 +24,7 @@ const QuestionAnswer = (
                         placeholder={placeholder}
                         selectionColor='#CB9CF2'
                         placeholderTextColor='rgba(242,244,243, 0.2)'
-                        keyboardType={isEmail ? 'email': 'default'}
+                        keyboardType={isEmail ? 'email' : isNum ? 'numeric' : 'default'}
                         value={value}
 					    onChangeText={setValue}
                         >

@@ -72,7 +72,7 @@ export const useFoodData = () => {
         // Set up the Firestore listener
         const subscriber = trackerDayRef
             .collection("Food")
-            .orderBy('foodName', 'desc')
+            .orderBy('foodName', 'asc')
             .onSnapshot(
                 (querySnapshot) => {
                     const breakfastData = [];
@@ -153,7 +153,7 @@ export const useExerciseData = () => {
         // Set up the Firestore listener
         const subscriber = trackerDayRef
             .collection("Exercise")
-            .orderBy('exerciseName', 'desc')
+            .orderBy('exerciseName', 'asc')
             .onSnapshot(
                 (querySnapshot) => {
                     const exercises = [];
