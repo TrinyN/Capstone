@@ -19,7 +19,7 @@ const WaterGauge = () => {
     // Handling user's data to get their water drank and water goal, then set progress value
     const water = useWaterData();
     const { userInfo, setUserInfo } = userDataItems();
-    const goal = parseInt(userInfo.find(item => item.title === "Water Goal")?.value);
+    let goal = parseInt(userInfo.find(item => item.title === "Water Goal")?.value);
 
     let progress = Math.round(100*(water/goal));
     if (progress > 90){ progress = 90}                  // Ensure the maximum of 90% of animation (looks best)
