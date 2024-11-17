@@ -21,11 +21,12 @@ const AddFoodConfirmation = ({
 
     const defaultDATA = [{
         title: null,
-        calPerSvg: null,
         svgEaten: null,
+        calPerSvg: null,
         carb: 0,
+        fat: 0,
         protein: 0,
-        fat: 0
+        timeFrame: null
     },]
 
     const [DATA, setDATA] = useState(defaultDATA);
@@ -65,8 +66,12 @@ const AddFoodConfirmation = ({
                 if (item.title !== null && item.title !== "") {
                     await trackerDayRef.collection("Food").add({
                         foodName : item.title,
-                        fat: item.fat
-                        // add rest of fields
+                        svgEaten : item.svgEaten,
+                        calPerSvgl: item.calPerSvg,
+                        carb: item.carb,
+                        fat: item.fat,
+                        protein: item.protein,
+                        fooUnit: item.foodUnit
                     })
                 }
 

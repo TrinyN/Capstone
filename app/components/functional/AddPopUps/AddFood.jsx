@@ -33,6 +33,7 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
     const [foodName, setFoodName] = useState('')
     const [calPerSvg, setCalPerSvg] = useState('')
     const [svgEaten, setSvgEaten] = useState('')
+    const [timeFrame, setTimeFrame] = useState('')
 
     const resetData = () => {
         setFood("")
@@ -40,6 +41,7 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
         setCalPerSvg("")
         setSvgEaten("")
         setSeries([0,0,0])
+        setFoodUnit("")
     }
 
     // When add button is pressed
@@ -51,7 +53,8 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
                 svgEaten: svgEaten, 
                 carb: series[0], 
                 protein: series[1],
-                fat: series[2]
+                fat: series[2],
+                foodUnit: foodUnit
             }
         )
         toggleFoodConfirmOverlay()

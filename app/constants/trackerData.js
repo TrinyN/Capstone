@@ -65,6 +65,8 @@ export const useFoodData = () => {
         }
     ]);
 
+    const userID = auth().currentUser?.uid || null;
+
     useEffect(() => {
         // look into await?
         const trackerDayRef = getTrackerDayRef();
@@ -75,8 +77,11 @@ export const useFoodData = () => {
             .orderBy('foodName', 'asc')
             .onSnapshot(
                 (querySnapshot) => {
+                    const newFoodData = [];
                     const breakfastData = [];
                     const lunchData = [];
+                    const dinnerData = [];
+                    const snacksData = [];
                     // const times = {
                     //     breakfast: [],
                     //     lunch: [],
@@ -87,47 +92,41 @@ export const useFoodData = () => {
                     querySnapshot.forEach((doc) => {
                         const data = doc.data();
                         // const timeFrame = data.timeFrame?.toLowerCase();       // Needed to compare and place in proper time list
-                        if (data.timeFrame == "Breakfast") {
-                            breakfastData.push({
-                                food: data.foodName || '-',
-                                servings: data.servings || 0,
-                                kCal: data.cals || 0,
-                                carbs: data.carbs || 0,
-                                fats: data.fats || 0,
-                                protein: data.protein || 0,
-                                time: data.timeFrame || '-'
+                        newFoodData.push({
+                            food: data.foodName || '—',
+                            servings: data.servings || 0,
+                            kCal: data.cals || 0,
+                            carbs: data.carbs || 0,
+                            fats: data.fat || 0,
+                            protein: data.protein || 0,
+                            foodUnit: data.foodUnit || '—'
+                        });
+                        setFoodSections((prevFoodSections) => {
+                            const updatedList = prevFoodSections.map((item) => {
+                                const matchingFoods = newFoodData
+                                    .filter(food => food.time === item.title)
+                                    .map(food => ({
+                                        food: food.foodName, 
+                                        servings:food.servings, 
+                                        kCal:food.cals,
+                                        carbs:food.carbs,
+                                        protein:food.protein,                    // check around this (only adding name and fats?)
+                                        foodUnit:food.foodUnit
+                                    }));
+                                return {
+                                    ...item,
+                                    data: [...matchingFoods],
+                                }
                             });
-                        }
-                        else if (data.timeFrame == "Lunch"){
-                            lunchData.push({
-                                food: data.foodName || '-',
-                                servings: data.servings || 0,
-                                kCal: data.cals || 0,
-                                carbs: data.carbs || 0,
-                                fats: data.fats || 0,
-                                protein: data.protein || 0,
-                                time: data.timeFrame || '-'
-                            });
-                        }
-
-                        // If statement to push based on the time of day
-                        // if (times[timeFrame]) {
-                        //     times[timeFrame].push({
-                        //         exercise: data.foodName || '-',
-                        //         servings: data.servings || 0,
-                        //         kCal: data.cals || 0,
-                        //         carbs: data.carbs || 0,
-                        //         fats: data.fats || 0,
-                        //         protein: data.protein || 0,
-                        //         time: data.timeFrame || '-'
-                        //     });
-                        // }
+                            console.log(updatedList)
+                            return updatedList;
+                        });
                     });
                     // set breakfast data = breakfastData
 
                     // in foodSections, find where title == breakfast, then make data = to breakfast Data
-                    setFoodSections(foods);
-                    console.log(foods)
+                    // setFoodSections(foods);
+                    // console.log(foods)
                     // setFoodSections(times);                                     // Used to return foods divided by meal time
                 },
                 (error) => {
