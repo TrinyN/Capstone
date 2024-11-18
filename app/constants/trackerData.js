@@ -7,14 +7,21 @@
 
 // Should there be a file for each tracker zoom level?
 // Or should it all be included here?
-
 import { useState, useEffect } from "react";
+import { getTrackerDayRef } from "./getTrackerDayRef";
 import auth from '@react-native-firebase/auth';
 const userID = auth().currentUser ? auth().currentUser.uid : null;
 
 
 export const useFoodData = () => {
 
+    const [times, setTimes] = useState([
+        { label: 'Breakfast', value: 'Breakfast' },
+        { label: 'Lunch', value: 'Lucnh' },
+        { label: 'Dinner', value: 'Dinner' },
+        { label: 'Snacks', value: 'Snacks' }
+    ])
+    
     const [foodSections, setFoodSections] = useState([
         // Food formatting
         { title: 'Breakfast', data: [], key: 'breakfast' },
@@ -63,7 +70,7 @@ export const useFoodData = () => {
                                         servings:food.servings, 
                                         kCal:food.cals,
                                         carbs:food.carbs,
-                                        protein:food.protein,                    // check around this (only adding name and fats?)
+                                        protein:food.protein,
                                         foodUnit:food.foodUnit
                                     }));
                                 return {
@@ -83,7 +90,7 @@ export const useFoodData = () => {
         return () => subscriber();
     }, [userID]);
 
-    return foodSections
+    return { times, setTimes, foodSections }
 };
 
 export const useExerciseData = () => {

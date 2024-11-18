@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text, View, FlatList, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, View, FlatList, StyleSheet, SectionList } from 'react-native';
 import styles from '../styles';
 import Feather from "react-native-vector-icons/Feather";
 import { useEffect, useState } from 'react';
@@ -195,14 +195,14 @@ const Tracker = () => {
                             />
                             {/* View for FlatList to store all items of tracker */}
                             <View>
-                                <FlatList
-                                    data={foodSections}
-                                    renderItem={renderSection}
+                                <SectionList
+                                    sections={foodSections}
                                     keyExtractor={(item) => item.key}
                                     ListHeaderComponent={
                                         <CustomHeader title1={"Food"} title2={"Svg Count"} title3={"kCal"} />
                                     }
                                     scrollEnabled={false}
+                                    renderItem={renderSection} // check this for rendering (and associated method)
                                 />
                                 {/* Space Between Food and Water lists */}
                                 <View style={{ margin: 20 }}></View>
