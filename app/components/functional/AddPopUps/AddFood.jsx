@@ -33,7 +33,6 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
     const [foodName, setFoodName] = useState('')
     const [calPerSvg, setCalPerSvg] = useState('')
     const [svgEaten, setSvgEaten] = useState('')
-    const [timeFrame, setTimeFrame] = useState('')
 
     const resetData = () => {
         setFood("")
