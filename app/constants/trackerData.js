@@ -9,9 +9,6 @@
 // Or should it all be included here?
 
 import { useState, useEffect } from "react";
-import { getTrackerDayRef } from "./getTrackerDayRef";
-import { collection, getDocs } from '@react-native-firebase/firestore';
-import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 const userID = auth().currentUser ? auth().currentUser.uid : null;
 
@@ -19,50 +16,11 @@ const userID = auth().currentUser ? auth().currentUser.uid : null;
 export const useFoodData = () => {
 
     const [foodSections, setFoodSections] = useState([
-        // { food:'', servings:0, kCal:0, carbs:0, fats:0, protein:0, time:''},
-        // { food:'', servings:0, kCal:0, carbs:0, fats:0, protein:0, time:''},
-        // { food:'', servings:0, kCal:0, carbs:0, fats:0, protein:0, time:''}
-
-        // Different setting mechanism?
-        // breakfast = [],
-        // lunch = [],
-        // dinner = [],
-        // snacks = [],
-
-        // Original data format
-        {
-            title: 'Breakfast',
-            data: [
-                // { title: 'Eggs', count: '2', kCal: '193' },
-                // { title: 'Bacon', count: '2', kCal: '100' },
-                // { title: 'Toast', count: '1', kCal: '80' }
-            ],
-            key: 'breakfast'
-        },
-        {
-            title: 'Lunch',
-            data: [
-                // { title: 'Chicken Salad', count: '1', kCal: '350' },
-                // { title: 'Rice', count: '1', kCal: '200' }
-            ],
-            key: 'lunch'
-        },
-        {
-            title: 'Dinner',
-            data: [
-                // { title: 'Steak', count: '1', kCal: '500' },
-                // { title: 'Mashed Potatoes', count: '2', kCal: '150' }
-            ],
-            key: 'dinner'
-        },
-        {
-            title: 'Snacks',
-            data: [
-                // { title: 'Cheetos', count: '3', kCal: '300' },
-                // { title: 'Doritos', count: '4', kCal: '290' }
-            ],
-            key: 'snacks'
-        }
+        // Food formatting
+        { title: 'Breakfast', data: [], key: 'breakfast' },
+        { title: 'Lunch', data: [], key: 'lunch' },
+        { title: 'Dinner', data: [], key: 'dinner' },
+        { title: 'Snacks', data: [], key: 'snacks' }
     ]);
 
     const userID = auth().currentUser?.uid || null;
@@ -77,21 +35,14 @@ export const useFoodData = () => {
             .orderBy('foodName', 'asc')
             .onSnapshot(
                 (querySnapshot) => {
+                    // A list to store all of the foods (sorted later)
                     const newFoodData = [];
-                    const breakfastData = [];
-                    const lunchData = [];
-                    const dinnerData = [];
-                    const snacksData = [];
-                    // const times = {
-                    //     breakfast: [],
-                    //     lunch: [],
-                    //     dinner: [],
-                    //     snacks: [],
-                    // }
 
+                    // For each for all items in document
                     querySnapshot.forEach((doc) => {
+                        // The data is the data of the document within firebase
                         const data = doc.data();
-                        // const timeFrame = data.timeFrame?.toLowerCase();       // Needed to compare and place in proper time list
+                        // Push the fields to be used and filled, empty or not
                         newFoodData.push({
                             food: data.foodName || '—',
                             servings: data.servings || 0,
@@ -101,10 +52,12 @@ export const useFoodData = () => {
                             protein: data.protein || 0,
                             foodUnit: data.foodUnit || '—'
                         });
+                        // Set the foods to be within the foodSection
                         setFoodSections((prevFoodSections) => {
+                            // Copying the old food section list
                             const updatedList = prevFoodSections.map((item) => {
-                                const matchingFoods = newFoodData
-                                    .filter(food => food.time === item.title)
+                                const matchingFoods = newFoodData                   // Based on the foodUnit/timeFrame, add foods to database
+                                    .filter(food => food.foodUnit === item.title)
                                     .map(food => ({
                                         food: food.foodName, 
                                         servings:food.servings, 
@@ -118,16 +71,9 @@ export const useFoodData = () => {
                                     data: [...matchingFoods],
                                 }
                             });
-                            console.log(updatedList)
                             return updatedList;
                         });
                     });
-                    // set breakfast data = breakfastData
-
-                    // in foodSections, find where title == breakfast, then make data = to breakfast Data
-                    // setFoodSections(foods);
-                    // console.log(foods)
-                    // setFoodSections(times);                                     // Used to return foods divided by meal time
                 },
                 (error) => {
                     alert('Error fetching Food data: ' + error.message);
