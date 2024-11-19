@@ -71,7 +71,7 @@ const AddFoodConfirmation = ({
                         carb: item.carb,
                         fat: item.fat,
                         protein: item.protein,
-                        fooUnit: item.foodUnit
+                        foodUnit: item.foodUnit
                     })
                 }
 
