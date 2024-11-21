@@ -6,7 +6,7 @@ import CustomDropdown from '../CustomDropdown';
 import { CustomButton } from '../CustomButton';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Feather from "react-native-vector-icons/Feather";
-import { useFoodUnitTypesOptions } from '../../../constants/dropdownOptions';
+import { useTimeFrameOptions } from '../../../constants/dropdownOptions';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import CustomPieChart from '../PieChart';
 import AddFoodMacro from './AddFoodMacro';
@@ -19,8 +19,8 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
     const [series, setSeries] = useState([0, 0, 0]); // init series
 
     // Handle dropdown menu options for food unit type
-    const { foodUnit, setFoodUnit,
-        foodUnitTypes, setFoodUnitTypes } = useFoodUnitTypesOptions();
+    const { timeFrame, setTimeFrame,
+        timeFrameTimes, setTimeFrameTimes } = useTimeFrameOptions();
 
     // Saves visibility of add water pop up
     const [addFoodMacroVisible, setAddFoodMacroVisible] = useState(false);
@@ -40,7 +40,7 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
         setCalPerSvg("")
         setSvgEaten("")
         setSeries([0,0,0])
-        setFoodUnit("")
+        setTimeFrame("")
     }
 
     // When add button is pressed
@@ -53,7 +53,7 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
                 carb: series[0], 
                 protein: series[1],
                 fat: series[2],
-                foodUnit: foodUnit
+                timeFrame: timeFrame
             }
         )
         toggleFoodConfirmOverlay()
@@ -126,9 +126,9 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
                         <View style={{ paddingVertical: 10 }}>
                             <CustomDropdown
                                 placeholder={'Breakfast'}
-                                setCustomValue={setFoodUnit}
-                                items={foodUnitTypes}
-                                setItems={setFoodUnitTypes}
+                                setCustomValue={setTimeFrame}
+                                items={timeFrameTimes}
+                                setItems={setTimeFrameTimes}
                             />
                         </View>
                         <View style={{ paddingVertical: 10, zIndex: -1 }}>

@@ -57,21 +57,21 @@ export const useFoodData = () => {
                             carbs: data.carbs || 0,
                             fats: data.fat || 0,
                             protein: data.protein || 0,
-                            foodUnit: data.foodUnit || '—'
+                            timeFrame: data.timeFrame || '—'
                         });
                         // Set the foods to be within the foodSection
                         setFoodSections((prevFoodSections) => {
                             // Copying the old food section list
                             const updatedList = prevFoodSections.map((item) => {
-                                const matchingFoods = newFoodData                   // Based on the foodUnit/timeFrame, add foods to database
-                                    .filter(food => food.foodUnit === item.title)
+                                const matchingFoods = newFoodData                   // Based on the timeFrame, add foods to database
+                                    .filter(food => food.timeFrame === item.title)
                                     .map(food => ({
                                         food: food.foodName, 
                                         servings:food.servings, 
                                         kCal:food.cals,
                                         carbs:food.carbs,
                                         protein:food.protein,
-                                        foodUnit:food.foodUnit
+                                        timeFrame:food.timeFrame
                                     }));
                                 return {
                                     ...item,

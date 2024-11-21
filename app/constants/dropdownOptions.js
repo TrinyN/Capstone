@@ -113,9 +113,9 @@ export const useExerciseUnitOptions = () => {
 }
 
 // Tracker Popup: Food Choice: eating time frame dropdown options
-export const useFoodUnitTypesOptions = () => {
-    const [foodUnit, setFoodUnit] = useState('Breakfast') // default value is breakfast
-    const [foodUnitTypes, setFoodUnitTypes] = useState([
+export const useTimeFrameOptions = () => {
+    const [timeFrame, setTimeFrame] = useState('Breakfast') // default value is breakfast
+    const [timeFrameTimes, setTimeFrameTimes] = useState([
         { label: 'Breakfast', value: 'Breakfast' },
         { label: 'Lunch', value: 'Lunch' },
         { label: 'Dinner', value: 'Dinner' },
@@ -124,10 +124,10 @@ export const useFoodUnitTypesOptions = () => {
     ]);
 
     return {
-        foodUnit,
-        setFoodUnit,
-        foodUnitTypes,
-        setFoodUnitTypes
+        timeFrame,
+        setTimeFrame,
+        timeFrameTimes,
+        setTimeFrameTimes
     }
 }
 
