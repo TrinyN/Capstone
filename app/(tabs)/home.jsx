@@ -23,16 +23,19 @@ const Home = () => {
         try{
             const userID = auth().currentUser.uid;
             const userDoc = await firestore().collection('Users').doc(userID).get();
-            setUserName(userDoc.data().username)
-            return
+                if (userDoc.data().username === "") {
+                    setUserName(userDoc.data().email);  // If username is empty, display the email
+                } else {
+                    setUserName(userDoc.data().username);  // Otherwise, set it to the username
+                }
         } catch (e){
-            alert(e.message)
+            getUsername() // if username can't be fetched, try again
         }
 
     }
 
     useEffect(() => {
-        setTimeout(() => getUsername(), 100)
+        getUsername()
     }, []);
 
     return (

@@ -49,7 +49,6 @@ const CustomAuthButton = ({ authType, handleAuth, email, password }) => {
     if (authType == 'Log In') {
         linkTitle = "Sign Up"
         switchAuthType = '/sign-up'
-        handlePress = () => { handleAuth() }
         // handleGoogle = () => googleLogIn()
 
         routerPush = '/home' // need to authorize first, google button needs to be changed too
@@ -57,12 +56,6 @@ const CustomAuthButton = ({ authType, handleAuth, email, password }) => {
     else {
         linkTitle = "Log In"
         switchAuthType = '/sign-in'
-        handlePress = () => {
-            router.push({
-                pathname: '/sign-up-2',
-                params: { email: email, password: password },
-            });
-        }
         // handleGoogle = () => { googleSignOut() }
     }
     return (
@@ -70,7 +63,7 @@ const CustomAuthButton = ({ authType, handleAuth, email, password }) => {
         <View style={localStyle.container}>
             <CustomButton2 type='normal'
                 text={authType}
-                onPress={handlePress}
+                onPress={handleAuth}
             >
             </CustomButton2>
 

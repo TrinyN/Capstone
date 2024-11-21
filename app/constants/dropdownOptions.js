@@ -7,7 +7,7 @@ import { useState } from 'react';
 // Export the options of sex
 // Used in signup-2 and profile
 export const useSexOptions = () => {
-    const [userSex, setUserSex] = useState('')
+    const [userSex, setUserSex] = useState('Male')
     const [sex, setSex] = useState([
         { label: 'Female', value: 'Female' },
         { label: 'Male', value: 'Male' },
@@ -41,7 +41,7 @@ export const useDietPlanBooleanOptions = () => {
 // Export the diet plan options
 // Used in signup-3 and profile(?)
 export const useDietPlanOptions = () => {
-    const [userDietPlan, setUserDietPlan] = useState('')
+    const [userDietPlan, setUserDietPlan] = useState('Keto')
     const [dietPlan, setDietPlan] = useState([
         { label: 'Keto', value: 'Keto' },
         { label: 'Vegan', value: 'Vegan' },

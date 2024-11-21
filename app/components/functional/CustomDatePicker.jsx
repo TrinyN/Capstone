@@ -53,7 +53,7 @@ const CustomDatePicker = ({ placeholder, hasTitle, onDateChange }) => {
                     <TextInput style={styles.inputFieldStyle}
                         selectionColor='#CB9CF2'
                         placeholderTextColor='rgba(242,244,243, 0.2)'
-                        placeholder='06/01/3024'
+                        placeholder='06/01/2024'
                         value={dateOfBirth}
                         onChangeText={newDate => {
                             setDateOfBirth(newDate);

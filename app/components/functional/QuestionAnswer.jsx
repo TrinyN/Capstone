@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 // Function that returns the QuestionAnswer given certain fields to determine its behavior
 const QuestionAnswer = (
-    { type, question, placeholder, setCustomValue, items, setItems, hasTitle, isEmail, value, setValue, isNum }) => {
+    { type, question, placeholder, setCustomValue, items, setItems, hasTitle, isEmail, value, setValue, isNum, errors }) => {
 
     // If the answer will be a text input
     if (type === 'text') {
@@ -16,6 +16,7 @@ const QuestionAnswer = (
                 <Text style={localStyle.question}>
                     {question}
                 </Text>
+
                 {/* Add in way to accept response */}
                 {/* Answer TextInput */}
                 <View style={localStyle.answerView}>
@@ -26,10 +27,11 @@ const QuestionAnswer = (
                         placeholderTextColor='rgba(242,244,243, 0.2)'
                         keyboardType={isEmail ? 'email' : isNum ? 'numeric' : 'default'}
                         value={value}
-					    onChangeText={setValue}
-                        >
+                        onChangeText={setValue}
+                    >
                     </TextInput>
                 </View>
+                {errors && <Text style={localStyle.errorMessage}>{errors}</Text>}
             </View>
         )
     } else if (type === 'date') {
@@ -38,9 +40,11 @@ const QuestionAnswer = (
                 {/* Question and answer both handled in other component */}
                 <CustomDatePicker
                     placeholder={placeholder}
-                    hasTitle={hasTitle} 
+                    hasTitle={hasTitle}
                     onDateChange={setValue}
-                    />
+                />
+                {errors && <Text style={localStyle.errorMessage}>{errors}</Text>}
+
             </View>
         )
     } else if (type === 'password') {
@@ -51,6 +55,7 @@ const QuestionAnswer = (
                 <Text style={localStyle.question}>
                     {question}
                 </Text>
+
                 {/* Add in way to accept response */}
                 {/* Answer TextInput */}
                 <View style={localStyle.answerView}>
@@ -61,13 +66,14 @@ const QuestionAnswer = (
                         selectionColor='#CB9CF2'
                         placeholderTextColor='rgba(242,244,243, 0.2)'
                         value={value}
-					    onChangeText={setValue}
-                        >
+                        onChangeText={setValue}
+                    >
                     </TextInput>
                     <TouchableOpacity style={localStyle.passwordButton} onPress={() => setShowPassword(!showPassword)}>
                         <Feather name={!showPassword ? "eye" : "eye-off"} size={25} color='rgba(242,244,243,0.5)' />
                     </TouchableOpacity>
                 </View>
+                {errors && <Text style={localStyle.errorMessage}>{errors}</Text>}
             </View>
         )
     } else if (type === 'dropdown') { // NOT IMPLEMENTED YET
@@ -86,6 +92,8 @@ const QuestionAnswer = (
                         setItems={setItems}
                     />
                 </View>
+                {errors && <Text style={localStyle.errorMessage}>{errors}</Text>}
+
             </View>
         )
     }
@@ -117,9 +125,16 @@ const localStyle = StyleSheet.create({
         paddingLeft: 15,
         paddingVertical: 10,
     },
-    passwordButton:{
-        width: 25, 
-        position: 'absolute', 
+    passwordButton: {
+        width: 25,
+        position: 'absolute',
         right: 10
+    },
+    errorMessage: {
+        fontSize: 11,
+        color: 'red',
+        padding: 5,
+        fontFamily: 'Inter_300Light',
+
     }
 })

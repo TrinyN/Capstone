@@ -39,8 +39,8 @@ export const userDataItems = () => {
                 'Weight': 'weight',
                 'Caloric Goal': 'calGoal',
                 'Water Goal': 'waterGoal',
-                'Weight Goal': 'userWeightGoal',
-                'Diet Plan': 'userDietPlan',
+                'Weight Goal': 'weightGoal',
+                'Diet Plan': 'dietPlan',
                 'Macro Ratio Goal': 'macroGoal',
             };
             const updatedUserInfo = userInfo.map(item => {

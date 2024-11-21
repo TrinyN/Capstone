@@ -1,28 +1,34 @@
 import { View } from 'react-native';
-import { router, useLocalSearchParams  } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import CustomScreen from '../components/structural/CustomScreen';
 import QuestionAnswer from '../components/functional/QuestionAnswer';
 import CustomButton2 from '../components/functional/CustomButton2';
 import { useSexOptions } from '../constants/dropdownOptions';
-import { useState } from 'react';
+import { Formik } from 'formik';
+import * as yup from 'yup'
+
+// TODO: add gender/sex (weird bc dropdown)
+const validationSchema = yup.object({
+    name: yup.string().nullable(),
+    birthDate: yup.string().required('Date of Birth is Required'), // change to date instead of string?
+    height: yup.number().positive('Height must be a positive number').required("Height is Required"),
+    weight: yup.number().positive('Weight must be a positive number').required("Weight is Required"),
+    // sex: yup.string().required("Sex is Required")
+});
 
 // Function to handle the design and display of the Sign In 2 screen
 const SignUp2 = () => {
     // Handle dropdown menu options for sex question
     const { userSex, setUserSex, sex, setSex } = useSexOptions();
     // gets email and password from sign up page
-    const params = useLocalSearchParams(); 
-    const { email, password } = params; 
+    const params = useLocalSearchParams();
+    const { email, password } = params;
 
-    const [username, setUsername] = useState("");
-    const [height, setHeight] = useState(0); // change default value?
-    const [weight, setWeight] = useState(0); // change default value?
-    const [dateOfBirth, setDateOfBirth] = useState(false)
-
-    handleNext = () => {
+    const handleNext = (values) => {
+        const { name, height, weight, birthDate} = values; // add rest of fields
         router.push({
             pathname: '/sign-up-3',
-            params: {email:email, password:password, username: username, height: height, weight: weight, userSex: userSex, dateOfBirth: dateOfBirth} // add birthdate
+            params: { email: email, password: password, username: name, height: height, weight: weight, userSex: userSex, dateOfBirth: birthDate } // change to sex
         });
     }
     return (
@@ -31,70 +37,83 @@ const SignUp2 = () => {
             info='Please let us know a little about yourself to get things going!'
             hasBackButton={true}
             screenContent={
-                // {/* View to hold all of the questions and fields */}
-                <View style={{ flex: 5, paddingBottom: 100 }}>
+                <Formik
+                    initialValues={{ name: '', height: '', weight: '', sex: '', birthDate: ''  }}
+                    validationSchema={validationSchema}
+                    onSubmit={handleNext}
+                >
+                    {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid }) => (
+                        // {/* View to hold all of the questions and fields */}
+                        <View style={{ flex: 5, paddingBottom: 100 }}>
 
-                    {/* Question/Answer fields*/}
-                    {/* Name */}
-                    <QuestionAnswer
-                        type={'text'}
-                        question={'Do you have a preferred name?'}
-                        placeholder={'John Smith'}
-                        value={username}
-                        setValue={setUsername}
-                        >
-                    </QuestionAnswer>
+                            {/* Question/Answer fields*/}
+                            {/* Name */}
+                            <QuestionAnswer
+                                type={'text'}
+                                question={'Do you have a preferred name?'}
+                                placeholder={'John Smith'}
+                                onBlur={handleBlur('name')}
+                                setValue={handleChange('name')}
+                                errors={errors.name}
+                            >
+                            </QuestionAnswer>
 
-                    {/* Birthdate */}
-                    <QuestionAnswer
-                        type={'date'}
-                        placeholder={'When were you born?'}
-                        hasTitle={true}
-                        setValue={setDateOfBirth}
-                        >
-                    </QuestionAnswer>
+                            {/* Birthdate */}
+                            <QuestionAnswer
+                                type={'date'}
+                                placeholder={'When were you born?'}
+                                hasTitle={true}
+                                setValue={handleChange('birthDate')}
+                                errors={errors.birthDate}
+                                onBlur={handleBlur('birthDate')}
+                            >
+                            </QuestionAnswer>
 
-                    {/* Height */}
-                    <QuestionAnswer
-                        type={'text'}
-                        question={'How tall are you?'}
-                        placeholder={'5 ft 12 in'}
-                        value={height}
-                        setValue={setHeight}
-                        isNum={true}>
-                    </QuestionAnswer>
+                            {/* Height */}
+                            <QuestionAnswer
+                                type={'text'}
+                                question={'How tall are you? (cm)'}
+                                placeholder={'162 cm'}
+                                onBlur={handleBlur('height')}
+                                setValue={handleChange('height')}
+                                errors={errors.height}
+                                isNum={true}>
+                            </QuestionAnswer>
 
-                    {/* Weight */}
-                    <QuestionAnswer
-                        type={'text'}
-                        question={'How much do you weigh?'}
-                        placeholder={'125 lbs'}
-                        value={weight}
-                        setValue={setWeight}
-                        isNum={true}>
-                    </QuestionAnswer>
+                            {/* Weight */}
+                            <QuestionAnswer
+                                type={'text'}
+                                question={'How much do you weigh? (lbs)'}
+                                placeholder={'125 lbs'}
+                                onBlur={handleBlur('weight')}
+                                setValue={handleChange('weight')}
+                                errors={errors.weight}
+                                isNum={true}>
+                            </QuestionAnswer>
 
-                    {/* Sex */}
-                    <QuestionAnswer
-                        type={'dropdown'}
-                        question={'What is your sex?'}
-                        placeholder={''}
-                        setCustomValue={setUserSex}
-                        items={sex}
-                        setItems={setSex}
-                        >
-                    </QuestionAnswer>
+                            {/* Sex */}
+                            <QuestionAnswer
+                                type={'dropdown'}
+                                question={'What is your sex?'}
+                                placeholder={'Male'}
+                                setCustomValue={setUserSex}
+                                items={sex}
+                                setItems={setSex}
+                            >
+                            </QuestionAnswer>
 
-                    {/* Space between Questions and Submit */}
-                    <View style={{ margin: 20 }}></View>
+                            {/* Space between Questions and Submit */}
+                            <View style={{ margin: 20 }}></View>
 
-                    {/* Submit Button */}
-                    <CustomButton2 
-                        type='normal' 
-                        text='Continue'
-                        onPress={handleNext}>
-                    </CustomButton2>
-                </View>
+                            {/* Submit Button */}
+                            <CustomButton2
+                                type='normal'
+                                text='Continue'
+                                onPress={handleSubmit}>
+                            </CustomButton2>
+                        </View>
+                    )}
+                </Formik>
             }
         />
     )

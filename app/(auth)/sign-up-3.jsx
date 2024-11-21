@@ -12,8 +12,21 @@ import {
 } from '../constants/dropdownOptions';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import { useState } from 'react';
+import { Formik } from 'formik';
+import * as yup from 'yup'
 
+// TODO: add weightgoal, dietplan, maybe dietplanboolean (weird bc all dropdown)
+const validationSchema = yup.object({
+    calGoal: yup.number().positive('Calorie Goal must be a positive number'), // idk if should be required or not
+    // weightGoal: yup.string().required('Date of Birth is Required'), // change to date instead of string?
+    waterGoal: yup.number().positive('Water Goal must be a positive number').nullable(),
+    // dietPlan: yup.string().required("Weight is Required"),
+    dietPlanName: yup.string().nullable(),
+    macroGoal: yup.string().nullable().matches(
+        /^\d{1,3}\s*(:\s*\d{1,3}){2}$/, // allows number:number:number, ignore spaces, 3 digits at most for each number
+        'Macro Ratio must be in the format carb:protein:fat eg: 20:40:30'
+    ),
+});
 
 // Function to handle the design and display of the Sign In 2 screen
 const SignUp3 = () => {
@@ -26,12 +39,6 @@ const SignUp3 = () => {
     const weight = params.weight
     const sex = params.userSex
     const dateOfBirth = params.dateOfBirth
-    
-    // TODO need to add dietplan, weight goal
-    const [calGoal, setCalGoal] = useState(0);
-    const [macroGoal, setMacroGoal] = useState(""); // change default value? ex: 20:30:30
-    const [waterGoal, setWaterGoal] = useState(0);
-    const [dietPlanName, setDietPlanName] = useState("");
 
     // Handling user choice of diet plan or not
     const { userDietPlanBoolean, setUserDietPlanBoolean,
@@ -45,24 +52,28 @@ const SignUp3 = () => {
     const { userWeightGoal, setUserWeightGoal,
         weightGoal, setWeightGoal } = useWeightGoalOptions();
 
-    const handleSignUp = async () => {
+    const handleSignUp = async (values) => {
+        let { calGoal, macroGoal, waterGoal, dietPlanName } = values; // add rest of fields
+
         try {
             const user = await auth().createUserWithEmailAndPassword(email, password);
             const userID = user.user.uid
-
+            if (macroGoal == '') {
+                macroGoal = '30:30:30';  // Set default value
+            }
             await firestore().collection('Users').doc(userID).set({
                 email: email,
                 username: username,
-                sex: sex, 
-                dateOfBirth: dateOfBirth, 
+                sex: sex,
+                dateOfBirth: dateOfBirth,
                 height: height,
                 weight: weight,
                 calGoal: calGoal,
                 macroGoal: macroGoal,
                 waterGoal: waterGoal,
-                userWeightGoal: userWeightGoal, 
-                dietPlanName: dietPlanName, 
-                userDietPlan: userDietPlan, 
+                weightGoal: userWeightGoal,
+                dietPlanName: dietPlanName,
+                dietPlan: userDietPlan,
             });
 
             alert('Registration Successful');
@@ -96,25 +107,31 @@ const SignUp3 = () => {
             info='Please fill in the following fields to set up your diet and goals.'
             hasBackButton={true}
             screenContent={
-                // View to hold all of the questions and fields
-                <View style={{ flex: 5, paddingBottom: 100 }}>
-                    {/* Questions */}
-                    {/* MARKED FOR REMOVAL AFTER CONFLICT FIGURED OUT */}
-                    {/* Diet Plan question and field */}
-                    <Text style={styles.defaultText}>
-                        Would you like a diet plan?
-                    </Text>
+                <Formik
+                    initialValues={{ calGoal: '', waterGoal: '', dietPlanName: '', macroGoal: '' }}
+                    validationSchema={validationSchema}
+                    onSubmit={handleSignUp}
+                >
+                    {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid }) => (
+                        // View to hold all of the questions and fields
+                        <View style={{ flex: 5, paddingBottom: 100 }}>
+                            {/* Questions */}
+                            {/* MARKED FOR REMOVAL AFTER CONFLICT FIGURED OUT */}
+                            {/* Diet Plan question and field */}
+                            <Text style={styles.defaultText}>
+                                Would you like a diet plan?
+                            </Text>
 
-                    <View style={[{ zIndex: 3 }]}>
-                        <CustomDropdown
-                            placeholder={''}
-                            setCustomValue={setUserDietPlanBoolean}
-                            items={dietPlanBoolean}
-                            setItems={setDietPlanBoolean}
-                        />
-                    </View>
-                    {/* MARKED FOR ADDITION AFTER CONFLICT FIGURED OUT */}
-                    {/* <QuestionAnswer
+                            <View style={[{ zIndex: 3 }]}>
+                                <CustomDropdown
+                                    placeholder={'No'}
+                                    setCustomValue={setUserDietPlanBoolean}
+                                    items={dietPlanBoolean}
+                                    setItems={setDietPlanBoolean}
+                                />
+                            </View>
+                            {/* MARKED FOR ADDITION AFTER CONFLICT FIGURED OUT */}
+                            {/* <QuestionAnswer
                         type={'dropdown'}
                         question={'Would you like a diet plan?'}
                         placeholder={''}>
@@ -123,85 +140,91 @@ const SignUp3 = () => {
                         setItems={setDietPlanBoolean}
                     </QuestionAnswer> */}
 
-                    {/* if user chose yes to a diet plan, render approriate text inputs */}
-                    {userDietPlanBoolean.valueOf() && (
-                        <>
-                            {/* Diet Plan Type question and options */}
-                            <QuestionAnswer
-                                type={'dropdown'}
-                                question={'Which diet plan would you like?'}
-                                placeholder={''}
-                                setCustomValue={setUserDietPlan}
-                                items={dietPlan}
-                                setItems={setDietPlan}>
-                            </QuestionAnswer>
+                            {/* if user chose yes to a diet plan, render approriate text inputs */}
+                            {userDietPlanBoolean.valueOf() && (
+                                <>
+                                    {/* Diet Plan Type question and options */}
+                                    <QuestionAnswer
+                                        type={'dropdown'}
+                                        question={'Which diet plan would you like?'}
+                                        placeholder={''}
+                                        setCustomValue={setUserDietPlan}
+                                        items={dietPlan}
+                                        setItems={setDietPlan}>
+                                    </QuestionAnswer>
 
-                            {/* Diet Name question and field */}
+                                    {/* Diet Name question and field */}
+                                    <QuestionAnswer
+                                        type='text'
+                                        question='Custom diet name? (optional)'
+                                        placeholder={'My Diet Plan'}
+                                        onBlur={handleBlur('dietPlanName')}
+                                        setValue={handleChange('dietPlanName')}
+                                        errors={errors.dietPlanName}
+                                    >
+                                    </QuestionAnswer>
+                                </>
+                            )}
+                            {/* Daily Calories */}
                             <QuestionAnswer
-                                type='text'
-                                question='Custom diet name? (optional)'
-                                placeholder={'My Diet Plan'}
-                                value={dietPlanName}
-                                setValue={setDietPlanName}
+                                type={'text'}
+                                question={'How many calories per day?'}
+                                placeholder={'2500'}
+                                isNum={true}
+                                onBlur={handleBlur('calGoal')}
+                                setValue={handleChange('calGoal')}
+                                errors={errors.calGoal}
                             >
                             </QuestionAnswer>
-                        </>
+
+                            {/* Macro Ratio */}
+                            <QuestionAnswer
+                                type={'text'}
+                                question={'What macro ratio do you want?'}
+                                placeholder={'35% Carb : 35% Protein : 30% Fat'}
+                                isNum={true}
+                                onBlur={handleBlur('macroGoal')}
+                                setValue={handleChange('macroGoal')}
+                                errors={errors.macroGoal}
+
+                            >
+                            </QuestionAnswer>
+
+                            {/* Weight Goal */}
+                            <QuestionAnswer
+                                type={'dropdown'}
+                                question={'What is your weight goal?'}
+                                placeholder={'Maintain'}
+                                setCustomValue={setUserWeightGoal}
+                                items={weightGoal}
+                                setItems={setWeightGoal}>
+                            </QuestionAnswer>
+
+                            {/* Water Goal */}
+                            <QuestionAnswer
+                                type={'text'}
+                                question={'What is your water goal?'}
+                                placeholder={'9 cups'}
+                                onBlur={handleBlur('waterGoal')}
+                                setValue={handleChange('waterGoal')}
+                                errors={errors.waterGoal}
+                                isNum={true}
+                            >
+                            </QuestionAnswer>
+
+                            {/* Space between Questions and Submit */}
+                            <View style={{ margin: 20 }}></View>
+
+                            {/* Submit Button */}
+                            <CustomButton2
+                                type={'normal'}
+                                text={'Done'}
+                                onPress={handleSubmit}
+                            >
+                            </CustomButton2>
+                        </View>
                     )}
-                    {/* Daily Calories */}
-                    <QuestionAnswer
-                        type={'text'}
-                        question={'How many calories per day?'}
-                        placeholder={'2500'}
-                        value={calGoal}
-                        setValue={setCalGoal}
-                        isNum={true}
-                    >
-                    </QuestionAnswer>
-
-                    {/* Macro Ratio */}
-                    <QuestionAnswer
-                        type={'text'}
-                        question={'What macro ratio do you want?'}
-                        placeholder={'35% Carb / 35% Protein / 30 % Fat'}
-                        value={macroGoal}
-                        setValue={setMacroGoal}
-                        isNum={true}
-                    >
-                    </QuestionAnswer>
-
-                    {/* Weight Goal */}
-                    <QuestionAnswer
-                        type={'dropdown'}
-                        question={'What is your weight goal?'}
-                        placeholder={''}
-                        setCustomValue={setUserWeightGoal}
-                        items={weightGoal}
-                        setItems={setWeightGoal}>
-                    </QuestionAnswer>
-
-                    {/* Water Goal */}
-                    <QuestionAnswer
-                        type={'text'}
-                        question={'What is your water goal?'}
-                        placeholder={'9 cups'}
-                        value={waterGoal}
-                        setValue={setWaterGoal}
-                        isNum={true}
-                    >
-                    </QuestionAnswer>
-
-                    {/* Space between Questions and Submit */}
-                    <View style={{ margin: 20 }}></View>
-
-                    {/* Submit Button */}
-                    <CustomButton2
-                        type={'normal'}
-                        text={'Done'}
-                        // onPress={() => router.push('home')}
-                        onPress={() => handleSignUp()}
-                    >
-                    </CustomButton2>
-                </View>
+                </Formik>
             } />
     )
 }
