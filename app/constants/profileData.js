@@ -6,21 +6,28 @@ import { useState } from 'react';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { useEffect } from 'react';
+import { useSexOptions, useDietPlanOptions, useWeightGoalOptions } from './dropdownOptions';
+
 
 // useState that contains non changing values
 export const userDataItems = () => {
+    // gets options from dropdownOptions constant
+    const { sex } = useSexOptions();
+    const { dietPlan } = useDietPlanOptions();
+    const { weightGoal } = useWeightGoalOptions();
+
     const [userInfo, setUserInfo] = useState([
-    { title: 'Email', value: '', type: '', options: [] },
-    { title: 'Name', value: '', type: 'text', options: [] },
-    { title: 'Gender', value: '', type: 'dropdown', options: ['Female', 'Male'] },
-    { title: 'Date of Birth', value: '', type: 'date', options: [] },
-    { title: 'Height', value: '', type: 'text', options: [] },
-    { title: 'Weight', value: '', type: 'text', options: [] },
-    { title: 'Caloric Goal', value: '', type: 'text', options: [] },
-    { title: 'Water Goal', value: '', type: 'text', options: [] },
-    { title: 'Weight Goal', value: '', type: 'dropdown', options: ['Gain', 'Lose', 'Maintain'] },
-    { title: 'Diet Plan', value: '', type: 'dropdown', options: ['Keto', 'Vegetarian'] }, // need to add more options
-    { title: 'Macro Ratio Goal', value: '', type: 'text', options: [] },
+        { title: 'Email', value: '', type: '', options: [] },
+        { title: 'Name', value: '', type: 'text', options: [] },
+        { title: 'Gender', value: '', type: 'dropdown', options: sex.map(item => item.value) }, // gets array of dropdownoptions
+        { title: 'Date of Birth', value: '', type: 'date', options: [] },
+        { title: 'Height', value: '', type: 'text', options: [] },
+        { title: 'Weight', value: '', type: 'text', options: [] },
+        { title: 'Caloric Goal', value: '', type: 'text', options: [] },
+        { title: 'Water Goal', value: '', type: 'text', options: [] },
+        { title: 'Weight Goal', value: '', type: 'dropdown', options: weightGoal.map(item => item.value) },
+        { title: 'Diet Plan', value: '', type: 'dropdown', options: dietPlan.map(item => item.value) },
+        { title: 'Macro Ratio Goal', value: '', type: 'text', options: [] },
     ]);
 
     const getUserData = async () => {
@@ -44,14 +51,15 @@ export const userDataItems = () => {
                 'Macro Ratio Goal': 'macroGoal',
             };
             const updatedUserInfo = userInfo.map(item => {
-                const value = userData[userDataMapping[item.title]] || "—"; // Get the value from userData
+                const value = userData?.[userDataMapping[item.title]] || "—";
+
                 return {
                     ...item,
                     value: item.title === 'Height' ? `${value} cm` :
-                           item.title === 'Weight' ? `${value} lbs` :
-                           item.title === 'Water Goal' ? `${value} cups` :
-                           item.title === 'Caloric Goal' ? `${value} per day` :
-                           value
+                        item.title === 'Weight' ? `${value} lbs` :
+                            item.title === 'Water Goal' ? `${value} cups` :
+                                item.title === 'Caloric Goal' ? `${value} per day` :
+                                    value
                 };
             });
 
@@ -60,11 +68,11 @@ export const userDataItems = () => {
             alert('Error fetching user data: ' + e.message);
         }
     };
-    
+
     useEffect(() => {
         getUserData();
     }, []);
-    
+
     return {
         userInfo,
         setUserInfo

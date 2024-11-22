@@ -15,12 +15,10 @@ import firestore from '@react-native-firebase/firestore';
 import { Formik } from 'formik';
 import * as yup from 'yup'
 
-// TODO: add weightgoal, dietplan, maybe dietplanboolean (weird bc all dropdown)
+// weight goal is defaulted to Maintain, dietplan can be null, no input val needed
 const validationSchema = yup.object({
     calGoal: yup.number().positive('Calorie Goal must be a positive number'), // idk if should be required or not
-    // weightGoal: yup.string().required('Date of Birth is Required'), // change to date instead of string?
     waterGoal: yup.number().positive('Water Goal must be a positive number').nullable(),
-    // dietPlan: yup.string().required("Weight is Required"),
     dietPlanName: yup.string().nullable(),
     macroGoal: yup.string().nullable().matches(
         /^\d{1,3}\s*(:\s*\d{1,3}){2}$/, // allows number:number:number, ignore spaces, 3 digits at most for each number

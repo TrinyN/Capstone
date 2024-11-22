@@ -41,7 +41,7 @@ export const useDietPlanBooleanOptions = () => {
 // Export the diet plan options
 // Used in signup-3 and profile(?)
 export const useDietPlanOptions = () => {
-    const [userDietPlan, setUserDietPlan] = useState('Keto')
+    const [userDietPlan, setUserDietPlan] = useState("")
     const [dietPlan, setDietPlan] = useState([
         { label: 'Keto', value: 'Keto' },
         { label: 'Vegan', value: 'Vegan' },

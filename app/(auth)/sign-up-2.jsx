@@ -7,13 +7,12 @@ import { useSexOptions } from '../constants/dropdownOptions';
 import { Formik } from 'formik';
 import * as yup from 'yup'
 
-// TODO: add gender/sex (weird bc dropdown)
+// gender is defaulted to Male, no input val needed
 const validationSchema = yup.object({
     name: yup.string().nullable(),
-    birthDate: yup.string().required('Date of Birth is Required'), // change to date instead of string?
-    height: yup.number().positive('Height must be a positive number').required("Height is Required"),
-    weight: yup.number().positive('Weight must be a positive number').required("Weight is Required"),
-    // sex: yup.string().required("Sex is Required")
+    birthDate: yup.string().required('Birthdate is required'), // change to date instead of string?
+    height: yup.number().positive('Height must be a positive number').required("Height is required"),
+    weight: yup.number().positive('Weight must be a positive number').required("Weight is required"),
 });
 
 // Function to handle the design and display of the Sign In 2 screen
@@ -50,8 +49,8 @@ const SignUp2 = () => {
                             {/* Name */}
                             <QuestionAnswer
                                 type={'text'}
-                                question={'Do you have a preferred name?'}
-                                placeholder={'John Smith'}
+                                question={'Do you have a preferred name? (optional)'}
+                                placeholder={'John'}
                                 onBlur={handleBlur('name')}
                                 setValue={handleChange('name')}
                                 errors={errors.name}

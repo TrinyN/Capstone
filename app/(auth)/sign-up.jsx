@@ -1,5 +1,4 @@
 import { View } from 'react-native';
-import { useState } from 'react';
 import CustomScreen from '../components/structural/CustomScreen';
 import CustomAuthButton from '../components/functional/CustomAuthButton';
 import QuestionAnswer from '../components/functional/QuestionAnswer';
@@ -8,16 +7,14 @@ import { Formik } from 'formik';
 import * as yup from 'yup'
 
 const validationSchema = yup.object({
-    email: yup.string().email('Invalid email address').required('Email is Required'),
+    email: yup.string().email('Invalid email address').required('Email is required'),
     password: yup.string()
         .min(8, ({ min }) => `Password must be at least ${min} characters`)
-        .required('Password is Required'),
+        .required('Password is required'), // maybe add more requirements for password (like one symbol, number, etc)
 });
 
 // Function to handle the design and display of the Sign Up screen
 const SignUp = () => {
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('');
 
     const handleNext = (values) => {
         const { email, password} = values;
