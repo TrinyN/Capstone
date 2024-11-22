@@ -6,16 +6,33 @@ import styles from '../../../styles';
 import StarRating from 'react-native-star-rating-widget';
 import { CustomButton } from '../CustomButton';
 import { getTrackerDayRef } from '../../../constants/getTrackerDayRef';
+import { Formik } from 'formik';
+import * as yup from 'yup'
+// import { JSDOM } from 'jsdom';
+// import DOMPurify from 'dompurify';
 
 // TODO: display notes based on which day of the tracker you're on
+
+// const window = new JSDOM('').window;
+// const purify = DOMPurify(window);
+
+const validationSchema = yup.object({
+    notes: yup.string().nullable().matches(
+    /^[\p{L}\p{N}\p{P}\p{S}\s]*$/u, // idk what to reject tbh. allows Letters, Numbers, Punctuation, Symbols, Spaces
+    // need to allow emojis
+    'Malformed Input'
+    ),
+});
 
 const AddNotes = ({ addNotesVisible, toggleNotesOverlay }) => {
 
     const [rating, setRating] = useState(0);
-    const [notes, setNotes] = useState("");
 
-    const handlePress = async () => {
+    const handlePress = async (values) => {
+        const {notes} = values; // get value from formik
         try {
+            // const sanitizedNotes = purify.sanitize(notes); // sanitize dirty HTML
+
             const trackerDayRef = new getTrackerDayRef();
 
             trackerDayRef.update({
@@ -37,35 +54,46 @@ const AddNotes = ({ addNotesVisible, toggleNotesOverlay }) => {
             toggleOverlay={toggleNotesOverlay}
             hasBackButton={false}
             content={
-                <View style={localStyle.fieldContainer}>
-                    <Text style={[styles.defaultWhiteText, { textAlign: 'center', fontSize: 18 }]}>
-                        How are you feeling?
-                    </Text>
-                    <View style={localStyle.starContainer}>
-                        <StarRating
-                            rating={rating}
-                            onChange={setRating}
-                            color={'#FFF07C'}
-                            enableHalfStar={false}
-                        />
-                    </View>
-                    <View style={localStyle.fieldRow}>
-                        <View style={{ flex: 1 }}>
-                            <TextInput
-                                style={localStyle.note}
-                                placeholder='Today I feel like I...'
-                                selectionColor='#CB9CF2'
-                                placeholderTextColor='rgba(242,244,243, 0.2)'
-                                multiline
-                                maxLength={210}
-                                onChangeText={(newText) => setNotes(newText)}
-                                defaultValue={notes}
-                            >
-                            </TextInput>
+                <Formik
+                    initialValues={{ notes: '' }}
+                    validationSchema={validationSchema}
+                    onSubmit={handlePress}
+                >
+                    {({ handleChange, handleSubmit, values, errors, touched, isValid }) => (
+                        <View style={localStyle.fieldContainer}>
+                            <Text style={[styles.defaultWhiteText, { textAlign: 'center', fontSize: 18 }]}>
+                                How are you feeling?
+                            </Text>
+                            <View style={localStyle.starContainer}>
+                                <StarRating
+                                    rating={rating}
+                                    onChange={setRating}
+                                    color={'#FFF07C'}
+                                    enableHalfStar={false}
+                                />
+                            </View>
+                            <View style={localStyle.fieldRow}>
+                                <View style={{ flex: 1 }}>
+                                    <TextInput
+                                        style={localStyle.note}
+                                        placeholder='Today I feel like I...'
+                                        selectionColor='#CB9CF2'
+                                        placeholderTextColor='rgba(242,244,243, 0.2)'
+                                        multiline
+                                        maxLength={210}
+                                        // onChangeText={(newText) => setNotes(newText)}
+                                        onChangeText={handleChange('notes')}
+                                        // errors={notes.errors}
+                                        defaultValue={""}
+                                    >
+                                    </TextInput>
+                                    {errors.notes && <Text style={localStyle.errorMessage}>{errors.notes}</Text>}
+                                </View>
+                            </View>
+                            <CustomButton title={"Save"} handlePress={handleSubmit} />
                         </View>
-                    </View>
-                    <CustomButton title={"Save"} handlePress={handlePress} />
-                </View>
+                    )}
+                </Formik>
             }
         />
     );
@@ -108,4 +136,11 @@ const localStyle = StyleSheet.create({
         textAlignVertical: 'top',
         borderColor: '#CB9CF2'
     },
+    errorMessage: {
+        fontSize: 11,
+        color: 'red',
+        padding: 5,
+        fontFamily: 'Inter_300Light',
+
+    }
 })
