@@ -18,7 +18,7 @@ import * as yup from 'yup'
 
 const validationSchema = yup.object({
     notes: yup.string().nullable().matches(
-    /^[\p{L}\p{N}\p{P}\p{S}\s]*$/u, // idk what to reject tbh. allows Letters, Numbers, Punctuation, Symbols, Spaces
+    /^[\p{L}\p{N}\p{P}\s]*$/u, // idk what to reject tbh. allows Letters, Numbers, Punctuation, Spaces
     // need to allow emojis
     'Malformed Input'
     ),
