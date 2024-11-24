@@ -10,10 +10,20 @@ import { useTimeFrameOptions } from '../../../constants/dropdownOptions';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import CustomPieChart from '../PieChart';
 import AddFoodMacro from './AddFoodMacro';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 
 // todo: local styles, add button functionality, quick fill, search database. Make it so 
 // info gets deleted when overlay is closed/when food is successfully added to tracker
 // also only allow press add if all non empty 
+
+const addFoodSchema = yup.object({
+    foodName: yup.string().required('Food name is required'),
+    calPerSvg: yup.string().required('Kcals per serving are required'),
+    svgEaten: yup.string().required('Servings required'),
+    // carbs, fats, and protein are optional?
+
+})
 
 const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoodConfirmOverlay, setFood }) => {
     const [series, setSeries] = useState([0, 0, 0]); // init series
@@ -68,92 +78,100 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
             hasBackButton={true}
             previousOverlay={previousOverlay}
             content={
-                <ScrollView>
-                    <View style={localStyle.fieldContainer}>
+                <Formik
+                    initialValues={{foodName:'', calPerSvg:'', svgEaten:''}}
+                    validationSchema={addFoodSchema}
+                    onSubmit={handlePress}
+                >
+                    {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid }) => (
+                        <ScrollView>
+                            <View style={localStyle.fieldContainer}>
 
-                        <View style={localStyle.viewContainer}>
-                            <Text style={[styles.smallText, { color: '#828282' }]}>
-                                Quick Fill
-                            </Text>
-                            <TouchableOpacity>
-                                <Feather name={"camera"} size={25} color='#CB9CF2' style={{ paddingHorizontal: 10 }} />
-                            </TouchableOpacity>
-                            <TouchableOpacity>
-                                <Ionicons name="barcode-sharp" size={30} color="#CB9CF2" style={{ bottom: 2 }} />
-                            </TouchableOpacity>
-                        </View>
-                        <View style={localStyle.viewContainer}>
-                            <TextInput
-                                style={[styles.inputFieldStyle, { flex: 1 }]}
-                                placeholder='Food Name' 
-                                selectionColor='#CB9CF2'
-                                placeholderTextColor='rgba(242,244,243, 0.2)'
-                                onChangeText={newText => setFoodName(newText)}
-                                defaultValue={foodName}
+                                <View style={localStyle.viewContainer}>
+                                    <Text style={[styles.smallText, { color: '#828282' }]}>
+                                        Quick Fill
+                                    </Text>
+                                    <TouchableOpacity>
+                                        <Feather name={"camera"} size={25} color='#CB9CF2' style={{ paddingHorizontal: 10 }} />
+                                    </TouchableOpacity>
+                                    <TouchableOpacity>
+                                        <Ionicons name="barcode-sharp" size={30} color="#CB9CF2" style={{ bottom: 2 }} />
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={localStyle.viewContainer}>
+                                    <TextInput
+                                        style={[styles.inputFieldStyle, { flex: 1 }]}
+                                        placeholder='Food Name' 
+                                        selectionColor='#CB9CF2'
+                                        placeholderTextColor='rgba(242,244,243, 0.2)'
+                                        onChangeText={newText => setFoodName(newText)}
+                                        defaultValue={foodName}
+                                        >
+
+                                    </TextInput>
+                                    <Feather name={"search"} size={20} color='#828282' style={localStyle.searchIcon} />
+
+                                </View>
+                                <View style={localStyle.viewContainer}>
+                                    <View style={{ flex: 1 }}>
+                                        <TextInput
+                                            style={styles.inputFieldStyle}
+                                            placeholder='Cal Per Svg' 
+                                            selectionColor='#CB9CF2'
+                                            placeholderTextColor='rgba(242,244,243, 0.2)'
+                                            onChangeText={newText => setCalPerSvg(newText)}
+                                            defaultValue={calPerSvg}
+                                            keyboardType='numeric'
+                                            >
+                                        </TextInput>
+                                    </View>
+                                    <View style={{ paddingLeft: 10, flex: 1 }}>
+                                        <TextInput
+                                            style={styles.inputFieldStyle}
+                                            placeholder='Svgs Eaten' 
+                                            selectionColor='#CB9CF2'
+                                            placeholderTextColor='rgba(242,244,243, 0.2)'
+                                            onChangeText={newText => setSvgEaten(newText)}
+                                            defaultValue={svgEaten}
+                                            keyboardType='numeric'
+                                            >
+                                        </TextInput>
+                                    </View>
+                                </View>
+
+                                <View style={{ paddingVertical: 10 }}>
+                                    <CustomDropdown
+                                        placeholder={'Breakfast'}
+                                        setCustomValue={setTimeFrame}
+                                        items={timeFrameTimes}
+                                        setItems={setTimeFrameTimes}
+                                    />
+                                </View>
+                                <View style={{ paddingVertical: 10, zIndex: -1 }}>
+                                    <Pressable onPress={toggleFoodMacroOverlay}>
+                                        <CustomPieChart hasTitle={true} editable={true} series={series.every(item => item === 0) ? null : series} />
+                                    </Pressable>
+                                </View>
+
+                                {/* funtionality of button doesnt work if you use custom button for some reason */}
+                                <Pressable
+                                    onPress={handlePress}
+                                    style={[styles.button, { backgroundColor: '#CB9CF2', zIndex: -1 }]}
                                 >
-
-                            </TextInput>
-                            <Feather name={"search"} size={20} color='#828282' style={localStyle.searchIcon} />
-
-                        </View>
-                        <View style={localStyle.viewContainer}>
-                            <View style={{ flex: 1 }}>
-                                <TextInput
-                                    style={styles.inputFieldStyle}
-                                    placeholder='Cal Per Svg' 
-                                    selectionColor='#CB9CF2'
-                                    placeholderTextColor='rgba(242,244,243, 0.2)'
-                                    onChangeText={newText => setCalPerSvg(newText)}
-                                    defaultValue={calPerSvg}
-                                    keyboardType='numeric'
-                                    >
-                                </TextInput>
+                                    <Text style={styles.buttonText}>
+                                        Add
+                                    </Text>
+                                </Pressable>
                             </View>
-                            <View style={{ paddingLeft: 10, flex: 1 }}>
-                                <TextInput
-                                    style={styles.inputFieldStyle}
-                                    placeholder='Svgs Eaten' 
-                                    selectionColor='#CB9CF2'
-                                    placeholderTextColor='rgba(242,244,243, 0.2)'
-                                    onChangeText={newText => setSvgEaten(newText)}
-                                    defaultValue={svgEaten}
-                                    keyboardType='numeric'
-                                    >
-                                </TextInput>
-                            </View>
-                        </View>
-
-                        <View style={{ paddingVertical: 10 }}>
-                            <CustomDropdown
-                                placeholder={'Breakfast'}
-                                setCustomValue={setTimeFrame}
-                                items={timeFrameTimes}
-                                setItems={setTimeFrameTimes}
+                            <AddFoodMacro
+                                toggleFoodMacroOverlay={toggleFoodMacroOverlay}
+                                addFoodMacroVisible={addFoodMacroVisible}
+                                setFoodSeries={setSeries}
                             />
-                        </View>
-                        <View style={{ paddingVertical: 10, zIndex: -1 }}>
-                            <Pressable onPress={toggleFoodMacroOverlay}>
-                                <CustomPieChart hasTitle={true} editable={true} series={series.every(item => item === 0) ? null : series} />
-                            </Pressable>
-                        </View>
 
-                        {/* funtionality of button doesnt work if you use custom button for some reason */}
-                        <Pressable
-                            onPress={handlePress}
-                            style={[styles.button, { backgroundColor: '#CB9CF2', zIndex: -1 }]}
-                        >
-                            <Text style={styles.buttonText}>
-                                Add
-                            </Text>
-                        </Pressable>
-                    </View>
-                    <AddFoodMacro
-                        toggleFoodMacroOverlay={toggleFoodMacroOverlay}
-                        addFoodMacroVisible={addFoodMacroVisible}
-                        setFoodSeries={setSeries}
-                    />
-
-                </ScrollView>
+                        </ScrollView>
+                    )}
+                </Formik>
             }
         />
     );

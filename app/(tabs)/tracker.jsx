@@ -112,7 +112,7 @@ const Tracker = () => {
     };
 
     // Sample data for Breakfast, Lunch, Dinner, and Snacks
-    const { foodSections, setFoodSections } = useFoodData();
+    const { setItems, items, foodList } = useFoodData();
 
     // Sample exercise data
     const exerciseList = useExerciseData();
@@ -122,37 +122,44 @@ const Tracker = () => {
     const formattedDate = getDate();
 
     // Render each section with collapsibility
-    const renderSection = ({ item }) => {
+    const renderFood = ({ item, section }) => { // item = food, section = foodTime
         return (
             <View>
-                {/* Section Header (Breakfast, Lunch, Dinner) */}
-                <TouchableOpacity onPress={() => toggleCollapse(item.key)}>
-                    <View style={[localStyle.sectionHeader, { flexDirection: 'row' }]}>
-                        {/* make style for maybe */}
-                        <Text style={localStyle.foodSectionStyle}>{item.title}</Text>
-
-                        <Feather name={collapsedSections[item.key] ? "chevron-down" : "chevron-up"} size={25} color='#CB9CF2'
-                            style={{
-                                paddingRight: 15
-                            }} />
-                    </View>
-                </TouchableOpacity>
-
                 {/* Render food items only if the section is expanded */}
-                {!collapsedSections[item.key] && (
-                    <View>
-                        {item.data.map((item, index) => (
-                            <View key={index} style={localStyle.item}>
-                                <Text style={[styles.defaultWhiteText, { width: '35%', textAlign: 'left' }]}>{item.title}</Text>
-                                <Text style={[styles.defaultWhiteText, { width: '10%', textAlign: 'center' }]}>{item.count}</Text>
-                                <Text style={[styles.defaultWhiteText, { width: '40%', textAlign: 'right', paddingRight: 10 }]}>{item.kCal}</Text>
-                            </View>
-                        ))}
+                {!collapsedSections[section.title] && (
+                    // COME BACK HERE
+                    <View> 
+                        {/* {console.log(item)} */}
+                        {/* {item.data && Array.isArray(item.data) && item.data.map((item, index) => ( */}
+                        <View  style={localStyle.item}>
+                            <Text style={[styles.defaultWhiteText, { width: '35%', textAlign: 'left' }]}>{item.foodName}</Text>
+                            <Text style={[styles.defaultWhiteText, { width: '10%', textAlign: 'center' }]}>{item.svgEaten}</Text>
+                            <Text style={[styles.defaultWhiteText, { width: '40%', textAlign: 'right', paddingRight: 10 }]}>{item.calPerSvg}</Text>
+                        </View>
+                        {/* ))} */}
                     </View>
                 )}
             </View>
         );
     };
+    // Render the section headers
+    const renderTimeFrHeaders = ({ section }) => {
+        return (
+            <View>
+                {/* Section Header (Breakfast, Lunch, Dinner) */}
+                <TouchableOpacity onPress={() => toggleCollapse(section.title)}>
+                    <View style={[localStyle.sectionHeader, { flexDirection: 'row' }]}>
+                        {/* make style for maybe */}
+                        <Text style={localStyle.foodSectionStyle}>{section.title}</Text>
+
+                        <Feather name={collapsedSections[section.title] ? "chevron-down" : "chevron-up"} size={25} color='#CB9CF2'
+                            style={{ paddingRight: 15 }} />
+                    </View>
+                </TouchableOpacity>
+            </View>
+        );
+    };
+
     // Render each item in the exercise table
     const renderExercise = ({ item }) => {
         return (
@@ -196,13 +203,14 @@ const Tracker = () => {
                             {/* View for FlatList to store all items of tracker */}
                             <View>
                                 <SectionList
-                                    sections={foodSections}
+                                    sections={foodList}
                                     keyExtractor={(item) => item.key}
+                                    scrollEnabled={false}
                                     ListHeaderComponent={
                                         <CustomHeader title1={"Food"} title2={"Svg Count"} title3={"kCal"} />
                                     }
-                                    scrollEnabled={false}
-                                    renderItem={renderSection} // check this for rendering (and associated method)
+                                    renderItem={renderFood} // check this for rendering (and associated method)
+                                    renderSectionHeader={renderTimeFrHeaders}
                                 />
                                 {/* Space Between Food and Water lists */}
                                 <View style={{ margin: 20 }}></View>

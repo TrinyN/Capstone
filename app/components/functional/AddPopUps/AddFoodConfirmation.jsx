@@ -67,7 +67,7 @@ const AddFoodConfirmation = ({
                     await trackerDayRef.collection("Food").add({
                         foodName : item.title,
                         svgEaten : item.svgEaten,
-                        calPerSvgl: item.calPerSvg,
+                        calPerSvg: item.calPerSvg,
                         carb: item.carb,
                         fat: item.fat,
                         protein: item.protein,

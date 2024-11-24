@@ -22,12 +22,12 @@ export const useFoodData = () => {
         { label: 'Snacks', value: 'Snacks' }
     ])
     
-    const [foodSections, setFoodSections] = useState([
+    const [foodList, setFoodList] = useState([
         // Food formatting
-        { title: 'Breakfast', data: [], key: 'breakfast' },
-        { title: 'Lunch', data: [], key: 'lunch' },
-        { title: 'Dinner', data: [], key: 'dinner' },
-        { title: 'Snacks', data: [], key: 'snacks' }
+        { title: 'Breakfast', data: [], key: 'Breakfast' },
+        { title: 'Lunch', data: [], key: 'Lunch' },
+        { title: 'Dinner', data: [], key: 'Dinner' },
+        { title: 'Snacks', data: [], key: 'Snacks' }
     ]);
 
     const userID = auth().currentUser?.uid || null;
@@ -51,27 +51,25 @@ export const useFoodData = () => {
                         const data = doc.data();
                         // Push the fields to be used and filled, empty or not
                         newFoodData.push({
-                            food: data.foodName || '—',
-                            servings: data.servings || 0,
-                            kCal: data.cals || 0,
-                            carbs: data.carbs || 0,
-                            fats: data.fat || 0,
-                            protein: data.protein || 0,
+                            foodName: data.foodName || '—',
+                            calPerSvg: data.calPerSvg || 0,
+                            svgEaten: data.svgEaten || 0,
+                            // carb: data.carb || 0, // DONT NEED???
+                            // fat: data.fat || 0,
+                            // protein: data.protein || 0,
                             timeFrame: data.timeFrame || '—'
                         });
                         // Set the foods to be within the foodSection
-                        setFoodSections((prevFoodSections) => {
+                        setFoodList((prevFoodList) => {
                             // Copying the old food section list
-                            const updatedList = prevFoodSections.map((item) => {
+                            const updatedList = prevFoodList.map((item) => {
                                 const matchingFoods = newFoodData                   // Based on the timeFrame, add foods to database
                                     .filter(food => food.timeFrame === item.title)
                                     .map(food => ({
-                                        food: food.foodName, 
-                                        servings:food.servings, 
-                                        kCal:food.cals,
-                                        carbs:food.carbs,
-                                        protein:food.protein,
-                                        timeFrame:food.timeFrame
+                                        foodName: food.foodName, 
+                                        calPerSvg: food.calPerSvg,
+                                        svgEaten:food.svgEaten, 
+                                        timeFrame:food.timeFrame            // may cause issues?
                                     }));
                                 return {
                                     ...item,
@@ -90,7 +88,7 @@ export const useFoodData = () => {
         return () => subscriber();
     }, [userID]);
 
-    return { times, setTimes, foodSections }
+    return { setTimes, times, foodList }
 };
 
 export const useExerciseData = () => {
