@@ -119,7 +119,7 @@ export const useTimeFrameOptions = () => {
         { label: 'Breakfast', value: 'Breakfast' },
         { label: 'Lunch', value: 'Lunch' },
         { label: 'Dinner', value: 'Dinner' },
-        { label: 'Snack', value: 'Snack' },
+        { label: 'Snacks', value: 'Snacks' },
 
     ]);
 
