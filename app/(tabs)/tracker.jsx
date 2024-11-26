@@ -128,15 +128,12 @@ const Tracker = () => {
                 {/* Render food items only if the section is expanded */}
                 {!collapsedSections[section.title] && (
                     // COME BACK HERE
-                    <View> 
-                        {/* {console.log(item)} */}
-                        {/* {item.data && Array.isArray(item.data) && item.data.map((item, index) => ( */}
-                        <View  style={localStyle.item}>
+                    <View>
+                        <View style={localStyle.item}>
                             <Text style={[styles.defaultWhiteText, { width: '35%', textAlign: 'left' }]}>{item.foodName}</Text>
                             <Text style={[styles.defaultWhiteText, { width: '10%', textAlign: 'center' }]}>{item.svgEaten}</Text>
                             <Text style={[styles.defaultWhiteText, { width: '40%', textAlign: 'right', paddingRight: 10 }]}>{item.calPerSvg}</Text>
                         </View>
-                        {/* ))} */}
                     </View>
                 )}
             </View>
@@ -204,7 +201,7 @@ const Tracker = () => {
                             <View>
                                 <SectionList
                                     sections={foodList}
-                                    keyExtractor={(item) => item.key}
+                                    keyExtractor={(item) => item}
                                     scrollEnabled={false}
                                     ListHeaderComponent={
                                         <CustomHeader title1={"Food"} title2={"Svg Count"} title3={"kCal"} />

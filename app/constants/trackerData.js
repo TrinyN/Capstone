@@ -24,7 +24,7 @@ export const useFoodData = () => {
     
     const [foodList, setFoodList] = useState([
         // Food formatting
-        { title: 'Breakfast', data: [], key: 'Breakfast' },
+        { title: 'Breakfast', data: [], key: 'Breakfast' },     // REMOVING key just changes warning, not get rid of it
         { title: 'Lunch', data: [], key: 'Lunch' },
         { title: 'Dinner', data: [], key: 'Dinner' },
         { title: 'Snacks', data: [], key: 'Snacks' }

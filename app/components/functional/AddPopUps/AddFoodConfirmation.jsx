@@ -9,6 +9,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import CustomPopUp2 from '../../structural/CustomPopUp2';
 import { getTrackerDayRef } from '../../../constants/getTrackerDayRef';
+import { useLocalSearchParams } from 'expo-router';
 
 const AddFoodConfirmation = ({
     food,
@@ -54,7 +55,15 @@ const AddFoodConfirmation = ({
         toggleFoodConfirmOverlay()
         toggleFoodOverlay()
     }
-
+    
+    // const params = useLocalSearchParams();
+    // const foodName = params.foodName
+    // const svgEaten = params.svgEaten
+    // const calPerSvg = params.calPerSvg
+    // const carb = params.carb
+    // const fat = params.fat
+    // const protein = params.protein
+    // const timeFrame = params.timeFrame
     const handleConfirmPress = async () => {
         console.log(DATA) // will have one entry that is empty stuff, kinda needed bc pie chart calc
         // add food to database
@@ -64,6 +73,15 @@ const AddFoodConfirmation = ({
             // if no food name, don't add to database
             for (const item of DATA) {
                 if (item.title !== null && item.title !== "") {
+                    // await trackerDayRef.collection("Food").add({
+                    //     foodName : foodName,
+                    //     svgEaten : svgEaten,
+                    //     calPerSvg: calPerSvg,
+                    //     carb: carb,
+                    //     fat: fat,
+                    //     protein: protein,
+                    //     timeFrame: timeFrame
+                    // })
                     await trackerDayRef.collection("Food").add({
                         foodName : item.title,
                         svgEaten : item.svgEaten,

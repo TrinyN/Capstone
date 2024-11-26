@@ -4,7 +4,7 @@ import CustomAuthButton from '../components/functional/CustomAuthButton';
 import QuestionAnswer from '../components/functional/QuestionAnswer';
 import { router } from 'expo-router';
 import { Formik } from 'formik';
-import * as yup from 'yup'
+import * as yup from 'yup';
 
 const validationSchema = yup.object({
     email: yup.string().email('Invalid email address').required('Email is required'),

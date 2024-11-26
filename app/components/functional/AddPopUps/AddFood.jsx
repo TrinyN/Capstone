@@ -18,10 +18,23 @@ import * as yup from 'yup';
 // also only allow press add if all non empty 
 
 const addFoodSchema = yup.object({
-    foodName: yup.string().required('Food name is required'),
-    calPerSvg: yup.string().required('Kcals per serving are required'),
-    svgEaten: yup.string().required('Servings required'),
-    // carbs, fats, and protein are optional?
+    foodName: yup.string()
+                .required('Food name is required')
+                .matches(/^[a-zA-Z0-9\-\/]+$/),
+    calPerSvg: yup.number()
+                .positive('Kcals must be positive')
+                .integer('Kcals must be whole numbers')
+                .required('Kcals per serving are required'),
+    svgEaten: yup.number()
+                .typeError('Servings must be numbers')
+                .positive('Servings must be positive')
+                .required('Serving count is required')
+                .test(
+                    'is-decimal',
+                    'Servings may only go to two decimal places',
+                    (serv) => /^\d+(\.\d{1,2})?$/.test(serv)
+                ),
+    // carbs, fats, and protein are optional? --> on AddFoodMaco popup
 
 })
 
@@ -54,7 +67,17 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
     }
 
     // When add button is pressed
-    const handlePress = () => {
+    const handlePress = (values) => {
+        // const { foodName, calPerSvg, svgEaten, carb, protein, fat, timeFrame } = values;
+
+        // params={title: foodName, 
+        //         calPerSvg: calPerSvg, 
+        //         svgEaten: svgEaten, 
+        //         carb: series[0], 
+        //         protein: series[1],
+        //         fat: series[2],
+        //         timeFrame: timeFrame
+        // }
         setFood(
             {
                 title: foodName, 
@@ -66,6 +89,7 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
                 timeFrame: timeFrame
             }
         )
+
         toggleFoodConfirmOverlay()
         setTimeout(() => toggleFoodOverlay(), 200) // allows enough time for confirmation pop up to appear before close food pop up
         setTimeout(() => resetData(), 400) // resets food info after adding it to the confirmation pop up
@@ -79,7 +103,7 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
             previousOverlay={previousOverlay}
             content={
                 <Formik
-                    initialValues={{foodName:'', calPerSvg:'', svgEaten:''}}
+                    initialValues={{foodName:'', calPerSvg:0, svgEaten:0}}
                     validationSchema={addFoodSchema}
                     onSubmit={handlePress}
                 >
@@ -104,8 +128,12 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
                                         placeholder='Food Name' 
                                         selectionColor='#CB9CF2'
                                         placeholderTextColor='rgba(242,244,243, 0.2)'
-                                        onChangeText={newText => setFoodName(newText)}
                                         defaultValue={foodName}
+                                        // value={values.foodName}
+                                        // onBlur={handleBlur('foodName')}              // I.V. work - NOT WORKING
+                                        onChangeText={newText => setFoodName(newText)}
+                                        // onChangeText={handleChange('foodName')}
+                                        // errors={errors.foodName}
                                         >
 
                                     </TextInput>
