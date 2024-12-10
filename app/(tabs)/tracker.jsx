@@ -198,10 +198,10 @@ const Tracker = () => {
                                 onPress={toggleOverlay}
                             />
                             {/* View for FlatList to store all items of tracker */}
-                            <View>
+                            <View> 
                                 <SectionList
                                     sections={foodList}
-                                    keyExtractor={(item) => item}
+                                    // keyExtractor={(item) => item}
                                     scrollEnabled={false}
                                     ListHeaderComponent={
                                         <CustomHeader title1={"Food"} title2={"Svg Count"} title3={"kCal"} />
@@ -214,7 +214,7 @@ const Tracker = () => {
                                 {/* Water List */}
                                 <FlatList
                                     scrollEnabled={false}
-                                    keyExtractor={(item) => item}
+                                    // keyExtractor={(item) => item}
 
                                     // List Header for Water List (contains total drunk as well)
                                     ListHeaderComponent={

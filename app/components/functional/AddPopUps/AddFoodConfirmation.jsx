@@ -82,6 +82,10 @@ const AddFoodConfirmation = ({
                     //     protein: protein,
                     //     timeFrame: timeFrame
                     // })
+                    
+                    // close overlay
+                    // do database stuff
+                    // confirmation after database stuff finishes
                     await trackerDayRef.collection("Food").add({
                         foodName : item.title,
                         svgEaten : item.svgEaten,

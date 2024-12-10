@@ -17,17 +17,17 @@ export const useFoodData = () => {
 
     const [times, setTimes] = useState([
         { label: 'Breakfast', value: 'Breakfast' },
-        { label: 'Lunch', value: 'Lucnh' },
+        { label: 'Lunch', value: 'Lunch' },
         { label: 'Dinner', value: 'Dinner' },
         { label: 'Snacks', value: 'Snacks' }
     ])
     
     const [foodList, setFoodList] = useState([
         // Food formatting
-        { title: 'Breakfast', data: [], key: 'Breakfast' },     // REMOVING key just changes warning, not get rid of it
-        { title: 'Lunch', data: [], key: 'Lunch' },
-        { title: 'Dinner', data: [], key: 'Dinner' },
-        { title: 'Snacks', data: [], key: 'Snacks' }
+        { title: 'Breakfast', data: []},     // REMOVING key just changes warning, not get rid of it
+        { title: 'Lunch', data: []},
+        { title: 'Dinner', data: []},
+        { title: 'Snacks', data: []}
     ]);
 
     const userID = auth().currentUser?.uid || null;
