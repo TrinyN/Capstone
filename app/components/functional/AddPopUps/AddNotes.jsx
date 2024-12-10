@@ -8,20 +8,14 @@ import { CustomButton } from '../CustomButton';
 import { getTrackerDayRef } from '../../../constants/getTrackerDayRef';
 import { Formik } from 'formik';
 import * as yup from 'yup'
-// import { JSDOM } from 'jsdom';
-// import DOMPurify from 'dompurify';
-
-// TODO: display notes based on which day of the tracker you're on
-
-// const window = new JSDOM('').window;
-// const purify = DOMPurify(window);
+const emojiRegex = require('emoji-regex');
 
 const validationSchema = yup.object({
-    notes: yup.string().nullable().matches(
-    /^[\p{L}\p{N}\p{P}\s]*$/u, // idk what to reject tbh. allows Letters, Numbers, Punctuation, Spaces
-    // need to allow emojis
-    'Malformed Input'
-    ),
+    notes: yup.string().nullable()
+    // allows emojis, letters, numbers, punctuation, new lines and spaces. Doesn't allow <> and symbols anywhere in input
+    .test('', 'Malformed Input', (value) =>
+        value ? /^(?!.*[<>])[\p{L}\p{N}\p{P}\s]*$/u.test(value) || emojiRegex().test(value) : true 
+      ),
 });
 
 const AddNotes = ({ addNotesVisible, toggleNotesOverlay }) => {
@@ -29,10 +23,8 @@ const AddNotes = ({ addNotesVisible, toggleNotesOverlay }) => {
     const [rating, setRating] = useState(0);
 
     const handlePress = async (values) => {
-        const {notes} = values; // get value from formik
+        const { notes } = values; // get value from formik
         try {
-            // const sanitizedNotes = purify.sanitize(notes); // sanitize dirty HTML
-
             const trackerDayRef = new getTrackerDayRef();
 
             trackerDayRef.update({
@@ -45,7 +37,6 @@ const AddNotes = ({ addNotesVisible, toggleNotesOverlay }) => {
         } catch (e) {
             alert("Error: ", e.message)
         }
-
     }
 
     return (
@@ -81,9 +72,7 @@ const AddNotes = ({ addNotesVisible, toggleNotesOverlay }) => {
                                         placeholderTextColor='rgba(242,244,243, 0.2)'
                                         multiline
                                         maxLength={210}
-                                        // onChangeText={(newText) => setNotes(newText)}
                                         onChangeText={handleChange('notes')}
-                                        // errors={notes.errors}
                                         defaultValue={""}
                                     >
                                     </TextInput>

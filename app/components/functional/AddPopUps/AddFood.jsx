@@ -20,7 +20,10 @@ import * as yup from 'yup';
 const addFoodSchema = yup.object({
     foodName: yup.string()
                 .required('Food name is required')
-                .matches(/^[a-zA-Z0-9\-\/]+$/),
+                .matches(/^[a-zA-Z0-9\-\/]+$/, 
+                    'Only letters and numbers allowed'
+                ),
+                
     calPerSvg: yup.number()
                 .positive('Kcals must be positive')
                 .integer('Kcals must be whole numbers')
@@ -53,11 +56,14 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
         setAddFoodMacroVisible(!addFoodMacroVisible);
     };
 
+    // TODO: delete these useStates and use formik values instead
     const [foodName, setFoodName] = useState('')
     const [calPerSvg, setCalPerSvg] = useState('')
     const [svgEaten, setSvgEaten] = useState('')
 
+    // TODO: need to not use some of the useStates and instead use formik values
     const resetData = () => {
+        values.foodName = ("") // maybe do something like this?
         setFood("")
         setFoodName("")
         setCalPerSvg("")
@@ -68,7 +74,7 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
 
     // When add button is pressed
     const handlePress = (values) => {
-        // const { foodName, calPerSvg, svgEaten, carb, protein, fat, timeFrame } = values;
+        // const { foodName, calPerSvg, svgEaten, carb, protein, fat, timeFrame } = values; 
 
         // params={title: foodName, 
         //         calPerSvg: calPerSvg, 
@@ -131,15 +137,17 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
                                         defaultValue={foodName}
                                         // value={values.foodName}
                                         // onBlur={handleBlur('foodName')}              // I.V. work - NOT WORKING
-                                        onChangeText={newText => setFoodName(newText)}
-                                        // onChangeText={handleChange('foodName')}
+                                        // onChangeText={newText => setFoodName(newText)}
+                                        onChangeText={handleChange('foodName')}
                                         // errors={errors.foodName}
                                         >
-
                                     </TextInput>
+
                                     <Feather name={"search"} size={20} color='#828282' style={localStyle.searchIcon} />
 
                                 </View>
+                                {errors.foodName && <Text style={localStyle.errorMessage}>{errors.foodName}</Text>}
+
                                 <View style={localStyle.viewContainer}>
                                     <View style={{ flex: 1 }}>
                                         <TextInput
@@ -147,11 +155,14 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
                                             placeholder='Cal Per Svg' 
                                             selectionColor='#CB9CF2'
                                             placeholderTextColor='rgba(242,244,243, 0.2)'
-                                            onChangeText={newText => setCalPerSvg(newText)}
+                                            // onChangeText={newText => setCalPerSvg(newText)}
+                                            onChangeText={handleChange('calPerSvg')}
                                             defaultValue={calPerSvg}
                                             keyboardType='numeric'
                                             >
                                         </TextInput>
+                                        {errors.calPerSvg && <Text style={localStyle.errorMessage}>{errors.calPerSvg}</Text>}
+
                                     </View>
                                     <View style={{ paddingLeft: 10, flex: 1 }}>
                                         <TextInput
@@ -159,11 +170,14 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
                                             placeholder='Svgs Eaten' 
                                             selectionColor='#CB9CF2'
                                             placeholderTextColor='rgba(242,244,243, 0.2)'
-                                            onChangeText={newText => setSvgEaten(newText)}
+                                            // onChangeText={newText => setSvgEaten(newText)}
+                                            onChangeText={handleChange('svgEaten')}
                                             defaultValue={svgEaten}
                                             keyboardType='numeric'
                                             >
                                         </TextInput>
+                                        {errors.svgEaten && <Text style={localStyle.errorMessage}>{errors.svgEaten}</Text>}
+
                                     </View>
                                 </View>
 
@@ -183,13 +197,14 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
 
                                 {/* funtionality of button doesnt work if you use custom button for some reason */}
                                 <Pressable
-                                    onPress={handlePress}
-                                    style={[styles.button, { backgroundColor: '#CB9CF2', zIndex: -1 }]}
+                                    onPress={handleSubmit}
+                                    style={[styles.button, { backgroundColor: '#CB9CF2', zIndex: -1}]}
                                 >
                                     <Text style={styles.buttonText}>
                                         Add
                                     </Text>
                                 </Pressable>
+                                    
                             </View>
                             <AddFoodMacro
                                 toggleFoodMacroOverlay={toggleFoodMacroOverlay}
@@ -220,5 +235,12 @@ const localStyle = StyleSheet.create({
         position: 'absolute',
         right: 15,
         top: 21
+    }, 
+    errorMessage: {
+        fontSize: 11,
+        color: 'red',
+        padding: 5,
+        fontFamily: 'Inter_300Light',
+
     }
 })
