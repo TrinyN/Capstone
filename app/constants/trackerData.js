@@ -11,9 +11,9 @@ import { useState, useEffect } from "react";
 import { getTrackerDayRef } from "./getTrackerDayRef";
 import auth from '@react-native-firebase/auth';
 const userID = auth().currentUser ? auth().currentUser.uid : null;
+const currDate = new Date();  // Get current date
 
-
-export const useFoodData = () => {
+export const useFoodData = (date) => {
 
     const [times, setTimes] = useState([
         { label: 'Breakfast', value: 'Breakfast' },
@@ -34,7 +34,7 @@ export const useFoodData = () => {
 
     useEffect(() => {
         // look into await?
-        const trackerDayRef = getTrackerDayRef();
+        const trackerDayRef = getTrackerDayRef(date);
 
         // Set up the Firestore listener
         const subscriber = trackerDayRef
@@ -86,19 +86,19 @@ export const useFoodData = () => {
             );
         // Cleanup function to unsubscribe from the listener when the component unmounts
         return () => subscriber();
-    }, [userID]);
+    }, [userID, date]);
 
     return { setTimes, times, foodList }
 };
 
-export const useExerciseData = () => {
+export const useExerciseData = (date) => {
     const [exerciseList, setExerciseList] = useState([
         { exercise: '', reps: '', kCal: 0 },
         { exercise: '', reps: '', kCal: 0 },
     ]);
 
     useEffect(() => {
-        const trackerDayRef = getTrackerDayRef();
+        const trackerDayRef = getTrackerDayRef(date);
 
         // Set up the Firestore listener
         const subscriber = trackerDayRef
@@ -124,17 +124,16 @@ export const useExerciseData = () => {
 
         // Cleanup function to unsubscribe from the listener when the component unmounts
         return () => subscriber();
-    }, [userID]);
+    }, [userID, date]);
 
     return exerciseList
 };
 
 // only gets water data from current day, will have to change later
-export const useWaterData = () => {
+export const useWaterData = (date) => {
     const [water, setWater] = useState(0);
-
     useEffect(() => {
-        const trackerDayRef = getTrackerDayRef();
+        const trackerDayRef = getTrackerDayRef(date);
 
         // Set up the Firestore listener
         const subscriber = trackerDayRef.onSnapshot(
@@ -149,15 +148,15 @@ export const useWaterData = () => {
 
         // Cleanup function to unsubscribe from the listener when the component unmounts
         return () => subscriber();
-    }, [userID]);
+    }, [userID, date]);
 
     return water
 };
 
 // only gets current date will have to change later
-export const getDate = () => {
+export const getDate = (date) => {
     try {
-        const trackerDayRef = getTrackerDayRef();
+        const trackerDayRef = getTrackerDayRef(date);
         const dateString = trackerDayRef.id // get ID to get today's date as a string
         const [month, day, year] = dateString.split('-');
         const dateObject = new Date(year, month - 1, day); // convert string to Date

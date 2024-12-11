@@ -11,13 +11,15 @@ import { createIconSetFromFontello } from 'react-native-vector-icons';
 
 const WaterGauge = () => {
 
+    date = new Date() // current date
+
     // Values found and used for WaterGuage size
     const { width } = Dimensions.get('window');
     const wth = (width * 0.35)
     const ht = (wth * 1.5)
 
     // Handling user's data to get their water drank and water goal, then set progress value
-    const water = useWaterData();
+    const water = useWaterData(date);
     const { userInfo, setUserInfo } = userDataItems();
     let goal = parseInt(userInfo.find(item => item.title === "Water Goal")?.value);
 
