@@ -10,7 +10,7 @@ import { useTimeFrameOptions } from '../../../constants/dropdownOptions';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import CustomPieChart from '../PieChart';
 import AddFoodMacro from './AddFoodMacro';
-import { Formik } from 'formik';
+import { Formik, useFormik, setFieldValue } from 'formik';
 import * as yup from 'yup';
 
 // todo: local styles, add button functionality, quick fill, search database. Make it so 
@@ -20,7 +20,7 @@ import * as yup from 'yup';
 const addFoodSchema = yup.object({
     foodName: yup.string()
                 .required('Food name is required')
-                .matches(/^[a-zA-Z0-9\-\/]+$/, 
+                .matches(/^[a-zA-Z0-9\s\-\/]+$/, 
                     'Only letters and numbers allowed'
                 ),
                 
@@ -56,34 +56,24 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
         setAddFoodMacroVisible(!addFoodMacroVisible);
     };
 
-    // TODO: delete these useStates and use formik values instead
-    const [foodName, setFoodName] = useState('')
-    const [calPerSvg, setCalPerSvg] = useState('')
-    const [svgEaten, setSvgEaten] = useState('')
-
-    // TODO: need to not use some of the useStates and instead use formik values
-    const resetData = () => {
-        values.foodName = ("") // maybe do something like this?
-        setFood("")
-        setFoodName("")
-        setCalPerSvg("")
-        setSvgEaten("")
-        setSeries([0,0,0])
-        setTimeFrame("")
+    // (DONE?) TODO: need to not use some of the useStates and instead use formik values
+    const resetData = (resetForm) => {
+        setFood("")                         // Used to ensure no copies of foods are added
+        resetForm({
+            values: {
+                foodName: '',
+                calPerSvg: '',
+                svgEaten: '',
+            },
+        });
+        setSeries([0,0,0])                  // Handled separately as it is a special case
+        setTimeFrame("")                    // Handled separately as it is done elsewhere
     }
 
     // When add button is pressed
-    const handlePress = (values) => {
-        // const { foodName, calPerSvg, svgEaten, carb, protein, fat, timeFrame } = values; 
-
-        // params={title: foodName, 
-        //         calPerSvg: calPerSvg, 
-        //         svgEaten: svgEaten, 
-        //         carb: series[0], 
-        //         protein: series[1],
-        //         fat: series[2],
-        //         timeFrame: timeFrame
-        // }
+    const handlePress = (values, {resetForm}) => {
+        const { foodName, calPerSvg, svgEaten } = values; 
+        console.log(values);
         setFood(
             {
                 title: foodName, 
@@ -98,7 +88,7 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
 
         toggleFoodConfirmOverlay()
         setTimeout(() => toggleFoodOverlay(), 200) // allows enough time for confirmation pop up to appear before close food pop up
-        setTimeout(() => resetData(), 400) // resets food info after adding it to the confirmation pop up
+        setTimeout(() => resetData(resetForm), 400) // resets food info after adding it to the confirmation pop up
     }
 
     return (
@@ -109,11 +99,12 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
             previousOverlay={previousOverlay}
             content={
                 <Formik
-                    initialValues={{foodName:'', calPerSvg:0, svgEaten:0}}
+                    initialValues={{foodName:'', calPerSvg:'', svgEaten:''}}
                     validationSchema={addFoodSchema}
                     onSubmit={handlePress}
                 >
-                    {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid }) => (
+                {/* {console.log(values)} */}
+                    {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, resetForm, setFieldValue }) => (
                         <ScrollView>
                             <View style={localStyle.fieldContainer}>
 
@@ -134,12 +125,9 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
                                         placeholder='Food Name' 
                                         selectionColor='#CB9CF2'
                                         placeholderTextColor='rgba(242,244,243, 0.2)'
-                                        defaultValue={foodName}
-                                        // value={values.foodName}
-                                        // onBlur={handleBlur('foodName')}              // I.V. work - NOT WORKING
-                                        // onChangeText={newText => setFoodName(newText)}
                                         onChangeText={handleChange('foodName')}
                                         // errors={errors.foodName}
+                                        value={values.foodName}
                                         >
                                     </TextInput>
 
@@ -155,9 +143,8 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
                                             placeholder='Cal Per Svg' 
                                             selectionColor='#CB9CF2'
                                             placeholderTextColor='rgba(242,244,243, 0.2)'
-                                            // onChangeText={newText => setCalPerSvg(newText)}
                                             onChangeText={handleChange('calPerSvg')}
-                                            defaultValue={calPerSvg}
+                                            value={values.calPerSvg}
                                             keyboardType='numeric'
                                             >
                                         </TextInput>
@@ -170,9 +157,8 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
                                             placeholder='Svgs Eaten' 
                                             selectionColor='#CB9CF2'
                                             placeholderTextColor='rgba(242,244,243, 0.2)'
-                                            // onChangeText={newText => setSvgEaten(newText)}
                                             onChangeText={handleChange('svgEaten')}
-                                            defaultValue={svgEaten}
+                                            value={values.svgEaten}
                                             keyboardType='numeric'
                                             >
                                         </TextInput>
