@@ -9,7 +9,7 @@ import firestore from '@react-native-firebase/firestore';
 import { React, useState } from 'react';
 import { getTrackerDayRef } from '../../../constants/getTrackerDayRef';
 
-const AddWater = ({ addWaterVisible, toggleWaterOverlay, previousOverlay }) => {
+const AddWater = ({ addWaterVisible, toggleWaterOverlay, previousOverlay, date }) => {
 
     // Handle dropdown menu options for water unit type
     const { waterUnit, setWaterUnit,
@@ -24,7 +24,7 @@ const AddWater = ({ addWaterVisible, toggleWaterOverlay, previousOverlay }) => {
             }
             else {
                 // call on function to get reference for current day's tracker
-                const trackerDayRef = getTrackerDayRef();
+                const trackerDayRef = getTrackerDayRef(date);
 
                 const docSnapshot = await trackerDayRef.get();
                 const oldWaterTotal = docSnapshot.data().water;

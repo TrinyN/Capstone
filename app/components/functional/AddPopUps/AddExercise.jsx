@@ -32,7 +32,7 @@ const addExerciseSchema = yup.object({
                 .required('Kcals per serving are required'),
 })
 
-const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverlay }) => {
+const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverlay, date }) => {
 
     // Handle dropdown menu options for exercise unit type
     const { exerciseUnit, setExerciseUnit,
@@ -50,7 +50,7 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                 alert("Please enter an exercise")
             }
             else {
-                const trackerDayRef = getTrackerDayRef();
+                const trackerDayRef = getTrackerDayRef(date);
 
                 await trackerDayRef.collection("Exercise").add({
                     exerciseName: exercise,

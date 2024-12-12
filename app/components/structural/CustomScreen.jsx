@@ -15,7 +15,9 @@ const CustomScreen = ({
     screenContent,
     hasLogOutButton,
     toggleLogOut,
-    isTrackerScreen
+    isTrackerScreen, 
+    next, 
+    previous
 }) => {
     return (
         <SafeAreaView style={styles.container}>
@@ -60,10 +62,10 @@ const CustomScreen = ({
 
                 {isTrackerScreen &&
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 15 }}>
-                        <TouchableOpacity style={{ width: 35 }}>
+                        <TouchableOpacity onPress={previous} style={{ width: 35 }}>
                             <Feather name={'chevron-left'} size={30} color={'#CB9CF2'} />
                         </TouchableOpacity>
-                        <TouchableOpacity style={{ width: 35 }}>
+                        <TouchableOpacity onPress={next} style={{ width: 35 }}>
                             <Feather name={'chevron-right'} size={30} color={'#CB9CF2'} />
                         </TouchableOpacity>
                     </View>

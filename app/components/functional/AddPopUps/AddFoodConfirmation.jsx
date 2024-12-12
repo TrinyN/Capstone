@@ -15,8 +15,10 @@ const AddFoodConfirmation = ({
     food,
     addFoodConfirmVisible,
     toggleFoodConfirmOverlay,
-    toggleFoodOverlay
+    toggleFoodOverlay, 
+    date
 }) => {
+
 
     const [series, setSeries] = useState([0, 0, 0]);
 
@@ -68,7 +70,7 @@ const AddFoodConfirmation = ({
         console.log(DATA) // will have one entry that is empty stuff, kinda needed bc pie chart calc
         // add food to database
         try {
-            const trackerDayRef = getTrackerDayRef();
+            const trackerDayRef = getTrackerDayRef(date);
 
             // if no food name, don't add to database
             for (const item of DATA) {

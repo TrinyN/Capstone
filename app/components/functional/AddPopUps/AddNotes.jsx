@@ -18,14 +18,13 @@ const validationSchema = yup.object({
       ),
 });
 
-const AddNotes = ({ addNotesVisible, toggleNotesOverlay }) => {
-
+const AddNotes = ({ addNotesVisible, toggleNotesOverlay, date }) => {
     const [rating, setRating] = useState(0);
 
     const handlePress = async (values) => {
         const { notes } = values; // get value from formik
         try {
-            const trackerDayRef = new getTrackerDayRef();
+            const trackerDayRef = new getTrackerDayRef(date);
 
             trackerDayRef.update({
                 notes: notes,

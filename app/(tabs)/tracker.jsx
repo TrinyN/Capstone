@@ -14,7 +14,6 @@ import { AddWater, AddExercise, AddPopUp, AddFood } from '../components/function
 import { CollapseSection } from '../constants/CollapseSection';
 import AddNotes from '../components/functional/AddPopUps/AddNotes';
 import AddFoodConfirmation from '../components/functional/AddPopUps/AddFoodConfirmation';
-import { getTrackerDayRef } from '../constants/getTrackerDayRef';
 
 // TODO: the use of add pop up components arent the most efficient
 // PROBLEM: after adding water, doesn't update value of list but does in database, need to rerender
@@ -24,6 +23,7 @@ import { getTrackerDayRef } from '../constants/getTrackerDayRef';
 
 // Function to design and display the tracker
 const Tracker = () => {
+    const [date, setDate] = useState(new Date());
 
     const { openOverlay } = useLocalSearchParams();         // Used for Quick Track frame
 
@@ -112,14 +112,29 @@ const Tracker = () => {
     };
 
     // Sample data for Breakfast, Lunch, Dinner, and Snacks
-    const { setItems, items, foodList } = useFoodData();
+    const { setItems, items, foodList } = useFoodData(date);
 
     // Sample exercise data
-    const exerciseList = useExerciseData();
-    const water = useWaterData();
+    const exerciseList = useExerciseData(date);
+    const water = useWaterData(date);
 
     // gets current date (ex: Saturday 11/9)
-    const formattedDate = getDate();
+    const formattedDate = getDate(date);
+
+    const nextDay = () => {
+        setDate(prevDate => {
+            const newDate = new Date(prevDate); // Clone the current date
+            newDate.setDate(newDate.getDate() + 1); // Add 1 day
+            return newDate; // Update state with the new date
+        });
+    }
+    const previousDay = () => {
+        setDate(prevDate => {
+            const newDate = new Date(prevDate); // Clone the current date
+            newDate.setDate(newDate.getDate() - 1); // Subtract 1 day
+            return newDate; // Update state with the new date
+        });
+    }
 
     // Render each section with collapsibility
     const renderFood = ({ item, section }) => { // item = food, section = foodTime
@@ -182,6 +197,8 @@ const Tracker = () => {
                     hasOptions={true}
                     toggleOptions={toggleOptions}
                     isTrackerScreen={true}
+                    next={nextDay}
+                    previous={previousDay}
                     screenContent={
                         <View>
                             {/* test values, will need to get users info from database */}
@@ -198,7 +215,7 @@ const Tracker = () => {
                                 onPress={toggleOverlay}
                             />
                             {/* View for FlatList to store all items of tracker */}
-                            <View> 
+                            <View>
                                 <SectionList
                                     sections={foodList}
                                     // keyExtractor={(item) => item}
@@ -257,11 +274,13 @@ const Tracker = () => {
                                 addWaterVisible={addWaterVisible}
                                 toggleWaterOverlay={toggleWaterOverlay}
                                 previousOverlay={toggleOverlay}
+                                date={date}
                             />
                             <AddExercise
                                 addExerciseVisible={addExerciseVisible}
                                 toggleExerciseOverlay={toggleExerciseOverlay}
                                 previousOverlay={toggleOverlay}
+                                date={date}
                             />
                             <AddFood
                                 previousOverlay={toggleOverlay}
@@ -269,10 +288,12 @@ const Tracker = () => {
                                 addFoodVisible={addFoodVisible}
                                 toggleFoodConfirmOverlay={toggleFoodConfirmOverlay}
                                 setFood={setFood}
+                                date={date}
                             />
                             <AddNotes
                                 toggleNotesOverlay={toggleNotesOverlay}
                                 addNotesVisible={addNotesVisible}
+                                date={date}
                             />
                             {/* pop up for options */}
                             <TrackerOptions
