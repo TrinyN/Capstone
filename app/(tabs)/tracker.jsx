@@ -144,12 +144,13 @@ const Tracker = () => {
     }
 
     // gets profile info needed for BMR calculation
-    const { weight, height, age, gender, weightGoal } = userInfo.reduce((acc, item) => {
+    const { weight, height, age, gender, weightGoal, calGoal } = userInfo.reduce((acc, item) => {
         if (item.title === "Weight") acc.weight = parseFloat(item.value); // parse float turns string to number ignoring letters
         if (item.title === "Height") acc.height = parseFloat(item.value);
         if (item.title === "Date of Birth") acc.age = calculateAge(item.value);
         if (item.title === "Gender") acc.gender = item.value;
         if (item.title === "Weight Goal") acc.weightGoal = item.value;
+        if (item.title === "Caloric Goal") acc.calGoal = item.value.replace(" per day", '');
         return acc;
     }, {});
 
@@ -247,7 +248,7 @@ const Tracker = () => {
                         <View>
                             {/* test values, will need to get users info from database */}
                             <TrackerInfo
-                                caloricGoal={"2400"}
+                                caloricGoal={calGoal}
                                 weight={"105"}
                                 eaten={totalCalsEaten}
                                 burned={totalCalsBurned}
