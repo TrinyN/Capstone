@@ -23,7 +23,7 @@ const AddNotes = ({ addNotesVisible, toggleNotesOverlay, date, notes, stars }) =
 
     // change shown star rating depending on day of tracker
     useEffect(() => {
-        if(stars !== undefined)
+        if (stars !== undefined)
             setRating(stars)
     }, [notes, stars]);
 
@@ -32,13 +32,7 @@ const AddNotes = ({ addNotesVisible, toggleNotesOverlay, date, notes, stars }) =
         const { notes } = values; // get value from formik
         try {
             let trackerDayRef;
-            if (date == undefined) { // date is undefined if in home screen
-                trackerDayRef = new getTrackerDayRef(new Date()); // use current day in home screen
-
-            }
-            else {
-                trackerDayRef = new getTrackerDayRef(date); // use date tracker is on
-            }
+            trackerDayRef = new getTrackerDayRef(date); // use date tracker is on
 
             trackerDayRef.update({
                 notes: notes,
@@ -81,7 +75,7 @@ const AddNotes = ({ addNotesVisible, toggleNotesOverlay, date, notes, stars }) =
                                 <View style={{ flex: 1 }}>
                                     <TextInput
                                         style={localStyle.note}
-                                        placeholder='Today I feel like I...' 
+                                        placeholder='Today I feel like I...'
                                         selectionColor='#CB9CF2'
                                         placeholderTextColor='rgba(242,244,243, 0.2)'
                                         multiline

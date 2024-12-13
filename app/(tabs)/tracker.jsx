@@ -244,6 +244,7 @@ const Tracker = () => {
                     isTrackerScreen={true}
                     next={nextDay}
                     previous={previousDay}
+                    date={date}
                     screenContent={
                         <View>
                             {/* test values, will need to get users info from database */}

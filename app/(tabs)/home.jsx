@@ -11,7 +11,7 @@ import { useFoodData } from '../constants/trackerData';
 
 // Function that handles the design and display of the Home screen
 const Home = () => {
-    const currDate = new Date()
+    const currDate = new Date() // today's date
     const {notes, stars} = getNotes(currDate); // get notes from database for current day
 
     const [addNotesVisible, setAddNotesVisible] = useState(false);
@@ -22,8 +22,8 @@ const Home = () => {
         setAddNotesVisible(!addNotesVisible);
     }
 
+    // gets progress bar data for current date
     const { totalCalsEaten, totalCarbEaten, totalFatEaten, totalProteinEaten } = useFoodData(currDate);
-
 
     // Searches database for user's username
     const getUsername = async () => {
@@ -38,7 +38,6 @@ const Home = () => {
         } catch (e){
             getUsername() // if username can't be fetched, try again
         }
-
     }
 
     useEffect(() => {
@@ -94,6 +93,7 @@ const Home = () => {
                         addNotesVisible={addNotesVisible}
                         stars={stars}
                         notes={notes}
+                        date={currDate}
                     />
                 </View>
             }
