@@ -9,11 +9,12 @@ import CustomScreen from '../components/structural/CustomScreen';
 import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { router, useLocalSearchParams } from 'expo-router';
 import CustomButton2 from '../components/functional/CustomButton2';
-import { useExerciseData, useFoodData, useWaterData, getDate, getNotes } from '../constants/trackerData';
+import { useExerciseData, useFoodData, useWaterData, getDate, getNotes, getTotalEaten } from '../constants/trackerData';
 import { AddWater, AddExercise, AddPopUp, AddFood } from '../components/functional/AddPopUps';
 import { CollapseSection } from '../constants/CollapseSection';
 import AddNotes from '../components/functional/AddPopUps/AddNotes';
 import AddFoodConfirmation from '../components/functional/AddPopUps/AddFoodConfirmation';
+import { userDataItems } from '../constants/profileData';
 
 // TODO: the use of add pop up components arent the most efficient
 // PROBLEM: after adding water, doesn't update value of list but does in database, need to rerender
@@ -111,15 +112,57 @@ const Tracker = () => {
         setVisibleOptions(!visibleOptions);
     };
 
-    const { setItems, items, foodList } = useFoodData(date);
-    const exerciseList = useExerciseData(date);
+    const { setItems, items, foodList, totalCalsEaten } = useFoodData(date);
+    const { exerciseList, totalCalsBurned } = useExerciseData(date);
     const water = useWaterData(date);
 
-    const {notes, stars} = getNotes(date);
+    const { notes, stars } = getNotes(date);
 
     // gets current date (ex: Saturday 11/9)
     const formattedDate = getDate(date);
 
+    // get profile data to calculate BMR
+    const { userInfo, setUserInfo } = userDataItems();
+
+    const calculateAge = (dob) => {
+        // Split the MM/DD/YYYY format into parts
+        const [month, day, year] = dob.split('/');
+        // Reformat to YYYY-MM-DD (this format works with new Date())
+        const birthDate = new Date(`${year}-${month}-${day}`);
+        const today = new Date();
+
+        let age = today.getFullYear() - birthDate.getFullYear();
+
+        // Check if the birthday has occurred this year
+        const hasHadBirthdayThisYear = (today.getMonth() > birthDate.getMonth()) ||
+            (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+
+        if (!hasHadBirthdayThisYear) {
+            age--;
+        }
+        return age;
+    }
+
+    // gets profile info needed for BMR calculation
+    const { weight, height, age, gender, weightGoal } = userInfo.reduce((acc, item) => {
+        if (item.title === "Weight") acc.weight = parseFloat(item.value); // parse float turns string to number ignoring letters
+        if (item.title === "Height") acc.height = parseFloat(item.value);
+        if (item.title === "Date of Birth") acc.age = calculateAge(item.value);
+        if (item.title === "Gender") acc.gender = item.value;
+        if (item.title === "Weight Goal") acc.weightGoal = item.value;
+        return acc;
+    }, {});
+
+    // calculates BMR using Mifflin-St Jeor Equation
+    const calcBMR = () => {
+        const s = gender === 'Male' ? 5 : -161;
+
+        // calculates BMR, round to nearest whole number, and converts weight from lbs to kg
+        const BMR = Math.round(10 * (weight * 0.45359237) + 6.25 * height - 5 * age + s)
+        return BMR
+    }
+
+    // changes date to be next day
     const nextDay = () => {
         setDate(prevDate => {
             const newDate = new Date(prevDate); // Clone the current date
@@ -127,6 +170,8 @@ const Tracker = () => {
             return newDate; // Update state with the new date
         });
     }
+
+    // changes date to be previous day
     const previousDay = () => {
         setDate(prevDate => {
             const newDate = new Date(prevDate); // Clone the current date
@@ -204,9 +249,10 @@ const Tracker = () => {
                             <TrackerInfo
                                 caloricGoal={"2400"}
                                 weight={"105"}
-                                eaten={"2400"}
-                                burned={"200"}
-                                bmr={"1200"}
+                                eaten={totalCalsEaten}
+                                burned={totalCalsBurned}
+                                bmr={calcBMR()}
+                                weightGoal={weightGoal}
                             />
                             {/* Add Food Button */}
                             <CustomButton2
