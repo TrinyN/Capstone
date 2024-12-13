@@ -6,9 +6,11 @@ import HomeFrame from '../components/structural/HomeFrame';
 import AddNotes from '../components/functional/AddPopUps/AddNotes';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import { getNotes } from '../constants/trackerData';
 
 // Function that handles the design and display of the Home screen
 const Home = () => {
+    const {notes, stars} = getNotes(new Date()); // get notes from database for current day
 
     const [addNotesVisible, setAddNotesVisible] = useState(false);
     const [userName, setUserName] = useState("");
@@ -85,6 +87,8 @@ const Home = () => {
                     <AddNotes
                         toggleNotesOverlay={toggleNotesOverlay}
                         addNotesVisible={addNotesVisible}
+                        stars={stars}
+                        notes={notes}
                     />
                 </View>
             }

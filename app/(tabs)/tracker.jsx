@@ -9,7 +9,7 @@ import CustomScreen from '../components/structural/CustomScreen';
 import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { router, useLocalSearchParams } from 'expo-router';
 import CustomButton2 from '../components/functional/CustomButton2';
-import { useExerciseData, useFoodData, useWaterData, getDate } from '../constants/trackerData';
+import { useExerciseData, useFoodData, useWaterData, getDate, getNotes } from '../constants/trackerData';
 import { AddWater, AddExercise, AddPopUp, AddFood } from '../components/functional/AddPopUps';
 import { CollapseSection } from '../constants/CollapseSection';
 import AddNotes from '../components/functional/AddPopUps/AddNotes';
@@ -111,12 +111,11 @@ const Tracker = () => {
         setVisibleOptions(!visibleOptions);
     };
 
-    // Sample data for Breakfast, Lunch, Dinner, and Snacks
     const { setItems, items, foodList } = useFoodData(date);
-
-    // Sample exercise data
     const exerciseList = useExerciseData(date);
     const water = useWaterData(date);
+
+    const {notes, stars} = getNotes(date);
 
     // gets current date (ex: Saturday 11/9)
     const formattedDate = getDate(date);
@@ -294,6 +293,8 @@ const Tracker = () => {
                                 toggleNotesOverlay={toggleNotesOverlay}
                                 addNotesVisible={addNotesVisible}
                                 date={date}
+                                notes={notes}
+                                stars={stars}
                             />
                             {/* pop up for options */}
                             <TrackerOptions

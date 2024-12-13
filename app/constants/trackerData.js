@@ -129,7 +129,6 @@ export const useExerciseData = (date) => {
     return exerciseList
 };
 
-// only gets water data from current day, will have to change later
 export const useWaterData = (date) => {
     const [water, setWater] = useState(0);
     useEffect(() => {
@@ -153,7 +152,6 @@ export const useWaterData = (date) => {
     return water
 };
 
-// only gets current date will have to change later
 export const getDate = (date) => {
     try {
         const trackerDayRef = getTrackerDayRef(date);
@@ -167,3 +165,29 @@ export const getDate = (date) => {
         alert("Error Getting Date: ", e.message)
     }
 }
+
+export const getNotes = (date) => {
+    const [notes, setNotes] = useState("");
+    const [stars, setStars] = useState(0);
+
+    useEffect(() => {
+        const trackerDayRef = getTrackerDayRef(date);
+
+        // Set up the Firestore listener
+        const subscriber = trackerDayRef.onSnapshot(
+            (docSnapshot) => {
+                const data = docSnapshot.data();
+                setNotes(data.notes || "");
+                setStars(data.rating || 0);
+            },
+            (error) => {
+                alert("Error Getting Notes: " + error.message);
+            }
+        );
+
+        // Cleanup function to unsubscribe from the listener when the component unmounts
+        return () => subscriber();
+    }, [userID, date]);
+
+    return {notes, stars}
+};
