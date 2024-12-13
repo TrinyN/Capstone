@@ -31,6 +31,10 @@ export const useFoodData = (date) => {
     ]);
 
     const [totalCalsEaten, setTotalCalsEaten] = useState("0");
+    const [totalCarbEaten, setTotalCarbEaten] = useState("0");
+    const [totalProteinEaten, setTotalProteinEaten] = useState("0");
+    const [totalFatEaten, setTotalFatEaten] = useState("0");
+
 
     const userID = auth().currentUser?.uid || null;
 
@@ -47,6 +51,10 @@ export const useFoodData = (date) => {
                     // A list to store all of the foods (sorted later)
                     const newFoodData = [];
                     let totalEaten = 0;
+                    let totalCarb = 0;
+                    let totalProtein = 0;
+                    let totalFat = 0;
+
 
                     // For each for all items in document
                     querySnapshot.forEach((doc) => {
@@ -54,7 +62,10 @@ export const useFoodData = (date) => {
                         const data = doc.data();
 
                         totalEaten += Number(data.calPerSvg * data.svgEaten)
-                        
+                        totalCarb += Number(data.carb)
+                        totalProtein += Number(data.protein)
+                        totalFat += Number(data.fat)
+
                         // Push the fields to be used and filled, empty or not
                         newFoodData.push({
                             foodName: data.foodName || '—',
@@ -86,6 +97,10 @@ export const useFoodData = (date) => {
                         });
                     });
                     setTotalCalsEaten(totalEaten.toString())
+                    setTotalCarbEaten(totalCarb.toString())
+                    setTotalProteinEaten(totalProtein.toString())
+                    setTotalFatEaten(totalFat.toString())
+
                 },
                 (error) => {
                     alert('Error fetching Food data: ' + error.message);
@@ -95,7 +110,7 @@ export const useFoodData = (date) => {
         return () => subscriber();
     }, [userID, date]);
 
-    return { setTimes, times, foodList, totalCalsEaten }
+    return { setTimes, times, foodList, totalCalsEaten, totalCarbEaten, totalProteinEaten, totalFatEaten }
 };
 
 export const useExerciseData = (date) => {

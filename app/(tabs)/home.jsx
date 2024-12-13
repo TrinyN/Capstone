@@ -7,10 +7,12 @@ import AddNotes from '../components/functional/AddPopUps/AddNotes';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { getNotes } from '../constants/trackerData';
+import { useFoodData } from '../constants/trackerData';
 
 // Function that handles the design and display of the Home screen
 const Home = () => {
-    const {notes, stars} = getNotes(new Date()); // get notes from database for current day
+    const currDate = new Date()
+    const {notes, stars} = getNotes(currDate); // get notes from database for current day
 
     const [addNotesVisible, setAddNotesVisible] = useState(false);
     const [userName, setUserName] = useState("");
@@ -19,6 +21,9 @@ const Home = () => {
     const toggleNotesOverlay = () => {
         setAddNotesVisible(!addNotesVisible);
     }
+
+    const { totalCalsEaten, totalCarbEaten, totalFatEaten, totalProteinEaten } = useFoodData(currDate);
+
 
     // Searches database for user's username
     const getUsername = async () => {
@@ -58,10 +63,10 @@ const Home = () => {
                             {/* TODO: progress of bars should be calculated using eaten/total calories */}
                             {/* test values, will have to change */}
                             {/* Progress Bars */}
-                            <ProgressBar title='Calories' progress={1400} total={2000} />
-                            <ProgressBar title='Carbs' progress={200} total={300} />
-                            <ProgressBar title='Proteins' progress={100} total={170} />
-                            <ProgressBar title='Fats' progress={15} total={30} />
+                            <ProgressBar title='Calories' progress={Number(totalCalsEaten)} total={2000} />
+                            <ProgressBar title='Carbs' progress={Number(totalCarbEaten)} total={300} />
+                            <ProgressBar title='Proteins' progress={Number(totalProteinEaten)} total={170} />
+                            <ProgressBar title='Fats' progress={Number(totalFatEaten)} total={30} />
                         </View>
                     </View>
                     {/* Two FlatLists to hold two separate columns of quick tool frames, with frames of different heights */}
