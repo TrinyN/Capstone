@@ -101,7 +101,7 @@ const AddFoodConfirmation = ({
 
             }
         } catch (e) {
-            alert("Error:, ", e.message)
+            alert("Error: Problem Adding Food ", e.message) // ERROR of getMonth undefined!!
         }
 
         // reset data

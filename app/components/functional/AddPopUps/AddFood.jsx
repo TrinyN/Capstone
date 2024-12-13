@@ -160,7 +160,7 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
                                             onChangeText={handleChange('svgEaten')}
                                             value={values.svgEaten}
                                             keyboardType='numeric'
-                                            >
+                                        >
                                         </TextInput>
                                         {errors.svgEaten && <Text style={localStyle.errorMessage}>{errors.svgEaten}</Text>}
 
