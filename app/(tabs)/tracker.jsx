@@ -356,6 +356,7 @@ const Tracker = () => {
                                 addFoodConfirmVisible={addFoodConfirmVisible}
                                 food={food}
                                 toggleFoodOverlay={toggleFoodOverlay}
+                                date={date}
                             />
                         </View>
                     }
