@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { View, TextInput, StyleSheet, Alert } from 'react-native';
+import { View, TextInput, StyleSheet, Alert, Text } from 'react-native';
 import CustomPopUp from '../../structural/CustomPopUp';
 import styles from '../../../styles';
 import CustomDropdown from '../CustomDropdown';
@@ -42,16 +42,17 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
     // const [duration, setDuration] = useState(0);
     // const [calsBurned, setCalsBurned] = useState(0);
 
-    const handleAddExercise = async () => {
+    const handleAddExercise = async (values) => {
         // let { exercise, duration, calsBurned } = values;
         const { exercise, duration, calsBurned } = values;
-        console.log(values);
+        // console.log(values);
 
         try {
             if (exercise == "") {
                 alert("Please enter an exercise")
             }
             else {
+                // let trackerDayRef;
                 const trackerDayRef = getTrackerDayRef(date);
 
                 await trackerDayRef.collection("Exercise").add({
@@ -95,8 +96,8 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                                     selectionColor='#CB9CF2'
                                     placeholderTextColor='rgba(242,244,243, 0.2)'
                                     // onChangeText={newVal => setExercise(newVal)}
-                                    defaultValue={exercise}
-                                    // value={values.exercise}
+                                    // defaultValue={exercise}
+                                    value={values.exercise}
                                     // onBlur={handleBlur('exercise')}              // I.V. work - NOT WORKING
                                     onChangeText={handleChange('exercise')}
                                     // errors={errors.name} //?
@@ -113,8 +114,8 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                                         placeholderTextColor='rgba(242,244,243, 0.2)'
                                         keyboardType='numeric'
                                         // onChangeText={newVal => setDuration(newVal)}
-                                        defaultValue={duration}
-                                        // value={values.duration}
+                                        // defaultValue={duration}
+                                        value={values.duration}
                                         // onBlur={handleBlur('duration')}              // I.V. work - NOT WORKING
                                         onChangeText={handleChange('duration')}
                                         // errors={errors.name} //?
@@ -143,8 +144,8 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                                         placeholderTextColor='rgba(242,244,243, 0.2)'
                                         keyboardType='numeric'
                                         // onChangeText={newVal => setCalsBurned(newVal)}
-                                        defaultValue={calsBurned}
-                                        // value={values.calsBurned}
+                                        // defaultValue={calsBurned}
+                                        value={values.calsBurned}
                                         // onBlur={handleBlur('calsBurned')}              // I.V. work - NOT WORKING
                                         onChangeText={handleChange('calsBurned')}
                                         // errors={errors.name} //?
@@ -180,6 +181,6 @@ const localStyle = StyleSheet.create({
         color: 'red',
         padding: 5,
         fontFamily: 'Inter_300Light',
-
+        
     }
 })
