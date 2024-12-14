@@ -38,12 +38,14 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
     const { exerciseUnit, setExerciseUnit,
         exerciseUnitTypes, setExerciseUnitTypes } = useExerciseUnitOptions();
 
-    const [exercise, setExercise] = useState("");
-    const [duration, setDuration] = useState(0);
-    const [calsBurned, setCalsBurned] = useState(0);
+    // const [exercise, setExercise] = useState("");
+    // const [duration, setDuration] = useState(0);
+    // const [calsBurned, setCalsBurned] = useState(0);
 
     const handleAddExercise = async () => {
         // let { exercise, duration, calsBurned } = values;
+        const { exercise, duration, calsBurned } = values;
+        console.log(values);
 
         try {
             if (exercise == "") {
@@ -79,7 +81,11 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
             hasBackButton={true}
             previousOverlay={previousOverlay}
             content={
-                <Formik>
+                <Formik
+                    initialValues={{ exerciseName:'', duration:'', calsBurned:'' }}
+                    validationSchema={addExerciseSchema}
+                    onSubmit={handleAddExercise}
+                >
                     {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid }) => (
                         <View style={localStyle.fieldContainer}>
                             <View style={localStyle.fieldRow}>
@@ -88,14 +94,15 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                                     placeholder='Exercise'
                                     selectionColor='#CB9CF2'
                                     placeholderTextColor='rgba(242,244,243, 0.2)'
-                                    onChangeText={newVal => setExercise(newVal)}
+                                    // onChangeText={newVal => setExercise(newVal)}
                                     defaultValue={exercise}
                                     // value={values.exercise}
                                     // onBlur={handleBlur('exercise')}              // I.V. work - NOT WORKING
-                                    // onChangeText={handleChange('exercise')}
+                                    onChangeText={handleChange('exercise')}
                                     // errors={errors.name} //?
                                 >
                                 </TextInput>
+                                {errors.exercise && <Text style={localStyle.errorMessage}>{errors.exercise}</Text>}
                             </View>
                             <View style={localStyle.fieldRow}>
                                 <View style={{ flex: 1, paddingRight: 10 }}>
@@ -105,14 +112,15 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                                         selectionColor='#CB9CF2'
                                         placeholderTextColor='rgba(242,244,243, 0.2)'
                                         keyboardType='numeric'
-                                        onChangeText={newVal => setDuration(newVal)}
+                                        // onChangeText={newVal => setDuration(newVal)}
                                         defaultValue={duration}
                                         // value={values.duration}
                                         // onBlur={handleBlur('duration')}              // I.V. work - NOT WORKING
-                                        // onChangeText={handleChange('duration')}
+                                        onChangeText={handleChange('duration')}
                                         // errors={errors.name} //?
                                         >
                                     </TextInput>
+                                    {errors.duration && <Text style={localStyle.errorMessage}>{errors.duration}</Text>}
                                 </View>
                                 <View style={{ flex: 1 }}>
                                     <CustomDropdown
@@ -134,14 +142,15 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                                         selectionColor='#CB9CF2'
                                         placeholderTextColor='rgba(242,244,243, 0.2)'
                                         keyboardType='numeric'
-                                        onChangeText={newVal => setCalsBurned(newVal)}
+                                        // onChangeText={newVal => setCalsBurned(newVal)}
                                         defaultValue={calsBurned}
                                         // value={values.calsBurned}
                                         // onBlur={handleBlur('calsBurned')}              // I.V. work - NOT WORKING
-                                        // onChangeText={handleChange('calsBurned')}
+                                        onChangeText={handleChange('calsBurned')}
                                         // errors={errors.name} //?
                                         >
                                     </TextInput>
+                                    {errors.calsBurned && <Text style={localStyle.errorMessage}>{errors.calsBurned}</Text>}
                                 </View>
                             </View>
                             <CustomButton title={"Submit"} handlePress={handleAddExercise} />
@@ -165,5 +174,12 @@ const localStyle = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingTop: 20,
+    },
+    errorMessage: {
+        fontSize: 11,
+        color: 'red',
+        padding: 5,
+        fontFamily: 'Inter_300Light',
+
     }
 })
