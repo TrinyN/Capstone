@@ -20,14 +20,15 @@ export const useFoodData = (date) => {
         { label: 'Dinner', value: 'Dinner' },
         { label: 'Snacks', value: 'Snacks' }
     ])
-    
-    const [foodList, setFoodList] = useState([
-        // Food formatting
-        { title: 'Breakfast', data: []},     // REMOVING key just changes warning, not get rid of it
-        { title: 'Lunch', data: []},
-        { title: 'Dinner', data: []},
-        { title: 'Snacks', data: []}
-    ]);
+
+    const emptyFoodList = [
+        { title: 'Breakfast', data: [] },     // REMOVING key just changes warning, not get rid of it
+        { title: 'Lunch', data: [] },
+        { title: 'Dinner', data: [] },
+        { title: 'Snacks', data: [] }
+    ]
+
+    const [foodList, setFoodList] = useState(emptyFoodList);
 
     const [totalCalsEaten, setTotalCalsEaten] = useState("0");
     const [totalCarbEaten, setTotalCarbEaten] = useState("0");
@@ -47,68 +48,76 @@ export const useFoodData = (date) => {
             .orderBy('foodName', 'asc')
             .onSnapshot(
                 (querySnapshot) => {
-                    // A list to store all of the foods (sorted later)
-                    const newFoodData = [];
-                    let totalEaten = 0;
-                    let totalCarb = 0;
-                    let totalProtein = 0;
-                    let totalFat = 0;
 
-                    // For each for all items in document
-                    querySnapshot.forEach((doc) => {
-                        // The data is the data of the document within firebase
-                        const data = doc.data();
+                    if (querySnapshot.empty) {
+                        setFoodList(emptyFoodList)
+                    }
+                    else {
 
-                        totalEaten += Number(data.calPerSvg * data.svgEaten)
-                        totalCarb += Number(data.carb)
-                        totalProtein += Number(data.protein)
-                        totalFat += Number(data.fat)
+                        // A list to store all of the foods (sorted later)
+                        const newFoodData = [];
+                        let totalEaten = 0;
+                        let totalCarb = 0;
+                        let totalProtein = 0;
+                        let totalFat = 0;
 
-                        // Push the fields to be used and filled, empty or not
-                        newFoodData.push({
-                            foodName: data.foodName || '—',
-                            calPerSvg: data.calPerSvg || 0,
-                            svgEaten: data.svgEaten || 0,
-                            // carb: data.carb || 0, // DONT NEED???
-                            // fat: data.fat || 0,
-                            // protein: data.protein || 0,
-                            timeFrame: data.timeFrame || '—'
-                        });
-                        // Set the foods to be within the foodSection
-                        setFoodList((prevFoodList) => {
-                            // Copying the old food section list
-                            const updatedList = prevFoodList.map((item) => {
-                                const matchingFoods = newFoodData                   // Based on the timeFrame, add foods to database
-                                    .filter(food => food.timeFrame === item.title)
-                                    .map(food => ({
-                                        foodName: food.foodName, 
-                                        calPerSvg: food.calPerSvg,
-                                        svgEaten:food.svgEaten, 
-                                        timeFrame:food.timeFrame            // may cause issues?
-                                    }));
-                                return {
-                                    ...item,
-                                    data: [...matchingFoods],
-                                }
+                        // For each for all items in document
+                        querySnapshot.forEach((doc) => {
+                            // The data is the data of the document within firebase
+                            const data = doc.data();
+
+                            totalEaten += Number(data.calPerSvg * data.svgEaten)
+                            totalCarb += Number(data.carb)
+                            totalProtein += Number(data.protein)
+                            totalFat += Number(data.fat)
+
+                            // Push the fields to be used and filled, empty or not
+                            newFoodData.push({
+                                foodName: data.foodName || '—',
+                                calPerSvg: data.calPerSvg || 0,
+                                svgEaten: data.svgEaten || 0,
+                                // carb: data.carb || 0, // DONT NEED???
+                                // fat: data.fat || 0,
+                                // protein: data.protein || 0,
+                                timeFrame: data.timeFrame || '—'
                             });
-                            return updatedList;
+                            // Set the foods to be within the foodSection
+                            setFoodList((prevFoodList) => {
+                                // Copying the old food section list
+                                const updatedList = prevFoodList.map((item) => {
+                                    const matchingFoods = newFoodData                   // Based on the timeFrame, add foods to database
+                                        .filter(food => food.timeFrame === item.title)
+                                        .map(food => ({
+                                            foodName: food.foodName,
+                                            calPerSvg: food.calPerSvg,
+                                            svgEaten: food.svgEaten,
+                                            timeFrame: food.timeFrame            // may cause issues?
+                                        }));
+                                    return {
+                                        ...item,
+                                        data: [...matchingFoods],
+                                    }
+                                });
+                                return updatedList;
+                            });
                         });
-                    });
-                    setTotalCalsEaten(totalEaten.toString())
-                    setTotalCarbEaten(totalCarb.toString())
-                    setTotalProteinEaten(totalProtein.toString())
-                    setTotalFatEaten(totalFat.toString())
+                        setTotalCalsEaten(totalEaten.toString())
+                        setTotalCarbEaten(totalCarb.toString())
+                        setTotalProteinEaten(totalProtein.toString())
+                        setTotalFatEaten(totalFat.toString())
 
-                },
-                (error) => {
-                    if (isMounted) alert('Error fetching Food data: ' + error.message);
+                    }
+                    (error) => {
+                        if (isMounted) alert('Error fetching Food data: ' + error.message);
+                    }
                 }
             );
         // Cleanup function to unsubscribe from the listener when the component unmounts
         return () => {
             isMounted = false; // Mark the component as unmounted
             subscriber();
-        }}, [userID, date]);
+        }
+    }, [userID, date]);
 
     return { setTimes, times, foodList, totalCalsEaten, totalCarbEaten, totalProteinEaten, totalFatEaten }
 };
@@ -159,7 +168,7 @@ export const useExerciseData = (date) => {
         }
     }, [userID, date]);
 
-    return {exerciseList, totalCalsBurned}
+    return { exerciseList, totalCalsBurned }
 };
 
 export const useWaterAndNotesData = (date) => {
@@ -186,7 +195,7 @@ export const useWaterAndNotesData = (date) => {
         return () => subscriber();
     }, [userID, date]);
 
-    return {water, notes, stars}
+    return { water, notes, stars }
 };
 
 export const getDate = (date) => {
