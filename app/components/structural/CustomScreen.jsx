@@ -17,17 +17,8 @@ const CustomScreen = ({
     toggleLogOut,
     isTrackerScreen, 
     next, 
-    previous,
-    date
+    previous
 }) => {
-
-    // if tracker screen is on current day, do not display next button
-    const today = new Date()
-    let isDisabled;
-    if (date !== undefined){
-        isDisabled = today.getFullYear() === date.getFullYear() && today.getMonth() === date.getMonth() && today.getDate() === date.getDate();
-    }
-    
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -74,8 +65,8 @@ const CustomScreen = ({
                         <TouchableOpacity onPress={previous} style={{ width: 35 }}>
                             <Feather name={'chevron-left'} size={30} color={'#CB9CF2'} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={next} style={{ width: 35, opacity: isDisabled ? 0 : 1 }} disabled={isDisabled}>
-                            <Feather name={'chevron-right'} size={30} color={'#CB9CF2'}/>
+                        <TouchableOpacity onPress={next} style={{ width: 35 }}>
+                            <Feather name={'chevron-right'} size={30} color={'#CB9CF2'} />
                         </TouchableOpacity>
                     </View>
                 }

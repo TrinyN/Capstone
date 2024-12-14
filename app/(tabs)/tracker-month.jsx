@@ -1,4 +1,4 @@
-import { Text, View, SectionList, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, SectionList, StyleSheet } from 'react-native';
 import styles from '../styles';
 import { useState } from 'react';
 import { router } from 'expo-router';
@@ -81,7 +81,7 @@ const TrackerMonth = () => {
                                     renderItem={({ section }) => (
                                         <View>
                                             {/* Making sections collapsible */}
-                                            <TouchableOpacity style={localStyle.weekSection}>
+                                            <View style={localStyle.weekSection}>
 
                                                 <Text style={[styles.defaultWhiteText, localStyle.weekName]}>
                                                     {section.title}
@@ -94,7 +94,7 @@ const TrackerMonth = () => {
                                                 <Text style={[styles.defaultWhiteText, localStyle.weekGoal]}>
                                                     {section.goal}
                                                 </Text>
-                                            </TouchableOpacity>
+                                            </View>
 
                                             {/* Borderline at bottom of Section Headers */}
                                             <View style={{ height: 2, backgroundColor: '#828282' }} />

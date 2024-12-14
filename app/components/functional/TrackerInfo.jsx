@@ -7,37 +7,20 @@ const TrackerInfo = ({
     weight,
     eaten,
     burned,
-    bmr, 
-    weightGoal
+    bmr
 }) => {
-
-    const netTotal = eaten - burned - bmr
-    let weightStatus = Math.abs(netTotal) <= 100 ? 'Maintain' : netTotal > 0 ? 'Bulk / Gain Weight' : 'Cut / Lose Weight'
-    let tolerance = 100 // change if needed allows net cal of 100 and -100 to be considered balanced
-
-    // commented stuff below allows for 3 diff colors, green, red, and yellow. Right now its just red and green idk if I want yellow
-    // let idk;
-    // if (weightGoal === "Maintain") {
-    //     idk = weightStatus === weightGoal ? "#80FF72" : "#FFF07C";  // Green if balance, else yellow
-    // } else if (weightGoal === "Bulk / Gain Weight") {
-    //     idk = weightStatus === weightGoal ? "#80FF72" : weightStatus === "Cut / Lose Weight" ? "#E65148" : "#FFF07C";
-    // } else if (weightGoal === "Cut / Lose Weight") {
-    //     idk = weightStatus === weightGoal ? "#80FF72" : weightStatus === "Bulk / Gain Weight" ? "#E65148" : "#FFF07C";
-    // }
-
     // renders the formula either with the variables or actual values
     const renderFormula = ({ type }) => {
-        const values = type === 'formula'        
+        const values = type === 'formula'
             ? {
                 textDecorationLine: 'underline',
                 color: '#CB9CF2',
+                goalColor: '#80FF72', // 3 diff colors depending on users goals, will need to add later
                 eatenValue: 'Eaten',
                 burnValue: 'Burned',
                 bmrValue: 'BMR',
-                overallValue: Math.abs(netTotal) <= tolerance ? 'Balance' : netTotal > 0 ? 'Surplus' : 'Deficit', // TODO need to change color of next depending on user goals
-                goalColor: weightStatus === weightGoal ? "#80FF72" : "#E65148" // weightGoal == netTotal ? '#80FF72' : '#E65148', // 3 diff colors depending on users goals, will need to add later 
+                overallValue: 'Surplus' // will need to change between surplus, balance, deficit depending on value
             }
-
             : {
                 textDecorationLine: 'none',
                 color: '#F2F4F3',

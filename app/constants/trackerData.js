@@ -30,12 +30,6 @@ export const useFoodData = (date) => {
         { title: 'Snacks', data: []}
     ]);
 
-    const [totalCalsEaten, setTotalCalsEaten] = useState("0");
-    const [totalCarbEaten, setTotalCarbEaten] = useState("0");
-    const [totalProteinEaten, setTotalProteinEaten] = useState("0");
-    const [totalFatEaten, setTotalFatEaten] = useState("0");
-
-
     const userID = auth().currentUser?.uid || null;
 
     useEffect(() => {
@@ -50,22 +44,11 @@ export const useFoodData = (date) => {
                 (querySnapshot) => {
                     // A list to store all of the foods (sorted later)
                     const newFoodData = [];
-                    let totalEaten = 0;
-                    let totalCarb = 0;
-                    let totalProtein = 0;
-                    let totalFat = 0;
-
 
                     // For each for all items in document
                     querySnapshot.forEach((doc) => {
                         // The data is the data of the document within firebase
                         const data = doc.data();
-
-                        totalEaten += Number(data.calPerSvg * data.svgEaten)
-                        totalCarb += Number(data.carb)
-                        totalProtein += Number(data.protein)
-                        totalFat += Number(data.fat)
-
                         // Push the fields to be used and filled, empty or not
                         newFoodData.push({
                             foodName: data.foodName || '—',
@@ -96,11 +79,6 @@ export const useFoodData = (date) => {
                             return updatedList;
                         });
                     });
-                    setTotalCalsEaten(totalEaten.toString())
-                    setTotalCarbEaten(totalCarb.toString())
-                    setTotalProteinEaten(totalProtein.toString())
-                    setTotalFatEaten(totalFat.toString())
-
                 },
                 (error) => {
                     alert('Error fetching Food data: ' + error.message);
@@ -110,7 +88,7 @@ export const useFoodData = (date) => {
         return () => subscriber();
     }, [userID, date]);
 
-    return { setTimes, times, foodList, totalCalsEaten, totalCarbEaten, totalProteinEaten, totalFatEaten }
+    return { setTimes, times, foodList }
 };
 
 export const useExerciseData = (date) => {
@@ -118,7 +96,6 @@ export const useExerciseData = (date) => {
         { exercise: '', reps: '', kCal: 0 },
         { exercise: '', reps: '', kCal: 0 },
     ]);
-    const [totalCalsBurned, setTotalCalsBurned] = useState("0")
 
     useEffect(() => {
         const trackerDayRef = getTrackerDayRef(date);
@@ -130,10 +107,8 @@ export const useExerciseData = (date) => {
             .onSnapshot(
                 (querySnapshot) => {
                     const exercises = [];
-                    let calsBurned = 0;
                     querySnapshot.forEach((doc) => {
                         const data = doc.data();
-                        calsBurned += Number(data.calsBurned)
                         exercises.push({
                             exercise: data.exerciseName || '—',
                             reps: data.duration + " " + data.durationUnit || '—',
@@ -141,7 +116,6 @@ export const useExerciseData = (date) => {
                         });
                     });
                     setExerciseList(exercises);
-                    setTotalCalsBurned(calsBurned)
                 },
                 (error) => {
                     alert("Error Fetching Exercise Data: " + error.message);
@@ -152,9 +126,10 @@ export const useExerciseData = (date) => {
         return () => subscriber();
     }, [userID, date]);
 
-    return {exerciseList, totalCalsBurned}
+    return exerciseList
 };
 
+// only gets water data from current day, will have to change later
 export const useWaterData = (date) => {
     const [water, setWater] = useState(0);
     useEffect(() => {
@@ -178,6 +153,7 @@ export const useWaterData = (date) => {
     return water
 };
 
+// only gets current date will have to change later
 export const getDate = (date) => {
     try {
         const trackerDayRef = getTrackerDayRef(date);
@@ -191,29 +167,3 @@ export const getDate = (date) => {
         alert("Error Getting Date: ", e.message)
     }
 }
-
-export const getNotes = (date) => {
-    const [notes, setNotes] = useState("");
-    const [stars, setStars] = useState(0);
-
-    useEffect(() => {
-        const trackerDayRef = getTrackerDayRef(date);
-
-        // Set up the Firestore listener
-        const subscriber = trackerDayRef.onSnapshot(
-            (docSnapshot) => {
-                const data = docSnapshot.data();
-                setNotes(data.notes || "");
-                setStars(data.rating || 0);
-            },
-            (error) => {
-                alert("Error Getting Notes: " + error.message);
-            }
-        );
-
-        // Cleanup function to unsubscribe from the listener when the component unmounts
-        return () => subscriber();
-    }, [userID, date]);
-
-    return {notes, stars}
-};
