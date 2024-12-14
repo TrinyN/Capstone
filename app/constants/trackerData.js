@@ -13,7 +13,7 @@ import auth from '@react-native-firebase/auth';
 const userID = auth().currentUser ? auth().currentUser.uid : null;
 
 export const useFoodData = (date) => {
-
+    let isMounted = true; // Track if component is still mounted
     const [times, setTimes] = useState([
         { label: 'Breakfast', value: 'Breakfast' },
         { label: 'Lunch', value: 'Lunch' },
@@ -53,7 +53,6 @@ export const useFoodData = (date) => {
                     let totalCarb = 0;
                     let totalProtein = 0;
                     let totalFat = 0;
-
 
                     // For each for all items in document
                     querySnapshot.forEach((doc) => {
@@ -102,17 +101,21 @@ export const useFoodData = (date) => {
 
                 },
                 (error) => {
-                    alert('Error fetching Food data: ' + error.message);
+                    if (isMounted) alert('Error fetching Food data: ' + error.message);
                 }
             );
         // Cleanup function to unsubscribe from the listener when the component unmounts
-        return () => subscriber();
-    }, [userID, date]);
+        return () => {
+            isMounted = false; // Mark the component as unmounted
+            subscriber();
+        }}, [userID, date]);
 
     return { setTimes, times, foodList, totalCalsEaten, totalCarbEaten, totalProteinEaten, totalFatEaten }
 };
 
 export const useExerciseData = (date) => {
+    let isMounted = true; // Track if component is still mounted
+
     const [exerciseList, setExerciseList] = useState([
         { exercise: '', reps: '', kCal: 0 },
         { exercise: '', reps: '', kCal: 0 },
@@ -128,6 +131,8 @@ export const useExerciseData = (date) => {
             .orderBy('exerciseName', 'asc')
             .onSnapshot(
                 (querySnapshot) => {
+                    if (!isMounted) return; // Ignore if component is unmounted
+
                     const exercises = [];
                     let calsBurned = 0;
                     querySnapshot.forEach((doc) => {
@@ -143,12 +148,15 @@ export const useExerciseData = (date) => {
                     setTotalCalsBurned(calsBurned)
                 },
                 (error) => {
-                    alert("Error Fetching Exercise Data: " + error.message);
+                    if (isMounted) alert("Error Fetching Exercise Data: " + error.message);
                 }
             );
 
         // Cleanup function to unsubscribe from the listener when the component unmounts
-        return () => subscriber();
+        return () => {
+            isMounted = false; // Mark the component as unmounted
+            subscriber();
+        }
     }, [userID, date]);
 
     return {exerciseList, totalCalsBurned}

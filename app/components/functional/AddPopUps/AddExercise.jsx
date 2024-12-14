@@ -14,8 +14,8 @@ import * as yup from 'yup';
 // TODO: defualt for exercise unit is last exercise unit but looks like itll be minutes
 
 const addExerciseSchema = yup.object({
-    exercise: yup.string()
-                .required('Food name is required')
+    exerciseName: yup.string()
+                .required('Exercise name is required')
                 .matches(/^[a-zA-Z0-9\-\/]+$/),
     duration: yup.number()
                 .typeError('Servings must be numbers')
@@ -44,11 +44,10 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
 
     const handleAddExercise = async (values) => {
         // let { exercise, duration, calsBurned } = values;
-        const { exercise, duration, calsBurned } = values;
-        // console.log(values);
+        const { exerciseName, duration, calsBurned } = values;
 
         try {
-            if (exercise == "") {
+            if (exerciseName == "") {
                 alert("Please enter an exercise")
             }
             else {
@@ -56,7 +55,7 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                 const trackerDayRef = getTrackerDayRef(date);
 
                 await trackerDayRef.collection("Exercise").add({
-                    exerciseName: exercise,
+                    exerciseName: exerciseName,
                     duration: duration,
                     durationUnit: exerciseUnit,
                     calsBurned: calsBurned
@@ -64,9 +63,9 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
 
                 toggleExerciseOverlay()
                 Alert.alert('', "Exercise Successfully Added")
-                setExercise("")
-                setDuration(0)
-                setCalsBurned(0)
+                // setExercise("")
+                // setDuration(0)
+                // setCalsBurned(0)
                 setExerciseUnit("Minutes")
             }
 
@@ -97,13 +96,13 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                                     placeholderTextColor='rgba(242,244,243, 0.2)'
                                     // onChangeText={newVal => setExercise(newVal)}
                                     // defaultValue={exercise}
-                                    value={values.exercise}
+                                    value={values.exerciseName}
                                     // onBlur={handleBlur('exercise')}              // I.V. work - NOT WORKING
-                                    onChangeText={handleChange('exercise')}
+                                    onChangeText={handleChange('exerciseName')}
                                     // errors={errors.name} //?
                                 >
                                 </TextInput>
-                                {errors.exercise && <Text style={localStyle.errorMessage}>{errors.exercise}</Text>}
+                                {errors.exerciseName && <Text style={localStyle.errorMessage}>{errors.exerciseName}</Text>}
                             </View>
                             <View style={localStyle.fieldRow}>
                                 <View style={{ flex: 1, paddingRight: 10 }}>
@@ -154,7 +153,7 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                                     {errors.calsBurned && <Text style={localStyle.errorMessage}>{errors.calsBurned}</Text>}
                                 </View>
                             </View>
-                            <CustomButton title={"Submit"} handlePress={handleAddExercise} />
+                            <CustomButton title={"Submit"} handlePress={handleSubmit} />
                         </View>
                     )}
                 </Formik>

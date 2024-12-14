@@ -335,7 +335,6 @@ const Tracker = () => {
                                 addFoodVisible={addFoodVisible}
                                 toggleFoodConfirmOverlay={toggleFoodConfirmOverlay}
                                 setFood={setFood}
-                                date={date}
                             />
                             <AddNotes
                                 toggleNotesOverlay={toggleNotesOverlay}
