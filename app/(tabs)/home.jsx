@@ -30,26 +30,26 @@ const Home = () => {
 
     // Searches database for user's username
     const getProfileInfo = async () => {
-        try{
+        try {
             const userID = auth().currentUser.uid;
             const userDoc = await firestore().collection('Users').doc(userID).get();
             const userData = userDoc.data()
-                if (userData.username === "") {
-                    setUserName(userData.email);  // If username is empty, display the email
-                } else {
-                    setUserName(userData.username);  // Otherwise, set it to the username
-                }
-                setCalGoal(Number(userData.calGoal))
+            if (userData.username === "") {
+                setUserName(userData.email);  // If username is empty, display the email
+            } else {
+                setUserName(userData.username);  // Otherwise, set it to the username
+            }
+            setCalGoal(Number(userData.calGoal))
 
-                const macroGoal = userData.macroGoal
-                const [carbRatio, proteinRatio, fatRatio] = macroGoal.split(':').map(Number);
+            const [carbRatio, proteinRatio, fatRatio] = userData.macroGoal.split(':').map(Number);
 
-                // calculates the grams needed based on ratio and cal goal
-                setCarb(Math.round(calGoal * (carbRatio / 100) / 4))
-                setProtein(Math.round(calGoal * (proteinRatio / 100) / 9))
-                setFat(Math.round(calGoal * (fatRatio / 100) / 4))
+            // calculates the grams needed based on ratio and cal goal
+            setCarb(Math.round(calGoal * (carbRatio / 100) / 4))
+            setProtein(Math.round(calGoal * (proteinRatio / 100) / 9))
+            setFat(Math.round(calGoal * (fatRatio / 100) / 4))
 
-        } catch (e){
+
+        } catch (e) {
             getProfileInfo() // if profile info can't be fetched, try again
         }
     }
@@ -72,11 +72,11 @@ const Home = () => {
                         </Text>
 
                         {/* View that holds the progress bars and their labels */}
-                        <View style={{ flexDirection: 'column'}}>
+                        <View style={{ flexDirection: 'column' }}>
                             {/* TODO: progress of bars should be calculated using eaten/total calories */}
                             {/* test values, will have to change */}
                             {/* Progress Bars */}
-                            <ProgressBar title='Calories' progress={Number(totalCalsEaten)} total={calGoal} />
+                            <ProgressBar title='Calories' progress={Number(totalCalsEaten)} total={calGoal} isCal={true}/>
                             <ProgressBar title='Carbs' progress={Number(totalCarbEaten)} total={carb} />
                             <ProgressBar title='Proteins' progress={Number(totalProteinEaten)} total={protein} />
                             <ProgressBar title='Fats' progress={Number(totalFatEaten)} total={fat} />
@@ -97,7 +97,7 @@ const Home = () => {
                             {/* Quick Track Frame */}
                             <HomeFrame title='Quick Track' />
                             {/* Take Notes Frame */}
-                            <HomeFrame title='Notes' 
+                            <HomeFrame title='Notes'
                                 toggleNotesOverlay={toggleNotesOverlay}
                             />
                         </View>
@@ -148,7 +148,7 @@ const localStyle = StyleSheet.create({
     summTitle: {
         color: '#F2F4F3',
         fontSize: 20,
-        paddingTop: 5, 
+        paddingTop: 5,
         paddingBottom: 20,
         fontFamily: 'Inter_600SemiBold',
         textAlign: 'center',

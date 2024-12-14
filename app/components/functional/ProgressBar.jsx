@@ -6,6 +6,7 @@ const ProgressBar = ({
     title,
     progress,
     total,
+    isCal
 }) => {
     let color
     if (title == 'Proteins'){
@@ -29,7 +30,7 @@ const ProgressBar = ({
                 </Text>
             </View>
             <Progress.Bar
-                progress={progress/total}
+                progress={progress/total} 
                 color={color}
                 unfilledColor={'#0E1116'}
                 height={20}
@@ -38,10 +39,10 @@ const ProgressBar = ({
                 style={{ marginBottom: 10, justifyContent: 'center'}}
             >
                 <Text style={[localStyle.progressText, {textAlign: 'left'}]}>
-                    {progress}
+                    {progress}{isCal ? '' : 'g'}
                 </Text>
                 <Text style={[localStyle.progressText, {textAlign: 'right', color:'#F2F4F3'}]}>
-                    {total}
+                    {total}{isCal ? '' : 'g'}
                 </Text>
             </Progress.Bar>
         </View>
