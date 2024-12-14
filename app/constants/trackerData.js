@@ -11,7 +11,6 @@ import { useState, useEffect } from "react";
 import { getTrackerDayRef } from "./getTrackerDayRef";
 import auth from '@react-native-firebase/auth';
 const userID = auth().currentUser ? auth().currentUser.uid : null;
-const currDate = new Date();  // Get current date
 
 export const useFoodData = (date) => {
 
@@ -155,8 +154,10 @@ export const useExerciseData = (date) => {
     return {exerciseList, totalCalsBurned}
 };
 
-export const useWaterData = (date) => {
+export const useWaterAndNotesData = (date) => {
     const [water, setWater] = useState(0);
+    const [notes, setNotes] = useState("");
+    const [stars, setStars] = useState(0);
     useEffect(() => {
         const trackerDayRef = getTrackerDayRef(date);
 
@@ -165,9 +166,11 @@ export const useWaterData = (date) => {
             (docSnapshot) => {
                 const data = docSnapshot.data();
                 setWater(data.water || 0);
+                setNotes(data.notes || "");
+                setStars(data.rating || 0);
             },
             (error) => {
-                alert("Error Getting Water Data: " + error.message);
+                alert("Error Getting Data: " + error.message);
             }
         );
 
@@ -175,7 +178,7 @@ export const useWaterData = (date) => {
         return () => subscriber();
     }, [userID, date]);
 
-    return water
+    return {water, notes, stars}
 };
 
 export const getDate = (date) => {
@@ -191,29 +194,3 @@ export const getDate = (date) => {
         alert("Error Getting Date: ", e.message)
     }
 }
-
-export const getNotes = (date) => {
-    const [notes, setNotes] = useState("");
-    const [stars, setStars] = useState(0);
-
-    useEffect(() => {
-        const trackerDayRef = getTrackerDayRef(date);
-
-        // Set up the Firestore listener
-        const subscriber = trackerDayRef.onSnapshot(
-            (docSnapshot) => {
-                const data = docSnapshot.data();
-                setNotes(data.notes || "");
-                setStars(data.rating || 0);
-            },
-            (error) => {
-                alert("Error Getting Notes: " + error.message);
-            }
-        );
-
-        // Cleanup function to unsubscribe from the listener when the component unmounts
-        return () => subscriber();
-    }, [userID, date]);
-
-    return {notes, stars}
-};

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import CustomHeader from '../components/structural/CustomHeader';
 import CustomScreen from '../components/structural/CustomScreen';
 import CustomButton2 from '../components/functional/CustomButton2';
-import { useExerciseData, useFoodData, useWaterData } from '../constants/trackerData';
+import { useExerciseData, useFoodData, useWaterAndNotesData } from '../constants/trackerData';
 import { CollapseSection } from '../constants/CollapseSection';
 import { router } from 'expo-router';
 
@@ -20,7 +20,7 @@ const ShoppingGenDay = () => {
     const { foodSections, setFoodSections } = useFoodData();
 
     // Test data, will need to start off empty and be saved for each user, will only be one number that keeps increasing as user adds more
-    const { water, setWater } = useWaterData()
+    const { water } = useWaterAndNotesData()
 
     // Render each section with collapsibility
     const renderSection = ({ item }) => {
