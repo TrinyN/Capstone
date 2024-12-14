@@ -14,6 +14,11 @@ const Home = () => {
     const currDate = new Date() // today's date
     const [addNotesVisible, setAddNotesVisible] = useState(false);
     const [userName, setUserName] = useState("");
+    const [calGoal, setCalGoal] = useState(2400)
+    const [carb, setCarb] = useState(225)
+    const [protein, setProtein] = useState(75)
+    const [fat, setFat] = useState(67)
+
 
     // Change visibility of add notes pop up
     const toggleNotesOverlay = () => {
@@ -24,22 +29,33 @@ const Home = () => {
     const { totalCalsEaten, totalCarbEaten, totalFatEaten, totalProteinEaten, notes, stars } = useTrackerData(currDate);
 
     // Searches database for user's username
-    const getUsername = async () => {
+    const getProfileInfo = async () => {
         try{
             const userID = auth().currentUser.uid;
             const userDoc = await firestore().collection('Users').doc(userID).get();
-                if (userDoc.data().username === "") {
-                    setUserName(userDoc.data().email);  // If username is empty, display the email
+            const userData = userDoc.data()
+                if (userData.username === "") {
+                    setUserName(userData.email);  // If username is empty, display the email
                 } else {
-                    setUserName(userDoc.data().username);  // Otherwise, set it to the username
+                    setUserName(userData.username);  // Otherwise, set it to the username
                 }
+                setCalGoal(Number(userData.calGoal))
+
+                const macroGoal = userData.macroGoal
+                const [carbRatio, proteinRatio, fatRatio] = macroGoal.split(':').map(Number);
+
+                // calculates the grams needed based on ratio and cal goal
+                setCarb(Math.round(calGoal * (carbRatio / 100) / 4))
+                setProtein(Math.round(calGoal * (proteinRatio / 100) / 9))
+                setFat(Math.round(calGoal * (fatRatio / 100) / 4))
+
         } catch (e){
-            getUsername() // if username can't be fetched, try again
+            getProfileInfo() // if profile info can't be fetched, try again
         }
     }
 
     useEffect(() => {
-        getUsername()
+        getProfileInfo()
     }, []);
 
     return (
@@ -60,10 +76,10 @@ const Home = () => {
                             {/* TODO: progress of bars should be calculated using eaten/total calories */}
                             {/* test values, will have to change */}
                             {/* Progress Bars */}
-                            <ProgressBar title='Calories' progress={Number(totalCalsEaten)} total={2000} />
-                            <ProgressBar title='Carbs' progress={Number(totalCarbEaten)} total={300} />
-                            <ProgressBar title='Proteins' progress={Number(totalProteinEaten)} total={170} />
-                            <ProgressBar title='Fats' progress={Number(totalFatEaten)} total={30} />
+                            <ProgressBar title='Calories' progress={Number(totalCalsEaten)} total={calGoal} />
+                            <ProgressBar title='Carbs' progress={Number(totalCarbEaten)} total={carb} />
+                            <ProgressBar title='Proteins' progress={Number(totalProteinEaten)} total={protein} />
+                            <ProgressBar title='Fats' progress={Number(totalFatEaten)} total={fat} />
                         </View>
                     </View>
                     {/* Two FlatLists to hold two separate columns of quick tool frames, with frames of different heights */}
