@@ -1,15 +1,61 @@
 import { Text, View, TextInput, StyleSheet } from 'react-native';
 import Feather from "react-native-vector-icons/Feather";
 import React from 'react'
+import { getTrackerDayRef } from '../../constants/getTrackerDayRef';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 const TrackerInfo = ({
     caloricGoal,
     weight,
     eaten,
     burned,
-    bmr, 
-    weightGoal
+    bmr,
+    weightGoal,
+    date
 }) => {
+
+    const saveWeight = async (inputWeight) => {
+        try {
+            const trackerDayRef = getTrackerDayRef(date);
+            trackerDayRef.update({
+                weight: parseFloat(inputWeight) // saves weight in database
+            })
+
+            // find most recent weight
+            const userID = auth().currentUser.uid;  // Get current user's ID
+            const userRef = await firestore().collection('Users').doc(userID)
+            const allTrackersSnapshot = await userRef.collection('Tracker').get();
+
+            let mostRecentDate = null;
+            let mostRecentWeight = null;
+            allTrackersSnapshot.forEach(doc => {
+                const docDate = doc.id;
+                const docData = doc.data();
+
+                if (!docData.weight) return; // if weight doesn't exist, disregard
+
+                const docWeight = docData.weight;
+                const [year, month, day] = docDate.split('-');
+                const dateObject = new Date(year, month - 1, day); // convert string to Date
+
+                if (!mostRecentDate || dateObject > new Date(mostRecentDate)) {
+                    mostRecentDate = docDate;
+                    mostRecentWeight = docWeight;
+                }
+            });
+
+            // save most recent weight to profile
+            await userRef.update({
+                weight: mostRecentWeight
+            });
+
+            alert("Weight Successfully Saved")
+
+        } catch (e) {
+            alert('Error Saving Weight: ', e.message)
+        }
+    }
 
     const netTotal = eaten - burned - bmr
     let weightStatus = Math.abs(netTotal) <= 100 ? 'Maintain' : netTotal > 0 ? 'Bulk / Gain Weight' : 'Cut / Lose Weight'
@@ -27,7 +73,7 @@ const TrackerInfo = ({
 
     // renders the formula either with the variables or actual values
     const renderFormula = ({ type }) => {
-        const values = type === 'formula'        
+        const values = type === 'formula'
             ? {
                 textDecorationLine: 'underline',
                 color: '#CB9CF2',
@@ -88,9 +134,11 @@ const TrackerInfo = ({
                     <Text style={[localStyle.mainText, { fontSize: 16 }]}>
                         Weight:
                     </Text>
-                    <TextInput style={[localStyle.input, { width: 75, paddingHorizontal: 5, textAlign: 'left' }]}
+                    <TextInput style={[localStyle.input, { width: 75, marginLeft: 5, textAlign: 'left' }]}
                         placeholder={weight + ' lbs'}
                         placeholderTextColor={'#F2F4F3'}
+                        keyboardType='numeric'
+                        onSubmitEditing={(event) => saveWeight(event.nativeEvent.text)}
                     />
                     <Feather pointerEvents="none" name="edit-2" size={14} color="#CB9CF2" style={{ position: 'absolute', paddingRight: 2 }} />
                 </View>
@@ -135,10 +183,10 @@ const localStyle = StyleSheet.create({
         paddingHorizontal: 5,
         fontSize: 16
     },
-    goalView:{
-        justifyContent: 'space-between', 
-        flexDirection: 'row', 
-        paddingVertical: 12, 
+    goalView: {
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        paddingVertical: 12,
         alignItems: 'center'
     },
     formulaContainer: {

@@ -86,8 +86,8 @@ const SignUp3 = () => {
                 const daysInMonth = new Date(year, month + 1, 0).getDate() // get last day in month
                 for (let day = 1; day <= daysInMonth; day++) { // create document for all days of the month
                     const date = new Date(year, month, day)
-                    // format date like: 01-23-2024
-                    const formattedDate = `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}-${date.getFullYear()}`;
+                    // format date like: YYYY-MM-DD
+                    const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
                     // create document with ID as formatted date and create notes and water field
                     await trackerRef.doc(formattedDate).set({
                         notes: "",

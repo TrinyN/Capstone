@@ -32,6 +32,7 @@ export const useTrackerData = (date) => {
     const [water, setWater] = useState(0);
     const [notes, setNotes] = useState("");
     const [stars, setStars] = useState(0);
+    const [weightForDate, setWeightForDate] = useState(0); // weight for day of tracker
 
     const userID = auth().currentUser?.uid || null;
     
@@ -50,7 +51,7 @@ export const useTrackerData = (date) => {
         unsubscribeExerciseRef.current?.();
         unsubscribeDocRef.current?.();
 
-        // Set up listeners for sub-collections (Food, Exercise) and main document (Water, Notes, Stars)
+        // Set up listeners for sub-collections (Food, Exercise) and main document (Water, Notes, Stars, and Weight)
         const foodListener = trackerDayRef.collection("Food").orderBy('foodName', 'asc');
         const exerciseListener = trackerDayRef.collection("Exercise").orderBy('exerciseName', 'asc');
 
@@ -151,6 +152,7 @@ export const useTrackerData = (date) => {
                 setWater(data?.water || 0);
                 setNotes(data?.notes || "");
                 setStars(data?.rating || 0);
+                setWeightForDate(data?.weight || '—')
             }
         );
 
@@ -171,7 +173,8 @@ export const useTrackerData = (date) => {
         totalCalsBurned, 
         water, 
         notes, 
-        stars 
+        stars,
+        weightForDate
     };
 };
 
@@ -179,7 +182,7 @@ export const getDate = (date) => {
     try {
         const trackerDayRef = getTrackerDayRef(date);
         const dateString = trackerDayRef.id // get ID to get today's date as a string
-        const [month, day, year] = dateString.split('-');
+        const [year, month, day] = dateString.split('-');
         const dateObject = new Date(year, month - 1, day); // convert string to Date
         const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         const formattedDate = `${daysOfWeek[dateObject.getDay()] + " "}${(dateObject.getMonth() + 1).toString()}/${dateObject.getDate().toString()}`;

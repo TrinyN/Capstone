@@ -112,7 +112,7 @@ const Tracker = () => {
         setVisibleOptions(!visibleOptions);
     };
 
-    const { exerciseList, totalCalsBurned, foodList, totalCalsEaten, water, notes, stars } = useTrackerData(date);
+    const { exerciseList, totalCalsBurned, foodList, totalCalsEaten, water, notes, stars, weightForDate } = useTrackerData(date);
 
     // const { notes, stars } = getNotes(date);
 
@@ -248,11 +248,12 @@ const Tracker = () => {
                             {/* test values, will need to get users info from database */}
                             <TrackerInfo
                                 caloricGoal={calGoal}
-                                weight={"105"}
                                 eaten={totalCalsEaten}
                                 burned={totalCalsBurned}
                                 bmr={calcBMR()}
                                 weightGoal={weightGoal}
+                                date={date}
+                                weight={weightForDate}
                             />
                             {/* Add Food Button */}
                             <CustomButton2
