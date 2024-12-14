@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import CustomPopUp from '../../structural/CustomPopUp';
 import styles from '../../../styles';
@@ -12,19 +12,27 @@ const emojiRegex = require('emoji-regex');
 
 const validationSchema = yup.object({
     notes: yup.string().nullable()
-    // allows emojis, letters, numbers, punctuation, new lines and spaces. Doesn't allow <> and symbols anywhere in input
-    .test('', 'Malformed Input', (value) =>
-        value ? /^(?!.*[<>])[\p{L}\p{N}\p{P}\s]*$/u.test(value) || emojiRegex().test(value) : true 
-      ),
+        // allows emojis, letters, numbers, punctuation, new lines and spaces. Doesn't allow <> and symbols anywhere in input
+        .test('', 'Malformed Input', (value) =>
+            value ? /^(?!.*[<>])[\p{L}\p{N}\p{P}\s]*$/u.test(value) || emojiRegex().test(value) : true
+        ),
 });
 
-const AddNotes = ({ addNotesVisible, toggleNotesOverlay, date }) => {
+const AddNotes = ({ addNotesVisible, toggleNotesOverlay, date, notes, stars }) => {
     const [rating, setRating] = useState(0);
+
+    // change shown star rating depending on day of tracker
+    useEffect(() => {
+        if (stars !== undefined)
+            setRating(stars)
+    }, [notes, stars]);
+
 
     const handlePress = async (values) => {
         const { notes } = values; // get value from formik
         try {
-            const trackerDayRef = new getTrackerDayRef(date);
+            let trackerDayRef;
+            trackerDayRef = new getTrackerDayRef(date); // use date tracker is on
 
             trackerDayRef.update({
                 notes: notes,
@@ -60,6 +68,7 @@ const AddNotes = ({ addNotesVisible, toggleNotesOverlay, date }) => {
                                     onChange={setRating}
                                     color={'#FFF07C'}
                                     enableHalfStar={false}
+                                    defaultValue={stars}
                                 />
                             </View>
                             <View style={localStyle.fieldRow}>
@@ -72,7 +81,7 @@ const AddNotes = ({ addNotesVisible, toggleNotesOverlay, date }) => {
                                         multiline
                                         maxLength={210}
                                         onChangeText={handleChange('notes')}
-                                        defaultValue={""}
+                                        defaultValue={notes}
                                     >
                                     </TextInput>
                                     {errors.notes && <Text style={localStyle.errorMessage}>{errors.notes}</Text>}

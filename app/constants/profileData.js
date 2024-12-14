@@ -8,14 +8,13 @@ import firestore from '@react-native-firebase/firestore';
 import { useEffect } from 'react';
 import { useSexOptions, useDietPlanOptions, useWeightGoalOptions } from './dropdownOptions';
 
-
-// useState that contains non changing values
 export const userDataItems = () => {
     // gets options from dropdownOptions constant
     const { sex } = useSexOptions();
     const { dietPlan } = useDietPlanOptions();
     const { weightGoal } = useWeightGoalOptions();
 
+    // useState that contains non changing values
     const [userInfo, setUserInfo] = useState([
         { title: 'Email', value: '', type: '', options: [] },
         { title: 'Name', value: '', type: 'text', options: [] },
@@ -30,51 +29,54 @@ export const userDataItems = () => {
         { title: 'Macro Ratio Goal', value: '', type: 'text', options: [] },
     ]);
 
-    const getUserData = async () => {
-        try {
-            const userID = auth().currentUser.uid;
-            const userDoc = await firestore().collection('Users').doc(userID).get();
-            const userData = userDoc.data();
-
-            // TODO need to add gender, dob, weight goal, dietplan
-            const userDataMapping = {
-                'Email': 'email',
-                'Name': 'username',
-                'Gender': 'sex',
-                'Date of Birth': 'dateOfBirth',
-                'Height': 'height',
-                'Weight': 'weight',
-                'Caloric Goal': 'calGoal',
-                'Water Goal': 'waterGoal',
-                'Weight Goal': 'weightGoal',
-                'Diet Plan': 'dietPlan',
-                'Macro Ratio Goal': 'macroGoal',
-            };
-            const updatedUserInfo = userInfo.map(item => {
-                const value = userData?.[userDataMapping[item.title]] || "—";
-
-                return {
-                    ...item,
-                    value: item.title === 'Height' ? `${value} cm` :
-                        item.title === 'Weight' ? `${value} lbs` :
-                            item.title === 'Water Goal' ? `${value} cups` :
-                                item.title === 'Caloric Goal' ? `${value} per day` :
-                                    value
-                };
-            });
-
-            setUserInfo(updatedUserInfo);
-        } catch (e) {
-            alert('Error fetching user data: ' + e.message);
-        }
+    const userID = auth().currentUser.uid;
+    const userDataMapping = {
+        'Email': 'email',
+        'Name': 'username',
+        'Gender': 'sex',
+        'Date of Birth': 'dateOfBirth',
+        'Height': 'height',
+        'Weight': 'weight',
+        'Caloric Goal': 'calGoal',
+        'Water Goal': 'waterGoal',
+        'Weight Goal': 'weightGoal',
+        'Diet Plan': 'dietPlan',
+        'Macro Ratio Goal': 'macroGoal',
     };
 
     useEffect(() => {
-        getUserData();
-    }, []);
+        // Set up the Firestore listener
+        const subscriber = firestore().collection('Users').doc(userID).onSnapshot(
+            (docSnapshot) => {
+                const userData = docSnapshot.data();
+
+                const updatedUserInfo = userInfo.map(item => {
+                    const value = userData?.[userDataMapping[item.title]] || "—";
+
+                    return {
+                        ...item,
+                        value: item.title === 'Height' ? `${value} cm` :
+                            item.title === 'Weight' ? `${value} lbs` :
+                                item.title === 'Water Goal' ? `${value} cups` :
+                                    item.title === 'Caloric Goal' ? `${value} per day` :
+                                        value
+                    };
+                });
+
+                setUserInfo(updatedUserInfo);
+            },
+            (error) => {
+                alert('Error fetching user data: ' + error.message);
+            }
+        );
+
+        // Cleanup function to unsubscribe from the listener when the component unmounts
+        return () => subscriber();
+    }, [userID]);
 
     return {
         userInfo,
         setUserInfo
     }
-}
+};
+
