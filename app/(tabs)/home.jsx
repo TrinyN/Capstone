@@ -7,13 +7,11 @@ import AddNotes from '../components/functional/AddPopUps/AddNotes';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 // import { getNotes } from '../constants/trackerData';
-import { useFoodData, useWaterAndNotesData } from '../constants/trackerData';
+import { useTrackerData } from '../constants/trackerData';
 
 // Function that handles the design and display of the Home screen
 const Home = () => {
     const currDate = new Date() // today's date
-    const {notes, stars} = useWaterAndNotesData(currDate); // get notes from database for current day
-
     const [addNotesVisible, setAddNotesVisible] = useState(false);
     const [userName, setUserName] = useState("");
 
@@ -23,7 +21,7 @@ const Home = () => {
     }
 
     // gets progress bar data for current date
-    const { totalCalsEaten, totalCarbEaten, totalFatEaten, totalProteinEaten } = useFoodData(currDate);
+    const { totalCalsEaten, totalCarbEaten, totalFatEaten, totalProteinEaten, notes, stars } = useTrackerData(currDate);
 
     // Searches database for user's username
     const getUsername = async () => {

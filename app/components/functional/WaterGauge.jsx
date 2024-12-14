@@ -1,7 +1,7 @@
 import { View, StyleSheet, Dimensions, Image } from 'react-native';
 import { React, useState } from 'react';
 import { LiquidGauge } from 'react-native-liquid-gauge';
-import { useWaterAndNotesData } from '../../constants/trackerData';
+import { useTrackerData } from '../../constants/trackerData';
 import { userDataItems } from '../../constants/profileData';
 import { createIconSetFromFontello } from 'react-native-vector-icons';
 
@@ -19,7 +19,7 @@ const WaterGauge = () => {
     const ht = (wth * 1.5)
 
     // Handling user's data to get their water drank and water goal, then set progress value
-    const {water} = useWaterAndNotesData(date);
+    const {water} = useTrackerData(date);
     const { userInfo, setUserInfo } = userDataItems();
     let goal = parseInt(userInfo.find(item => item.title === "Water Goal")?.value);
 
