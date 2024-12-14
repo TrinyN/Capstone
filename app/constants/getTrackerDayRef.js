@@ -10,10 +10,16 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
 export const getTrackerDayRef = (date) => {
-  const userID = auth().currentUser.uid;  // Get current user's ID
-  // const currDate = new Date();  // Get current date
-  const formattedDate = `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}-${date.getFullYear()}`;
+  try {
+    const userID = auth().currentUser.uid;  // Get current user's ID
+    // const currDate = new Date();  // Get current date
+    const formattedDate = `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}-${date.getFullYear()}`;
 
-  // Return the reference to the Tracker document for today
-  return firestore().collection('Users').doc(userID).collection('Tracker').doc(formattedDate);
+    // Return the reference to the Tracker document for today
+    return firestore().collection('Users').doc(userID).collection('Tracker').doc(formattedDate);
+  }
+  catch (error) {
+    alert("Error ", error)
+  }
+
 };
