@@ -119,7 +119,7 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
                                         <Ionicons name="barcode-sharp" size={30} color="#CB9CF2" style={{ bottom: 2 }} />
                                     </TouchableOpacity>
                                 </View>
-                                <View style={localStyle.viewContainer}>
+                                <View style={[localStyle.viewContainer, { paddingBottom:0 }]}>
                                     <TextInput
                                         style={[styles.inputFieldStyle, { flex: 1 }]}
                                         placeholder='Food Name' 

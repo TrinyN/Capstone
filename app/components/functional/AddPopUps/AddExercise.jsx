@@ -63,9 +63,6 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
 
                 toggleExerciseOverlay()
                 Alert.alert('', "Exercise Successfully Added")
-                // setExercise("")
-                // setDuration(0)
-                // setCalsBurned(0)
                 setExerciseUnit("Minutes")
             }
 
@@ -94,16 +91,12 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                                     placeholder='Exercise'
                                     selectionColor='#CB9CF2'
                                     placeholderTextColor='rgba(242,244,243, 0.2)'
-                                    // onChangeText={newVal => setExercise(newVal)}
-                                    // defaultValue={exercise}
                                     value={values.exerciseName}
-                                    // onBlur={handleBlur('exercise')}              // I.V. work - NOT WORKING
                                     onChangeText={handleChange('exerciseName')}
-                                    // errors={errors.name} //?
                                 >
                                 </TextInput>
-                                {errors.exerciseName && <Text style={localStyle.errorMessage}>{errors.exerciseName}</Text>}
                             </View>
+                            {errors.exerciseName && <Text style={localStyle.errorMessage}>{errors.exerciseName}</Text>}
                             <View style={localStyle.fieldRow}>
                                 <View style={{ flex: 1, paddingRight: 10 }}>
                                     <TextInput
@@ -112,15 +105,10 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                                         selectionColor='#CB9CF2'
                                         placeholderTextColor='rgba(242,244,243, 0.2)'
                                         keyboardType='numeric'
-                                        // onChangeText={newVal => setDuration(newVal)}
-                                        // defaultValue={duration}
                                         value={values.duration}
-                                        // onBlur={handleBlur('duration')}              // I.V. work - NOT WORKING
                                         onChangeText={handleChange('duration')}
-                                        // errors={errors.name} //?
                                         >
                                     </TextInput>
-                                    {errors.duration && <Text style={localStyle.errorMessage}>{errors.duration}</Text>}
                                 </View>
                                 <View style={{ flex: 1 }}>
                                     <CustomDropdown
@@ -131,28 +119,25 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                                     />
                                 </View>
                             </View>
-                            <View style={[localStyle.fieldRow, { paddingTop: 5, zIndex: -1 }]}>
+                            {errors.duration && <Text style={localStyle.errorMessage}>{errors.duration}</Text>}
+                            <View style={[localStyle.fieldRow, { paddingVertical: 0, zIndex: -1 }]}>
                                 <View style={{ flex: 1, paddingRight: 10 }}>
                                     <CustomButton2 type={"normal"} text={"Calculate"} />
                                 </View>
                                 <View style={{ flex: 1 }}>
                                     <TextInput
-                                        style={[styles.inputFieldStyle]}
-                                        placeholder='Cals Burned'
+                                        style={[styles.inputFieldStyle ]}
+                                        placeholder='Cals'
                                         selectionColor='#CB9CF2'
                                         placeholderTextColor='rgba(242,244,243, 0.2)'
                                         keyboardType='numeric'
-                                        // onChangeText={newVal => setCalsBurned(newVal)}
-                                        // defaultValue={calsBurned}
                                         value={values.calsBurned}
-                                        // onBlur={handleBlur('calsBurned')}              // I.V. work - NOT WORKING
                                         onChangeText={handleChange('calsBurned')}
-                                        // errors={errors.name} //?
                                         >
                                     </TextInput>
-                                    {errors.calsBurned && <Text style={localStyle.errorMessage}>{errors.calsBurned}</Text>}
                                 </View>
                             </View>
+                            {errors.calsBurned && <Text style={[localStyle.errorMessage, {paddingVertical:0}]}>{errors.calsBurned}</Text>}
                             <CustomButton title={"Submit"} handlePress={handleSubmit} />
                         </View>
                     )}
@@ -173,7 +158,8 @@ const localStyle = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingTop: 20,
+        paddingTop: 5,
+        paddingHorizontal:5
     },
     errorMessage: {
         fontSize: 11,
