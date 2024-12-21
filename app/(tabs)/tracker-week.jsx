@@ -1,13 +1,14 @@
 import { Text, View, SectionList, StyleSheet, TouchableOpacity } from 'react-native';
 import styles from '../styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { router } from 'expo-router';
 import CustomScreen from '../components/structural/CustomScreen';
 import TrackerOptions from '../components/functional/TrackerOptions';
 import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useDayListData } from '../constants/trackerWeekData';
 import GlanceText from '../components/structural/GlanceText';
-
+import { useLocalSearchParams } from 'expo-router';
+import { useTrackerData } from '../constants/trackerData';
 // todo:
 // calculating averages
 // comparing amounts to get color of text
@@ -17,14 +18,27 @@ import GlanceText from '../components/structural/GlanceText';
 
 // Function to design and display the tracker and its related data
 const TrackerWeek = () => {
+    const { day } = useLocalSearchParams();
+
     // saves visibility of options pop up
     const [visibleOptions, setVisibleOptions] = useState(false);
 
     // change visibility of options pop up
-    const toggleOptions = () => {setVisibleOptions(!visibleOptions)};
+    const toggleOptions = () => { setVisibleOptions(!visibleOptions) };
 
-    // test data, will need to start off empty and be saved for each user
-    const { dayList, setDayList } = useDayListData();
+    const { avgWater, avgWeight, totalCalsBurned } = useDayListData(day);
+    console.log(avgWater, avgWeight, totalCalsBurned)
+
+    // // Sample data for days of the week
+    const dayList = ([
+        { title: 'Sun.', data: ['3000 - 500'], goal: ['Surplus'], goalColor: ['#E65148'] },
+        { title: 'Mon.', data: ['2750 - 300'], goal: ['Balance'], goalColor: ['#80FF72'] },
+        { title: 'Tues.', data: ['1000 - 500'], goal: ['Deficit'], goalColor: ['#E65148'] },
+        { title: 'Wed.', data: ['2500 - 0'], goal: ['Balance'], goalColor: ['#80FF72'] },
+        { title: 'Thurs.', data: ['2500 - 300'], goal: ['Balance'], goalColor: ['#80FF72'] },
+        { title: 'Fri.', data: [' - '], goal: ['Balance'], goalColor: ['#80FF72'] },
+        { title: 'Sat.', data: [' - '], goal: ['Balance'], goalColor: ['#80FF72'] },
+    ]);
 
     const pinch = Gesture.Pinch()
         .onUpdate((event) => {
@@ -52,10 +66,10 @@ const TrackerWeek = () => {
                             <View style={localStyle.calcView}>
 
                                 {/* View to hold weight info at a glance */}
-                                <GlanceText type='vert' prompt='Average Weight:' text='102.5 lbs'></GlanceText>
+                                <GlanceText type='vert' prompt='Average Weight:' text={avgWeight + ' lbs'}></GlanceText>
 
                                 {/* View to hold water info at a glance */}
-                                <GlanceText type='vert' prompt='Average Water:' text='80 fl oz of 72 fl oz'></GlanceText>
+                                <GlanceText type='vert' prompt='Average Water:' text={Math.round(avgWater * 100) / 100 + ' cups'}></GlanceText>
                             </View>
 
                             {/* Space between Stats View and Week List */}
@@ -93,14 +107,14 @@ const TrackerWeek = () => {
                                     // List header for week list
                                     ListHeaderComponent={
                                         <View style={localStyle.sectionListHeadFoot}>
-                                            <Text style={[styles.headerText, {fontFamily:'Inter_600SemiBold'}]}>
+                                            <Text style={[styles.headerText, { fontFamily: 'Inter_600SemiBold' }]}>
                                                 Day
                                             </Text>
                                             {/* Calories eaten and burned */}
-                                            <Text style={[styles.headerText, {textAlign:'center'}]}>
+                                            <Text style={[styles.headerText, { textAlign: 'center' }]}>
                                                 Calories
                                             </Text>
-                                            <Text style={[styles.headerText, {textAlign:'right'}]}>
+                                            <Text style={[styles.headerText, { textAlign: 'right' }]}>
                                                 Goal
                                             </Text>
                                             <View style={{ height: 2, backgroundColor: '#828282' }} />
@@ -113,11 +127,11 @@ const TrackerWeek = () => {
                                                 Avg:
                                             </Text>
                                             {/* Implement calculation of average calorie */}
-                                            <Text style={[styles.headerText, {textAlign:'center'}]}>
+                                            <Text style={[styles.headerText, { textAlign: 'center' }]}>
                                                 2,750
                                             </Text>
                                             {/* Implement comparison to average goal */}
-                                            <Text style={[styles.headerText, {textAlign:'right'}]}>
+                                            <Text style={[styles.headerText, { textAlign: 'right' }]}>
                                                 Balance
                                             </Text>
                                             <View style={{ height: 2, backgroundColor: '#828282' }} />
@@ -148,7 +162,7 @@ const localStyle = StyleSheet.create({
         backgroundColor: 'rgba(27,33,43,0.5)',
         borderRadius: 8,
     },
-    sectionListHeadFoot:{
+    sectionListHeadFoot: {
         backgroundColor: '#1F2938',
         flexDirection: 'row',
         justifyContent: 'space-between',

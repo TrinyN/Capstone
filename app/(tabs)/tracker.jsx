@@ -348,6 +348,7 @@ const Tracker = () => {
                                 visibleOptions={visibleOptions}
                                 view='Day'
                                 toggleNotesOverlay={toggleNotesOverlay}
+                                day={date}
                             />
                             <AddFoodConfirmation
                                 toggleFoodConfirmOverlay={toggleFoodConfirmOverlay}
