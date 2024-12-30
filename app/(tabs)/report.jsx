@@ -10,6 +10,7 @@ import { shareAsync } from 'expo-sharing';
 // TODO: change so placeholders match users info
 // Function to handle the design of the Reports screen of CaloNavo
 
+// Note: may have to move to allow for user's name
 const html = `
     <html>
         <head>
