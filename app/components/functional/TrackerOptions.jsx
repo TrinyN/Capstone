@@ -8,7 +8,8 @@ const TrackerOptions = ({
     visibleOptions,
     toggleOptions,
     view,
-    toggleNotesOverlay
+    toggleNotesOverlay, 
+    day
 }) => {
     let zoomIn
     let zoomOut
@@ -73,6 +74,7 @@ const TrackerOptions = ({
                     zoomRoute={zoomOutRoute}
                     opacity={zoomOutOpac}
                     toggleOptions={toggleOptions}
+                    day={day}
                 />
             </View>
         </Overlay>
