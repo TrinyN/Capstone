@@ -97,7 +97,7 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                                 </TextInput>
                             </View>
                             {errors.exerciseName && <Text style={localStyle.errorMessage}>{errors.exerciseName}</Text>}
-                            <View style={localStyle.fieldRow}>
+                            <View style={[localStyle.fieldRow, {paddingBottom:0, paddingTop:10}]}>
                                 <View style={{ flex: 1, paddingRight: 10 }}>
                                     <TextInput
                                         style={[styles.inputFieldStyle]}
@@ -158,7 +158,7 @@ const localStyle = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingTop: 5,
+        padding: 5,
         paddingHorizontal:5
     },
     errorMessage: {

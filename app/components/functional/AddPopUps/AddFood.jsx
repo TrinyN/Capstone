@@ -136,7 +136,7 @@ const AddFood = ({ previousOverlay, addFoodVisible, toggleFoodOverlay, toggleFoo
                                 </View>
                                 {errors.foodName && <Text style={localStyle.errorMessage}>{errors.foodName}</Text>}
 
-                                <View style={localStyle.viewContainer}>
+                                <View style={[localStyle.viewContainer, {paddingBottom:0, paddingTop:10}]}>
                                     <View style={{ flex: 1 }}>
                                         <TextInput
                                             style={styles.inputFieldStyle}
