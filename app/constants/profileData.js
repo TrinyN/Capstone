@@ -52,9 +52,6 @@ export const userDataItems = () => {
             (docSnapshot) => {
                 const userData = docSnapshot.data();
 
-                let tempGoal = userData?.weightGoal
-                setGoal(tempGoal)
-
                 const updatedUserInfo = userInfo.map(item => {
                     const value = userData?.[userDataMapping[item.title]] || "—";
 
@@ -69,6 +66,9 @@ export const userDataItems = () => {
                 });
 
                 setUserInfo(updatedUserInfo);
+
+                const tempGoal = userData?.weightGoal
+                setGoal(tempGoal)
             },
             (error) => {
                 alert('Error fetching user data: ' + error.message);

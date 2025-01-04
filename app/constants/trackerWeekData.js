@@ -18,6 +18,9 @@ export const useDayListData = (day) => {
 
     const [avgWater, setAvgWater] = useState(0);
     const [avgWeight, setAvgWeight] = useState(0);
+    const [avgCal, setAvgCal] = useState(0);
+    const [avgGoal, setAvgGoal] = useState("Balance");
+
 
     const userID = auth().currentUser?.uid || null;
 
@@ -32,6 +35,38 @@ export const useDayListData = (day) => {
         return `${year}-${month}-${day}`;
     };
     const { goal } = userDataItems();
+    const findGoalColor = (netCal) => {
+        let weightStatus = Math.abs(netCal) <= 100 ? 'Maintain' : (netCal) > 0 ? 'Bulk / Gain Weight' : 'Cut / Lose Weight'
+        let color;
+        if (weightStatus === goal) {
+            color = "#80FF72"
+        }
+        else if (goal == "Maintain") {
+            if (Math.abs(netCal) > 100) {
+                color = "#FFF07C"
+            }
+            else {
+                color = "#E65148"
+            }
+        }
+        else if (goal == "Bulk / Gain Weight") {
+            if (netCal <= 0 && netCal > -100) {
+                color = "#FFF07C"
+            }
+            else {
+                color = "#E65148"
+            }
+        }
+        else if (goal == "Cut / Lose Weight") {
+            if (netCal >= 0 && netCal < 100) {
+                color = "#FFF07C"
+            }
+            else {
+                color = "#E65148"
+            }
+        }
+        return color
+    }
 
     useEffect(() => {
         fetchWeekData();
@@ -93,7 +128,10 @@ export const useDayListData = (day) => {
                         const exerciseData = exerciseDoc.data();
                         totalCalsBurned += Number(exerciseData.calsBurned || 0);
                     });
-                    let weightStatus = Math.abs(totalCalsBurned-totalCalsEaten) <= 100 ? 'Maintain' : (totalCalsBurned-totalCalsEaten) > 0 ? 'Bulk / Gain Weight' : 'Cut / Lose Weight'
+
+                    let netCal = totalCalsEaten - totalCalsBurned
+                    let weightStatus = Math.abs(netCal) <= 100 ? 'Maintain' : (netCal) > 0 ? 'Bulk / Gain Weight' : 'Cut / Lose Weight'
+
 
                     // Update the corresponding day in the dayList copy
                     updatedDayList[dayIndex] = {
@@ -104,9 +142,10 @@ export const useDayListData = (day) => {
                             totalCalsEaten - totalCalsBurned > 100 ? 'Surplus' :
                                 totalCalsEaten - totalCalsBurned < -100 ? 'Deficit' :
                                     'Balance'
-                        ], 
+                        ],
                         // red or green depending on if goal is met (maybe change to 3 diff colors?)
-                        goalColor: weightStatus === goal ? "#80FF72" : "#E65148" 
+                        goalColor: weightStatus === goal ? "#80FF72" : Math.abs(totalCalsBurned-totalCalsEaten) <= 200 ? "#FFF07C" : "#E65148" 
+                        // goalColor: findGoalColor(totalCalsEaten - totalCalsBurned)
                     };
 
                     dayIndex++; // Move to the next day in the week
@@ -128,9 +167,42 @@ export const useDayListData = (day) => {
             });
     };
 
+    // Runs everytime data changes
+    useEffect(() => {
+        // Finds average of calories eaten
+        let calTotal = 0;
+        dayList.forEach(item => {
+            const [calsEaten] = item.data[0].split(' - ').map(Number); // Split and convert to numbers
+            calTotal += calsEaten;
+        });
+        setAvgCal(Math.round(calTotal/7))
+
+        // Finds frequency of each goal
+        const goalCounts = {};
+
+        dayList.forEach(item => {
+            const goal = item.goal[0];
+            goalCounts[goal] = (goalCounts[goal] || 0) + 1;
+        });
+
+        // Finds most occurring goal
+        let mostFrequentGoal = null;
+        let maxCount = 0;
+
+        for (const goal in goalCounts) {
+            if (goalCounts[goal] > maxCount) {
+                maxCount = goalCounts[goal];
+                mostFrequentGoal = goal;
+            }
+        }
+        setAvgGoal(mostFrequentGoal)
+    }, [dayList])
+
     return {
         avgWater,
         avgWeight,
-        dayList
+        dayList, 
+        avgCal, 
+        avgGoal
     };
 };
