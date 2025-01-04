@@ -32,7 +32,6 @@ export const useDayListData = (day) => {
         return `${year}-${month}-${day}`;
     };
     const { goal } = userDataItems();
-    console.log(goal)
 
     useEffect(() => {
         fetchWeekData();
