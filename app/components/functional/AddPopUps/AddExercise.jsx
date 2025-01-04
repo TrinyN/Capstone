@@ -18,18 +18,18 @@ const addExerciseSchema = yup.object({
                 .required('Exercise name is required')
                 .matches(/^[a-zA-Z0-9\-\/]+$/),
     duration: yup.number()
-                .typeError('Servings must be numbers')
-                .positive('Servings must be positive')
-                .required('Serving count is required')
+                .typeError('Time/reps must be number')
+                .positive('Time/reps must be positive')
+                .required('Time/reps is required')
                 .test(
                     'is-decimal',
-                    'Servings may only go to two decimal places',
+                    'Time/reps may only go to two decimal places',
                     (serv) => /^\d+(\.\d{1,2})?$/.test(serv)
                 ),
     calsBurned: yup.number()
-                .positive('Kcals must be positive')
-                .integer('Kcals must be whole numbers')
-                .required('Kcals per serving are required'),
+                .positive('Cals must be positive')
+                .integer('Cals must be whole numbers')
+                .required('Cals burned are required'),
 })
 
 const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverlay, date }) => {
@@ -97,7 +97,7 @@ const AddExercise = ({ addExerciseVisible, toggleExerciseOverlay, previousOverla
                                 </TextInput>
                             </View>
                             {errors.exerciseName && <Text style={localStyle.errorMessage}>{errors.exerciseName}</Text>}
-                            <View style={localStyle.fieldRow}>
+                            <View style={[localStyle.fieldRow, {paddingBottom:0, paddingTop:10}]}>
                                 <View style={{ flex: 1, paddingRight: 10 }}>
                                     <TextInput
                                         style={[styles.inputFieldStyle]}
@@ -158,7 +158,7 @@ const localStyle = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingTop: 5,
+        padding: 5,
         paddingHorizontal:5
     },
     errorMessage: {
