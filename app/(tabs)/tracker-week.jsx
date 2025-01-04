@@ -91,12 +91,12 @@ const TrackerWeek = () => {
                                                     {section.title}
                                                 </Text>
                                                 {/* TODO: Comparison to determine text color */}
-                                                <Text style={[styles.defaultWhiteText, localStyle.dayCals]}>
+                                                <Text style={[styles.defaultWhiteText, localStyle.dayCals, { color: section.goalColor }]}>
                                                     {section.data}
                                                 </Text>
                                                 {/* TODO: Comparison to determine text color */}
-                                                <Text style={[styles.defaultWhiteText, localStyle.dayGoal]}>
-                                                    {section.goal}
+                                                <Text style={[styles.defaultWhiteText, localStyle.dayGoal, { color: section.goalColor }]}>
+                                                {section.goal}
                                                 </Text>
                                             </TouchableOpacity>
 

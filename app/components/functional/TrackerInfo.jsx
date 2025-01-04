@@ -80,8 +80,8 @@ const TrackerInfo = ({
                 eatenValue: 'Eaten',
                 burnValue: 'Burned',
                 bmrValue: 'BMR',
-                overallValue: Math.abs(netTotal) <= tolerance ? 'Balance' : netTotal > 0 ? 'Surplus' : 'Deficit', // TODO need to change color of next depending on user goals
-                goalColor: weightStatus === weightGoal ? "#80FF72" : "#E65148" // weightGoal == netTotal ? '#80FF72' : '#E65148', // 3 diff colors depending on users goals, will need to add later 
+                overallValue: Math.abs(netTotal) <= tolerance ? 'Balance' : netTotal > 0 ? 'Surplus' : 'Deficit',
+                goalColor: weightStatus === weightGoal ? "#80FF72" : "#E65148"
             }
 
             : {

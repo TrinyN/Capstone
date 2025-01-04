@@ -14,6 +14,8 @@ export const userDataItems = () => {
     const { dietPlan } = useDietPlanOptions();
     const { weightGoal } = useWeightGoalOptions();
 
+    const [goal, setGoal] = useState("");
+
     // useState that contains non changing values
     const [userInfo, setUserInfo] = useState([
         { title: 'Email', value: '', type: '', options: [] },
@@ -50,6 +52,9 @@ export const userDataItems = () => {
             (docSnapshot) => {
                 const userData = docSnapshot.data();
 
+                let tempGoal = userData?.weightGoal
+                setGoal(tempGoal)
+
                 const updatedUserInfo = userInfo.map(item => {
                     const value = userData?.[userDataMapping[item.title]] || "—";
 
@@ -76,7 +81,8 @@ export const userDataItems = () => {
 
     return {
         userInfo,
-        setUserInfo
+        setUserInfo, 
+        goal
     }
 };
 

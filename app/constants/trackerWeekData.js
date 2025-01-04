@@ -3,16 +3,17 @@
 import { useState, useEffect } from "react";
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import { userDataItems } from "./profileData";
 
 export const useDayListData = (day) => {
     const [dayList, setDayList] = useState([
-        { title: 'Sun.', data: ['0 - 0'], goal: ['Surplus'], goalColor: ['#E65148'] },
-        { title: 'Mon.', data: ['0 - 0'], goal: ['Balance'], goalColor: ['#80FF72'] },
-        { title: 'Tues.', data: ['0 - 0'], goal: ['Deficit'], goalColor: ['#E65148'] },
-        { title: 'Wed.', data: ['0 - 0'], goal: ['Balance'], goalColor: ['#80FF72'] },
-        { title: 'Thurs.', data: ['0 - 0'], goal: ['Balance'], goalColor: ['#80FF72'] },
-        { title: 'Fri.', data: ['0 - 0'], goal: ['Balance'], goalColor: ['#80FF72'] },
-        { title: 'Sat.', data: ['0 - 0'], goal: ['Balance'], goalColor: ['#80FF72'] },
+        { title: 'Sun.', data: ['0 - 0'], goal: ['Balance'], goalColor: '#80FF72' },
+        { title: 'Mon.', data: ['0 - 0'], goal: ['Balance'], goalColor: '#80FF72' },
+        { title: 'Tues.', data: ['0 - 0'], goal: ['Balance'], goalColor: '#80FF72' },
+        { title: 'Wed.', data: ['0 - 0'], goal: ['Balance'], goalColor: '#80FF72' },
+        { title: 'Thurs.', data: ['0 - 0'], goal: ['Balance'], goalColor: '#80FF72' },
+        { title: 'Fri.', data: ['0 - 0'], goal: ['Balance'], goalColor: '#80FF72' },
+        { title: 'Sat.', data: ['0 - 0'], goal: ['Balance'], goalColor: '#80FF72' },
     ]);
 
     const [avgWater, setAvgWater] = useState(0);
@@ -30,6 +31,8 @@ export const useDayListData = (day) => {
         const day = String(date.getDate()).padStart(2, '0'); // Add leading zero if needed
         return `${year}-${month}-${day}`;
     };
+    const { goal } = userDataItems();
+    console.log(goal)
 
     useEffect(() => {
         fetchWeekData();
@@ -66,7 +69,7 @@ export const useDayListData = (day) => {
                     let totalCalsEaten = 0;
                     let totalCalsBurned = 0;
                     const data = doc.data();
-                    
+
                     // Calculate total water
                     const waterData = Number(data?.water || 0);
                     waterTotal += waterData;
@@ -91,11 +94,20 @@ export const useDayListData = (day) => {
                         const exerciseData = exerciseDoc.data();
                         totalCalsBurned += Number(exerciseData.calsBurned || 0);
                     });
+                    let weightStatus = Math.abs(totalCalsBurned-totalCalsEaten) <= 100 ? 'Maintain' : (totalCalsBurned-totalCalsEaten) > 0 ? 'Bulk / Gain Weight' : 'Cut / Lose Weight'
 
                     // Update the corresponding day in the dayList copy
                     updatedDayList[dayIndex] = {
                         ...updatedDayList[dayIndex],
                         data: [`${totalCalsEaten} - ${totalCalsBurned}`],
+                        // goal has a 100 tolerance, change if needed
+                        goal: [
+                            totalCalsEaten - totalCalsBurned > 100 ? 'Surplus' :
+                                totalCalsEaten - totalCalsBurned < -100 ? 'Deficit' :
+                                    'Balance'
+                        ], 
+                        // red or green depending on if goal is met (maybe change to 3 diff colors?)
+                        goalColor: weightStatus === goal ? "#80FF72" : "#E65148" 
                     };
 
                     dayIndex++; // Move to the next day in the week
