@@ -26,19 +26,19 @@ const TrackerWeek = () => {
     // change visibility of options pop up
     const toggleOptions = () => { setVisibleOptions(!visibleOptions) };
 
-    const { avgWater, avgWeight, totalCalsBurned } = useDayListData(day);
-    console.log(avgWater, avgWeight, totalCalsBurned)
+    const { avgWater, avgWeight, dayList } = useDayListData(day);
+    // console.log(avgWater, avgWeight, totalCalsBurned)
 
     // // Sample data for days of the week
-    const dayList = ([
-        { title: 'Sun.', data: ['3000 - 500'], goal: ['Surplus'], goalColor: ['#E65148'] },
-        { title: 'Mon.', data: ['2750 - 300'], goal: ['Balance'], goalColor: ['#80FF72'] },
-        { title: 'Tues.', data: ['1000 - 500'], goal: ['Deficit'], goalColor: ['#E65148'] },
-        { title: 'Wed.', data: ['2500 - 0'], goal: ['Balance'], goalColor: ['#80FF72'] },
-        { title: 'Thurs.', data: ['2500 - 300'], goal: ['Balance'], goalColor: ['#80FF72'] },
-        { title: 'Fri.', data: [' - '], goal: ['Balance'], goalColor: ['#80FF72'] },
-        { title: 'Sat.', data: [' - '], goal: ['Balance'], goalColor: ['#80FF72'] },
-    ]);
+    // const dayList = ([
+    //     { title: 'Sun.', data: ['3000 - 500'], goal: ['Surplus'], goalColor: ['#E65148'] },
+    //     { title: 'Mon.', data: ['2750 - 300'], goal: ['Balance'], goalColor: ['#80FF72'] },
+    //     { title: 'Tues.', data: ['1000 - 500'], goal: ['Deficit'], goalColor: ['#E65148'] },
+    //     { title: 'Wed.', data: ['2500 - 0'], goal: ['Balance'], goalColor: ['#80FF72'] },
+    //     { title: 'Thurs.', data: ['2500 - 300'], goal: ['Balance'], goalColor: ['#80FF72'] },
+    //     { title: 'Fri.', data: [' - '], goal: ['Balance'], goalColor: ['#80FF72'] },
+    //     { title: 'Sat.', data: [' - '], goal: ['Balance'], goalColor: ['#80FF72'] },
+    // ]);
 
     const pinch = Gesture.Pinch()
         .onUpdate((event) => {
@@ -69,7 +69,7 @@ const TrackerWeek = () => {
                                 <GlanceText type='vert' prompt='Average Weight:' text={avgWeight + ' lbs'}></GlanceText>
 
                                 {/* View to hold water info at a glance */}
-                                <GlanceText type='vert' prompt='Average Water:' text={Math.round(avgWater * 100) / 100 + ' cups'}></GlanceText>
+                                <GlanceText type='vert' prompt='Average Water:' text={avgWater + ' cups'}></GlanceText>
                             </View>
 
                             {/* Space between Stats View and Week List */}

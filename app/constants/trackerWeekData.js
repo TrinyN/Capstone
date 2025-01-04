@@ -1,81 +1,8 @@
-// // This file is used to store the data for the tracker-week screen.
-// // ***Will be implemented to handle real data in the future.***
+// This file is used to fetch the data for the tracker-week screen.
 
-// import { useEffect, useState } from "react";
-// import { useTrackerData } from "./trackerData";
-
-// // Can goal color be handled within this data file? It may
-// // keep bloat code out of the trackerWeek screen
-
-// export const useDayListData = (day) => {
-//     // Sample data for days of the week
-//     const [dayList, setDayList] = [
-//         { title: 'Sun.', data: ['0 - 0'], goal: ['Balance'], goalColor: ['#E65148'] },
-//         { title: 'Mon.', data: ['0 - 0'], goal: ['Balance'], goalColor: ['#80FF72'] },
-//         { title: 'Tues.', data: ['0 - 0'], goal: ['Balance'], goalColor: ['#E65148'] },
-//         { title: 'Wed.', data: ['0 - 0'], goal: ['Balance'], goalColor: ['#80FF72'] },
-//         { title: 'Thurs.', data: ['0 - 0'], goal: ['Balance'], goalColor: ['#80FF72'] },
-//         { title: 'Fri.', data: ['0 - 0'], goal: ['Balance'], goalColor: ['#80FF72'] },
-//         { title: 'Sat.', data: ['2500 - 500'], goal: ['Surplus'], goalColor: ['#80FF72'] },
-//     ];
-//     useEffect(() => {
-
-//         const date = new Date(day); // Convert the input day string to a Date object
-//         const dayOfWeek = date.getDay(); // Sunday = 0, Monday = 1, ..., Saturday = 6
-//         const sunday = new Date(date); // clone current date
-//         sunday.setDate(date.getDate() - dayOfWeek); // Set to last Sunday
-//         const tempDate = new Date(sunday)
-//         const fetchData = async () => {
-//             for (let i = 0; i < 7; i++) {
-//                 tempDate.setDate(sunday.getDate() + i); // change to next day
-//                 // Get the data for the current date
-//                 const { totalCalsBurned, totalCalsEaten } = await useTrackerData(tempDate);
-//                 console.log(tempDate)
-//                 // Determine the title for the day (e.g., 'Sun.', 'Mon.', etc.)
-//                 const title = tempDate.toLocaleDateString('en-US', { weekday: 'short' });
-
-//                 // Determine the goal and color (example logic, you can adjust this)
-//                 const netCals = totalCalsEaten - totalCalsBurned;
-//                 let goal = 'Balance';
-//                 let goalColor = '#80FF72'; // Default color for balance
-//                 if (netCals > 300) {
-//                     goal = 'Surplus';
-//                     goalColor = '#E65148';
-//                 } else if (netCals < -300) {
-//                     goal = 'Deficit';
-//                     goalColor = '#E65148';
-//                 }
-
-//                 // Push the data for the current day to the dayList
-//                 dayList.push({
-//                     title,
-//                     data: [totalCalsEaten + ' - ' + totalCalsBurned],
-//                     goal: [goal],
-//                     goalColor: [goalColor],
-//                 });
-//             }
-//         }
-//         fetchData()
-
-//     }, [day])
-
-//     return {
-//         dayList,
-//     }
-// }
-
-import { useTrackerData } from "./trackerData";
-import { useState, useEffect, useRef } from "react";
-import { getTrackerDayRef } from "./getTrackerDayRef";
+import { useState, useEffect } from "react";
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-
-
-// get sunday and saturday id
-// query tracker starting with id of sunday, ending with id of saturday
-// get data from each and accumulate total
-// put total in dayList data, finish making dayList
-// return dayList for tracker to use
 
 export const useDayListData = (day) => {
     const [dayList, setDayList] = useState([
@@ -85,17 +12,17 @@ export const useDayListData = (day) => {
         { title: 'Wed.', data: ['0 - 0'], goal: ['Balance'], goalColor: ['#80FF72'] },
         { title: 'Thurs.', data: ['0 - 0'], goal: ['Balance'], goalColor: ['#80FF72'] },
         { title: 'Fri.', data: ['0 - 0'], goal: ['Balance'], goalColor: ['#80FF72'] },
-        { title: 'Sat.', data: ['default - default'], goal: ['Balance'], goalColor: ['#80FF72'] },
+        { title: 'Sat.', data: ['0 - 0'], goal: ['Balance'], goalColor: ['#80FF72'] },
     ]);
-
-    const [totalCalsEaten, setTotalCalsEaten] = useState("0");
-
-    const [totalCalsBurned, setTotalCalsBurned] = useState("0");
 
     const [avgWater, setAvgWater] = useState(0);
     const [avgWeight, setAvgWeight] = useState(0);
 
     const userID = auth().currentUser?.uid || null;
+
+    const updateDayList = (updatedData) => {
+        setDayList(updatedData); // Update the dayList with the modified data
+    };
 
     const formatDate = (date) => {
         const year = date.getFullYear();
@@ -105,18 +32,18 @@ export const useDayListData = (day) => {
     };
 
     useEffect(() => {
-        fetchWeekData()
+        fetchWeekData();
     }, [userID, day]);
 
     const fetchWeekData = async () => {
         if (!userID) return;
-        const date = new Date(day) // convert string to Date object
+        const date = new Date(day); // convert string to Date object
         const dayOfWeek = date.getDay(); // Sunday = 0, Monday = 1, ..., Saturday = 6
         // Start from the previous Sunday
         const sunday = new Date(date); // clone current date
         sunday.setDate(date.getDate() - dayOfWeek); // Set to last Sunday
-        const saturday = new Date(sunday)
-        saturday.setDate(sunday.getDate() + 6); // Set to saturday
+        const saturday = new Date(sunday);
+        saturday.setDate(sunday.getDate() + 6); // Set to Saturday
 
         await firestore()
             .collection('Users')
@@ -130,22 +57,24 @@ export const useDayListData = (day) => {
                 let waterTotal = 0;
                 let weightTotal = 0;
                 let count = 0; // Keeps track of how many different weights there are
-                let weekDocs = []; // To store tracker data
+
+                const updatedDayList = [...dayList]; // Make a copy of the default dayList
+                let dayIndex = 0; // keeps track of which day of the week
 
                 // Iterate over each Tracker document
                 for (const doc of querySnapshot.docs) {
                     let totalCalsEaten = 0;
                     let totalCalsBurned = 0;
                     const data = doc.data();
-
+                    
                     // Calculate total water
-                    const waterData = Number(data.water) || 0;
+                    const waterData = Number(data?.water || 0);
                     waterTotal += waterData;
 
                     // Calculate weight and count unique entries
                     if (data?.weight !== undefined) {
                         count++;
-                        const weightData = Number(data.weight);
+                        const weightData = Number(data?.weight || 0);
                         weightTotal += weightData;
                     }
 
@@ -153,7 +82,7 @@ export const useDayListData = (day) => {
                     const foodSnapshot = await doc.ref.collection("Food").get();
                     foodSnapshot.forEach((foodDoc) => {
                         const foodData = foodDoc.data();
-                        totalCalsEaten += Number(foodData.calPerSvg * foodData.svgEaten || 0);
+                        totalCalsEaten += Number(Number(foodData?.calPerSvg || 0) * Number(foodData?.svgEaten || 0));
                     });
 
                     // Fetch nested Exercise data and calculate total calories burned
@@ -163,36 +92,34 @@ export const useDayListData = (day) => {
                         totalCalsBurned += Number(exerciseData.calsBurned || 0);
                     });
 
-                    console.log(totalCalsBurned)
+                    // Update the corresponding day in the dayList copy
+                    updatedDayList[dayIndex] = {
+                        ...updatedDayList[dayIndex],
+                        data: [`${totalCalsEaten} - ${totalCalsBurned}`],
+                    };
 
-                    // add total cals eaten and burned into data array
-                    // weekDocs.push();
+                    dayIndex++; // Move to the next day in the week
+
+                    if (dayIndex > 6) {
+                        break;
+                    }
                 }
 
-                // Log results
-                console.log({
-                    waterTotal,
-                    weightTotal,
-                    averageWeight: (weightTotal / count) || 0,
-                    totalCalsEaten,
-                    totalCalsBurned,
-                    weekDocs,
-                });
-                setAvgWater(waterTotal / 7)
-                setAvgWeight(weightTotal / count)
-                setTotalCalsBurned(totalCalsBurned)
-                setTotalCalsEaten(totalCalsEaten)
+                // Round to 2 decimal places and saves data
+                setAvgWater((waterTotal / 7).toFixed(2));
+                setAvgWeight((weightTotal / count || 0).toFixed(2));
 
+                // Update the state with the modified dayList after all data is fetched
+                updateDayList(updatedDayList);
             })
             .catch((error) => {
                 console.error("Error fetching weekly tracker data: ", error);
             });
-    }
+    };
 
     return {
-        totalCalsEaten,
-        totalCalsBurned,
         avgWater,
-        avgWeight
+        avgWeight,
+        dayList
     };
 };
