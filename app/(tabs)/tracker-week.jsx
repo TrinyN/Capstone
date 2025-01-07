@@ -26,19 +26,7 @@ const TrackerWeek = () => {
     // change visibility of options pop up
     const toggleOptions = () => { setVisibleOptions(!visibleOptions) };
 
-    const { avgWater, avgWeight, dayList } = useDayListData(day);
-    // console.log(avgWater, avgWeight, totalCalsBurned)
-
-    // // Sample data for days of the week
-    // const dayList = ([
-    //     { title: 'Sun.', data: ['3000 - 500'], goal: ['Surplus'], goalColor: ['#E65148'] },
-    //     { title: 'Mon.', data: ['2750 - 300'], goal: ['Balance'], goalColor: ['#80FF72'] },
-    //     { title: 'Tues.', data: ['1000 - 500'], goal: ['Deficit'], goalColor: ['#E65148'] },
-    //     { title: 'Wed.', data: ['2500 - 0'], goal: ['Balance'], goalColor: ['#80FF72'] },
-    //     { title: 'Thurs.', data: ['2500 - 300'], goal: ['Balance'], goalColor: ['#80FF72'] },
-    //     { title: 'Fri.', data: [' - '], goal: ['Balance'], goalColor: ['#80FF72'] },
-    //     { title: 'Sat.', data: [' - '], goal: ['Balance'], goalColor: ['#80FF72'] },
-    // ]);
+    const { avgWater, avgWeight, dayList, avgCal, avgGoal } = useDayListData(day);
 
     const pinch = Gesture.Pinch()
         .onUpdate((event) => {
@@ -128,11 +116,11 @@ const TrackerWeek = () => {
                                             </Text>
                                             {/* Implement calculation of average calorie */}
                                             <Text style={[styles.headerText, { textAlign: 'center' }]}>
-                                                2,750
+                                                {avgCal}
                                             </Text>
                                             {/* Implement comparison to average goal */}
                                             <Text style={[styles.headerText, { textAlign: 'right' }]}>
-                                                Balance
+                                                {avgGoal}
                                             </Text>
                                             <View style={{ height: 2, backgroundColor: '#828282' }} />
                                         </View>
