@@ -1,4 +1,4 @@
-import { Text, View, SectionList, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, SectionList, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import styles from '../styles';
 import { useState } from 'react';
 import { router } from 'expo-router';
@@ -19,8 +19,8 @@ import { getWeekDate } from '../constants/trackerWeekData';
 
 // Function to design and display the tracker and its related data
 const TrackerWeek = () => {
-    const { day } = useLocalSearchParams(); // current day gets passed from day view on zoom out
-    const initialDate = day ? new Date(day) : new Date()
+    const { days } = useLocalSearchParams(); // current day gets passed from day view on zoom out
+    const initialDate = days ? new Date(days) : new Date()
     const [date, setDate] = useState(initialDate); // default to date passed from day view, date will change on traversal
 
     const title = getWeekDate(date) // gets date range for week
@@ -31,7 +31,7 @@ const TrackerWeek = () => {
     // change visibility of options pop up
     const toggleOptions = () => { setVisibleOptions(!visibleOptions) };
 
-    const { avgWater, avgWeight, dayList, avgCal, avgGoal } = useDayListData(date);
+    const { avgWater, avgWeight, dayList, avgCal, avgGoal, isLoading } = useDayListData(date);
 
     const pinch = Gesture.Pinch()
         .onUpdate((event) => {
@@ -64,7 +64,7 @@ const TrackerWeek = () => {
 
     const isLastWeek = () => {
         const today = new Date()
-        const {sunday, saturday} = getSunSat(today)
+        const { sunday, saturday } = getSunSat(today)
 
         // Check if the date of tracker is within the current week
         const givenDate = new Date(date);
@@ -90,21 +90,30 @@ const TrackerWeek = () => {
                     isLastWeek={isLastWeek()}
                     screenContent={
                         <View>
-                            {/* Top View to calculate user's average weight and water intake that week */}
-                            <View style={localStyle.calcView}>
+                            {/* only render when loading is done */}
+                            {isLoading? (
+                                <ActivityIndicator size="large" color="transparent" style={localStyle.activityIndicator} />
+                            ) : (
+                                // Top View to calculate user's average weight and water intake that week
+                                <View style={localStyle.calcView}>
 
-                                {/* View to hold weight info at a glance */}
-                                <GlanceText type='vert' prompt='Average Weight:' text={avgWeight + ' lbs'}></GlanceText>
+                                    {/* View to hold weight info at a glance */}
+                                    <GlanceText type='vert' prompt='Average Weight:' text={avgWeight + ' lbs'}></GlanceText>
 
-                                {/* View to hold water info at a glance */}
-                                <GlanceText type='vert' prompt='Average Water:' text={avgWater + ' cups'}></GlanceText>
-                            </View>
+                                    {/* View to hold water info at a glance */}
+                                    <GlanceText type='vert' prompt='Average Water:' text={avgWater + ' cups'}></GlanceText>
+                                </View>
+                            )}
 
                             {/* Space between Stats View and Week List */}
                             <View style={{ margin: 10 }}></View>
 
-                            {/* View for SectionList to store all items of tracker */}
-                            <View>
+                            {/* only render when loading is done */}
+                            {isLoading? (
+                                <ActivityIndicator size="large" color="#CB9CF2" style={localStyle.activityIndicator} />
+                            ) : (
+                                // View for SectionList to store all items of tracker
+                                <View>
                                 {/* List to hold items */}
                                 <SectionList
                                     style={localStyle.daySectionList}
@@ -167,6 +176,7 @@ const TrackerWeek = () => {
                                     }
                                 />
                             </View>
+                            )}
                             {/* pop up for options */}
                             <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Week' dayList={dayList} day={date} />
                         </View>

@@ -17,6 +17,8 @@ export const getSunSat = (day) => {
     return { sunday, saturday }
 }
 export const useDayListData = (day) => {
+    const [isLoading, setIsLoading] = useState(true);
+
     const [dayList, setDayList] = useState([
         { title: 'Sun.', data: ['0 - 0'], goal: ['Balance'], goalColor: '#80FF72' },
         { title: 'Mon.', data: ['0 - 0'], goal: ['Balance'], goalColor: '#80FF72' },
@@ -82,6 +84,7 @@ export const useDayListData = (day) => {
     }
 
     useEffect(() => {
+        setIsLoading(true); // Start loading when date changes
         fetchWeekData();
     }, [userID, day]);
 
@@ -144,6 +147,7 @@ export const useDayListData = (day) => {
             setAvgWater((waterTotal / 7).toFixed(2));
             setAvgWeight((weightTotal / count || 0).toFixed(2));
             updateDayList(updatedDayList);
+            setIsLoading(false)
 
         } catch (error) {
             console.error("Error fetching weekly tracker data: ", error);
@@ -194,7 +198,8 @@ export const useDayListData = (day) => {
         avgWeight,
         dayList,
         avgCal,
-        avgGoal
+        avgGoal, 
+        isLoading
     };
 };
 
