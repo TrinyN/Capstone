@@ -1,6 +1,6 @@
 import { Text, View, SectionList, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import styles from '../styles';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { router } from 'expo-router';
 import CustomScreen from '../components/structural/CustomScreen';
 import TrackerOptions from '../components/functional/TrackerOptions';
@@ -18,6 +18,21 @@ import { getWeekDate } from '../constants/trackerWeekData';
 // 4. Render list component(s) - split into header, list, and footer?
 
 // Function to design and display the tracker and its related data
+const useDebouncedDateChange = (date) => {
+    const [debouncedDate, setDebouncedDate] = useState(date);
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedDate(date); // Only update when date has stopped changing for 500ms
+        }, 500); // Delay to wait for user to stop changing date
+
+        return () => {
+            clearTimeout(handler); // Clear the timeout if date changes before 500ms
+        };
+    }, [date]);
+
+    return debouncedDate;
+};
 const TrackerWeek = () => {
     const { day } = useLocalSearchParams(); // current day gets passed from day view on zoom out
     const initialDate = day ? new Date(day) : new Date()
@@ -25,13 +40,15 @@ const TrackerWeek = () => {
 
     const title = getWeekDate(date) // gets date range for week
 
+    const debouncedDate = useDebouncedDateChange(date);
+
     // saves visibility of options pop up
     const [visibleOptions, setVisibleOptions] = useState(false);
 
     // change visibility of options pop up
     const toggleOptions = () => { setVisibleOptions(!visibleOptions) };
 
-    const { avgWater, avgWeight, dayList, avgCal, avgGoal, isLoading } = useDayListData(date);
+    const { avgWater, avgWeight, dayList, avgCal, avgGoal, isLoading } = useDayListData(debouncedDate);
 
     const pinch = Gesture.Pinch()
         .onUpdate((event) => {

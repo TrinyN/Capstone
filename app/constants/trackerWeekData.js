@@ -147,10 +147,11 @@ export const useDayListData = (day) => {
             setAvgWater((waterTotal / 7).toFixed(2));
             setAvgWeight((weightTotal / count || 0).toFixed(2));
             updateDayList(updatedDayList);
-            setIsLoading(false)
 
         } catch (error) {
             console.error("Error fetching weekly tracker data: ", error);
+        } finally {
+            setIsLoading(false)
         }
     };
 
