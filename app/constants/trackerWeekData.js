@@ -21,6 +21,10 @@ export const useDayListData = (day) => {
     const [avgCal, setAvgCal] = useState(0);
     const [avgGoal, setAvgGoal] = useState("Balance");
 
+    // accumator of calories, used in month view for total cals per week
+    const [accCal, setAccCal] = useState(0); 
+
+
 
     const userID = auth().currentUser?.uid || null;
 
@@ -35,6 +39,9 @@ export const useDayListData = (day) => {
         return `${year}-${month}-${day}`;
     };
     const { goal } = userDataItems();
+    
+
+    // doesn't work yet
     const findGoalColor = (netCal) => {
         let weightStatus = Math.abs(netCal) <= 100 ? 'Maintain' : (netCal) > 0 ? 'Bulk / Gain Weight' : 'Cut / Lose Weight'
         let color;
@@ -74,98 +81,81 @@ export const useDayListData = (day) => {
 
     const fetchWeekData = async () => {
         if (!userID) return;
-        const date = new Date(day); // convert string to Date object
-        const dayOfWeek = date.getDay(); // Sunday = 0, Monday = 1, ..., Saturday = 6
-        // Start from the previous Sunday
-        const sunday = new Date(date); // clone current date
-        sunday.setDate(date.getDate() - dayOfWeek); // Set to last Sunday
+    
+        const date = new Date(day);
+        const dayOfWeek = date.getDay();
+        const sunday = new Date(date);
+        sunday.setDate(date.getDate() - dayOfWeek);
         const saturday = new Date(sunday);
-        saturday.setDate(sunday.getDate() + 6); // Set to Saturday
-
-        await firestore()
-            .collection('Users')
-            .doc(userID)
-            .collection('Tracker')
-            .orderBy(firestore.FieldPath.documentId()) // Order by document ID
-            .startAt(formatDate(sunday)) // Start from Sunday (inclusive)
-            .endAt(formatDate(saturday)) // End at Saturday (inclusive)
-            .get()
-            .then(async (querySnapshot) => {
-                let waterTotal = 0;
-                let weightTotal = 0;
-                let count = 0; // Keeps track of how many different weights there are
-
-                const updatedDayList = [...dayList]; // Make a copy of the default dayList
-                let dayIndex = 0; // keeps track of which day of the week
-
-                // Iterate over each Tracker document
-                for (const doc of querySnapshot.docs) {
-                    let totalCalsEaten = 0;
-                    let totalCalsBurned = 0;
-                    const data = doc.data();
-
-                    // Calculate total water
-                    const waterData = Number(data?.water || 0);
-                    waterTotal += waterData;
-
-                    // Calculate weight and count unique entries
-                    if (data?.weight !== undefined) {
-                        count++;
-                        const weightData = Number(data?.weight || 0);
-                        weightTotal += weightData;
-                    }
-
-                    // Fetch nested Food data and calculate total calories eaten
-                    const foodSnapshot = await doc.ref.collection("Food").get();
-                    foodSnapshot.forEach((foodDoc) => {
-                        const foodData = foodDoc.data();
-                        totalCalsEaten += Number(Number(foodData?.calPerSvg || 0) * Number(foodData?.svgEaten || 0));
-                    });
-
-                    // Fetch nested Exercise data and calculate total calories burned
-                    const exerciseSnapshot = await doc.ref.collection("Exercise").get();
-                    exerciseSnapshot.forEach((exerciseDoc) => {
-                        const exerciseData = exerciseDoc.data();
-                        totalCalsBurned += Number(exerciseData.calsBurned || 0);
-                    });
-
-                    let netCal = totalCalsEaten - totalCalsBurned
-                    let weightStatus = Math.abs(netCal) <= 100 ? 'Maintain' : (netCal) > 0 ? 'Bulk / Gain Weight' : 'Cut / Lose Weight'
-
-
-                    // Update the corresponding day in the dayList copy
-                    updatedDayList[dayIndex] = {
-                        ...updatedDayList[dayIndex],
-                        data: [`${totalCalsEaten} - ${totalCalsBurned}`],
-                        // goal has a 100 tolerance, change if needed
-                        goal: [
-                            totalCalsEaten - totalCalsBurned > 100 ? 'Surplus' :
-                                totalCalsEaten - totalCalsBurned < -100 ? 'Deficit' :
-                                    'Balance'
-                        ],
-                        // red or green depending on if goal is met (maybe change to 3 diff colors?)
-                        goalColor: weightStatus === goal ? "#80FF72" : Math.abs(totalCalsBurned-totalCalsEaten) <= 200 ? "#FFF07C" : "#E65148" 
-                        // goalColor: findGoalColor(totalCalsEaten - totalCalsBurned)
-                    };
-
-                    dayIndex++; // Move to the next day in the week
-
-                    if (dayIndex > 6) {
-                        break;
-                    }
+        saturday.setDate(sunday.getDate() + 6);
+    
+        try {
+            const querySnapshot = await firestore()
+                .collection('Users')
+                .doc(userID)
+                .collection('Tracker')
+                .orderBy(firestore.FieldPath.documentId())
+                .startAt(formatDate(sunday))
+                .endAt(formatDate(saturday))
+                .get();
+    
+            let waterTotal = 0;
+            let weightTotal = 0;
+            let count = 0;
+            const updatedDayList = [...dayList];
+    
+            const dayDataPromises = querySnapshot.docs.map(async (doc, dayIndex) => {
+                let totalCalsEaten = 0;
+                let totalCalsBurned = 0;
+                const data = doc.data();
+    
+                waterTotal += Number(data?.water || 0);
+                if (data?.weight !== undefined) {
+                    count++;
+                    weightTotal += Number(data.weight);
                 }
-
-                // Round to 2 decimal places and saves data
-                setAvgWater((waterTotal / 7).toFixed(2));
-                setAvgWeight((weightTotal / count || 0).toFixed(2));
-
-                // Update the state with the modified dayList after all data is fetched
-                updateDayList(updatedDayList);
-            })
-            .catch((error) => {
-                console.error("Error fetching weekly tracker data: ", error);
+    
+                const [foodSnapshot, exerciseSnapshot] = await Promise.all([
+                    doc.ref.collection("Food").get(),
+                    doc.ref.collection("Exercise").get(),
+                ]);
+    
+                totalCalsEaten = calculateCalories(foodSnapshot, 'calPerSvg', 'svgEaten');
+                totalCalsBurned = calculateCalories(exerciseSnapshot, 'calsBurned');
+    
+                const netCal = totalCalsEaten - totalCalsBurned;
+                const weightStatus = Math.abs(netCal) <= 100 ? 'Maintain' : netCal > 0 ? 'Bulk / Gain Weight' : 'Cut / Lose Weight';
+    
+                updatedDayList[dayIndex] = {
+                    ...updatedDayList[dayIndex],
+                    data: [`${totalCalsEaten} - ${totalCalsBurned}`],
+                    goal: [
+                        netCal > 100 ? 'Surplus' :
+                            netCal < -100 ? 'Deficit' : 'Balance'
+                    ],
+                    goalColor: weightStatus === goal ? "#80FF72" :
+                        Math.abs(netCal) <= 200 ? "#FFF07C" : "#E65148"
+                };
             });
+    
+            await Promise.all(dayDataPromises);
+    
+            setAvgWater((waterTotal / 7).toFixed(2));
+            setAvgWeight((weightTotal / count || 0).toFixed(2));
+            updateDayList(updatedDayList);
+    
+        } catch (error) {
+            console.error("Error fetching weekly tracker data: ", error);
+        }
     };
+    
+    const calculateCalories = (snapshot, calField, quantityField = null) => {
+        return snapshot.docs.reduce((total, doc) => {
+            const data = doc.data();
+            return total + Number(data[calField] || 0) * (quantityField ? Number(data[quantityField] || 0) : 1);
+        }, 0);
+    };
+    
 
     // Runs everytime data changes
     useEffect(() => {
@@ -203,6 +193,7 @@ export const useDayListData = (day) => {
         avgWeight,
         dayList, 
         avgCal, 
-        avgGoal
+        avgGoal, 
+        accCal
     };
 };

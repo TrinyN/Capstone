@@ -1,12 +1,13 @@
 import { Text, View, SectionList, StyleSheet, TouchableOpacity } from 'react-native';
 import styles from '../styles';
 import { useState } from 'react';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import CustomScreen from '../components/structural/CustomScreen';
 import TrackerOptions from '../components/functional/TrackerOptions';
 import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useWeekListData } from '../constants/trackerMonthData';
 import GlanceText from '../components/structural/GlanceText';
+import { useDayListData } from '../constants/trackerWeekData';
 
 // todo:
 // calculating averages
@@ -17,6 +18,11 @@ import GlanceText from '../components/structural/GlanceText';
 
 // Function to design and display the tracker
 const TrackerMonth = () => {
+
+    const { day, dayList } = useLocalSearchParams();
+    
+    const { weekList } = useWeekListData(day);
+
     // saves visibility of options pop up
     const [visibleOptions, setVisibleOptions] = useState(false);
 
@@ -24,9 +30,6 @@ const TrackerMonth = () => {
     const toggleOptions = () => {
         setVisibleOptions(!visibleOptions);
     };
-
-    // test data, will need to start off empty and be saved for each user
-    const {weekList, setWeekList} = useWeekListData();
 
     const pinch = Gesture.Pinch()
 

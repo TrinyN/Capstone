@@ -14,7 +14,8 @@ const OptionItem = ({
     isNotes,
     toggleNotesOverlay,
     onPress, 
-    day
+    day, 
+    dayList
 }) => {
     // if shopping list, button performs function, else zoom in/out
     const handlePress = () => {
@@ -22,7 +23,9 @@ const OptionItem = ({
             onPress()
         } else if (isNotes) {
             toggleNotesOverlay();
-        }else if (day){
+        } else if (dayList && day){
+            router.push(`${zoomRoute}?day=${encodeURIComponent(day, dayList)}`);
+        } else if (day){
             router.push(`${zoomRoute}?day=${encodeURIComponent(day)}`);
         }
         else {

@@ -9,7 +9,8 @@ const TrackerOptions = ({
     toggleOptions,
     view,
     toggleNotesOverlay, 
-    day
+    day, 
+    dayList
 }) => {
     let zoomIn
     let zoomOut
@@ -75,6 +76,7 @@ const TrackerOptions = ({
                     opacity={zoomOutOpac}
                     toggleOptions={toggleOptions}
                     day={day}
+                    dayList={dayList}
                 />
             </View>
         </Overlay>

@@ -8,7 +8,6 @@ import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-g
 import { useDayListData } from '../constants/trackerWeekData';
 import GlanceText from '../components/structural/GlanceText';
 import { useLocalSearchParams } from 'expo-router';
-import { useTrackerData } from '../constants/trackerData';
 // todo:
 // calculating averages
 // comparing amounts to get color of text
@@ -19,6 +18,8 @@ import { useTrackerData } from '../constants/trackerData';
 // Function to design and display the tracker and its related data
 const TrackerWeek = () => {
     const { day } = useLocalSearchParams();
+
+    // get week const { week } =
 
     // saves visibility of options pop up
     const [visibleOptions, setVisibleOptions] = useState(false);
@@ -128,7 +129,7 @@ const TrackerWeek = () => {
                                 />
                             </View>
                             {/* pop up for options */}
-                            <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Week' />
+                            <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Week' dayList={dayList} day={day}/>
                         </View>
                     }
                 />
