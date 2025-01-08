@@ -72,9 +72,9 @@ const CustomScreen = ({
                     </Text>
                     {screenContent}
                 </View>
-
-                {isTrackerScreen &&
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 15 }}>
+            </ScrollView>
+            {isTrackerScreen &&
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 2}}>
                         <TouchableOpacity onPress={previous} style={{ width: 35 }}>
                             <Feather name={'chevron-left'} size={30} color={'#CB9CF2'} />
                         </TouchableOpacity>
@@ -83,7 +83,6 @@ const CustomScreen = ({
                         </TouchableOpacity>
                     </View>
                 }
-            </ScrollView>
         </SafeAreaView>
     )
 }
