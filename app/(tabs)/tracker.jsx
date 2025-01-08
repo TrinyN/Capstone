@@ -32,6 +32,8 @@ const Tracker = () => {
         .onUpdate((event) => {
             if (event.scale < 1) {
                 router.push('/tracker-week');
+                // router.push(`${'/tracker-week'}?day=${encodeURIComponent(date)}`); might not work, implements traversal with pinch zoom out
+                
             }
         })
         .runOnJS(true);
@@ -236,7 +238,7 @@ const Tracker = () => {
             <GestureDetector gesture={pinch}>
                 <CustomScreen
                     title='Day:'
-                    title2={formattedDate} // test value, need to change
+                    title2={formattedDate? formattedDate: ""}
                     hasOptions={true}
                     toggleOptions={toggleOptions}
                     isTrackerScreen={true}

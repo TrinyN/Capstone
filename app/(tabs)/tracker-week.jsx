@@ -1,13 +1,15 @@
 import { Text, View, SectionList, StyleSheet, TouchableOpacity } from 'react-native';
 import styles from '../styles';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { router } from 'expo-router';
 import CustomScreen from '../components/structural/CustomScreen';
 import TrackerOptions from '../components/functional/TrackerOptions';
 import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useDayListData } from '../constants/trackerWeekData';
+import { getSunSat, useDayListData } from '../constants/trackerWeekData';
 import GlanceText from '../components/structural/GlanceText';
 import { useLocalSearchParams } from 'expo-router';
+import { getWeekDate } from '../constants/trackerWeekData';
+
 // todo:
 // calculating averages
 // comparing amounts to get color of text
@@ -17,9 +19,11 @@ import { useLocalSearchParams } from 'expo-router';
 
 // Function to design and display the tracker and its related data
 const TrackerWeek = () => {
-    const { day } = useLocalSearchParams();
+    const { day } = useLocalSearchParams(); // current day gets passed from day view on zoom out
+    const initialDate = day ? new Date(day) : new Date()
+    const [date, setDate] = useState(initialDate); // default to date passed from day view, date will change on traversal
 
-    // get week const { week } =
+    const title = getWeekDate(date) // gets date range for week
 
     // saves visibility of options pop up
     const [visibleOptions, setVisibleOptions] = useState(false);
@@ -27,7 +31,7 @@ const TrackerWeek = () => {
     // change visibility of options pop up
     const toggleOptions = () => { setVisibleOptions(!visibleOptions) };
 
-    const { avgWater, avgWeight, dayList, avgCal, avgGoal } = useDayListData(day);
+    const { avgWater, avgWeight, dayList, avgCal, avgGoal } = useDayListData(date);
 
     const pinch = Gesture.Pinch()
         .onUpdate((event) => {
@@ -35,9 +39,41 @@ const TrackerWeek = () => {
                 router.push('/tracker');
             } else if (event.scale < 1) {
                 router.push('/tracker-month');              // zoom out
+                // router.push(`${zoomRoute}?day=${encodeURIComponent(day, dayList)}`); might not work, implements traversal with pinch zoom out
             }
         })
         .runOnJS(true);
+
+    // changes date to be next week
+    const nextWeek = () => {
+        setDate(prevDate => {
+            const newDate = new Date(prevDate); // Clone the current date
+            newDate.setDate(newDate.getDate() + 6); // Add 6 days
+            return newDate; // Update state with the new date
+        });
+    }
+
+    // changes date to be previous week
+    const previousWeek = () => {
+        setDate(prevDate => {
+            const newDate = new Date(prevDate); // Clone the current date
+            newDate.setDate(newDate.getDate() - 6); // Subtract 6 days
+            return newDate; // Update state with the new date
+        });
+    }
+
+    const isLastWeek = () => {
+        const today = new Date()
+        const {sunday, saturday} = getSunSat(today)
+
+        // Check if the date of tracker is within the current week
+        const givenDate = new Date(date);
+        if (givenDate >= sunday && givenDate <= saturday) {
+            return true;
+        }
+
+        return false
+    }
 
     //  Returning the screen to display
     return (
@@ -45,10 +81,13 @@ const TrackerWeek = () => {
             <GestureDetector gesture={pinch}>
                 <CustomScreen
                     title='Week:'
-                    title2='6/9 - 6/15'                     // test value, need to change
+                    title2={title}
                     hasOptions={true}
                     toggleOptions={toggleOptions}
                     isTrackerScreen={true}
+                    next={nextWeek}
+                    previous={previousWeek}
+                    isLastWeek={isLastWeek()}
                     screenContent={
                         <View>
                             {/* Top View to calculate user's average weight and water intake that week */}
@@ -85,7 +124,7 @@ const TrackerWeek = () => {
                                                 </Text>
                                                 {/* TODO: Comparison to determine text color */}
                                                 <Text style={[styles.defaultWhiteText, localStyle.dayGoal, { color: section.goalColor }]}>
-                                                {section.goal}
+                                                    {section.goal}
                                                 </Text>
                                             </TouchableOpacity>
 
@@ -129,7 +168,7 @@ const TrackerWeek = () => {
                                 />
                             </View>
                             {/* pop up for options */}
-                            <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Week' dayList={dayList} day={day}/>
+                            <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Week' dayList={dayList} day={date} />
                         </View>
                     }
                 />

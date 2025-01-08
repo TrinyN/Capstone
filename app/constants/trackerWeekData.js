@@ -4,7 +4,18 @@ import { useState, useEffect } from "react";
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { userDataItems } from "./profileData";
+import { getTrackerDayRef } from "./getTrackerDayRef";
 
+// function that calculates the sunday and saturday of the given day's week
+export const getSunSat = (day) => {
+    const date = new Date(day); // clones day
+    const dayOfWeek = date.getDay(); // returns number to represent which day. Ex: 0 for Sun, 1 for Mon
+    const sunday = new Date(date);
+    sunday.setDate(date.getDate() - dayOfWeek); // calculates sunday
+    const saturday = new Date(sunday);
+    saturday.setDate(sunday.getDate() + 6); // calculates saturday based on sunday
+    return { sunday, saturday }
+}
 export const useDayListData = (day) => {
     const [dayList, setDayList] = useState([
         { title: 'Sun.', data: ['0 - 0'], goal: ['Balance'], goalColor: '#80FF72' },
@@ -21,11 +32,6 @@ export const useDayListData = (day) => {
     const [avgCal, setAvgCal] = useState(0);
     const [avgGoal, setAvgGoal] = useState("Balance");
 
-    // accumator of calories, used in month view for total cals per week
-    const [accCal, setAccCal] = useState(0); 
-
-
-
     const userID = auth().currentUser?.uid || null;
 
     const updateDayList = (updatedData) => {
@@ -39,7 +45,7 @@ export const useDayListData = (day) => {
         return `${year}-${month}-${day}`;
     };
     const { goal } = userDataItems();
-    
+
 
     // doesn't work yet
     const findGoalColor = (netCal) => {
@@ -81,14 +87,9 @@ export const useDayListData = (day) => {
 
     const fetchWeekData = async () => {
         if (!userID) return;
-    
-        const date = new Date(day);
-        const dayOfWeek = date.getDay();
-        const sunday = new Date(date);
-        sunday.setDate(date.getDate() - dayOfWeek);
-        const saturday = new Date(sunday);
-        saturday.setDate(sunday.getDate() + 6);
-    
+
+        const { sunday, saturday } = getSunSat(day)
+
         try {
             const querySnapshot = await firestore()
                 .collection('Users')
@@ -98,34 +99,34 @@ export const useDayListData = (day) => {
                 .startAt(formatDate(sunday))
                 .endAt(formatDate(saturday))
                 .get();
-    
+
             let waterTotal = 0;
             let weightTotal = 0;
             let count = 0;
             const updatedDayList = [...dayList];
-    
+
             const dayDataPromises = querySnapshot.docs.map(async (doc, dayIndex) => {
                 let totalCalsEaten = 0;
                 let totalCalsBurned = 0;
                 const data = doc.data();
-    
+
                 waterTotal += Number(data?.water || 0);
                 if (data?.weight !== undefined) {
                     count++;
                     weightTotal += Number(data.weight);
                 }
-    
+
                 const [foodSnapshot, exerciseSnapshot] = await Promise.all([
                     doc.ref.collection("Food").get(),
                     doc.ref.collection("Exercise").get(),
                 ]);
-    
+
                 totalCalsEaten = calculateCalories(foodSnapshot, 'calPerSvg', 'svgEaten');
                 totalCalsBurned = calculateCalories(exerciseSnapshot, 'calsBurned');
-    
+
                 const netCal = totalCalsEaten - totalCalsBurned;
                 const weightStatus = Math.abs(netCal) <= 100 ? 'Maintain' : netCal > 0 ? 'Bulk / Gain Weight' : 'Cut / Lose Weight';
-    
+
                 updatedDayList[dayIndex] = {
                     ...updatedDayList[dayIndex],
                     data: [`${totalCalsEaten} - ${totalCalsBurned}`],
@@ -137,25 +138,25 @@ export const useDayListData = (day) => {
                         Math.abs(netCal) <= 200 ? "#FFF07C" : "#E65148"
                 };
             });
-    
+
             await Promise.all(dayDataPromises);
-    
+
             setAvgWater((waterTotal / 7).toFixed(2));
             setAvgWeight((weightTotal / count || 0).toFixed(2));
             updateDayList(updatedDayList);
-    
+
         } catch (error) {
             console.error("Error fetching weekly tracker data: ", error);
         }
     };
-    
+
     const calculateCalories = (snapshot, calField, quantityField = null) => {
         return snapshot.docs.reduce((total, doc) => {
             const data = doc.data();
             return total + Number(data[calField] || 0) * (quantityField ? Number(data[quantityField] || 0) : 1);
         }, 0);
     };
-    
+
 
     // Runs everytime data changes
     useEffect(() => {
@@ -165,7 +166,7 @@ export const useDayListData = (day) => {
             const [calsEaten] = item.data[0].split(' - ').map(Number); // Split and convert to numbers
             calTotal += calsEaten;
         });
-        setAvgCal(Math.round(calTotal/7))
+        setAvgCal(Math.round(calTotal / 7))
 
         // Finds frequency of each goal
         const goalCounts = {};
@@ -191,9 +192,39 @@ export const useDayListData = (day) => {
     return {
         avgWater,
         avgWeight,
-        dayList, 
-        avgCal, 
-        avgGoal, 
-        accCal
+        dayList,
+        avgCal,
+        avgGoal
     };
 };
+
+export const getWeekDate = (day) => {
+    try {
+        const { sunday, saturday } = getSunSat(day)
+        const sun = new Date(sunday);
+        const sat = new Date(saturday);
+
+
+        const formattedDate1 = `${(sun.getMonth() + 1)}/${sun.getDate()}`;
+        const formattedDate2 = `${(sat.getMonth() + 1)}/${sat.getDate()}`;
+        return `${formattedDate1} - ${formattedDate2}`;
+    } catch (e) {
+        alert(`Error Getting Week Date: ${e.message}`);
+    }
+};
+
+// export const getWeekDate = (date) => {
+//     try {
+//         // const {sunday, saturday} = getSunSat(date)
+//         // console.log(sunday)
+//         const trackerDayRef = getTrackerDayRef(date);
+//         const dateString = trackerDayRef.id // get ID to get today's date as a string
+//         const [year, month, day] = dateString.split('-');
+//         const dateObject = new Date(year, month - 1, day); // convert string to Date
+//         console.log(dateObject)
+//         const formattedDate = `${(dateObject.getMonth() + 1).toString()}/${dateObject.getDate().toString()}`;
+//         return formattedDate
+//     } catch (e) {
+//         alert("Error Getting Date: ", e.message)
+//     }
+// }

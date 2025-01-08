@@ -18,7 +18,8 @@ const CustomScreen = ({
     isTrackerScreen, 
     next, 
     previous,
-    date
+    date, 
+    isLastWeek
 }) => {
 
     // if tracker screen is on current day, do not display next button
@@ -26,6 +27,9 @@ const CustomScreen = ({
     let isDisabled;
     if (date !== undefined){
         isDisabled = today.getFullYear() === date.getFullYear() && today.getMonth() === date.getMonth() && today.getDate() === date.getDate();
+    }
+    else {
+        isDisabled = isLastWeek
     }
     
     return (
