@@ -19,8 +19,8 @@ import { getWeekDate } from '../constants/trackerWeekData';
 
 // Function to design and display the tracker and its related data
 const TrackerWeek = () => {
-    const { days } = useLocalSearchParams(); // current day gets passed from day view on zoom out
-    const initialDate = days ? new Date(days) : new Date()
+    const { day } = useLocalSearchParams(); // current day gets passed from day view on zoom out
+    const initialDate = day ? new Date(day) : new Date()
     const [date, setDate] = useState(initialDate); // default to date passed from day view, date will change on traversal
 
     const title = getWeekDate(date) // gets date range for week
