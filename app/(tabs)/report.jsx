@@ -4,115 +4,115 @@ import CustomScreen from '../components/structural/CustomScreen';
 import CustomButton2 from '../components/functional/CustomButton2';
 import QuestionAnswer from '../components/functional/QuestionAnswer';
 import { useState } from 'react';
-import * as Print from 'expo-print';
-import { shareAsync } from 'expo-sharing';
+// import * as Print from 'expo-print';
+// import { shareAsync } from 'expo-sharing';
 
 // TODO: change so placeholders match users info
 // Function to handle the design of the Reports screen of CaloNavo
 
 // Note: may have to move to allow for user's name
-const html = `
-    <html>
-        <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-        </head>
-        <body>
-            <h1>HERALDS's Report</h1>
-            <h2>
-                Welcome to your report for the past three months.<br>
-                Below you will find your data from [3/MTH/AGO] to today, [TO/DA/Y].
-            </h2>
+// const html = `
+//     <html>
+//         <head>
+//             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+//         </head>
+//         <body>
+//             <h1>HERALDS's Report</h1>
+//             <h2>
+//                 Welcome to your report for the past three months.<br>
+//                 Below you will find your data from [3/MTH/AGO] to today, [TO/DA/Y].
+//             </h2>
 
-        </body>
-    </html>
-` // html end
+//         </body>
+//     </html>
+// ` // html end
 
 const Report = () => {
-    const [selectedPrinter, setSelectedPrinter] = useState("");
+    // const [selectedPrinter, setSelectedPrinter] = useState("");
 
-    // let [name, setName] = useState('');
-    const [userName, setUserName] = useState("");
-    // Ensure these work later
-    const [calGoal, setCalGoal] = useState(2400)
-    const [carb, setCarb] = useState(225)
-    const [protein, setProtein] = useState(75)
-    const [fat, setFat] = useState(67)
+    // // let [name, setName] = useState('');
+    // const [userName, setUserName] = useState("");
+    // // Ensure these work later
+    // const [calGoal, setCalGoal] = useState(2400)
+    // const [carb, setCarb] = useState(225)
+    // const [protein, setProtein] = useState(75)
+    // const [fat, setFat] = useState(67)
 
     // Searches database for user's username
-    const getProfileInfo = async () => {
-        try {
-            const userID = auth().currentUser.uid;
-            const userDoc = await firestore().collection('Users').doc(userID).get();
-            const userData = userDoc.data()
-            if (userData.username === "") {
-                setUserName(userData.email);  // If username is empty, display the email
-            } else {
-                setUserName(userData.username);  // Otherwise, set it to the username
-            }
+    // const getProfileInfo = async () => {
+    //     try {
+    //         const userID = auth().currentUser.uid;
+    //         const userDoc = await firestore().collection('Users').doc(userID).get();
+    //         const userData = userDoc.data()
+    //         if (userData.username === "") {
+    //             setUserName(userData.email);  // If username is empty, display the email
+    //         } else {
+    //             setUserName(userData.username);  // Otherwise, set it to the username
+    //         }
 
-            // Later get these to work
-            // setCalGoal(Number(userData.calGoal))
+    //         // Later get these to work
+    //         // setCalGoal(Number(userData.calGoal))
 
-            // const [carbRatio, proteinRatio, fatRatio] = userData.macroGoal.split(':').map(Number);
+    //         // const [carbRatio, proteinRatio, fatRatio] = userData.macroGoal.split(':').map(Number);
 
-            // calculates the grams needed based on ratio and cal goal
-            // setCarb(Math.round(calGoal * (carbRatio / 100) / 4))
-            // setProtein(Math.round(calGoal * (proteinRatio / 100) / 9))
-            // setFat(Math.round(calGoal * (fatRatio / 100) / 4))
+    //         // calculates the grams needed based on ratio and cal goal
+    //         // setCarb(Math.round(calGoal * (carbRatio / 100) / 4))
+    //         // setProtein(Math.round(calGoal * (proteinRatio / 100) / 9))
+    //         // setFat(Math.round(calGoal * (fatRatio / 100) / 4))
 
 
-        } catch (e) {
-            getProfileInfo() // if profile info can't be fetched, try again
-        }
-    }
+    //     } catch (e) {
+    //         getProfileInfo() // if profile info can't be fetched, try again
+    //     }
+    // }
 
-    const print = async () => {
-        await Print.printAsync({
-            html,
-            printerUrl: selectPrinter?.url,
-        });
-    };
+    // const print = async () => {
+    //     await Print.printAsync({
+    //         html,
+    //         printerUrl: selectPrinter?.url,
+    //     });
+    // };
 
-    const printToFile = async () => {
-        const { uri } = await Print.printToFileAsync({ html });
-        console.log('File has been saved to:', uri)
-        await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf'})
+    // const printToFile = async () => {
+    //     const { uri } = await Print.printToFileAsync({ html });
+    //     console.log('File has been saved to:', uri)
+    //     await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf'})
 
-        // const html = `
-        //     <html>
-        //         <body>
-        //             <h1>${userName}'s Report</h1>
-        //             <h2>
-        //                 Welcome to your report for the past three months.<br>
-        //                 Below you will find your data from [3/MTH/AGO] to today, [TO/DA/Y].
-        //             </h2>
+    //     // const html = `
+    //     //     <html>
+    //     //         <body>
+    //     //             <h1>${userName}'s Report</h1>
+    //     //             <h2>
+    //     //                 Welcome to your report for the past three months.<br>
+    //     //                 Below you will find your data from [3/MTH/AGO] to today, [TO/DA/Y].
+    //     //             </h2>
 
-        //         </body>
-        //     </html>
+    //     //         </body>
+    //     //     </html>
 
-        // ` // html end
+    //     // ` // html end
 
-        // try {
-        //     const { uri } = await printToFileAsync({ html });
-        //     console.log('PDF generated at:', uri);
-        //     alert(`PDF saved to ${uri}`)
-        // } catch (error) {
-        //     console.error('Failed to generate PDF:', error);
-        // }
+    //     // try {
+    //     //     const { uri } = await printToFileAsync({ html });
+    //     //     console.log('PDF generated at:', uri);
+    //     //     alert(`PDF saved to ${uri}`)
+    //     // } catch (error) {
+    //     //     console.error('Failed to generate PDF:', error);
+    //     // }
 
-        // const file = await printToFileAsync({
-        //     html: html,
-        //     base64: false
-        // });
+    //     // const file = await printToFileAsync({
+    //     //     html: html,
+    //     //     base64: false
+    //     // });
 
-        // await shareAsync(file.uri);
+    //     // await shareAsync(file.uri);
 
-    };
+    // };
 
-    const selectPrinter = async () => {
-        const printer = await Print.selectPrinterAsync();
-        setSelectedPrinter(printer);
-    }
+    // const selectPrinter = async () => {
+    //     const printer = await Print.selectPrinterAsync();
+    //     setSelectedPrinter(printer);
+    // }
 
     return (
         <CustomScreen
@@ -157,9 +157,9 @@ const Report = () => {
                     <CustomButton2
                         type={'normal'}
                         text={'Create PDF'}
-                        // onPress={() => router.push('/home')}
+                        onPress={() => router.push('/home')}
                         //onPress={generatePDF}
-                        onPress={printToFile}
+                        //onPress={printToFile}
                         // {Platform.OS === 'ios' && (
                         //     <>
                         //     <View style={styles.spacer} />
