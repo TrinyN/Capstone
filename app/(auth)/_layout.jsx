@@ -1,7 +1,6 @@
 import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import 'expo-dev-client';
-import 'expo-dev-client';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import auth from '@react-native-firebase/auth';
