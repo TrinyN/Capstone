@@ -37,3 +37,6 @@ yarn-error.*
 # database
 google-services.json
 GoogleService-Info.plist
+
+# android
+android/
