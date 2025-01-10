@@ -24,7 +24,15 @@ import { userDataItems } from '../constants/profileData';
 
 // Function to design and display the tracker
 const Tracker = () => {
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState(new Date()); // initialize tracker to be current date
+
+    const { day } = useLocalSearchParams(); // gets date from week view on zoom in
+
+    // every time date is passed from week view (happens on zoom in), change date of tracker to be passed date
+    useEffect(() => {
+        const newDate = day ? new Date(day) : new Date() 
+        setDate(newDate)
+    }, [day]) 
 
     const { openOverlay } = useLocalSearchParams();         // Used for Quick Track frame
 
@@ -33,7 +41,6 @@ const Tracker = () => {
             if (event.scale < 1) {
                 router.push('/tracker-week');
                 // router.push(`${'/tracker-week'}?day=${encodeURIComponent(date)}`); might not work, implements traversal with pinch zoom out
-                
             }
         })
         .runOnJS(true);

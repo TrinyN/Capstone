@@ -1,4 +1,4 @@
-import { Text, View, SectionList, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ActivityIndicator, FlatList } from 'react-native';
 import styles from '../styles';
 import { useState, useEffect } from 'react';
 import { router } from 'expo-router';
@@ -33,6 +33,7 @@ const useDebouncedDateChange = (date) => {
 
     return debouncedDate;
 };
+
 const TrackerWeek = () => {
     const { day } = useLocalSearchParams(); // current day gets passed from day view on zoom out
     const initialDate = day ? new Date(day) : new Date()
@@ -88,8 +89,15 @@ const TrackerWeek = () => {
         if (givenDate >= sunday && givenDate <= saturday) {
             return true;
         }
-
         return false
+    }
+
+    // function to zoom in on particular day that has been pressed on week view
+    const handleDayPress = (index) => {
+        const offset = date.getDay(); // returns number to represent which day. Ex: 0 for Sun, 1 for Mon
+        const tempDate = new Date(date); // clone date
+        tempDate.setDate(date.getDate() + (index - offset)); // calculate which date was pressed on
+        router.push(`${'/tracker'}?day=${encodeURIComponent(tempDate)}`); // go to day view for that date
     }
 
     //  Returning the screen to display
@@ -108,7 +116,7 @@ const TrackerWeek = () => {
                     screenContent={
                         <View>
                             {/* only render when loading is done */}
-                            {isLoading? (
+                            {isLoading ? (
                                 <ActivityIndicator size="large" color="transparent" style={localStyle.activityIndicator} />
                             ) : (
                                 // Top View to calculate user's average weight and water intake that week
@@ -126,73 +134,72 @@ const TrackerWeek = () => {
                             <View style={{ margin: 10 }}></View>
 
                             {/* only render when loading is done */}
-                            {isLoading? (
+                            {isLoading ? (
                                 <ActivityIndicator size="large" color="#CB9CF2" style={localStyle.activityIndicator} />
                             ) : (
                                 // View for SectionList to store all items of tracker
                                 <View>
-                                {/* List to hold items */}
-                                <SectionList
-                                    style={localStyle.daySectionList}
-                                    sections={dayList}
-                                    keyExtractor={(item) => item}
-                                    scrollEnabled={false}
-                                    renderItem={({ section }) => (
-                                        <View>
-                                            {/* Sections of Day List */}
-                                            <TouchableOpacity style={localStyle.daySection}>
-                                                <Text style={[styles.defaultWhiteText, localStyle.dayName]}>
-                                                    {section.title}
-                                                </Text>
-                                                {/* TODO: Comparison to determine text color */}
-                                                <Text style={[styles.defaultWhiteText, localStyle.dayCals, { color: section.goalColor }]}>
-                                                    {section.data}
-                                                </Text>
-                                                {/* TODO: Comparison to determine text color */}
-                                                <Text style={[styles.defaultWhiteText, localStyle.dayGoal, { color: section.goalColor }]}>
-                                                    {section.goal}
-                                                </Text>
-                                            </TouchableOpacity>
+                                    {/* List to hold items */}
+                                    <FlatList
+                                        style={localStyle.daySectionList}
+                                        data={dayList}
+                                        scrollEnabled={false}
+                                        renderItem={({ item, index }) => (
+                                            <View>
+                                                {/* Sections of Day List */}
+                                                <TouchableOpacity style={localStyle.daySection} onPress={() => handleDayPress(index)}>
+                                                    <Text style={[styles.defaultWhiteText, localStyle.dayName]}>
+                                                        {item.title}
+                                                    </Text>
+                                                    {/* TODO: Comparison to determine text color */}
+                                                    <Text style={[styles.defaultWhiteText, localStyle.dayCals, { color: item.goalColor }]}>
+                                                        {item.data}
+                                                    </Text>
+                                                    {/* TODO: Comparison to determine text color */}
+                                                    <Text style={[styles.defaultWhiteText, localStyle.dayGoal, { color: item.goalColor }]}>
+                                                        {item.goal}
+                                                    </Text>
+                                                </TouchableOpacity>
 
-                                            {/* Borderline at bottom of Section Headers */}
-                                            <View style={{ height: 2, backgroundColor: '#828282' }} />
-                                        </View>
-                                    )}
-                                    // List header for week list
-                                    ListHeaderComponent={
-                                        <View style={localStyle.sectionListHeadFoot}>
-                                            <Text style={[styles.headerText, { fontFamily: 'Inter_600SemiBold' }]}>
-                                                Day
-                                            </Text>
-                                            {/* Calories eaten and burned */}
-                                            <Text style={[styles.headerText, { textAlign: 'center' }]}>
-                                                Calories
-                                            </Text>
-                                            <Text style={[styles.headerText, { textAlign: 'right' }]}>
-                                                Goal
-                                            </Text>
-                                            <View style={{ height: 2, backgroundColor: '#828282' }} />
-                                        </View>
-                                    }
-                                    // Footer to calculate averages
-                                    ListFooterComponent={
-                                        <View style={localStyle.sectionListHeadFoot}>
-                                            <Text style={styles.headerText}>
-                                                Avg:
-                                            </Text>
-                                            {/* Implement calculation of average calorie */}
-                                            <Text style={[styles.headerText, { textAlign: 'center' }]}>
-                                                {avgCal}
-                                            </Text>
-                                            {/* Implement comparison to average goal */}
-                                            <Text style={[styles.headerText, { textAlign: 'right' }]}>
-                                                {avgGoal}
-                                            </Text>
-                                            <View style={{ height: 2, backgroundColor: '#828282' }} />
-                                        </View>
-                                    }
-                                />
-                            </View>
+                                                {/* Borderline at bottom of Section Headers */}
+                                                <View style={{ height: 2, backgroundColor: '#828282' }} />
+                                            </View>
+                                        )}
+                                        // List header for week list
+                                        ListHeaderComponent={
+                                            <View style={localStyle.sectionListHeadFoot}>
+                                                <Text style={[styles.headerText, { fontFamily: 'Inter_600SemiBold' }]}>
+                                                    Day
+                                                </Text>
+                                                {/* Calories eaten and burned */}
+                                                <Text style={[styles.headerText, { textAlign: 'center' }]}>
+                                                    Calories
+                                                </Text>
+                                                <Text style={[styles.headerText, { textAlign: 'right' }]}>
+                                                    Goal
+                                                </Text>
+                                                <View style={{ height: 2, backgroundColor: '#828282' }} />
+                                            </View>
+                                        }
+                                        // Footer to calculate averages
+                                        ListFooterComponent={
+                                            <View style={localStyle.sectionListHeadFoot}>
+                                                <Text style={styles.headerText}>
+                                                    Avg:
+                                                </Text>
+                                                {/* Implement calculation of average calorie */}
+                                                <Text style={[styles.headerText, { textAlign: 'center' }]}>
+                                                    {avgCal}
+                                                </Text>
+                                                {/* Implement comparison to average goal */}
+                                                <Text style={[styles.headerText, { textAlign: 'right' }]}>
+                                                    {avgGoal}
+                                                </Text>
+                                                <View style={{ height: 2, backgroundColor: '#828282' }} />
+                                            </View>
+                                        }
+                                    />
+                                </View>
                             )}
                             {/* pop up for options */}
                             <TrackerOptions toggleOptions={toggleOptions} visibleOptions={visibleOptions} view='Week' dayList={dayList} day={date} />

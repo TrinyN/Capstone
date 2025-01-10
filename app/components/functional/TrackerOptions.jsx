@@ -67,6 +67,7 @@ const TrackerOptions = ({
                     zoomRoute={zoomInRoute}
                     opacity={zoomInOpac}
                     toggleOptions={toggleOptions}
+                    day={day}
                 />
                 {/* Zoom out Option Button */}
                 <OptionItem
