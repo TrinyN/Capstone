@@ -118,14 +118,9 @@ export const useDayListData = (day) => {
                     count++;
                     weightTotal += Number(data.weight);
                 }
-
-                const [foodSnapshot, exerciseSnapshot] = await Promise.all([
-                    doc.ref.collection("Food").get(),
-                    doc.ref.collection("Exercise").get(),
-                ]);
-
-                totalCalsEaten = calculateCalories(foodSnapshot, 'calPerSvg', 'svgEaten');
-                totalCalsBurned = calculateCalories(exerciseSnapshot, 'calsBurned');
+                
+                totalCalsEaten = Number(data?.totalCalsEaten || 0);
+                totalCalsBurned = Number(data?.totalCalsBurned || 0);
 
                 const netCal = totalCalsEaten - totalCalsBurned;
                 const weightStatus = Math.abs(netCal) <= 100 ? 'Maintain' : netCal > 0 ? 'Bulk / Gain Weight' : 'Cut / Lose Weight';
@@ -154,14 +149,6 @@ export const useDayListData = (day) => {
             setIsLoading(false)
         }
     };
-
-    const calculateCalories = (snapshot, calField, quantityField = null) => {
-        return snapshot.docs.reduce((total, doc) => {
-            const data = doc.data();
-            return total + Number(data[calField] || 0) * (quantityField ? Number(data[quantityField] || 0) : 1);
-        }, 0);
-    };
-
 
     // Runs everytime data changes
     useEffect(() => {

@@ -66,7 +66,7 @@ const TrackerWeek = () => {
     const nextWeek = () => {
         setDate(prevDate => {
             const newDate = new Date(prevDate); // Clone the current date
-            newDate.setDate(newDate.getDate() + 6); // Add 6 days
+            newDate.setDate(newDate.getDate() + 7); // Add 6 days
             return newDate; // Update state with the new date
         });
     }
@@ -75,7 +75,7 @@ const TrackerWeek = () => {
     const previousWeek = () => {
         setDate(prevDate => {
             const newDate = new Date(prevDate); // Clone the current date
-            newDate.setDate(newDate.getDate() - 6); // Subtract 6 days
+            newDate.setDate(newDate.getDate() - 7); // Subtract 6 days
             return newDate; // Update state with the new date
         });
     }

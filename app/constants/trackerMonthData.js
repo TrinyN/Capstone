@@ -4,6 +4,7 @@
 import { useEffect, useState } from 'react';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import { getSunSat } from './trackerWeekData';
 // import { getTotalCalsPerWeek } from './getTotalCalsPerWeek';
 // Implement way for color to change depending on goal/data
 
@@ -19,16 +20,15 @@ export const useWeekListData = (day, dayList) => {
         { title: '6/30-7/6', data: ['17,000'], goal: ['Balance'] }
     ]);
 
-    // change titles based on given day
+    // get current month
 
-    // gets current week's total cals
+    // get total cals for each week of that month
+    
+    // save data in weeklist
+
     const {accCal} = getTotalCalsPerWeek(day)
     console.log(accCal)
     
-    // get the rest of the weeks total cals
-
-    // put data into the weekList object
-
 
     return {
         weekList,
@@ -55,13 +55,8 @@ export const getTotalCalsPerWeek = (day) => {
 
     const fetchWeekData = async () => {
         if (!userID) return;
-        const date = new Date(day); // convert string to Date object
-        const dayOfWeek = date.getDay(); // Sunday = 0, Monday = 1, ..., Saturday = 6
-        // Start from the previous Sunday
-        const sunday = new Date(date); // clone current date
-        sunday.setDate(date.getDate() - dayOfWeek); // Set to last Sunday
-        const saturday = new Date(sunday);
-        saturday.setDate(sunday.getDate() + 6); // Set to Saturday
+        
+        const {sunday, saturday} = getSunSat(day)
 
         await firestore()
             .collection('Users')
