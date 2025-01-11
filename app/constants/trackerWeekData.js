@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { userDataItems } from "./profileData";
-import { getTrackerDayRef } from "./getTrackerDayRef";
+import { usePathname } from 'expo-router';
 
 // function that calculates the sunday and saturday of the given day's week
 export const getSunSat = (day) => {
@@ -18,6 +18,7 @@ export const getSunSat = (day) => {
 }
 export const useDayListData = (day) => {
     const [isLoading, setIsLoading] = useState(true);
+    const router = usePathname();
 
     const [dayList, setDayList] = useState([
         { title: 'Sun.', data: ['0 - 0'], goal: ['Balance'], goalColor: '#80FF72' },
@@ -84,9 +85,11 @@ export const useDayListData = (day) => {
     }
 
     useEffect(() => {
-        setIsLoading(true); // Start loading when date changes
-        fetchWeekData();
-    }, [userID, day]);
+        if (router === '/tracker-week') {
+            setIsLoading(true); // Start loading when date changes
+            fetchWeekData();
+          }
+    }, [router, userID, day]);
 
     const fetchWeekData = async () => {
         if (!userID) return;
